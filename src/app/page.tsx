@@ -96,7 +96,7 @@ export default function Home() {
   return (
     <div className="min-h-screen bg-slate-900 flex flex-col font-sans text-slate-100 print:bg-white print:m-0 print:p-0">
       
-      {/* Cabecera institucional (Header) unificada con el mismo gris de la Navbar superior */}
+      {/* Cabecera institucional (Header) unificada con el mismo gris exacto de la Navbar superior (bg-slate-900) */}
       <div className="print:hidden">
         <header className="bg-slate-900 text-white px-6 py-4 flex flex-col sm:flex-row justify-between items-center gap-4 border-b border-slate-800 shadow-xl">
           <div className="flex items-center gap-4 w-full sm:w-auto">
