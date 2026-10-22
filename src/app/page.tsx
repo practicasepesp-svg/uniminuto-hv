@@ -23,7 +23,7 @@ export default function Home() {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleAiEnhance = async (currentText: string, type: 'profile' | 'experience', fieldUpdater: (newText: string) => void) => {
+  const handleAiEnhance = async (currentText: string, type: 'profile' | 'experience') => {
     try {
       setLoadingAi(true);
       const res = await fetch('/api/generate', {
@@ -33,7 +33,7 @@ export default function Home() {
       });
       const data = await res.json();
       if (data.result) {
-        fieldUpdater(data.result);
+        setFormData(prev => ({ ...prev, profile: data.result }));
       }
     } catch (error) {
       console.error("Error al conectar con la IA", error);
@@ -198,13 +198,13 @@ export default function Home() {
                 <button
                   type="button"
                   disabled={loadingAi}
-                  onClick={() => handleAiEnhance(formData.profile, 'profile', (val) => setFormData({ ...formData, profile: val }))}
-                  className="text-[11px] bg-purple-600 hover:bg-purple-500 disabled:opacity-50 text-white font-bold px-2.5 py-1 rounded-lg flex items-center gap-1 shadow transition"
+                  onClick={() => handleAiEnhance(formData.profile, 'profile')}
+                  className="text-[11px] bg-purple-600 hover:bg-purple-500 disabled:opacity-50 text-white font-bold px-2.5 py-1 rounded-lg flex items-center gap-1 shadow transition cursor-pointer"
                 >
                   <Sparkles size={12} /> {loadingAi ? "Generando..." : "✨ Mejorar con IA (Centro Progresa)"}
                 </button>
               </div>
-              <textarea name="profile" rows={3} placeholder="Estudiante apasionado..." value={formData.profile} onChange={handleInputChange} className="w-full p-3 text-xs bg-slate-950 border border-slate-700 rounded-xl text-white outline-none focus:border-amber-400 resize-none"></textarea>
+              <textarea name="profile" rows={4} placeholder="Estudiante apasionado..." value={formData.profile} onChange={handleInputChange} className="w-full p-3 text-xs bg-slate-950 border border-slate-700 rounded-xl text-white outline-none focus:border-amber-400 resize-none"></textarea>
             </div>
             <div>
               <label className="block text-[11px] font-semibold text-slate-300 mb-1">Competencias (separadas por comas)</label>
@@ -395,7 +395,7 @@ export default function Home() {
               {formData.profile && (
                 <div className="mb-6">
                   <h3 className="text-xs font-bold uppercase text-slate-900 tracking-wider border-l-4 border-amber-400 pl-2 mb-2">Perfil Ocupacional</h3>
-                  <p className="text-xs text-slate-700 text-justify leading-relaxed">{formData.profile}</p>
+                  <p className="text-xs text-slate-700 text-justify leading-relaxed whitespace-pre-line">{formData.profile}</p>
                 </div>
               )}
 
