@@ -234,9 +234,9 @@ export default function Home() {
 
         </div>
 
-        {/* PANEL DERECHO: Vista Previa (Se adapta para ocupar toda la hoja al imprimir) */}
+        {/* PANEL DERECHO: Vista Previa (Con márgenes de 2.2 cm en impresión) */}
         <div className="lg:col-span-7 bg-blue-950/90 p-6 rounded-2xl flex justify-center items-start shadow-2xl border border-blue-900 overflow-auto max-h-[88vh] print:p-0 print:m-0 print:bg-white print:overflow-visible print:max-h-none print:w-full print:shadow-none print:border-none">
-          <div className="bg-white text-slate-800 w-full max-w-[800px] min-h-[1050px] p-12 shadow-[0_0_50px_rgba(0,0,0,0.5)] rounded-xl flex flex-col justify-between print:shadow-none print:border-none print:m-0 print:p-0 print:w-full print:max-w-none print:min-h-0">
+          <div className="bg-white text-slate-800 w-full max-w-[800px] min-h-[1050px] p-12 shadow-[0_0_50px_rgba(0,0,0,0.5)] rounded-xl flex flex-col justify-between print:shadow-none print:border-none print:m-0 print:p-[2.2cm] print:w-full print:max-w-none print:min-h-0">
             <div>
               {/* Encabezado con Fondo Blanco Estricto y Logos Inalterables */}
               <div className="border-b-2 border-blue-900 pb-5 mb-6 flex flex-row justify-between items-center bg-white">
@@ -326,9 +326,11 @@ export default function Home() {
               )}
             </div>
 
-            {/* Pie */}
-            <div className="border-t pt-4 mt-8 text-center text-[10px] text-slate-400">
-              Documento oficial generado institucionalmente a través del Centro Progresa E.P.E. • UNIMINUTO
+            {/* Pie de página actualizado con los datos de contacto institucionales */}
+            <div className="border-t pt-4 mt-8 text-center text-[10px] text-slate-500 space-y-1">
+              <p>Línea de Atención al Usuario: 601 593 3004 · Línea Nacional: 01 8000 936 670</p>
+              <p className="font-bold text-slate-700">www.uniminuto.edu</p>
+              <p className="text-[9px] text-slate-400 pt-1">Documento oficial generado institucionalmente a través del Centro Progresa E.P.E. • UNIMINUTO</p>
             </div>
           </div>
         </div>
