@@ -46,16 +46,20 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-slate-900 flex flex-col font-sans text-slate-100">
-      {/* Barra superior */}
+      {/* Barra superior con logos institucionales */}
       <header className="bg-slate-950 text-white px-6 py-4 no-print flex justify-between items-center border-b border-slate-800 shadow-xl">
-        <div className="flex items-center gap-3">
-          <div className="bg-emerald-600 text-white p-2 rounded-xl font-black text-xs tracking-wider shadow-inner">CP</div>
+        <div className="flex items-center gap-4">
+          <div className="flex items-center gap-2 bg-slate-900 px-3 py-1.5 rounded-xl border border-slate-800">
+            <img src="/Rectoría%20Bogotá%20Letras%20Colores%20(Sin%20Fondo).png" alt="Rectoría Bogotá" className="h-6 object-contain" />
+            <div className="h-4 w-px bg-slate-700"></div>
+            <img src="/Centro%20Progresa%20Letras%20Negras%20Iconos%20Blancos%20(sin%20fondo).png" alt="Centro Progresa" className="h-6 object-contain" />
+          </div>
           <div>
             <h1 className="text-sm font-bold tracking-tight text-white flex items-center gap-2">
-              Centro Progresa E.P.E. | Creador de Hoja de Vida
-              <span className="text-[10px] bg-emerald-500/20 text-emerald-400 px-2 py-0.5 rounded-full border border-emerald-500/30">Español</span>
+              Creador de Hoja de Vida Institucional
+              <span className="text-[10px] bg-emerald-500/20 text-emerald-400 px-2 py-0.5 rounded-full border border-emerald-500/30">UNIMINUTO</span>
             </h1>
-            <p className="text-xs text-slate-400">Modelo Oficial Uniminuto • Vista Previa en Tiempo Real</p>
+            <p className="text-xs text-slate-400">Centro Progresa E.P.E. • Prácticas Profesionales</p>
           </div>
         </div>
         <button 
@@ -246,7 +250,7 @@ export default function Home() {
                   </p>
                 </div>
                 
-                {/* Logos Institucionales Reales */}
+                {/* Logos Reales en la Hoja de Vida */}
                 <div className="flex items-center gap-3 bg-slate-50 p-3.5 rounded-xl border border-slate-200 shadow-sm">
                   <img src="/Rector%C3%ADa%20Bogot%C3%A1%20Letras%20Colores%20(Sin%20Fondo).png" alt="Rectoría Bogotá" className="h-8 object-contain" />
                   <div className="h-6 w-px bg-slate-300"></div>
