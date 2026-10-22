@@ -365,7 +365,7 @@ export default function Home() {
           <div className="bg-white text-slate-800 w-full max-w-[800px] min-h-[1050px] p-12 shadow-[0_0_50px_rgba(0,0,0,0.5)] rounded-xl flex flex-col justify-between print:shadow-none print:border-none print:m-0 print:p-[2.5cm] print:w-full print:max-w-none print:min-h-0">
             <div>
               {/* Encabezado Institucional */}
-              <div className="border-b-2 border-blue-900 pb-5 mb-6 flex flex-row justify-between items-center bg-white">
+              <div className="border-b-2 border-blue-900 pb-5 mb-6 flex flex-row justify-between items-center bg-white break-inside-avoid page-break-inside-avoid">
                 <div className="pr-4">
                   <h1 className="text-2xl lg:text-3xl font-black text-slate-900 uppercase tracking-tight break-words">
                     {formData.fullName || "Nombre del Estudiante"}
@@ -383,7 +383,7 @@ export default function Home() {
               </div>
 
               {/* Contacto */}
-              <div className="flex flex-wrap gap-4 text-xs text-slate-600 mb-6 pb-4 border-b border-slate-100 font-medium">
+              <div className="flex flex-wrap gap-4 text-xs text-slate-600 mb-6 pb-4 border-b border-slate-100 font-medium break-inside-avoid page-break-inside-avoid">
                 {formData.documentNumber && <span><b>{formData.documentType}:</b> {formData.documentNumber}</span>}
                 {formData.email && <span className="flex items-center gap-1"><Mail size={12} className="text-blue-900"/> {formData.email}</span>}
                 {formData.phone && <span className="flex items-center gap-1"><Phone size={12} className="text-blue-900"/> {formData.phone}</span>}
@@ -392,15 +392,15 @@ export default function Home() {
 
               {/* Perfil */}
               {formData.profile && (
-                <div className="mb-6">
+                <div className="mb-6 break-inside-avoid page-break-inside-avoid">
                   <h3 className="text-xs font-bold uppercase text-blue-900 tracking-wider border-l-4 border-amber-400 pl-2 mb-2">Perfil Ocupacional</h3>
                   <p className="text-xs text-slate-700 text-justify leading-relaxed">{formData.profile}</p>
                 </div>
               )}
 
-              {/* Competencias (Con sutil línea de separación y continuidad) */}
+              {/* Competencias */}
               {formData.competencies && (
-                <div className="mb-6 pt-3 border-t border-slate-100">
+                <div className="mb-6 pt-3 border-t border-slate-100 break-inside-avoid page-break-inside-avoid">
                   <h3 className="text-xs font-bold uppercase text-blue-900 tracking-wider border-l-4 border-amber-400 pl-2 mb-2">Competencias</h3>
                   <div className="flex flex-wrap gap-1.5">
                     {formData.competencies.split(",").map((c, i) => <span key={i} className="text-[11px] bg-blue-50 text-blue-900 px-2.5 py-1 rounded font-medium border border-blue-100">{c.trim()}</span>)}
@@ -408,13 +408,13 @@ export default function Home() {
                 </div>
               )}
 
-              {/* Formación Académica (Con título en mayúsculas, institución tipo título y años debajo) */}
+              {/* Formación Académica */}
               {formData.education.length > 0 && (
-                <div className="mb-6 pt-3 border-t border-slate-100">
+                <div className="mb-6 pt-3 border-t border-slate-100 break-inside-avoid page-break-inside-avoid">
                   <h3 className="text-xs font-bold uppercase text-blue-900 tracking-wider border-l-4 border-amber-400 pl-2 mb-3">Formación Académica</h3>
                   <div className="space-y-3">
                     {formData.education.map((edu, i) => (
-                      <div key={i} className="text-xs space-y-0.5">
+                      <div key={i} className="text-xs space-y-0.5 break-inside-avoid page-break-inside-avoid">
                         <span className="font-bold text-slate-900 uppercase block">{edu.degree || "Título obtenido"} <span className="font-normal text-blue-900 normal-case">({edu.level})</span></span>
                         <span className="text-slate-700 font-medium block capitalize">{edu.institution || "Institución"}</span>
                         <span className="text-slate-500 block text-[11px]">{edu.year}</span>
@@ -426,7 +426,7 @@ export default function Home() {
 
               {/* Habilidades (Programas e Idiomas) */}
               {(formData.softwareList.length > 0 || formData.languageList.length > 0) && (
-                <div className="mb-6 pt-3 border-t border-slate-100">
+                <div className="mb-6 pt-3 border-t border-slate-100 break-inside-avoid page-break-inside-avoid">
                   <h3 className="text-xs font-bold uppercase text-blue-900 tracking-wider border-l-4 border-amber-400 pl-2 mb-3">Habilidades</h3>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
                     {formData.softwareList.length > 0 && (
@@ -453,13 +453,13 @@ export default function Home() {
                 </div>
               )}
 
-              {/* Experiencia Laboral (Cargo en mayúsculas, empresa abajo en tipo título, fechas abajo) */}
+              {/* Experiencia Laboral */}
               {formData.experiences.length > 0 && (
-                <div className="mb-6 pt-3 border-t border-slate-100">
+                <div className="mb-6 pt-3 border-t border-slate-100 break-inside-avoid page-break-inside-avoid">
                   <h3 className="text-xs font-bold uppercase text-blue-900 tracking-wider border-l-4 border-amber-400 pl-2 mb-3">Experiencia Laboral</h3>
                   <div className="space-y-4">
                     {formData.experiences.map((exp, i) => (
-                      <div key={i} className="text-xs space-y-1.5">
+                      <div key={i} className="text-xs space-y-1.5 break-inside-avoid page-break-inside-avoid">
                         <div>
                           <span className="font-black text-slate-900 uppercase block">{exp.position || "Cargo"}</span>
                           <span className="text-blue-900 font-semibold block capitalize">{exp.company || "Empresa"}</span>
@@ -479,11 +479,11 @@ export default function Home() {
 
               {/* Voluntariado */}
               {formData.volunteers.length > 0 && (
-                <div className="mb-6 pt-3 border-t border-slate-100">
+                <div className="mb-6 pt-3 border-t border-slate-100 break-inside-avoid page-break-inside-avoid">
                   <h3 className="text-xs font-bold uppercase text-blue-900 tracking-wider border-l-4 border-amber-400 pl-2 mb-3">Voluntariado</h3>
                   <div className="space-y-4">
                     {formData.volunteers.map((vol, i) => (
-                      <div key={i} className="text-xs space-y-1.5">
+                      <div key={i} className="text-xs space-y-1.5 break-inside-avoid page-break-inside-avoid">
                         <div>
                           <span className="font-black text-slate-900 uppercase block">{vol.role || "Rol"}</span>
                           <span className="text-blue-900 font-semibold block capitalize">{vol.organization || "Organización"}</span>
@@ -503,7 +503,7 @@ export default function Home() {
             </div>
 
             {/* Pie de página institucional */}
-            <div className="border-t pt-4 mt-8 text-center text-[10px] text-slate-500 space-y-1">
+            <div className="border-t pt-4 mt-8 text-center text-[10px] text-slate-500 space-y-1 break-inside-avoid page-break-inside-avoid">
               <p>Línea de Atención al Usuario: 601 593 3004 · Línea Nacional: 01 8000 936 670</p>
               <p className="font-bold text-slate-700">www.uniminuto.edu</p>
             </div>
