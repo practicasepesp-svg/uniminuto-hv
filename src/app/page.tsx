@@ -96,7 +96,7 @@ export default function Home() {
   return (
     <div className="min-h-screen bg-slate-900 flex flex-col font-sans text-slate-100 print:bg-white print:m-0 print:p-0">
       
-      {/* Barra superior con el color idéntico al de Open-Resume (slate-900 / gris oscuro neutro) */}
+      {/* Cabecera institucional (Header) unificada con el mismo gris de la Navbar superior */}
       <div className="print:hidden">
         <header className="bg-slate-900 text-white px-6 py-4 flex flex-col sm:flex-row justify-between items-center gap-4 border-b border-slate-800 shadow-xl">
           <div className="flex items-center gap-4 w-full sm:w-auto">
@@ -121,25 +121,25 @@ export default function Home() {
         </header>
       </div>
 
-      {/* Contenedor principal */}
+      {/* Contenedor principal con fondo gris (bg-slate-900) */}
       <div className="flex-1 max-w-[1800px] w-full mx-auto p-4 lg:p-6 grid grid-cols-1 lg:grid-cols-12 gap-6 items-start print:block print:p-0 print:m-0">
         
         {/* PANEL IZQUIERDO: Formulario */}
-        <div className="lg:col-span-5 bg-slate-900/95 backdrop-blur-md rounded-2xl shadow-2xl border border-slate-800 overflow-hidden print:hidden flex flex-col max-h-[88vh] overflow-y-auto p-6 space-y-6">
+        <div className="lg:col-span-5 bg-slate-950/90 backdrop-blur-md rounded-2xl shadow-2xl border border-slate-800 overflow-hidden print:hidden flex flex-col max-h-[88vh] overflow-y-auto p-6 space-y-6">
           
           {/* 1. Información Personal */}
-          <div className="bg-slate-950/80 border border-slate-800 rounded-xl p-5 space-y-4 shadow-sm">
+          <div className="bg-slate-900/80 border border-slate-800 rounded-xl p-5 space-y-4 shadow-sm">
             <h2 className="text-xs font-extrabold uppercase tracking-widest text-amber-400 flex items-center gap-2 border-b border-slate-800 pb-2">
               <User size={15}/> 1. Información Personal
             </h2>
             <div>
               <label className="block text-[11px] font-semibold text-slate-300 mb-1">Nombre Completo</label>
-              <input type="text" name="fullName" placeholder="Ej. Laura Sofía Martínez" value={formData.fullName} onChange={handleInputChange} className="w-full p-3 text-xs bg-slate-900 border border-slate-700 rounded-xl text-white outline-none focus:border-amber-400 transition" />
+              <input type="text" name="fullName" placeholder="Ej. Laura Sofía Martínez" value={formData.fullName} onChange={handleInputChange} className="w-full p-3 text-xs bg-slate-950 border border-slate-700 rounded-xl text-white outline-none focus:border-amber-400 transition" />
             </div>
             <div className="grid grid-cols-2 gap-3">
               <div>
                 <label className="block text-[11px] font-semibold text-slate-300 mb-1">Tipo de Documento</label>
-                <select name="documentType" value={formData.documentType} onChange={handleInputChange} className="w-full p-3 text-xs bg-slate-900 border border-slate-700 rounded-xl text-white outline-none focus:border-amber-400">
+                <select name="documentType" value={formData.documentType} onChange={handleInputChange} className="w-full p-3 text-xs bg-slate-950 border border-slate-700 rounded-xl text-white outline-none focus:border-amber-400">
                   <option value="C.C.">Cédula (C.C.)</option>
                   <option value="T.I.">Tarjeta (T.I.)</option>
                   <option value="C.E.">Extranjería (C.E.)</option>
@@ -147,42 +147,42 @@ export default function Home() {
               </div>
               <div>
                 <label className="block text-[11px] font-semibold text-slate-300 mb-1">Número</label>
-                <input type="text" name="documentNumber" placeholder="1023456789" value={formData.documentNumber} onChange={handleInputChange} className="w-full p-3 text-xs bg-slate-900 border border-slate-700 rounded-xl text-white outline-none focus:border-amber-400" />
+                <input type="text" name="documentNumber" placeholder="1023456789" value={formData.documentNumber} onChange={handleInputChange} className="w-full p-3 text-xs bg-slate-950 border border-slate-700 rounded-xl text-white outline-none focus:border-amber-400" />
               </div>
             </div>
             <div className="grid grid-cols-2 gap-3">
               <div>
                 <label className="block text-[11px] font-semibold text-slate-300 mb-1">Correo Electrónico</label>
-                <input type="email" name="email" placeholder="correo@uniminuto.edu.co" value={formData.email} onChange={handleInputChange} className="w-full p-3 text-xs bg-slate-900 border border-slate-700 rounded-xl text-white outline-none focus:border-amber-400" />
+                <input type="email" name="email" placeholder="correo@uniminuto.edu.co" value={formData.email} onChange={handleInputChange} className="w-full p-3 text-xs bg-slate-950 border border-slate-700 rounded-xl text-white outline-none focus:border-amber-400" />
               </div>
               <div>
                 <label className="block text-[11px] font-semibold text-slate-300 mb-1">Teléfono</label>
-                <input type="text" name="phone" placeholder="300 123 4567" value={formData.phone} onChange={handleInputChange} className="w-full p-3 text-xs bg-slate-900 border border-slate-700 rounded-xl text-white outline-none focus:border-amber-400" />
+                <input type="text" name="phone" placeholder="300 123 4567" value={formData.phone} onChange={handleInputChange} className="w-full p-3 text-xs bg-slate-950 border border-slate-700 rounded-xl text-white outline-none focus:border-amber-400" />
               </div>
             </div>
             <div>
               <label className="block text-[11px] font-semibold text-slate-300 mb-1">Ciudad</label>
-              <input type="text" name="city" value={formData.city} onChange={handleInputChange} className="w-full p-3 text-xs bg-slate-900 border border-slate-700 rounded-xl text-white outline-none focus:border-amber-400" />
+              <input type="text" name="city" value={formData.city} onChange={handleInputChange} className="w-full p-3 text-xs bg-slate-950 border border-slate-700 rounded-xl text-white outline-none focus:border-amber-400" />
             </div>
           </div>
 
           {/* 2. Perfil y Competencias */}
-          <div className="bg-slate-950/80 border border-slate-800 rounded-xl p-5 space-y-4 shadow-sm">
+          <div className="bg-slate-900/80 border border-slate-800 rounded-xl p-5 space-y-4 shadow-sm">
             <h2 className="text-xs font-extrabold uppercase tracking-widest text-amber-400 flex items-center gap-2 border-b border-slate-800 pb-2">
               <Award size={15}/> 2. Perfil y Competencias
             </h2>
             <div>
               <label className="block text-[11px] font-semibold text-slate-300 mb-1">Perfil Ocupacional</label>
-              <textarea name="profile" rows={3} placeholder="Estudiante apasionado..." value={formData.profile} onChange={handleInputChange} className="w-full p-3 text-xs bg-slate-900 border border-slate-700 rounded-xl text-white outline-none focus:border-amber-400 resize-none"></textarea>
+              <textarea name="profile" rows={3} placeholder="Estudiante apasionado..." value={formData.profile} onChange={handleInputChange} className="w-full p-3 text-xs bg-slate-950 border border-slate-700 rounded-xl text-white outline-none focus:border-amber-400 resize-none"></textarea>
             </div>
             <div>
               <label className="block text-[11px] font-semibold text-slate-300 mb-1">Competencias (separadas por comas)</label>
-              <input type="text" name="competencies" placeholder="Liderazgo, Pensamiento Crítico, Resolución de problemas" value={formData.competencies} onChange={handleInputChange} className="w-full p-3 text-xs bg-slate-900 border border-slate-700 rounded-xl text-white outline-none focus:border-amber-400" />
+              <input type="text" name="competencies" placeholder="Liderazgo, Pensamiento Crítico, Resolución de problemas" value={formData.competencies} onChange={handleInputChange} className="w-full p-3 text-xs bg-slate-950 border border-slate-700 rounded-xl text-white outline-none focus:border-amber-400" />
             </div>
           </div>
 
           {/* 3. Software y Programas */}
-          <div className="bg-slate-950/80 border border-slate-800 rounded-xl p-5 space-y-4 shadow-sm">
+          <div className="bg-slate-900/80 border border-slate-800 rounded-xl p-5 space-y-4 shadow-sm">
             <div className="flex justify-between items-center border-b border-slate-800 pb-2">
               <h2 className="text-xs font-extrabold uppercase tracking-widest text-amber-400 flex items-center gap-2">
                 <Laptop size={15}/> 3. Software y Programas
@@ -192,10 +192,10 @@ export default function Home() {
               </button>
             </div>
             {formData.software.map((sw, idx) => (
-              <div key={idx} className="p-3 border border-slate-800 rounded-xl bg-slate-900/50 flex gap-2 items-center relative">
+              <div key={idx} className="p-3 border border-slate-800 rounded-xl bg-slate-950/50 flex gap-2 items-center relative">
                 <button onClick={() => removeSoftware(idx)} className="text-rose-300 hover:text-rose-100"><Trash2 size={15}/></button>
-                <input type="text" placeholder="Ej. Python, Excel, SAP" value={sw.name} onChange={(e) => updateSoftware(idx, "name", e.target.value)} className="flex-1 p-2 text-xs bg-slate-950 border border-slate-800 rounded-lg text-white" />
-                <select value={sw.level} onChange={(e) => updateSoftware(idx, "level", e.target.value)} className="p-2 text-xs bg-slate-950 border border-slate-800 rounded-lg text-white">
+                <input type="text" placeholder="Ej. Python, Excel, SAP" value={sw.name} onChange={(e) => updateSoftware(idx, "name", e.target.value)} className="flex-1 p-2 text-xs bg-slate-900 border border-slate-800 rounded-lg text-white" />
+                <select value={sw.level} onChange={(e) => updateSoftware(idx, "level", e.target.value)} className="p-2 text-xs bg-slate-900 border border-slate-800 rounded-lg text-white">
                   <option value="Básico">Básico</option>
                   <option value="Intermedio">Intermedio</option>
                   <option value="Avanzado">Avanzado</option>
@@ -206,7 +206,7 @@ export default function Home() {
           </div>
 
           {/* 4. Idiomas */}
-          <div className="bg-slate-950/80 border border-slate-800 rounded-xl p-5 space-y-4 shadow-sm">
+          <div className="bg-slate-900/80 border border-slate-800 rounded-xl p-5 space-y-4 shadow-sm">
             <div className="flex justify-between items-center border-b border-slate-800 pb-2">
               <h2 className="text-xs font-extrabold uppercase tracking-widest text-amber-400 flex items-center gap-2">
                 <Languages size={15}/> 4. Idiomas
@@ -216,10 +216,10 @@ export default function Home() {
               </button>
             </div>
             {formData.languages.map((lang, idx) => (
-              <div key={idx} className="p-3 border border-slate-800 rounded-xl bg-slate-900/50 flex gap-2 items-center relative">
+              <div key={idx} className="p-3 border border-slate-800 rounded-xl bg-slate-950/50 flex gap-2 items-center relative">
                 <button onClick={() => removeLanguage(idx)} className="text-rose-300 hover:text-rose-100"><Trash2 size={15}/></button>
-                <input type="text" placeholder="Ej. Inglés, Francés" value={lang.name} onChange={(e) => updateLanguage(idx, "name", e.target.value)} className="flex-1 p-2 text-xs bg-slate-950 border border-slate-800 rounded-lg text-white" />
-                <select value={lang.level} onChange={(e) => updateLanguage(idx, "level", e.target.value)} className="p-2 text-xs bg-slate-950 border border-slate-800 rounded-lg text-white">
+                <input type="text" placeholder="Ej. Inglés, Francés" value={lang.name} onChange={(e) => updateLanguage(idx, "name", e.target.value)} className="flex-1 p-2 text-xs bg-slate-900 border border-slate-800 rounded-lg text-white" />
+                <select value={lang.level} onChange={(e) => updateLanguage(idx, "level", e.target.value)} className="p-2 text-xs bg-slate-900 border border-slate-800 rounded-lg text-white">
                   <option value="A1 - Acceso">A1 - Acceso</option>
                   <option value="A2 - Plataforma">A2 - Plataforma</option>
                   <option value="B1 - Umbral (Intermedio)">B1 - Umbral (Intermedio)</option>
@@ -233,7 +233,7 @@ export default function Home() {
           </div>
 
           {/* 5. Formación Académica */}
-          <div className="bg-slate-950/80 border border-slate-800 rounded-xl p-5 space-y-4 shadow-sm">
+          <div className="bg-slate-900/80 border border-slate-800 rounded-xl p-5 space-y-4 shadow-sm">
             <div className="flex justify-between items-center border-b border-slate-800 pb-2">
               <h2 className="text-xs font-extrabold uppercase tracking-widest text-amber-400 flex items-center gap-2">
                 <GraduationCap size={15}/> 5. Formación Académica
@@ -243,24 +243,24 @@ export default function Home() {
               </button>
             </div>
             {formData.education.map((edu, idx) => (
-              <div key={idx} className="p-3.5 border border-slate-800 rounded-xl bg-slate-900/50 space-y-2.5 relative">
+              <div key={idx} className="p-3.5 border border-slate-800 rounded-xl bg-slate-950/50 space-y-2.5 relative">
                 <button onClick={() => removeEducation(idx)} className="absolute top-3 right-3 text-rose-300 hover:text-rose-100"><Trash2 size={15}/></button>
-                <select value={edu.level} onChange={(e) => updateEducation(idx, "level", e.target.value)} className="w-full p-2.5 text-xs bg-slate-950 border border-slate-800 rounded-lg text-white">
+                <select value={edu.level} onChange={(e) => updateEducation(idx, "level", e.target.value)} className="w-full p-2.5 text-xs bg-slate-900 border border-slate-800 rounded-lg text-white">
                   <option value="Técnico">Técnico</option>
                   <option value="Tecnólogo">Tecnólogo</option>
                   <option value="Profesional">Profesional</option>
                   <option value="Especialización">Especialización</option>
                   <option value="Maestría">Maestría</option>
                 </select>
-                <input type="text" placeholder="Institución Educativa" value={edu.institution} onChange={(e) => updateEducation(idx, "institution", e.target.value)} className="w-full p-2.5 text-xs bg-slate-950 border border-slate-800 rounded-lg text-white" />
-                <input type="text" placeholder="Título obtenido" value={edu.degree} onChange={(e) => updateEducation(idx, "degree", e.target.value)} className="w-full p-2.5 text-xs bg-slate-950 border border-slate-800 rounded-lg text-white" />
-                <input type="text" placeholder="Año de grado" value={edu.year} onChange={(e) => updateEducation(idx, "year", e.target.value)} className="w-full p-2.5 text-xs bg-slate-950 border border-slate-800 rounded-lg text-white" />
+                <input type="text" placeholder="Institución Educativa" value={edu.institution} onChange={(e) => updateEducation(idx, "institution", e.target.value)} className="w-full p-2.5 text-xs bg-slate-900 border border-slate-800 rounded-lg text-white" />
+                <input type="text" placeholder="Título obtenido" value={edu.degree} onChange={(e) => updateEducation(idx, "degree", e.target.value)} className="w-full p-2.5 text-xs bg-slate-900 border border-slate-800 rounded-lg text-white" />
+                <input type="text" placeholder="Año de grado" value={edu.year} onChange={(e) => updateEducation(idx, "year", e.target.value)} className="w-full p-2.5 text-xs bg-slate-900 border border-slate-800 rounded-lg text-white" />
               </div>
             ))}
           </div>
 
           {/* 6. Formación Complementaria */}
-          <div className="bg-slate-950/80 border border-slate-800 rounded-xl p-5 space-y-4 shadow-sm">
+          <div className="bg-slate-900/80 border border-slate-800 rounded-xl p-5 space-y-4 shadow-sm">
             <div className="flex justify-between items-center border-b border-slate-800 pb-2">
               <h2 className="text-xs font-extrabold uppercase tracking-widest text-amber-400 flex items-center gap-2">
                 <BookOpen size={15}/> 6. Formación Complementaria
@@ -270,17 +270,17 @@ export default function Home() {
               </button>
             </div>
             {formData.courses.map((course, idx) => (
-              <div key={idx} className="p-3.5 border border-slate-800 rounded-xl bg-slate-900/50 space-y-2.5 relative">
+              <div key={idx} className="p-3.5 border border-slate-800 rounded-xl bg-slate-950/50 space-y-2.5 relative">
                 <button onClick={() => removeCourse(idx)} className="absolute top-3 right-3 text-rose-300 hover:text-rose-100"><Trash2 size={15}/></button>
-                <input type="text" placeholder="Nombre del curso, taller o conferencia" value={course.name} onChange={(e) => updateCourse(idx, "name", e.target.value)} className="w-full p-2.5 text-xs bg-slate-950 border border-slate-800 rounded-lg text-white" />
-                <input type="text" placeholder="Institución o entidad certificadora" value={course.institution} onChange={(e) => updateCourse(idx, "institution", e.target.value)} className="w-full p-2.5 text-xs bg-slate-950 border border-slate-800 rounded-lg text-white" />
-                <input type="text" placeholder="Año" value={course.year} onChange={(e) => updateCourse(idx, "year", e.target.value)} className="w-full p-2.5 text-xs bg-slate-950 border border-slate-800 rounded-lg text-white" />
+                <input type="text" placeholder="Nombre del curso, taller o conferencia" value={course.name} onChange={(e) => updateCourse(idx, "name", e.target.value)} className="w-full p-2.5 text-xs bg-slate-900 border border-slate-800 rounded-lg text-white" />
+                <input type="text" placeholder="Institución o entidad certificadora" value={course.institution} onChange={(e) => updateCourse(idx, "institution", e.target.value)} className="w-full p-2.5 text-xs bg-slate-900 border border-slate-800 rounded-lg text-white" />
+                <input type="text" placeholder="Año" value={course.year} onChange={(e) => updateCourse(idx, "year", e.target.value)} className="w-full p-2.5 text-xs bg-slate-900 border border-slate-800 rounded-lg text-white" />
               </div>
             ))}
           </div>
 
           {/* 7. Experiencia Laboral */}
-          <div className="bg-slate-950/80 border border-slate-800 rounded-xl p-5 space-y-4 shadow-sm">
+          <div className="bg-slate-900/80 border border-slate-800 rounded-xl p-5 space-y-4 shadow-sm">
             <div className="flex justify-between items-center border-b border-slate-800 pb-2">
               <h2 className="text-xs font-extrabold uppercase tracking-widest text-amber-400 flex items-center gap-2">
                 <Briefcase size={15}/> 7. Experiencia Laboral
@@ -290,22 +290,22 @@ export default function Home() {
               </button>
             </div>
             {formData.experiences.map((exp, idx) => (
-              <div key={idx} className="p-3.5 border border-slate-800 rounded-xl bg-slate-900/50 space-y-2.5 relative">
+              <div key={idx} className="p-3.5 border border-slate-800 rounded-xl bg-slate-950/50 space-y-2.5 relative">
                 <button onClick={() => removeExperience(idx)} className="absolute top-3 right-3 text-rose-300 hover:text-rose-100"><Trash2 size={15}/></button>
-                <input type="text" placeholder="Empresa" value={exp.company} onChange={(e) => updateExperience(idx, "company", e.target.value)} className="w-full p-2.5 text-xs bg-slate-950 border border-slate-800 rounded-lg text-white" />
-                <input type="text" placeholder="Cargo" value={exp.position} onChange={(e) => updateExperience(idx, "position", e.target.value)} className="w-full p-2.5 text-xs bg-slate-950 border border-slate-800 rounded-lg text-white" />
-                <input type="text" placeholder="Ciudad" value={exp.city} onChange={(e) => updateExperience(idx, "city", e.target.value)} className="w-full p-2.5 text-xs bg-slate-950 border border-slate-800 rounded-lg text-white" />
+                <input type="text" placeholder="Empresa" value={exp.company} onChange={(e) => updateExperience(idx, "company", e.target.value)} className="w-full p-2.5 text-xs bg-slate-900 border border-slate-800 rounded-lg text-white" />
+                <input type="text" placeholder="Cargo" value={exp.position} onChange={(e) => updateExperience(idx, "position", e.target.value)} className="w-full p-2.5 text-xs bg-slate-900 border border-slate-800 rounded-lg text-white" />
+                <input type="text" placeholder="Ciudad" value={exp.city} onChange={(e) => updateExperience(idx, "city", e.target.value)} className="w-full p-2.5 text-xs bg-slate-900 border border-slate-800 rounded-lg text-white" />
                 <div className="grid grid-cols-2 gap-2">
-                  <input type="text" placeholder="Inicio (2024)" value={exp.startDate} onChange={(e) => updateExperience(idx, "startDate", e.target.value)} className="p-2.5 text-xs bg-slate-950 border border-slate-800 rounded-lg text-white" />
-                  <input type="text" placeholder="Fin (Actual)" value={exp.endDate} onChange={(e) => updateExperience(idx, "endDate", e.target.value)} className="p-2.5 text-xs bg-slate-950 border border-slate-800 rounded-lg text-white" />
+                  <input type="text" placeholder="Inicio (2024)" value={exp.startDate} onChange={(e) => updateExperience(idx, "startDate", e.target.value)} className="p-2.5 text-xs bg-slate-900 border border-slate-800 rounded-lg text-white" />
+                  <input type="text" placeholder="Fin (Actual)" value={exp.endDate} onChange={(e) => updateExperience(idx, "endDate", e.target.value)} className="p-2.5 text-xs bg-slate-900 border border-slate-800 rounded-lg text-white" />
                 </div>
-                <textarea placeholder="Funciones (separa por puntos o saltos de línea)..." rows={3} value={exp.description} onChange={(e) => updateExperience(idx, "description", e.target.value)} className="w-full p-2.5 text-xs bg-slate-950 border border-slate-800 rounded-lg text-white resize-none"></textarea>
+                <textarea placeholder="Funciones (separa por puntos o saltos de línea)..." rows={3} value={exp.description} onChange={(e) => updateExperience(idx, "description", e.target.value)} className="w-full p-2.5 text-xs bg-slate-900 border border-slate-800 rounded-lg text-white resize-none"></textarea>
               </div>
             ))}
           </div>
 
           {/* 8. Voluntariado */}
-          <div className="bg-slate-950/80 border border-slate-800 rounded-xl p-5 space-y-4 shadow-sm">
+          <div className="bg-slate-900/80 border border-slate-800 rounded-xl p-5 space-y-4 shadow-sm">
             <div className="flex justify-between items-center border-b border-slate-800 pb-2">
               <h2 className="text-xs font-extrabold uppercase tracking-widest text-amber-400 flex items-center gap-2">
                 <HeartHandshake size={15}/> 8. Voluntariado
@@ -315,16 +315,16 @@ export default function Home() {
               </button>
             </div>
             {formData.volunteers.map((vol, idx) => (
-              <div key={idx} className="p-3.5 border border-slate-800 rounded-xl bg-slate-900/50 space-y-2.5 relative">
+              <div key={idx} className="p-3.5 border border-slate-800 rounded-xl bg-slate-950/50 space-y-2.5 relative">
                 <button onClick={() => removeVolunteer(idx)} className="absolute top-3 right-3 text-rose-300 hover:text-rose-100"><Trash2 size={15}/></button>
-                <input type="text" placeholder="Organización" value={vol.organization} onChange={(e) => updateVolunteer(idx, "organization", e.target.value)} className="w-full p-2.5 text-xs bg-slate-950 border border-slate-800 rounded-lg text-white" />
-                <input type="text" placeholder="Rol / Cargo" value={vol.role} onChange={(e) => updateVolunteer(idx, "role", e.target.value)} className="w-full p-2.5 text-xs bg-slate-950 border border-slate-800 rounded-lg text-white" />
-                <input type="text" placeholder="Ciudad" value={vol.city} onChange={(e) => updateVolunteer(idx, "city", e.target.value)} className="w-full p-2.5 text-xs bg-slate-950 border border-slate-800 rounded-lg text-white" />
+                <input type="text" placeholder="Organización" value={vol.organization} onChange={(e) => updateVolunteer(idx, "organization", e.target.value)} className="w-full p-2.5 text-xs bg-slate-900 border border-slate-800 rounded-lg text-white" />
+                <input type="text" placeholder="Rol / Cargo" value={vol.role} onChange={(e) => updateVolunteer(idx, "role", e.target.value)} className="w-full p-2.5 text-xs bg-slate-900 border border-slate-800 rounded-lg text-white" />
+                <input type="text" placeholder="Ciudad" value={vol.city} onChange={(e) => updateVolunteer(idx, "city", e.target.value)} className="w-full p-2.5 text-xs bg-slate-900 border border-slate-800 rounded-lg text-white" />
                 <div className="grid grid-cols-2 gap-2">
-                  <input type="text" placeholder="Inicio (2023)" value={vol.startDate} onChange={(e) => updateVolunteer(idx, "startDate", e.target.value)} className="p-2.5 text-xs bg-slate-950 border border-slate-800 rounded-lg text-white" />
-                  <input type="text" placeholder="Fin (Actual)" value={vol.endDate} onChange={(e) => updateVolunteer(idx, "endDate", e.target.value)} className="p-2.5 text-xs bg-slate-950 border border-slate-800 rounded-lg text-white" />
+                  <input type="text" placeholder="Inicio (2023)" value={vol.startDate} onChange={(e) => updateVolunteer(idx, "startDate", e.target.value)} className="p-2.5 text-xs bg-slate-900 border border-slate-800 rounded-lg text-white" />
+                  <input type="text" placeholder="Fin (Actual)" value={vol.endDate} onChange={(e) => updateVolunteer(idx, "endDate", e.target.value)} className="p-2.5 text-xs bg-slate-900 border border-slate-800 rounded-lg text-white" />
                 </div>
-                <textarea placeholder="Actividades o funciones..." rows={3} value={vol.description} onChange={(e) => updateVolunteer(idx, "description", e.target.value)} className="w-full p-2.5 text-xs bg-slate-950 border border-slate-800 rounded-lg text-white resize-none"></textarea>
+                <textarea placeholder="Actividades o funciones..." rows={3} value={vol.description} onChange={(e) => updateVolunteer(idx, "description", e.target.value)} className="w-full p-2.5 text-xs bg-slate-900 border border-slate-800 rounded-lg text-white resize-none"></textarea>
               </div>
             ))}
           </div>
@@ -332,7 +332,7 @@ export default function Home() {
         </div>
 
         {/* PANEL DERECHO: Vista Previa */}
-        <div className="lg:col-span-7 bg-slate-950/90 p-6 rounded-2xl flex justify-center items-start shadow-2xl border border-slate-800 overflow-auto max-h-[88vh] print:p-0 print:m-0 print:bg-white print:border-none print:shadow-none print:overflow-visible print:w-full">
+        <div className="lg:col-span-7 bg-slate-900/90 p-6 rounded-2xl flex justify-center items-start shadow-2xl border border-slate-800 overflow-auto max-h-[88vh] print:p-0 print:m-0 print:bg-white print:border-none print:shadow-none print:overflow-visible print:w-full">
           <div className="bg-white text-slate-800 w-full max-w-[800px] min-h-[1050px] p-12 shadow-[0_0_50px_rgba(0,0,0,0.5)] rounded-xl flex flex-col justify-between print:shadow-none print:border-none print:m-0 print:p-0 print:w-full print:max-w-none">
             <div>
               {/* Encabezado */}
