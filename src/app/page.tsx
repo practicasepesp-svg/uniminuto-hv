@@ -1,15 +1,16 @@
 "use client";
 
 import { useState } from "react";
-import { Printer, Briefcase, GraduationCap, Award, Phone, Mail, MapPin, Trash2, Plus, User } from "lucide-react";
+import { Printer, Briefcase, GraduationCap, Award, Phone, Mail, MapPin, Trash2, Plus, User, HeartHandshake, Code2 } from "lucide-react";
 
-interface Experience { company: string; position: string; startDate: string; endDate: string; description: string; }
+interface Experience { company: string; position: string; city: string; startDate: string; endDate: string; description: string; }
+interface Volunteer { organization: string; role: string; city: string; startDate: string; endDate: string; description: string; }
 interface Education { institution: string; degree: string; year: string; }
 
 export default function Home() {
   const [formData, setFormData] = useState({
     fullName: "", documentType: "C.C.", documentNumber: "", email: "", phone: "", city: "Bogotá D.C.", profile: "",
-    skills: "", experiences: [] as Experience[], education: [] as Education[]
+    competencies: "", software: "", experiences: [] as Experience[], volunteers: [] as Volunteer[], education: [] as Education[]
   });
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
@@ -17,7 +18,7 @@ export default function Home() {
   };
 
   const addExperience = () => {
-    setFormData({ ...formData, experiences: [...formData.experiences, { company: "", position: "", startDate: "", endDate: "", description: "" }] });
+    setFormData({ ...formData, experiences: [...formData.experiences, { company: "", position: "", city: "", startDate: "", endDate: "", description: "" }] });
   };
 
   const updateExperience = (index: number, field: string, value: string) => {
@@ -28,6 +29,20 @@ export default function Home() {
 
   const removeExperience = (index: number) => {
     setFormData({ ...formData, experiences: formData.experiences.filter((_, i) => i !== index) });
+  };
+
+  const addVolunteer = () => {
+    setFormData({ ...formData, volunteers: [...formData.volunteers, { organization: "", role: "", city: "", startDate: "", endDate: "", description: "" }] });
+  };
+
+  const updateVolunteer = (index: number, field: string, value: string) => {
+    const newVol = [...formData.volunteers];
+    (newVol[index] as any)[field] = value;
+    setFormData({ ...formData, volunteers: newVol });
+  };
+
+  const removeVolunteer = (index: number) => {
+    setFormData({ ...formData, volunteers: formData.volunteers.filter((_, i) => i !== index) });
   };
 
   const addEducation = () => {
@@ -47,9 +62,8 @@ export default function Home() {
   return (
     <div className="min-h-screen bg-blue-950 flex flex-col font-sans text-slate-100 print:bg-white print:m-0 print:p-0">
       
-      {/* Ocultamos por completo la barra de navegación heredada de Open-Resume al imprimir */}
+      {/* Barra superior institucional (Se oculta al imprimir) */}
       <div className="print:hidden">
-        {/* Barra superior institucional */}
         <header className="bg-blue-900 text-white px-6 py-4 flex justify-between items-center border-b border-blue-800 shadow-xl">
           <div className="flex items-center gap-4">
             <div className="flex items-center gap-2 bg-white px-3 py-1.5 rounded-xl border border-blue-200 shadow-sm">
@@ -157,7 +171,7 @@ export default function Home() {
             </div>
           </div>
 
-          {/* Tarjeta 2: Perfil y Habilidades */}
+          {/* Tarjeta 2: Perfil, Competencias y Software */}
           <div className="bg-blue-950/80 border border-blue-800 rounded-xl p-5 space-y-4 shadow-sm">
             <h2 className="text-xs font-extrabold uppercase tracking-widest text-amber-400 flex items-center gap-2 border-b border-blue-900 pb-2">
               <Award size={15}/> 2. Perfil y Competencias
@@ -174,50 +188,34 @@ export default function Home() {
               ></textarea>
             </div>
             <div>
-              <label className="block text-[11px] font-semibold text-blue-200 mb-1">Habilidades (separadas por comas)</label>
+              <label className="block text-[11px] font-semibold text-blue-200 mb-1">Competencias (separadas por comas)</label>
               <input 
                 type="text" 
-                name="skills" 
-                placeholder="Python, Liderazgo, Excel, Gestión" 
-                value={formData.skills} 
+                name="competencies" 
+                placeholder="Liderazgo, Pensamiento Crítico, Resolución de problemas, Trabajo en equipo" 
+                value={formData.competencies} 
+                onChange={handleInputChange} 
+                className="w-full p-3 text-xs bg-blue-900 border border-blue-700 rounded-xl text-white outline-none focus:border-amber-400" 
+              />
+            </div>
+            <div>
+              <label className="block text-[11px] font-semibold text-blue-200 mb-1">Software y Programas (separados por comas)</label>
+              <input 
+                type="text" 
+                name="software" 
+                placeholder="Python, Excel, Power BI, AutoCAD, SAP" 
+                value={formData.software} 
                 onChange={handleInputChange} 
                 className="w-full p-3 text-xs bg-blue-900 border border-blue-700 rounded-xl text-white outline-none focus:border-amber-400" 
               />
             </div>
           </div>
 
-          {/* Tarjeta 3: Experiencia */}
+          {/* Tarjeta 3: Formación Académica (Movida Arriba) */}
           <div className="bg-blue-950/80 border border-blue-800 rounded-xl p-5 space-y-4 shadow-sm">
             <div className="flex justify-between items-center border-b border-blue-900 pb-2">
               <h2 className="text-xs font-extrabold uppercase tracking-widest text-amber-400 flex items-center gap-2">
-                <Briefcase size={15}/> 3. Experiencia Laboral / Práctica
-              </h2>
-              <button 
-                onClick={addExperience} 
-                className="text-[11px] bg-amber-400 hover:bg-amber-300 text-blue-950 px-3 py-1.5 rounded-lg font-bold flex items-center gap-1 shadow transition"
-              >
-                <Plus size={13}/> Añadir
-              </button>
-            </div>
-            {formData.experiences.map((exp, idx) => (
-              <div key={idx} className="p-3.5 border border-blue-800 rounded-xl bg-blue-900/50 space-y-2.5 relative">
-                <button onClick={() => removeExperience(idx)} className="absolute top-3 right-3 text-rose-300 hover:text-rose-100"><Trash2 size={15}/></button>
-                <input type="text" placeholder="Empresa" value={exp.company} onChange={(e) => updateExperience(idx, "company", e.target.value)} className="w-full p-2.5 text-xs bg-blue-950 border border-blue-800 rounded-lg text-white" />
-                <input type="text" placeholder="Cargo" value={exp.position} onChange={(e) => updateExperience(idx, "position", e.target.value)} className="w-full p-2.5 text-xs bg-blue-950 border border-blue-800 rounded-lg text-white" />
-                <div className="grid grid-cols-2 gap-2">
-                  <input type="text" placeholder="Inicio (2024)" value={exp.startDate} onChange={(e) => updateExperience(idx, "startDate", e.target.value)} className="p-2.5 text-xs bg-blue-950 border border-blue-800 rounded-lg text-white" />
-                  <input type="text" placeholder="Fin (Actual)" value={exp.endDate} onChange={(e) => updateExperience(idx, "endDate", e.target.value)} className="p-2.5 text-xs bg-blue-950 border border-blue-800 rounded-lg text-white" />
-                </div>
-                <textarea placeholder="Funciones (separa por puntos o saltos de línea)..." rows={3} value={exp.description} onChange={(e) => updateExperience(idx, "description", e.target.value)} className="w-full p-2.5 text-xs bg-blue-950 border border-blue-800 rounded-lg text-white resize-none"></textarea>
-              </div>
-            ))}
-          </div>
-
-          {/* Tarjeta 4: Educación */}
-          <div className="bg-blue-950/80 border border-blue-800 rounded-xl p-5 space-y-4 shadow-sm">
-            <div className="flex justify-between items-center border-b border-blue-900 pb-2">
-              <h2 className="text-xs font-extrabold uppercase tracking-widest text-amber-400 flex items-center gap-2">
-                <GraduationCap size={15}/> 4. Formación Académica
+                <GraduationCap size={15}/> 3. Formación Académica
               </h2>
               <button 
                 onClick={addEducation} 
@@ -232,6 +230,62 @@ export default function Home() {
                 <input type="text" placeholder="Institución Educativa" value={edu.institution} onChange={(e) => updateEducation(idx, "institution", e.target.value)} className="w-full p-2.5 text-xs bg-blue-950 border border-blue-800 rounded-lg text-white" />
                 <input type="text" placeholder="Título obtenido" value={edu.degree} onChange={(e) => updateEducation(idx, "degree", e.target.value)} className="w-full p-2.5 text-xs bg-blue-950 border border-blue-800 rounded-lg text-white" />
                 <input type="text" placeholder="Año de grado" value={edu.year} onChange={(e) => updateEducation(idx, "year", e.target.value)} className="w-full p-2.5 text-xs bg-blue-950 border border-blue-800 rounded-lg text-white" />
+              </div>
+            ))}
+          </div>
+
+          {/* Tarjeta 4: Experiencia Laboral (Con Ciudad y sin mención de práctica) */}
+          <div className="bg-blue-950/80 border border-blue-800 rounded-xl p-5 space-y-4 shadow-sm">
+            <div className="flex justify-between items-center border-b border-blue-900 pb-2">
+              <h2 className="text-xs font-extrabold uppercase tracking-widest text-amber-400 flex items-center gap-2">
+                <Briefcase size={15}/> 4. Experiencia Laboral
+              </h2>
+              <button 
+                onClick={addExperience} 
+                className="text-[11px] bg-amber-400 hover:bg-amber-300 text-blue-950 px-3 py-1.5 rounded-lg font-bold flex items-center gap-1 shadow transition"
+              >
+                <Plus size={13}/> Añadir
+              </button>
+            </div>
+            {formData.experiences.map((exp, idx) => (
+              <div key={idx} className="p-3.5 border border-blue-800 rounded-xl bg-blue-900/50 space-y-2.5 relative">
+                <button onClick={() => removeExperience(idx)} className="absolute top-3 right-3 text-rose-300 hover:text-rose-100"><Trash2 size={15}/></button>
+                <input type="text" placeholder="Empresa" value={exp.company} onChange={(e) => updateExperience(idx, "company", e.target.value)} className="w-full p-2.5 text-xs bg-blue-950 border border-blue-800 rounded-lg text-white" />
+                <input type="text" placeholder="Cargo" value={exp.position} onChange={(e) => updateExperience(idx, "position", e.target.value)} className="w-full p-2.5 text-xs bg-blue-950 border border-blue-800 rounded-lg text-white" />
+                <input type="text" placeholder="Ciudad" value={exp.city} onChange={(e) => updateExperience(idx, "city", e.target.value)} className="w-full p-2.5 text-xs bg-blue-950 border border-blue-800 rounded-lg text-white" />
+                <div className="grid grid-cols-2 gap-2">
+                  <input type="text" placeholder="Inicio (2024)" value={exp.startDate} onChange={(e) => updateExperience(idx, "startDate", e.target.value)} className="p-2.5 text-xs bg-blue-950 border border-blue-800 rounded-lg text-white" />
+                  <input type="text" placeholder="Fin (Actual)" value={exp.endDate} onChange={(e) => updateExperience(idx, "endDate", e.target.value)} className="p-2.5 text-xs bg-blue-950 border border-blue-800 rounded-lg text-white" />
+                </div>
+                <textarea placeholder="Funciones (separa por puntos o saltos de línea)..." rows={3} value={exp.description} onChange={(e) => updateExperience(idx, "description", e.target.value)} className="w-full p-2.5 text-xs bg-blue-950 border border-blue-800 rounded-lg text-white resize-none"></textarea>
+              </div>
+            ))}
+          </div>
+
+          {/* Tarjeta 5: Voluntariado (Nueva sección con estructura idéntica) */}
+          <div className="bg-blue-950/80 border border-blue-800 rounded-xl p-5 space-y-4 shadow-sm">
+            <div className="flex justify-between items-center border-b border-blue-900 pb-2">
+              <h2 className="text-xs font-extrabold uppercase tracking-widest text-amber-400 flex items-center gap-2">
+                <HeartHandshake size={15}/> 5. Voluntariado
+              </h2>
+              <button 
+                onClick={addVolunteer} 
+                className="text-[11px] bg-amber-400 hover:bg-amber-300 text-blue-950 px-3 py-1.5 rounded-lg font-bold flex items-center gap-1 shadow transition"
+              >
+                <Plus size={13}/> Añadir
+              </button>
+            </div>
+            {formData.volunteers.map((vol, idx) => (
+              <div key={idx} className="p-3.5 border border-blue-800 rounded-xl bg-blue-900/50 space-y-2.5 relative">
+                <button onClick={() => removeVolunteer(idx)} className="absolute top-3 right-3 text-rose-300 hover:text-rose-100"><Trash2 size={15}/></button>
+                <input type="text" placeholder="Organización" value={vol.organization} onChange={(e) => updateVolunteer(idx, "organization", e.target.value)} className="w-full p-2.5 text-xs bg-blue-950 border border-blue-800 rounded-lg text-white" />
+                <input type="text" placeholder="Rol / Cargo" value={vol.role} onChange={(e) => updateVolunteer(idx, "role", e.target.value)} className="w-full p-2.5 text-xs bg-blue-950 border border-blue-800 rounded-lg text-white" />
+                <input type="text" placeholder="Ciudad" value={vol.city} onChange={(e) => updateVolunteer(idx, "city", e.target.value)} className="w-full p-2.5 text-xs bg-blue-950 border border-blue-800 rounded-lg text-white" />
+                <div className="grid grid-cols-2 gap-2">
+                  <input type="text" placeholder="Inicio (2023)" value={vol.startDate} onChange={(e) => updateVolunteer(idx, "startDate", e.target.value)} className="p-2.5 text-xs bg-blue-950 border border-blue-800 rounded-lg text-white" />
+                  <input type="text" placeholder="Fin (Actual)" value={vol.endDate} onChange={(e) => updateVolunteer(idx, "endDate", e.target.value)} className="p-2.5 text-xs bg-blue-950 border border-blue-800 rounded-lg text-white" />
+                </div>
+                <textarea placeholder="Actividades o funciones..." rows={3} value={vol.description} onChange={(e) => updateVolunteer(idx, "description", e.target.value)} className="w-full p-2.5 text-xs bg-blue-950 border border-blue-800 rounded-lg text-white resize-none"></textarea>
               </div>
             ))}
           </div>
@@ -277,28 +331,55 @@ export default function Home() {
                 </div>
               )}
 
-              {/* Habilidades */}
-              {formData.skills && (
+              {/* Competencias */}
+              {formData.competencies && (
                 <div className="mb-6">
-                  <h3 className="text-xs font-bold uppercase text-blue-900 tracking-wider border-l-4 border-amber-400 pl-2 mb-2">Habilidades y Competencias</h3>
+                  <h3 className="text-xs font-bold uppercase text-blue-900 tracking-wider border-l-4 border-amber-400 pl-2 mb-2">Competencias</h3>
                   <div className="flex flex-wrap gap-1.5">
-                    {formData.skills.split(",").map((s, i) => <span key={i} className="text-[11px] bg-blue-50 text-blue-900 px-2.5 py-1 rounded font-medium border border-blue-100">{s.trim()}</span>)}
+                    {formData.competencies.split(",").map((s, i) => <span key={i} className="text-[11px] bg-blue-50 text-blue-900 px-2.5 py-1 rounded font-medium border border-blue-100">{s.trim()}</span>)}
                   </div>
                 </div>
               )}
 
-              {/* Experiencia */}
+              {/* Software y Programas */}
+              {formData.software && (
+                <div className="mb-6">
+                  <h3 className="text-xs font-bold uppercase text-blue-900 tracking-wider border-l-4 border-amber-400 pl-2 mb-2">Software y Programas</h3>
+                  <div className="flex flex-wrap gap-1.5">
+                    {formData.software.split(",").map((s, i) => <span key={i} className="text-[11px] bg-slate-100 text-slate-800 px-2.5 py-1 rounded font-medium border border-slate-200">{s.trim()}</span>)}
+                  </div>
+                </div>
+              )}
+
+              {/* Educación (Ubicada antes de experiencia) */}
+              {formData.education.length > 0 && (
+                <div className="mb-6">
+                  <h3 className="text-xs font-bold uppercase text-blue-900 tracking-wider border-l-4 border-amber-400 pl-2 mb-3">Formación Académica</h3>
+                  <div className="space-y-3">
+                    {formData.education.map((edu, i) => (
+                      <div key={i} className="text-xs flex justify-between items-baseline">
+                        <div>
+                          <span className="font-bold text-slate-900 block">{edu.degree || "Título obtenido"}</span>
+                          <span className="text-slate-600">{edu.institution || "Institución"}</span>
+                        </div>
+                        <span className="text-blue-900 font-semibold">{edu.year}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {/* Experiencia Laboral (Con Ciudad y sin práctica) */}
               {formData.experiences.length > 0 && (
                 <div className="mb-6">
-                  <h3 className="text-xs font-bold uppercase text-blue-900 tracking-wider border-l-4 border-amber-400 pl-2 mb-3">Experiencia Laboral / Práctica</h3>
+                  <h3 className="text-xs font-bold uppercase text-blue-900 tracking-wider border-l-4 border-amber-400 pl-2 mb-3">Experiencia Laboral</h3>
                   <div className="space-y-4">
                     {formData.experiences.map((exp, i) => (
                       <div key={i} className="text-xs space-y-1.5">
                         <div className="flex justify-between font-bold text-slate-900">
-                          <span>{exp.position || "Cargo"} — <span className="text-blue-900">{exp.company || "Empresa"}</span></span>
+                          <span>{exp.position || "Cargo"} — <span className="text-blue-900">{exp.company || "Empresa"}</span> {exp.city ? `(${exp.city})` : ""}</span>
                           <span className="text-slate-500 font-normal">{exp.startDate} {exp.endDate ? `- ${exp.endDate}` : ""}</span>
                         </div>
-                        {/* Funciones listadas uno debajo de otro */}
                         <ul className="list-disc pl-4 space-y-1 text-slate-700 leading-relaxed">
                           {exp.description.split(/\n|\u2022|\./).map((item, idx) => {
                             const trimmed = item.trim();
@@ -311,18 +392,23 @@ export default function Home() {
                 </div>
               )}
 
-              {/* Educación */}
-              {formData.education.length > 0 && (
+              {/* Voluntariado (Nueva sección renderizada) */}
+              {formData.volunteers.length > 0 && (
                 <div className="mb-6">
-                  <h3 className="text-xs font-bold uppercase text-blue-900 tracking-wider border-l-4 border-amber-400 pl-2 mb-3">Formación Académica</h3>
-                  <div className="space-y-3">
-                    {formData.education.map((edu, i) => (
-                      <div key={i} className="text-xs flex justify-between items-baseline">
-                        <div>
-                          <span className="font-bold text-slate-900 block">{edu.degree || "Título obtenido"}</span>
-                          <span className="text-slate-600">{edu.institution || "Institución"}</span>
+                  <h3 className="text-xs font-bold uppercase text-blue-900 tracking-wider border-l-4 border-amber-400 pl-2 mb-3">Voluntariado</h3>
+                  <div className="space-y-4">
+                    {formData.volunteers.map((vol, i) => (
+                      <div key={i} className="text-xs space-y-1.5">
+                        <div className="flex justify-between font-bold text-slate-900">
+                          <span>{vol.role || "Rol"} — <span className="text-blue-900">{vol.organization || "Organización"}</span> {vol.city ? `(${vol.city})` : ""}</span>
+                          <span className="text-slate-500 font-normal">{vol.startDate} {vol.endDate ? `- ${vol.endDate}` : ""}</span>
                         </div>
-                        <span className="text-blue-900 font-semibold">{edu.year}</span>
+                        <ul className="list-disc pl-4 space-y-1 text-slate-700 leading-relaxed">
+                          {vol.description.split(/\n|\u2022|\./).map((item, idx) => {
+                            const trimmed = item.trim();
+                            return trimmed ? <li key={idx}>{trimmed}</li> : null;
+                          })}
+                        </ul>
                       </div>
                     ))}
                   </div>
