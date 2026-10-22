@@ -215,11 +215,11 @@ export default function Home() {
               ></textarea>
             </div>
             <div>
-              <label className="block text-[11px] font-semibold text-blue-200 mb-1">Competencias (Ej. Trabajo en equipo, Adaptabilidad, Resolución de problemas)</label>
+              <label className="block text-[11px] font-semibold text-blue-200 mb-1">Competencias</label>
               <input 
                 type="text" 
                 name="competencies" 
-                placeholder="Trabajo en equipo, Adaptabilidad, Pensamiento crítico" 
+                placeholder="Ej. Trabajo en equipo, Adaptabilidad, Liderazgo" 
                 value={formData.competencies} 
                 onChange={handleInputChange} 
                 className="w-full p-3 text-xs bg-blue-900 border border-blue-700 rounded-xl text-white outline-none focus:border-amber-400" 
@@ -227,23 +227,23 @@ export default function Home() {
             </div>
           </div>
 
-          {/* Tarjeta 3: Arsenal Tecnológico e Idiomas (Sección unificada creativa) */}
+          {/* Tarjeta 3: Habilidades (Programas e Idiomas) */}
           <div className="bg-blue-950/80 border border-blue-800 rounded-xl p-5 space-y-5 shadow-sm">
             <h2 className="text-xs font-extrabold uppercase tracking-widest text-amber-400 flex items-center gap-2 border-b border-blue-900 pb-2">
-              <Cpu size={15}/> 3. Ecosistema Digital y Lingüístico
+              <Cpu size={15}/> 3. Habilidades (Programas e Idiomas)
             </h2>
             
-            {/* Programas y Software */}
+            {/* Programas */}
             <div className="space-y-3">
               <div className="flex justify-between items-center">
-                <span className="text-[11px] font-bold text-blue-200 flex items-center gap-1"><Cpu size={13}/> Programas, Herramientas e IA</span>
+                <span className="text-[11px] font-bold text-blue-200 flex items-center gap-1"><Cpu size={13}/> Programas</span>
                 <button onClick={addSoftware} className="text-[10px] bg-amber-400 hover:bg-amber-300 text-blue-950 px-2.5 py-1 rounded-md font-bold flex items-center gap-1">
-                  <Plus size={11}/> Añadir Software
+                  <Plus size={11}/> Añadir Programa
                 </button>
               </div>
               {formData.softwareList.map((sw, idx) => (
                 <div key={idx} className="flex gap-2 items-center bg-blue-900/40 p-2.5 rounded-lg border border-blue-800">
-                  <input type="text" placeholder="Ej. Python, Excel Avanzado, ChatGPT" value={sw.name} onChange={(e) => updateSoftware(idx, "name", e.target.value)} className="flex-1 p-2 text-xs bg-blue-950 border border-blue-800 rounded text-white" />
+                  <input type="text" placeholder="Ej. Python, Excel, ChatGPT" value={sw.name} onChange={(e) => updateSoftware(idx, "name", e.target.value)} className="flex-1 p-2 text-xs bg-blue-950 border border-blue-800 rounded text-white" />
                   <select value={sw.level} onChange={(e) => updateSoftware(idx, "level", e.target.value)} className="p-2 text-xs bg-blue-950 border border-blue-800 rounded text-white">
                     <option value="Básico">Básico</option>
                     <option value="Intermedio">Intermedio</option>
@@ -280,7 +280,7 @@ export default function Home() {
             </div>
           </div>
 
-          {/* Tarjeta 4: Formación Académica (Subida de posición) */}
+          {/* Tarjeta 4: Formación Académica */}
           <div className="bg-blue-950/80 border border-blue-800 rounded-xl p-5 space-y-4 shadow-sm">
             <div className="flex justify-between items-center border-b border-blue-900 pb-2">
               <h2 className="text-xs font-extrabold uppercase tracking-widest text-amber-400 flex items-center gap-2">
@@ -305,12 +305,12 @@ export default function Home() {
                   </select>
                 </div>
                 <input type="text" placeholder="Título obtenido (Ej. Ingeniería de Sistemas)" value={edu.degree} onChange={(e) => updateEducation(idx, "degree", e.target.value)} className="w-full p-2.5 text-xs bg-blue-950 border border-blue-800 rounded-lg text-white" />
-                <input type="text" placeholder="Año de grado (o En curso)" value={edu.year} onChange={(e) => updateEducation(idx, "year", e.target.value)} className="w-full p-2.5 text-xs bg-blue-950 border border-blue-800 rounded-lg text-white" />
+                <input type="text" placeholder="Año de grado (Ej. 2026)" value={edu.year} onChange={(e) => updateEducation(idx, "year", e.target.value)} className="w-full p-2.5 text-xs bg-blue-950 border border-blue-800 rounded-lg text-white" />
               </div>
             ))}
           </div>
 
-          {/* Tarjeta 5: Experiencia Laboral (Bajada de posición y sin la palabra prácticas) */}
+          {/* Tarjeta 5: Experiencia Laboral */}
           <div className="bg-blue-950/80 border border-blue-800 rounded-xl p-5 space-y-4 shadow-sm">
             <div className="flex justify-between items-center border-b border-blue-900 pb-2">
               <h2 className="text-xs font-extrabold uppercase tracking-widest text-amber-400 flex items-center gap-2">
@@ -326,10 +326,10 @@ export default function Home() {
                 <input type="text" placeholder="Empresa" value={exp.company} onChange={(e) => updateExperience(idx, "company", e.target.value)} className="w-full p-2.5 text-xs bg-blue-950 border border-blue-800 rounded-lg text-white" />
                 <input type="text" placeholder="Cargo" value={exp.position} onChange={(e) => updateExperience(idx, "position", e.target.value)} className="w-full p-2.5 text-xs bg-blue-950 border border-blue-800 rounded-lg text-white" />
                 <div className="grid grid-cols-2 gap-2">
-                  <input type="text" placeholder="Inicio (2024)" value={exp.startDate} onChange={(e) => updateExperience(idx, "startDate", e.target.value)} className="p-2.5 text-xs bg-blue-950 border border-blue-800 rounded-lg text-white" />
+                  <input type="text" placeholder="Inicio (22 de septiembre de 2026)" value={exp.startDate} onChange={(e) => updateExperience(idx, "startDate", e.target.value)} className="p-2.5 text-xs bg-blue-950 border border-blue-800 rounded-lg text-white" />
                   <input type="text" placeholder="Fin (Actual)" value={exp.endDate} onChange={(e) => updateExperience(idx, "endDate", e.target.value)} className="p-2.5 text-xs bg-blue-950 border border-blue-800 rounded-lg text-white" />
                 </div>
-                <textarea placeholder="Escribe cada función separada por saltos de línea (se enumerarán automáticamente)..." rows={3} value={exp.description} onChange={(e) => updateExperience(idx, "description", e.target.value)} className="w-full p-2.5 text-xs bg-blue-950 border border-blue-800 rounded-lg text-white resize-none"></textarea>
+                <textarea placeholder="Escribe cada función separada por saltos de línea..." rows={3} value={exp.description} onChange={(e) => updateExperience(idx, "description", e.target.value)} className="w-full p-2.5 text-xs bg-blue-950 border border-blue-800 rounded-lg text-white resize-none"></textarea>
               </div>
             ))}
           </div>
@@ -350,10 +350,10 @@ export default function Home() {
                 <input type="text" placeholder="Organización / Fundación" value={vol.organization} onChange={(e) => updateVolunteer(idx, "organization", e.target.value)} className="w-full p-2.5 text-xs bg-blue-950 border border-blue-800 rounded-lg text-white" />
                 <input type="text" placeholder="Rol / Actividad" value={vol.role} onChange={(e) => updateVolunteer(idx, "role", e.target.value)} className="w-full p-2.5 text-xs bg-blue-950 border border-blue-800 rounded-lg text-white" />
                 <div className="grid grid-cols-2 gap-2">
-                  <input type="text" placeholder="Inicio" value={vol.startDate} onChange={(e) => updateVolunteer(idx, "startDate", e.target.value)} className="p-2.5 text-xs bg-blue-950 border border-blue-800 rounded-lg text-white" />
+                  <input type="text" placeholder="Inicio (22 de septiembre de 2026)" value={vol.startDate} onChange={(e) => updateVolunteer(idx, "startDate", e.target.value)} className="p-2.5 text-xs bg-blue-950 border border-blue-800 rounded-lg text-white" />
                   <input type="text" placeholder="Fin" value={vol.endDate} onChange={(e) => updateVolunteer(idx, "endDate", e.target.value)} className="p-2.5 text-xs bg-blue-950 border border-blue-800 rounded-lg text-white" />
                 </div>
-                <textarea placeholder="Funciones o aportes realizados (se enumerarán automáticamente)..." rows={3} value={vol.description} onChange={(e) => updateVolunteer(idx, "description", e.target.value)} className="w-full p-2.5 text-xs bg-blue-950 border border-blue-800 rounded-lg text-white resize-none"></textarea>
+                <textarea placeholder="Funciones o aportes realizados..." rows={3} value={vol.description} onChange={(e) => updateVolunteer(idx, "description", e.target.value)} className="w-full p-2.5 text-xs bg-blue-950 border border-blue-800 rounded-lg text-white resize-none"></textarea>
               </div>
             ))}
           </div>
@@ -398,9 +398,9 @@ export default function Home() {
                 </div>
               )}
 
-              {/* Competencias */}
+              {/* Competencias (Con sutil línea de separación y continuidad) */}
               {formData.competencies && (
-                <div className="mb-6">
+                <div className="mb-6 pt-3 border-t border-slate-100">
                   <h3 className="text-xs font-bold uppercase text-blue-900 tracking-wider border-l-4 border-amber-400 pl-2 mb-2">Competencias</h3>
                   <div className="flex flex-wrap gap-1.5">
                     {formData.competencies.split(",").map((c, i) => <span key={i} className="text-[11px] bg-blue-50 text-blue-900 px-2.5 py-1 rounded font-medium border border-blue-100">{c.trim()}</span>)}
@@ -408,32 +408,30 @@ export default function Home() {
                 </div>
               )}
 
-              {/* Formación Académica (Subida de posición) */}
+              {/* Formación Académica (Con título en mayúsculas, institución tipo título y años debajo) */}
               {formData.education.length > 0 && (
-                <div className="mb-6">
+                <div className="mb-6 pt-3 border-t border-slate-100">
                   <h3 className="text-xs font-bold uppercase text-blue-900 tracking-wider border-l-4 border-amber-400 pl-2 mb-3">Formación Académica</h3>
                   <div className="space-y-3">
                     {formData.education.map((edu, i) => (
-                      <div key={i} className="text-xs flex justify-between items-baseline">
-                        <div>
-                          <span className="font-bold text-slate-900 block">{edu.degree || "Título obtenido"} <span className="text-blue-900 font-normal">({edu.level})</span></span>
-                          <span className="text-slate-600">{edu.institution || "Institución"}</span>
-                        </div>
-                        <span className="text-blue-900 font-semibold">{edu.year}</span>
+                      <div key={i} className="text-xs space-y-0.5">
+                        <span className="font-bold text-slate-900 uppercase block">{edu.degree || "Título obtenido"} <span className="font-normal text-blue-900 normal-case">({edu.level})</span></span>
+                        <span className="text-slate-700 font-medium block capitalize">{edu.institution || "Institución"}</span>
+                        <span className="text-slate-500 block text-[11px]">{edu.year}</span>
                       </div>
                     ))}
                   </div>
                 </div>
               )}
 
-              {/* Ecosistema Digital y Lingüístico (Software e Idiomas unificados) */}
+              {/* Habilidades (Programas e Idiomas) */}
               {(formData.softwareList.length > 0 || formData.languageList.length > 0) && (
-                <div className="mb-6">
-                  <h3 className="text-xs font-bold uppercase text-blue-900 tracking-wider border-l-4 border-amber-400 pl-2 mb-3">Programas, Herramientas e Idiomas</h3>
+                <div className="mb-6 pt-3 border-t border-slate-100">
+                  <h3 className="text-xs font-bold uppercase text-blue-900 tracking-wider border-l-4 border-amber-400 pl-2 mb-3">Habilidades</h3>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
                     {formData.softwareList.length > 0 && (
                       <div>
-                        <span className="font-bold text-slate-900 block mb-1">Software / Herramientas / IA:</span>
+                        <span className="font-bold text-slate-900 block mb-1">Programas:</span>
                         <ul className="list-disc pl-4 space-y-1 text-slate-700">
                           {formData.softwareList.map((sw, i) => (
                             <li key={i}><b>{sw.name}</b> — <span className="text-blue-900">{sw.level}</span></li>
@@ -455,16 +453,17 @@ export default function Home() {
                 </div>
               )}
 
-              {/* Experiencia Laboral (Con funciones enumeradas) */}
+              {/* Experiencia Laboral (Cargo en mayúsculas, empresa abajo en tipo título, fechas abajo) */}
               {formData.experiences.length > 0 && (
-                <div className="mb-6">
+                <div className="mb-6 pt-3 border-t border-slate-100">
                   <h3 className="text-xs font-bold uppercase text-blue-900 tracking-wider border-l-4 border-amber-400 pl-2 mb-3">Experiencia Laboral</h3>
                   <div className="space-y-4">
                     {formData.experiences.map((exp, i) => (
                       <div key={i} className="text-xs space-y-1.5">
-                        <div className="flex justify-between font-bold text-slate-900">
-                          <span>{exp.position || "Cargo"} — <span className="text-blue-900">{exp.company || "Empresa"}</span></span>
-                          <span className="text-slate-500 font-normal">{exp.startDate} {exp.endDate ? `- ${exp.endDate}` : ""}</span>
+                        <div>
+                          <span className="font-black text-slate-900 uppercase block">{exp.position || "Cargo"}</span>
+                          <span className="text-blue-900 font-semibold block capitalize">{exp.company || "Empresa"}</span>
+                          <span className="text-slate-500 block text-[11px]">{exp.startDate} {exp.endDate ? `- ${exp.endDate}` : ""}</span>
                         </div>
                         <ol className="list-decimal pl-4 space-y-1 text-slate-700 leading-relaxed">
                           {exp.description.split(/\n/).map((item, idx) => {
@@ -480,14 +479,15 @@ export default function Home() {
 
               {/* Voluntariado */}
               {formData.volunteers.length > 0 && (
-                <div className="mb-6">
+                <div className="mb-6 pt-3 border-t border-slate-100">
                   <h3 className="text-xs font-bold uppercase text-blue-900 tracking-wider border-l-4 border-amber-400 pl-2 mb-3">Voluntariado</h3>
                   <div className="space-y-4">
                     {formData.volunteers.map((vol, i) => (
                       <div key={i} className="text-xs space-y-1.5">
-                        <div className="flex justify-between font-bold text-slate-900">
-                          <span>{vol.role || "Rol"} — <span className="text-blue-900">{vol.organization || "Organización"}</span></span>
-                          <span className="text-slate-500 font-normal">{vol.startDate} {vol.endDate ? `- ${vol.endDate}` : ""}</span>
+                        <div>
+                          <span className="font-black text-slate-900 uppercase block">{vol.role || "Rol"}</span>
+                          <span className="text-blue-900 font-semibold block capitalize">{vol.organization || "Organización"}</span>
+                          <span className="text-slate-500 block text-[11px]">{vol.startDate} {vol.endDate ? `- ${vol.endDate}` : ""}</span>
                         </div>
                         <ol className="list-decimal pl-4 space-y-1 text-slate-700 leading-relaxed">
                           {vol.description.split(/\n/).map((item, idx) => {
