@@ -11,7 +11,7 @@
     "test:ci": "jest --ci"
   },
   "dependencies": {
-    "@google/genai": "^0.1.1",
+    "@google/genai": "latest",
     "@heroicons/react": "^2.0.18",
     "@react-pdf/renderer": "^3.1.10",
     "@reduxjs/toolkit": "^1.9.5",
