@@ -455,7 +455,7 @@ export default function Home() {
                         </div>
                         <ul className="list-disc pl-4 space-y-1 text-slate-700 leading-relaxed">
                           {exp.description.split(/\n|\u2022|\./).map((item, idx) => {
-                            const trimmed = item.Item?.trim() || item.trim();
+                            const trimmed = item.trim();
                             return trimmed ? <li key={idx}>{trimmed}</li> : null;
                           })}
                         </ul>
