@@ -246,14 +246,11 @@ export default function Home() {
                   </p>
                 </div>
                 
-                {/* Logos Reales */}
-                <div className="flex items-center gap-3 bg-slate-50 p-3 rounded-xl border border-slate-200 shadow-sm">
-                  <img src="https://upload.wikimedia.org/wikipedia/commons/b/b3/Logo_uniminuto.png" alt="Logo Uniminuto" className="h-8 object-contain" />
+                {/* Logos Institucionales Reales */}
+                <div className="flex items-center gap-3 bg-slate-50 p-3.5 rounded-xl border border-slate-200 shadow-sm">
+                  <img src="/Rector%C3%ADa%20Bogot%C3%A1%20Letras%20Colores%20(Sin%20Fondo).png" alt="Rectoría Bogotá" className="h-8 object-contain" />
                   <div className="h-6 w-px bg-slate-300"></div>
-                  <div className="text-right">
-                    <span className="text-[10px] font-black text-emerald-800 block uppercase">Centro Progresa</span>
-                    <span className="text-[9px] text-slate-500 font-semibold block">E.P.E.</span>
-                  </div>
+                  <img src="/Centro%20Progresa%20Letras%20Negras%20Iconos%20Blancos%20(sin%20fondo).png" alt="Centro Progresa" className="h-8 object-contain" />
                 </div>
               </div>
 
