@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Printer, Briefcase, GraduationCap, Award, Phone, Mail, MapPin, Trash2, Plus, User, HeartHandshake, BookOpen, Languages, Laptop } from "lucide-react";
+import { Printer, Briefcase, GraduationCap, Award, Phone, Mail, MapPin, Trash2, Plus, User, HeartHandshake, BookOpen, Languages, Laptop, Sparkles } from "lucide-react";
 
 interface Experience { company: string; position: string; city: string; startDate: string; endDate: string; description: string; }
 interface Volunteer { organization: string; role: string; city: string; startDate: string; endDate: string; description: string; }
@@ -17,8 +17,29 @@ export default function Home() {
     experiences: [] as Experience[], volunteers: [] as Volunteer[], education: [] as Education[], courses: [] as Course[]
   });
 
+  const [loadingAi, setLoadingAi] = useState(false);
+
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleAiEnhance = async (currentText: string, type: 'profile' | 'experience', fieldUpdater: (newText: string) => void) => {
+    try {
+      setLoadingAi(true);
+      const res = await fetch('/api/generate', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ prompt: currentText, type }),
+      });
+      const data = await res.json();
+      if (data.result) {
+        fieldUpdater(data.result);
+      }
+    } catch (error) {
+      console.error("Error al conectar con la IA", error);
+    } finally {
+      setLoadingAi(false);
+    }
   };
 
   const addEducation = () => {
@@ -172,7 +193,17 @@ export default function Home() {
               <Award size={15}/> 2. Perfil y Competencias
             </h2>
             <div>
-              <label className="block text-[11px] font-semibold text-slate-300 mb-1">Perfil Ocupacional</label>
+              <div className="flex justify-between items-center mb-1">
+                <label className="block text-[11px] font-semibold text-slate-300">Perfil Ocupacional</label>
+                <button
+                  type="button"
+                  disabled={loadingAi}
+                  onClick={() => handleAiEnhance(formData.profile, 'profile', (val) => setFormData({ ...formData, profile: val }))}
+                  className="text-[11px] bg-purple-600 hover:bg-purple-500 disabled:opacity-50 text-white font-bold px-2.5 py-1 rounded-lg flex items-center gap-1 shadow transition"
+                >
+                  <Sparkles size={12} /> {loadingAi ? "Generando..." : "✨ Mejorar con IA (Centro Progresa)"}
+                </button>
+              </div>
               <textarea name="profile" rows={3} placeholder="Estudiante apasionado..." value={formData.profile} onChange={handleInputChange} className="w-full p-3 text-xs bg-slate-950 border border-slate-700 rounded-xl text-white outline-none focus:border-amber-400 resize-none"></textarea>
             </div>
             <div>
