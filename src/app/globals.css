@@ -32,3 +32,24 @@
   --resume-control-bar-height: 3rem;
   --resume-padding: 1.5rem;
 }
+
+/* Reglas de impresión para ocultar la barra superior y los menús de Open-Resume */
+@media print {
+  nav, header, aside, .no-print, [class*="navbar"], [class*="header"] {
+    display: none !important;
+  }
+
+  body {
+    background: white !important;
+    color: black !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  .print\:block {
+    display: block !important;
+    width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+}
