@@ -45,9 +45,9 @@ export default function Home() {
   };
 
   return (
-    <div className="min-h-screen bg-blue-950 flex flex-col font-sans text-slate-100">
-      {/* Barra superior institucional */}
-      <header className="bg-blue-900 text-white px-6 py-4 no-print flex justify-between items-center border-b border-blue-800 shadow-xl">
+    <div className="min-h-screen bg-blue-950 flex flex-col font-sans text-slate-100 print:bg-white">
+      {/* Barra superior institucional (Se oculta al imprimir) */}
+      <header className="bg-blue-900 text-white px-6 py-4 print:hidden flex justify-between items-center border-b border-blue-800 shadow-xl">
         <div className="flex items-center gap-4">
           <div className="flex items-center gap-2 bg-white px-3 py-1.5 rounded-xl border border-blue-200 shadow-sm">
             <img src="/Rectoría%20Bogotá%20Letras%20Colores%20(Sin%20Fondo).png" alt="Rectoría Bogotá" className="h-6 object-contain" />
@@ -70,10 +70,10 @@ export default function Home() {
       </header>
 
       {/* Contenedor principal */}
-      <div className="flex-1 max-w-[1800px] w-full mx-auto p-4 lg:p-6 grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+      <div className="flex-1 max-w-[1800px] w-full mx-auto p-4 lg:p-6 grid grid-cols-1 lg:grid-cols-12 gap-6 items-start print:block print:p-0">
         
-        {/* PANEL IZQUIERDO: Formulario */}
-        <div className="lg:col-span-5 bg-blue-900/90 backdrop-blur-md rounded-2xl shadow-2xl border border-blue-800/80 overflow-hidden no-print flex flex-col max-h-[88vh] overflow-y-auto p-6 space-y-6">
+        {/* PANEL IZQUIERDO: Formulario (Se oculta por completo al imprimir) */}
+        <div className="lg:col-span-5 bg-blue-900/90 backdrop-blur-md rounded-2xl shadow-2xl border border-blue-800/80 overflow-hidden print:hidden flex flex-col max-h-[88vh] overflow-y-auto p-6 space-y-6">
           
           {/* Tarjeta 1: Información Personal */}
           <div className="bg-blue-950/80 border border-blue-800 rounded-xl p-5 space-y-4 shadow-sm">
@@ -234,9 +234,9 @@ export default function Home() {
 
         </div>
 
-        {/* PANEL DERECHO: Vista Previa */}
-        <div className="lg:col-span-7 bg-blue-950/90 p-6 rounded-2xl flex justify-center items-start shadow-2xl border border-blue-900 overflow-auto max-h-[88vh]">
-          <div className="bg-white text-slate-800 w-full max-w-[800px] min-h-[1050px] p-12 shadow-[0_0_50px_rgba(0,0,0,0.5)] rounded-xl flex flex-col justify-between print:shadow-none print:border-none print:m-0 print:p-0">
+        {/* PANEL DERECHO: Vista Previa / Hoja de Vida Limpia para Impresión */}
+        <div className="lg:col-span-7 bg-blue-950/90 p-6 rounded-2xl flex justify-center items-start shadow-2xl border border-blue-900 overflow-auto max-h-[88vh] print:p-0 print:m-0 print:bg-white print:border-none print:shadow-none print:overflow-visible">
+          <div className="bg-white text-slate-800 w-full max-w-[800px] min-h-[1050px] p-12 shadow-[0_0_50px_rgba(0,0,0,0.5)] rounded-xl flex flex-col justify-between print:shadow-none print:border-none print:m-0 print:p-0 print:w-full print:max-w-none">
             <div>
               {/* Encabezado con Fondo Blanco Estricto y Logos Inalterables */}
               <div className="border-b-2 border-blue-900 pb-5 mb-6 flex flex-row justify-between items-center bg-white">
