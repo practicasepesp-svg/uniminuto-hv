@@ -135,7 +135,7 @@ export default function Home() {
           </div>
           <button 
             onClick={() => window.print()} 
-            className="bg-amber-400 hover:bg-amber-300 text-slate-950 text-xs font-black px-5 py-2.5 rounded-xl flex items-center gap-2 shadow-lg shadow-amber-500/20 transition transform active:scale-95 w-full sm:w-auto justify-center"
+            className="bg-amber-400 hover:bg-amber-300 text-slate-950 text-xs font-black px-5 py-2.5 rounded-xl flex items-center gap-2 shadow-lg shadow-amber-500/20 transition transform active:scale-95 w-full sm:w-auto justify-center cursor-pointer"
           >
             <Printer size={16} /> Descargar / Imprimir PDF
           </button>
@@ -218,13 +218,13 @@ export default function Home() {
               <h2 className="text-xs font-extrabold uppercase tracking-widest text-amber-400 flex items-center gap-2">
                 <Laptop size={15}/> 3. Software y Programas
               </h2>
-              <button onClick={addSoftware} className="text-[11px] bg-amber-400 hover:bg-amber-300 text-slate-950 px-3 py-1.5 rounded-lg font-bold flex items-center gap-1 shadow transition">
+              <button onClick={addSoftware} className="text-[11px] bg-amber-400 hover:bg-amber-300 text-slate-950 px-3 py-1.5 rounded-lg font-bold flex items-center gap-1 shadow transition cursor-pointer">
                 <Plus size={13}/> Añadir
               </button>
             </div>
             {formData.software.map((sw, idx) => (
               <div key={idx} className="p-3 border border-slate-800 rounded-xl bg-slate-950/50 flex gap-2 items-center relative">
-                <button onClick={() => removeSoftware(idx)} className="text-rose-300 hover:text-rose-100"><Trash2 size={15}/></button>
+                <button onClick={() => removeSoftware(idx)} className="text-rose-300 hover:text-rose-100 cursor-pointer"><Trash2 size={15}/></button>
                 <input type="text" placeholder="Ej. Python, Excel, SAP" value={sw.name} onChange={(e) => updateSoftware(idx, "name", e.target.value)} className="flex-1 p-2 text-xs bg-slate-900 border border-slate-800 rounded-lg text-white" />
                 <select value={sw.level} onChange={(e) => updateSoftware(idx, "level", e.target.value)} className="p-2 text-xs bg-slate-900 border border-slate-800 rounded-lg text-white">
                   <option value="Básico">Básico</option>
@@ -242,13 +242,13 @@ export default function Home() {
               <h2 className="text-xs font-extrabold uppercase tracking-widest text-amber-400 flex items-center gap-2">
                 <Languages size={15}/> 4. Idiomas
               </h2>
-              <button onClick={addLanguage} className="text-[11px] bg-amber-400 hover:bg-amber-300 text-slate-950 px-3 py-1.5 rounded-lg font-bold flex items-center gap-1 shadow transition">
+              <button onClick={addLanguage} className="text-[11px] bg-amber-400 hover:bg-amber-300 text-slate-950 px-3 py-1.5 rounded-lg font-bold flex items-center gap-1 shadow transition cursor-pointer">
                 <Plus size={13}/> Añadir
               </button>
             </div>
             {formData.languages.map((lang, idx) => (
               <div key={idx} className="p-3 border border-slate-800 rounded-xl bg-slate-950/50 flex gap-2 items-center relative">
-                <button onClick={() => removeLanguage(idx)} className="text-rose-300 hover:text-rose-100"><Trash2 size={15}/></button>
+                <button onClick={() => removeLanguage(idx)} className="text-rose-300 hover:text-rose-100 cursor-pointer"><Trash2 size={15}/></button>
                 <input type="text" placeholder="Ej. Inglés, Francés" value={lang.name} onChange={(e) => updateLanguage(idx, "name", e.target.value)} className="flex-1 p-2 text-xs bg-slate-900 border border-slate-800 rounded-lg text-white" />
                 <select value={lang.level} onChange={(e) => updateLanguage(idx, "level", e.target.value)} className="p-2 text-xs bg-slate-900 border border-slate-800 rounded-lg text-white">
                   <option value="A1 - Acceso">A1 - Acceso</option>
@@ -269,13 +269,13 @@ export default function Home() {
               <h2 className="text-xs font-extrabold uppercase tracking-widest text-amber-400 flex items-center gap-2">
                 <GraduationCap size={15}/> 5. Formación Académica
               </h2>
-              <button onClick={addEducation} className="text-[11px] bg-amber-400 hover:bg-amber-300 text-slate-950 px-3 py-1.5 rounded-lg font-bold flex items-center gap-1 shadow transition">
+              <button onClick={addEducation} className="text-[11px] bg-amber-400 hover:bg-amber-300 text-slate-950 px-3 py-1.5 rounded-lg font-bold flex items-center gap-1 shadow transition cursor-pointer">
                 <Plus size={13}/> Añadir
               </button>
             </div>
             {formData.education.map((edu, idx) => (
               <div key={idx} className="p-3.5 border border-slate-800 rounded-xl bg-slate-950/50 space-y-2.5 relative">
-                <button onClick={() => removeEducation(idx)} className="absolute top-3 right-3 text-rose-300 hover:text-rose-100"><Trash2 size={15}/></button>
+                <button onClick={() => removeEducation(idx)} className="absolute top-3 right-3 text-rose-300 hover:text-rose-100 cursor-pointer"><Trash2 size={15}/></button>
                 <select value={edu.level} onChange={(e) => updateEducation(idx, "level", e.target.value)} className="w-full p-2.5 text-xs bg-slate-900 border border-slate-800 rounded-lg text-white">
                   <option value="Técnico">Técnico</option>
                   <option value="Tecnólogo">Tecnólogo</option>
@@ -296,13 +296,13 @@ export default function Home() {
               <h2 className="text-xs font-extrabold uppercase tracking-widest text-amber-400 flex items-center gap-2">
                 <BookOpen size={15}/> 6. Formación Complementaria
               </h2>
-              <button onClick={addCourse} className="text-[11px] bg-amber-400 hover:bg-amber-300 text-slate-950 px-3 py-1.5 rounded-lg font-bold flex items-center gap-1 shadow transition">
+              <button onClick={addCourse} className="text-[11px] bg-amber-400 hover:bg-amber-300 text-slate-950 px-3 py-1.5 rounded-lg font-bold flex items-center gap-1 shadow transition cursor-pointer">
                 <Plus size={13}/> Añadir
               </button>
             </div>
             {formData.courses.map((course, idx) => (
               <div key={idx} className="p-3.5 border border-slate-800 rounded-xl bg-slate-950/50 space-y-2.5 relative">
-                <button onClick={() => removeCourse(idx)} className="absolute top-3 right-3 text-rose-300 hover:text-rose-100"><Trash2 size={15}/></button>
+                <button onClick={() => removeCourse(idx)} className="absolute top-3 right-3 text-rose-300 hover:text-rose-100 cursor-pointer"><Trash2 size={15}/></button>
                 <input type="text" placeholder="Nombre del curso, taller o conferencia" value={course.name} onChange={(e) => updateCourse(idx, "name", e.target.value)} className="w-full p-2.5 text-xs bg-slate-900 border border-slate-800 rounded-lg text-white" />
                 <input type="text" placeholder="Institución o entidad certificadora" value={course.institution} onChange={(e) => updateCourse(idx, "institution", e.target.value)} className="w-full p-2.5 text-xs bg-slate-900 border border-slate-800 rounded-lg text-white" />
                 <input type="text" placeholder="Año" value={course.year} onChange={(e) => updateCourse(idx, "year", e.target.value)} className="w-full p-2.5 text-xs bg-slate-900 border border-slate-800 rounded-lg text-white" />
@@ -316,13 +316,13 @@ export default function Home() {
               <h2 className="text-xs font-extrabold uppercase tracking-widest text-amber-400 flex items-center gap-2">
                 <Briefcase size={15}/> 7. Experiencia Laboral
               </h2>
-              <button onClick={addExperience} className="text-[11px] bg-amber-400 hover:bg-amber-300 text-slate-950 px-3 py-1.5 rounded-lg font-bold flex items-center gap-1 shadow transition">
+              <button onClick={addExperience} className="text-[11px] bg-amber-400 hover:bg-amber-300 text-slate-950 px-3 py-1.5 rounded-lg font-bold flex items-center gap-1 shadow transition cursor-pointer">
                 <Plus size={13}/> Añadir
               </button>
             </div>
             {formData.experiences.map((exp, idx) => (
               <div key={idx} className="p-3.5 border border-slate-800 rounded-xl bg-slate-950/50 space-y-2.5 relative">
-                <button onClick={() => removeExperience(idx)} className="absolute top-3 right-3 text-rose-300 hover:text-rose-100"><Trash2 size={15}/></button>
+                <button onClick={() => removeExperience(idx)} className="absolute top-3 right-3 text-rose-300 hover:text-rose-100 cursor-pointer"><Trash2 size={15}/></button>
                 <input type="text" placeholder="Empresa" value={exp.company} onChange={(e) => updateExperience(idx, "company", e.target.value)} className="w-full p-2.5 text-xs bg-slate-900 border border-slate-800 rounded-lg text-white" />
                 <input type="text" placeholder="Cargo" value={exp.position} onChange={(e) => updateExperience(idx, "position", e.target.value)} className="w-full p-2.5 text-xs bg-slate-900 border border-slate-800 rounded-lg text-white" />
                 <input type="text" placeholder="Ciudad" value={exp.city} onChange={(e) => updateExperience(idx, "city", e.target.value)} className="w-full p-2.5 text-xs bg-slate-900 border border-slate-800 rounded-lg text-white" />
@@ -341,13 +341,13 @@ export default function Home() {
               <h2 className="text-xs font-extrabold uppercase tracking-widest text-amber-400 flex items-center gap-2">
                 <HeartHandshake size={15}/> 8. Voluntariado
               </h2>
-              <button onClick={addVolunteer} className="text-[11px] bg-amber-400 hover:bg-amber-300 text-slate-950 px-3 py-1.5 rounded-lg font-bold flex items-center gap-1 shadow transition">
+              <button onClick={addVolunteer} className="text-[11px] bg-amber-400 hover:bg-amber-300 text-slate-950 px-3 py-1.5 rounded-lg font-bold flex items-center gap-1 shadow transition cursor-pointer">
                 <Plus size={13}/> Añadir
               </button>
             </div>
             {formData.volunteers.map((vol, idx) => (
               <div key={idx} className="p-3.5 border border-slate-800 rounded-xl bg-slate-950/50 space-y-2.5 relative">
-                <button onClick={() => removeVolunteer(idx)} className="absolute top-3 right-3 text-rose-300 hover:text-rose-100"><Trash2 size={15}/></button>
+                <button onClick={() => removeVolunteer(idx)} className="absolute top-3 right-3 text-rose-300 hover:text-rose-100 cursor-pointer"><Trash2 size={15}/></button>
                 <input type="text" placeholder="Organización" value={vol.organization} onChange={(e) => updateVolunteer(idx, "organization", e.target.value)} className="w-full p-2.5 text-xs bg-slate-900 border border-slate-800 rounded-lg text-white" />
                 <input type="text" placeholder="Rol / Cargo" value={vol.role} onChange={(e) => updateVolunteer(idx, "role", e.target.value)} className="w-full p-2.5 text-xs bg-slate-900 border border-slate-800 rounded-lg text-white" />
                 <input type="text" placeholder="Ciudad" value={vol.city} onChange={(e) => updateVolunteer(idx, "city", e.target.value)} className="w-full p-2.5 text-xs bg-slate-900 border border-slate-800 rounded-lg text-white" />
@@ -520,7 +520,7 @@ export default function Home() {
               )}
             </div>
 
-            {/* Pie de página actualizado con la información institucional */}
+            {/* Pie de página institucional */}
             <div className="border-t pt-4 mt-8 text-center text-[10px] text-slate-500 space-y-1">
               <p>Línea de Atención al Usuario: 601 593 3004 · Línea Nacional: 01 8000 936 670</p>
               <p className="font-bold text-slate-800">www.uniminuto.edu</p>
