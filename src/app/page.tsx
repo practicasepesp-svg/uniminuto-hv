@@ -45,26 +45,26 @@ export default function Home() {
   };
 
   return (
-    <div className="min-h-screen bg-slate-900 flex flex-col font-sans text-slate-100">
-      {/* Barra superior con logos institucionales */}
-      <header className="bg-slate-950 text-white px-6 py-4 no-print flex justify-between items-center border-b border-slate-800 shadow-xl">
+    <div className="min-h-screen bg-blue-950 flex flex-col font-sans text-slate-100">
+      {/* Barra superior institucional */}
+      <header className="bg-blue-900 text-white px-6 py-4 no-print flex justify-between items-center border-b border-blue-800 shadow-xl">
         <div className="flex items-center gap-4">
-          <div className="flex items-center gap-2 bg-slate-900 px-3 py-1.5 rounded-xl border border-slate-800">
+          <div className="flex items-center gap-2 bg-white px-3 py-1.5 rounded-xl border border-blue-200 shadow-sm">
             <img src="/Rectoría%20Bogotá%20Letras%20Colores%20(Sin%20Fondo).png" alt="Rectoría Bogotá" className="h-6 object-contain" />
-            <div className="h-4 w-px bg-slate-700"></div>
+            <div className="h-4 w-px bg-blue-200"></div>
             <img src="/Centro%20Progresa%20Letras%20Negras%20Iconos%20Blancos%20(sin%20fondo).png" alt="Centro Progresa" className="h-6 object-contain" />
           </div>
           <div>
             <h1 className="text-sm font-bold tracking-tight text-white flex items-center gap-2">
               Creador de Hoja de Vida Institucional
-              <span className="text-[10px] bg-emerald-500/20 text-emerald-400 px-2 py-0.5 rounded-full border border-emerald-500/30">UNIMINUTO</span>
+              <span className="text-[10px] bg-amber-400 text-blue-950 font-black px-2 py-0.5 rounded-full">UNIMINUTO</span>
             </h1>
-            <p className="text-xs text-slate-400">Centro Progresa E.P.E. • Prácticas Profesionales</p>
+            <p className="text-xs text-blue-200">Centro Progresa E.P.E. • Prácticas Profesionales</p>
           </div>
         </div>
         <button 
           onClick={() => window.print()} 
-          className="bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold px-5 py-2.5 rounded-xl flex items-center gap-2 shadow-lg shadow-emerald-900/40 transition transform active:scale-95"
+          className="bg-amber-400 hover:bg-amber-300 text-blue-950 text-xs font-black px-5 py-2.5 rounded-xl flex items-center gap-2 shadow-lg shadow-amber-500/20 transition transform active:scale-95"
         >
           <Printer size={16} /> Descargar / Imprimir PDF
         </button>
@@ -73,33 +73,33 @@ export default function Home() {
       {/* Contenedor principal */}
       <div className="flex-1 max-w-[1800px] w-full mx-auto p-4 lg:p-6 grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
         
-        {/* PANEL IZQUIERDO: Formulario en Español */}
-        <div className="lg:col-span-5 bg-slate-950/80 backdrop-blur-md rounded-2xl shadow-2xl border border-slate-800 overflow-hidden no-print flex flex-col max-h-[88vh] overflow-y-auto p-6 space-y-6">
+        {/* PANEL IZQUIERDO: Formulario */}
+        <div className="lg:col-span-5 bg-blue-900/90 backdrop-blur-md rounded-2xl shadow-2xl border border-blue-800/80 overflow-hidden no-print flex flex-col max-h-[88vh] overflow-y-auto p-6 space-y-6">
           
           {/* Tarjeta 1: Información Personal */}
-          <div className="bg-slate-900/90 border border-slate-800 rounded-xl p-5 space-y-4 shadow-sm">
-            <h2 className="text-xs font-extrabold uppercase tracking-widest text-emerald-400 flex items-center gap-2 border-b border-slate-800 pb-2">
+          <div className="bg-blue-950/80 border border-blue-800 rounded-xl p-5 space-y-4 shadow-sm">
+            <h2 className="text-xs font-extrabold uppercase tracking-widest text-amber-400 flex items-center gap-2 border-b border-blue-900 pb-2">
               <User size={15}/> 1. Información Personal
             </h2>
             <div>
-              <label className="block text-[11px] font-semibold text-slate-300 mb-1">Nombre Completo</label>
+              <label className="block text-[11px] font-semibold text-blue-200 mb-1">Nombre Completo</label>
               <input 
                 type="text" 
                 name="fullName" 
                 placeholder="Ej. Laura Sofía Martínez" 
                 value={formData.fullName} 
                 onChange={handleInputChange} 
-                className="w-full p-3 text-xs bg-slate-950 border border-slate-800 rounded-xl text-white outline-none focus:border-emerald-500 transition" 
+                className="w-full p-3 text-xs bg-blue-900 border border-blue-700 rounded-xl text-white outline-none focus:border-amber-400 transition" 
               />
             </div>
             <div className="grid grid-cols-2 gap-3">
               <div>
-                <label className="block text-[11px] font-semibold text-slate-300 mb-1">Tipo de Documento</label>
+                <label className="block text-[11px] font-semibold text-blue-200 mb-1">Tipo de Documento</label>
                 <select 
                   name="documentType" 
                   value={formData.documentType} 
                   onChange={handleInputChange} 
-                  className="w-full p-3 text-xs bg-slate-950 border border-slate-800 rounded-xl text-white outline-none focus:border-emerald-500"
+                  className="w-full p-3 text-xs bg-blue-900 border border-blue-700 rounded-xl text-white outline-none focus:border-amber-400"
                 >
                   <option value="C.C.">Cédula (C.C.)</option>
                   <option value="T.I.">Tarjeta (T.I.)</option>
@@ -107,128 +107,128 @@ export default function Home() {
                 </select>
               </div>
               <div>
-                <label className="block text-[11px] font-semibold text-slate-300 mb-1">Número</label>
+                <label className="block text-[11px] font-semibold text-blue-200 mb-1">Número</label>
                 <input 
                   type="text" 
                   name="documentNumber" 
                   placeholder="1023456789" 
                   value={formData.documentNumber} 
                   onChange={handleInputChange} 
-                  className="w-full p-3 text-xs bg-slate-950 border border-slate-800 rounded-xl text-white outline-none focus:border-emerald-500" 
+                  className="w-full p-3 text-xs bg-blue-900 border border-blue-700 rounded-xl text-white outline-none focus:border-amber-400" 
                 />
               </div>
             </div>
             <div className="grid grid-cols-2 gap-3">
               <div>
-                <label className="block text-[11px] font-semibold text-slate-300 mb-1">Correo Electrónico</label>
+                <label className="block text-[11px] font-semibold text-blue-200 mb-1">Correo Electrónico</label>
                 <input 
                   type="email" 
                   name="email" 
                   placeholder="correo@uniminuto.edu.co" 
                   value={formData.email} 
                   onChange={handleInputChange} 
-                  className="w-full p-3 text-xs bg-slate-950 border border-slate-800 rounded-xl text-white outline-none focus:border-emerald-500" 
+                  className="w-full p-3 text-xs bg-blue-900 border border-blue-700 rounded-xl text-white outline-none focus:border-amber-400" 
                 />
               </div>
               <div>
-                <label className="block text-[11px] font-semibold text-slate-300 mb-1">Teléfono</label>
+                <label className="block text-[11px] font-semibold text-blue-200 mb-1">Teléfono</label>
                 <input 
                   type="text" 
                   name="phone" 
                   placeholder="300 123 4567" 
                   value={formData.phone} 
                   onChange={handleInputChange} 
-                  className="w-full p-3 text-xs bg-slate-950 border border-slate-800 rounded-xl text-white outline-none focus:border-emerald-500" 
+                  className="w-full p-3 text-xs bg-blue-900 border border-blue-700 rounded-xl text-white outline-none focus:border-amber-400" 
                 />
               </div>
             </div>
             <div>
-              <label className="block text-[11px] font-semibold text-slate-300 mb-1">Ciudad</label>
+              <label className="block text-[11px] font-semibold text-blue-200 mb-1">Ciudad</label>
               <input 
                 type="text" 
                 name="city" 
                 value={formData.city} 
                 onChange={handleInputChange} 
-                className="w-full p-3 text-xs bg-slate-950 border border-slate-800 rounded-xl text-white outline-none focus:border-emerald-500" 
+                className="w-full p-3 text-xs bg-blue-900 border border-blue-700 rounded-xl text-white outline-none focus:border-amber-400" 
               />
             </div>
           </div>
 
           {/* Tarjeta 2: Perfil y Habilidades */}
-          <div className="bg-slate-900/90 border border-slate-800 rounded-xl p-5 space-y-4 shadow-sm">
-            <h2 className="text-xs font-extrabold uppercase tracking-widest text-emerald-400 flex items-center gap-2 border-b border-slate-800 pb-2">
+          <div className="bg-blue-950/80 border border-blue-800 rounded-xl p-5 space-y-4 shadow-sm">
+            <h2 className="text-xs font-extrabold uppercase tracking-widest text-amber-400 flex items-center gap-2 border-b border-blue-900 pb-2">
               <Award size={15}/> 2. Perfil y Competencias
             </h2>
             <div>
-              <label className="block text-[11px] font-semibold text-slate-300 mb-1">Perfil Ocupacional</label>
+              <label className="block text-[11px] font-semibold text-blue-200 mb-1">Perfil Ocupacional</label>
               <textarea 
                 name="profile" 
                 rows={3} 
                 placeholder="Estudiante apasionado..." 
                 value={formData.profile} 
                 onChange={handleInputChange} 
-                className="w-full p-3 text-xs bg-slate-950 border border-slate-800 rounded-xl text-white outline-none focus:border-emerald-500 resize-none"
+                className="w-full p-3 text-xs bg-blue-900 border border-blue-700 rounded-xl text-white outline-none focus:border-amber-400 resize-none"
               ></textarea>
             </div>
             <div>
-              <label className="block text-[11px] font-semibold text-slate-300 mb-1">Habilidades (separadas por comas)</label>
+              <label className="block text-[11px] font-semibold text-blue-200 mb-1">Habilidades (separadas por comas)</label>
               <input 
                 type="text" 
                 name="skills" 
                 placeholder="Python, Liderazgo, Excel, Gestión" 
                 value={formData.skills} 
                 onChange={handleInputChange} 
-                className="w-full p-3 text-xs bg-slate-950 border border-slate-800 rounded-xl text-white outline-none focus:border-emerald-500" 
+                className="w-full p-3 text-xs bg-blue-900 border border-blue-700 rounded-xl text-white outline-none focus:border-amber-400" 
               />
             </div>
           </div>
 
           {/* Tarjeta 3: Experiencia */}
-          <div className="bg-slate-900/90 border border-slate-800 rounded-xl p-5 space-y-4 shadow-sm">
-            <div className="flex justify-between items-center border-b border-slate-800 pb-2">
-              <h2 className="text-xs font-extrabold uppercase tracking-widest text-emerald-400 flex items-center gap-2">
+          <div className="bg-blue-950/80 border border-blue-800 rounded-xl p-5 space-y-4 shadow-sm">
+            <div className="flex justify-between items-center border-b border-blue-900 pb-2">
+              <h2 className="text-xs font-extrabold uppercase tracking-widest text-amber-400 flex items-center gap-2">
                 <Briefcase size={15}/> 3. Experiencia Laboral / Práctica
               </h2>
               <button 
                 onClick={addExperience} 
-                className="text-[11px] bg-emerald-600 hover:bg-emerald-500 text-white px-3 py-1.5 rounded-lg font-bold flex items-center gap-1 shadow transition"
+                className="text-[11px] bg-amber-400 hover:bg-amber-300 text-blue-950 px-3 py-1.5 rounded-lg font-bold flex items-center gap-1 shadow transition"
               >
                 <Plus size={13}/> Añadir
               </button>
             </div>
             {formData.experiences.map((exp, idx) => (
-              <div key={idx} className="p-3.5 border border-slate-800 rounded-xl bg-slate-950/50 space-y-2.5 relative">
-                <button onClick={() => removeExperience(idx)} className="absolute top-3 right-3 text-rose-400 hover:text-rose-300"><Trash2 size={15}/></button>
-                <input type="text" placeholder="Empresa" value={exp.company} onChange={(e) => updateExperience(idx, "company", e.target.value)} className="w-full p-2.5 text-xs bg-slate-900 border border-slate-800 rounded-lg text-white" />
-                <input type="text" placeholder="Cargo" value={exp.position} onChange={(e) => updateExperience(idx, "position", e.target.value)} className="w-full p-2.5 text-xs bg-slate-900 border border-slate-800 rounded-lg text-white" />
+              <div key={idx} className="p-3.5 border border-blue-800 rounded-xl bg-blue-900/50 space-y-2.5 relative">
+                <button onClick={() => removeExperience(idx)} className="absolute top-3 right-3 text-rose-300 hover:text-rose-100"><Trash2 size={15}/></button>
+                <input type="text" placeholder="Empresa" value={exp.company} onChange={(e) => updateExperience(idx, "company", e.target.value)} className="w-full p-2.5 text-xs bg-blue-950 border border-blue-800 rounded-lg text-white" />
+                <input type="text" placeholder="Cargo" value={exp.position} onChange={(e) => updateExperience(idx, "position", e.target.value)} className="w-full p-2.5 text-xs bg-blue-950 border border-blue-800 rounded-lg text-white" />
                 <div className="grid grid-cols-2 gap-2">
-                  <input type="text" placeholder="Inicio (2024)" value={exp.startDate} onChange={(e) => updateExperience(idx, "startDate", e.target.value)} className="p-2.5 text-xs bg-slate-900 border border-slate-800 rounded-lg text-white" />
-                  <input type="text" placeholder="Fin (Actual)" value={exp.endDate} onChange={(e) => updateExperience(idx, "endDate", e.target.value)} className="p-2.5 text-xs bg-slate-900 border border-slate-800 rounded-lg text-white" />
+                  <input type="text" placeholder="Inicio (2024)" value={exp.startDate} onChange={(e) => updateExperience(idx, "startDate", e.target.value)} className="p-2.5 text-xs bg-blue-950 border border-blue-800 rounded-lg text-white" />
+                  <input type="text" placeholder="Fin (Actual)" value={exp.endDate} onChange={(e) => updateExperience(idx, "endDate", e.target.value)} className="p-2.5 text-xs bg-blue-950 border border-blue-800 rounded-lg text-white" />
                 </div>
-                <textarea placeholder="Descripción o funciones..." rows={2} value={exp.description} onChange={(e) => updateExperience(idx, "description", e.target.value)} className="w-full p-2.5 text-xs bg-slate-900 border border-slate-800 rounded-lg text-white resize-none"></textarea>
+                <textarea placeholder="Descripción o funciones..." rows={2} value={exp.description} onChange={(e) => updateExperience(idx, "description", e.target.value)} className="w-full p-2.5 text-xs bg-blue-950 border border-blue-800 rounded-lg text-white resize-none"></textarea>
               </div>
             ))}
           </div>
 
           {/* Tarjeta 4: Educación */}
-          <div className="bg-slate-900/90 border border-slate-800 rounded-xl p-5 space-y-4 shadow-sm">
-            <div className="flex justify-between items-center border-b border-slate-800 pb-2">
-              <h2 className="text-xs font-extrabold uppercase tracking-widest text-emerald-400 flex items-center gap-2">
+          <div className="bg-blue-950/80 border border-blue-800 rounded-xl p-5 space-y-4 shadow-sm">
+            <div className="flex justify-between items-center border-b border-blue-900 pb-2">
+              <h2 className="text-xs font-extrabold uppercase tracking-widest text-amber-400 flex items-center gap-2">
                 <GraduationCap size={15}/> 4. Formación Académica
               </h2>
               <button 
                 onClick={addEducation} 
-                className="text-[11px] bg-emerald-600 hover:bg-emerald-500 text-white px-3 py-1.5 rounded-lg font-bold flex items-center gap-1 shadow transition"
+                className="text-[11px] bg-amber-400 hover:bg-amber-300 text-blue-950 px-3 py-1.5 rounded-lg font-bold flex items-center gap-1 shadow transition"
               >
                 <Plus size={13}/> Añadir
               </button>
             </div>
             {formData.education.map((edu, idx) => (
-              <div key={idx} className="p-3.5 border border-slate-800 rounded-xl bg-slate-950/50 space-y-2.5 relative">
-                <button onClick={() => removeEducation(idx)} className="absolute top-3 right-3 text-rose-400 hover:text-rose-300"><Trash2 size={15}/></button>
-                <input type="text" placeholder="Institución Educativa" value={edu.institution} onChange={(e) => updateEducation(idx, "institution", e.target.value)} className="w-full p-2.5 text-xs bg-slate-900 border border-slate-800 rounded-lg text-white" />
-                <input type="text" placeholder="Título obtenido" value={edu.degree} onChange={(e) => updateEducation(idx, "degree", e.target.value)} className="w-full p-2.5 text-xs bg-slate-900 border border-slate-800 rounded-lg text-white" />
-                <input type="text" placeholder="Año de grado" value={edu.year} onChange={(e) => updateEducation(idx, "year", e.target.value)} className="w-full p-2.5 text-xs bg-slate-900 border border-slate-800 rounded-lg text-white" />
+              <div key={idx} className="p-3.5 border border-blue-800 rounded-xl bg-blue-900/50 space-y-2.5 relative">
+                <button onClick={() => removeEducation(idx)} className="absolute top-3 right-3 text-rose-300 hover:text-rose-100"><Trash2 size={15}/></button>
+                <input type="text" placeholder="Institución Educativa" value={edu.institution} onChange={(e) => updateEducation(idx, "institution", e.target.value)} className="w-full p-2.5 text-xs bg-blue-950 border border-blue-800 rounded-lg text-white" />
+                <input type="text" placeholder="Título obtenido" value={edu.degree} onChange={(e) => updateEducation(idx, "degree", e.target.value)} className="w-full p-2.5 text-xs bg-blue-950 border border-blue-800 rounded-lg text-white" />
+                <input type="text" placeholder="Año de grado" value={edu.year} onChange={(e) => updateEducation(idx, "year", e.target.value)} className="w-full p-2.5 text-xs bg-blue-950 border border-blue-800 rounded-lg text-white" />
               </div>
             ))}
           </div>
@@ -236,23 +236,23 @@ export default function Home() {
         </div>
 
         {/* PANEL DERECHO: Vista Previa */}
-        <div className="lg:col-span-7 bg-slate-950 p-6 rounded-2xl flex justify-center items-start shadow-2xl border border-slate-800 overflow-auto max-h-[88vh]">
+        <div className="lg:col-span-7 bg-blue-950/90 p-6 rounded-2xl flex justify-center items-start shadow-2xl border border-blue-900 overflow-auto max-h-[88vh]">
           <div className="bg-white text-slate-800 w-full max-w-[800px] min-h-[1050px] p-12 shadow-[0_0_50px_rgba(0,0,0,0.5)] rounded-xl flex flex-col justify-between print:shadow-none print:border-none print:m-0 print:p-0">
             <div>
               {/* Encabezado con Logos Institucionales */}
-              <div className="border-b-2 border-emerald-800 pb-5 mb-6 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+              <div className="border-b-2 border-blue-900 pb-5 mb-6 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 bg-white">
                 <div>
                   <h1 className="text-3xl font-black text-slate-900 uppercase tracking-tight">
                     {formData.fullName || "Nombre del Estudiante"}
                   </h1>
-                  <p className="text-emerald-700 font-bold text-xs uppercase tracking-widest mt-1">
+                  <p className="text-blue-900 font-bold text-xs uppercase tracking-widest mt-1">
                     Candidato a Práctica Profesional
                   </p>
                 </div>
                 
-                {/* Logos Reales en la Hoja de Vida */}
-                <div className="flex items-center gap-3 bg-slate-50 p-3.5 rounded-xl border border-slate-200 shadow-sm">
-                  <img src="/Rector%C3%ADa%20Bogot%C3%A1%20Letras%20Colores%20(Sin%20Fondo).png" alt="Rectoría Bogotá" className="h-8 object-contain" />
+                {/* Logos Reales con fondo blanco puro y contraste perfecto */}
+                <div className="flex items-center gap-3 bg-white p-3.5 rounded-xl border border-blue-200 shadow-sm">
+                  <img src="/Rectoría%20Bogotá%20Letras%20Colores%20(Sin%20Fondo).png" alt="Rectoría Bogotá" className="h-8 object-contain" />
                   <div className="h-6 w-px bg-slate-300"></div>
                   <img src="/Centro%20Progresa%20Letras%20Negras%20Iconos%20Blancos%20(sin%20fondo).png" alt="Centro Progresa" className="h-8 object-contain" />
                 </div>
@@ -261,15 +261,15 @@ export default function Home() {
               {/* Contacto */}
               <div className="flex flex-wrap gap-4 text-xs text-slate-600 mb-6 pb-4 border-b border-slate-100 font-medium">
                 {formData.documentNumber && <span><b>{formData.documentType}:</b> {formData.documentNumber}</span>}
-                {formData.email && <span className="flex items-center gap-1"><Mail size={12} className="text-emerald-700"/> {formData.email}</span>}
-                {formData.phone && <span className="flex items-center gap-1"><Phone size={12} className="text-emerald-700"/> {formData.phone}</span>}
-                {formData.city && <span className="flex items-center gap-1"><MapPin size={12} className="text-emerald-700"/> {formData.city}</span>}
+                {formData.email && <span className="flex items-center gap-1"><Mail size={12} className="text-blue-900"/> {formData.email}</span>}
+                {formData.phone && <span className="flex items-center gap-1"><Phone size={12} className="text-blue-900"/> {formData.phone}</span>}
+                {formData.city && <span className="flex items-center gap-1"><MapPin size={12} className="text-blue-900"/> {formData.city}</span>}
               </div>
 
               {/* Perfil */}
               {formData.profile && (
                 <div className="mb-6">
-                  <h3 className="text-xs font-bold uppercase text-emerald-800 tracking-wider border-l-4 border-emerald-600 pl-2 mb-2">Perfil Ocupacional</h3>
+                  <h3 className="text-xs font-bold uppercase text-blue-900 tracking-wider border-l-4 border-amber-400 pl-2 mb-2">Perfil Ocupacional</h3>
                   <p className="text-xs text-slate-700 text-justify leading-relaxed">{formData.profile}</p>
                 </div>
               )}
@@ -277,9 +277,9 @@ export default function Home() {
               {/* Habilidades */}
               {formData.skills && (
                 <div className="mb-6">
-                  <h3 className="text-xs font-bold uppercase text-emerald-800 tracking-wider border-l-4 border-emerald-600 pl-2 mb-2">Habilidades y Competencias</h3>
+                  <h3 className="text-xs font-bold uppercase text-blue-900 tracking-wider border-l-4 border-amber-400 pl-2 mb-2">Habilidades y Competencias</h3>
                   <div className="flex flex-wrap gap-1.5">
-                    {formData.skills.split(",").map((s, i) => <span key={i} className="text-[11px] bg-slate-100 text-slate-700 px-2.5 py-1 rounded font-medium">{s.trim()}</span>)}
+                    {formData.skills.split(",").map((s, i) => <span key={i} className="text-[11px] bg-blue-50 text-blue-900 px-2.5 py-1 rounded font-medium border border-blue-100">{s.trim()}</span>)}
                   </div>
                 </div>
               )}
@@ -287,12 +287,12 @@ export default function Home() {
               {/* Experiencia */}
               {formData.experiences.length > 0 && (
                 <div className="mb-6">
-                  <h3 className="text-xs font-bold uppercase text-emerald-800 tracking-wider border-l-4 border-emerald-600 pl-2 mb-3">Experiencia Laboral / Práctica</h3>
+                  <h3 className="text-xs font-bold uppercase text-blue-900 tracking-wider border-l-4 border-amber-400 pl-2 mb-3">Experiencia Laboral / Práctica</h3>
                   <div className="space-y-4">
                     {formData.experiences.map((exp, i) => (
                       <div key={i} className="text-xs space-y-1">
                         <div className="flex justify-between font-bold text-slate-900">
-                          <span>{exp.position || "Cargo"} — <span className="text-emerald-700">{exp.company || "Empresa"}</span></span>
+                          <span>{exp.position || "Cargo"} — <span className="text-blue-900">{exp.company || "Empresa"}</span></span>
                           <span className="text-slate-500 font-normal">{exp.startDate} {exp.endDate ? `- ${exp.endDate}` : ""}</span>
                         </div>
                         <p className="text-slate-700 leading-relaxed">{exp.description}</p>
@@ -305,7 +305,7 @@ export default function Home() {
               {/* Educación */}
               {formData.education.length > 0 && (
                 <div className="mb-6">
-                  <h3 className="text-xs font-bold uppercase text-emerald-800 tracking-wider border-l-4 border-emerald-600 pl-2 mb-3">Formación Académica</h3>
+                  <h3 className="text-xs font-bold uppercase text-blue-900 tracking-wider border-l-4 border-amber-400 pl-2 mb-3">Formación Académica</h3>
                   <div className="space-y-3">
                     {formData.education.map((edu, i) => (
                       <div key={i} className="text-xs flex justify-between items-baseline">
@@ -313,7 +313,7 @@ export default function Home() {
                           <span className="font-bold text-slate-900 block">{edu.degree || "Título obtenido"}</span>
                           <span className="text-slate-600">{edu.institution || "Institución"}</span>
                         </div>
-                        <span className="text-emerald-700 font-semibold">{edu.year}</span>
+                        <span className="text-blue-900 font-semibold">{edu.year}</span>
                       </div>
                     ))}
                   </div>
