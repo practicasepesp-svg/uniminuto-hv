@@ -55,9 +55,8 @@ export default function Home() {
             <img src="/Centro%20Progresa%20Letras%20Negras%20Iconos%20Blancos%20(sin%20fondo).png" alt="Centro Progresa" className="h-6 object-contain" />
           </div>
           <div>
-            <h1 className="text-sm font-bold tracking-tight text-white flex items-center gap-2">
+            <h1 className="text-sm font-bold tracking-tight text-white">
               Creador de Hoja de Vida Institucional
-              <span className="text-[10px] bg-amber-400 text-blue-950 font-black px-2 py-0.5 rounded-full">UNIMINUTO</span>
             </h1>
             <p className="text-xs text-blue-200">Centro Progresa E.P.E. • Prácticas Profesionales</p>
           </div>
@@ -205,7 +204,7 @@ export default function Home() {
                   <input type="text" placeholder="Inicio (2024)" value={exp.startDate} onChange={(e) => updateExperience(idx, "startDate", e.target.value)} className="p-2.5 text-xs bg-blue-950 border border-blue-800 rounded-lg text-white" />
                   <input type="text" placeholder="Fin (Actual)" value={exp.endDate} onChange={(e) => updateExperience(idx, "endDate", e.target.value)} className="p-2.5 text-xs bg-blue-950 border border-blue-800 rounded-lg text-white" />
                 </div>
-                <textarea placeholder="Descripción o funciones..." rows={2} value={exp.description} onChange={(e) => updateExperience(idx, "description", e.target.value)} className="w-full p-2.5 text-xs bg-blue-950 border border-blue-800 rounded-lg text-white resize-none"></textarea>
+                <textarea placeholder="Funciones (separa por puntos o saltos de línea)..." rows={3} value={exp.description} onChange={(e) => updateExperience(idx, "description", e.target.value)} className="w-full p-2.5 text-xs bg-blue-950 border border-blue-800 rounded-lg text-white resize-none"></textarea>
               </div>
             ))}
           </div>
@@ -239,10 +238,10 @@ export default function Home() {
         <div className="lg:col-span-7 bg-blue-950/90 p-6 rounded-2xl flex justify-center items-start shadow-2xl border border-blue-900 overflow-auto max-h-[88vh]">
           <div className="bg-white text-slate-800 w-full max-w-[800px] min-h-[1050px] p-12 shadow-[0_0_50px_rgba(0,0,0,0.5)] rounded-xl flex flex-col justify-between print:shadow-none print:border-none print:m-0 print:p-0">
             <div>
-              {/* Encabezado con Logos Institucionales */}
-              <div className="border-b-2 border-blue-900 pb-5 mb-6 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 bg-white">
-                <div>
-                  <h1 className="text-3xl font-black text-slate-900 uppercase tracking-tight">
+              {/* Encabezado con Fondo Blanco Estricto y Logos Inalterables */}
+              <div className="border-b-2 border-blue-900 pb-5 mb-6 flex flex-row justify-between items-center bg-white">
+                <div className="pr-4">
+                  <h1 className="text-2xl lg:text-3xl font-black text-slate-900 uppercase tracking-tight break-words">
                     {formData.fullName || "Nombre del Estudiante"}
                   </h1>
                   <p className="text-blue-900 font-bold text-xs uppercase tracking-widest mt-1">
@@ -250,11 +249,11 @@ export default function Home() {
                   </p>
                 </div>
                 
-                {/* Logos Reales con fondo blanco puro y contraste perfecto */}
-                <div className="flex items-center gap-3 bg-white p-3.5 rounded-xl border border-blue-200 shadow-sm">
-                  <img src="/Rectoría%20Bogotá%20Letras%20Colores%20(Sin%20Fondo).png" alt="Rectoría Bogotá" className="h-8 object-contain" />
+                {/* Contenedor fijo para que los logos nunca se distorsionen */}
+                <div className="flex items-center gap-3 bg-white p-3.5 rounded-xl border border-blue-200 shadow-sm flex-shrink-0">
+                  <img src="/Rectoría%20Bogotá%20Letras%20Colores%20(Sin%20Fondo).png" alt="Rectoría Bogotá" className="h-7 lg:h-8 object-contain" />
                   <div className="h-6 w-px bg-slate-300"></div>
-                  <img src="/Centro%20Progresa%20Letras%20Negras%20Iconos%20Blancos%20(sin%20fondo).png" alt="Centro Progresa" className="h-8 object-contain" />
+                  <img src="/Centro%20Progresa%20Letras%20Negras%20Iconos%20Blancos%20(sin%20fondo).png" alt="Centro Progresa" className="h-7 lg:h-8 object-contain" />
                 </div>
               </div>
 
@@ -290,12 +289,18 @@ export default function Home() {
                   <h3 className="text-xs font-bold uppercase text-blue-900 tracking-wider border-l-4 border-amber-400 pl-2 mb-3">Experiencia Laboral / Práctica</h3>
                   <div className="space-y-4">
                     {formData.experiences.map((exp, i) => (
-                      <div key={i} className="text-xs space-y-1">
+                      <div key={i} className="text-xs space-y-1.5">
                         <div className="flex justify-between font-bold text-slate-900">
                           <span>{exp.position || "Cargo"} — <span className="text-blue-900">{exp.company || "Empresa"}</span></span>
                           <span className="text-slate-500 font-normal">{exp.startDate} {exp.endDate ? `- ${exp.endDate}` : ""}</span>
                         </div>
-                        <p className="text-slate-700 leading-relaxed">{exp.description}</p>
+                        {/* Funciones listadas uno debajo de otro */}
+                        <ul className="list-disc pl-4 space-y-1 text-slate-700 leading-relaxed">
+                          {exp.description.split(/\n|\u2022|\./).map((item, idx) => {
+                            const trimmed = item.trim();
+                            return trimmed ? <li key={idx}>{trimmed}</li> : null;
+                          })}
+                        </ul>
                       </div>
                     ))}
                   </div>
