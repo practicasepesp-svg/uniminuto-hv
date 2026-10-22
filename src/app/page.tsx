@@ -117,7 +117,7 @@ export default function Home() {
   return (
     <div className="min-h-screen bg-slate-900 flex flex-col font-sans text-slate-100 print:bg-white print:m-0 print:p-0">
       
-      {/* Cabecera institucional (Header) unificada */}
+      {/* Cabecera institucional */}
       <div className="print:hidden">
         <header className="bg-slate-900 text-white px-6 py-4 flex flex-col sm:flex-row justify-between items-center gap-4 border-b border-slate-800 shadow-xl">
           <div className="flex items-center gap-4 w-full sm:w-auto">
@@ -364,7 +364,7 @@ export default function Home() {
 
         {/* PANEL DERECHO: Vista Previa */}
         <div className="lg:col-span-7 bg-slate-900/90 p-6 rounded-2xl flex justify-center items-start shadow-2xl border border-slate-800 overflow-auto max-h-[88vh] print:p-0 print:m-0 print:bg-white print:border-none print:shadow-none print:overflow-visible print:w-full">
-          <div className="bg-white text-slate-800 w-full max-w-[800px] min-h-[1050px] p-12 shadow-[0_0_50px_rgba(0,0,0,0.5)] rounded-xl flex flex-col justify-between print:shadow-none print:border-none print:m-0 print:p-0 print:w-full print:max-w-none">
+          <div className="bg-white text-slate-800 w-[210.5mm] min-h-[297mm] p-[2.5cm] shadow-[0_0_50px_rgba(0,0,0,0.5)] rounded-xl flex flex-col justify-between print:shadow-none print:border-none print:m-0 print:p-[2.5cm] print:w-full">
             <div className="w-full">
               {/* Encabezado */}
               <div className="border-b-2 border-slate-900 pb-5 mb-6 flex flex-row justify-between items-center bg-white">
@@ -376,10 +376,10 @@ export default function Home() {
                     Candidato a Práctica Profesional
                   </p>
                 </div>
-                <div className="flex items-center gap-3 bg-white p-3.5 rounded-xl border border-slate-200 shadow-sm flex-shrink-0">
-                  <img src="/Rectoría%20Bogotá%20Letras%20Colores%20(Sin%20Fondo).png" alt="Rectoría Bogotá" className="h-7 lg:h-8 object-contain" />
+                <div className="flex items-center gap-3 bg-white p-3 rounded-xl border border-slate-200 shadow-sm flex-shrink-0">
+                  <img src="/Rectoría%20Bogotá%20Letras%20Colores%20(Sin%20Fondo).png" alt="Rectoría Bogotá" className="h-7 object-contain" />
                   <div className="h-6 w-px bg-slate-300"></div>
-                  <img src="/Centro%20Progresa%20Letras%20Negras%20Iconos%20Blancos%20(sin%20fondo).png" alt="Centro Progresa" className="h-7 lg:h-8 object-contain" />
+                  <img src="/Centro%20Progresa%20Letras%20Negras%20Iconos%20Blancos%20(sin%20fondo).png" alt="Centro Progresa" className="h-7 object-contain" />
                 </div>
               </div>
 
