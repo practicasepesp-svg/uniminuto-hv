@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Printer, Briefcase, GraduationCap, Award, Phone, Mail, MapPin, Trash2, Plus, User, HeartHandshake, BookOpen, Languages, Laptop, Sparkles } from "lucide-react";
+import { Printer, Briefcase, GraduationCap, Award, Phone, Mail, MapPin, Trash2, Plus, User, HeartHandshake, BookOpen, Languages, Laptop } from "lucide-react";
 
 interface Experience { company: string; position: string; city: string; startDate: string; endDate: string; description: string; }
 interface Volunteer { organization: string; role: string; city: string; startDate: string; endDate: string; description: string; }
@@ -17,29 +17,8 @@ export default function Home() {
     experiences: [] as Experience[], volunteers: [] as Volunteer[], education: [] as Education[], courses: [] as Course[]
   });
 
-  const [loadingAi, setLoadingAi] = useState(false);
-
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
-
-  const handleAiEnhance = async (currentText: string, type: 'profile' | 'experience') => {
-    try {
-      setLoadingAi(true);
-      const res = await fetch('/api/generate', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ prompt: currentText, type }),
-      });
-      const data = await res.json();
-      if (data.result) {
-        setFormData(prev => ({ ...prev, profile: data.result }));
-      }
-    } catch (error) {
-      console.error("Error al conectar con la IA", error);
-    } finally {
-      setLoadingAi(false);
-    }
   };
 
   const addEducation = () => {
@@ -117,7 +96,7 @@ export default function Home() {
   return (
     <div className="min-h-screen bg-slate-900 flex flex-col font-sans text-slate-100 print:bg-white print:m-0 print:p-0">
       
-      {/* Cabecera institucional */}
+      {/* Cabecera institucional (Header) unificada */}
       <div className="print:hidden">
         <header className="bg-slate-900 text-white px-6 py-4 flex flex-col sm:flex-row justify-between items-center gap-4 border-b border-slate-800 shadow-xl">
           <div className="flex items-center gap-4 w-full sm:w-auto">
@@ -135,7 +114,7 @@ export default function Home() {
           </div>
           <button 
             onClick={() => window.print()} 
-            className="bg-amber-400 hover:bg-amber-300 text-slate-950 text-xs font-black px-5 py-2.5 rounded-xl flex items-center gap-2 shadow-lg shadow-amber-500/20 transition transform active:scale-95 w-full sm:w-auto justify-center cursor-pointer"
+            className="bg-amber-400 hover:bg-amber-300 text-slate-950 text-xs font-black px-5 py-2.5 rounded-xl flex items-center gap-2 shadow-lg shadow-amber-500/20 transition transform active:scale-95 w-full sm:w-auto justify-center"
           >
             <Printer size={16} /> Descargar / Imprimir PDF
           </button>
@@ -193,17 +172,7 @@ export default function Home() {
               <Award size={15}/> 2. Perfil y Competencias
             </h2>
             <div>
-              <div className="flex justify-between items-center mb-1">
-                <label className="block text-[11px] font-semibold text-slate-300">Perfil Ocupacional</label>
-                <button
-                  type="button"
-                  disabled={loadingAi}
-                  onClick={() => handleAiEnhance(formData.profile, 'profile')}
-                  className="text-[11px] bg-purple-600 hover:bg-purple-500 disabled:opacity-50 text-white font-bold px-2.5 py-1 rounded-lg flex items-center gap-1 shadow transition cursor-pointer"
-                >
-                  <Sparkles size={12} /> {loadingAi ? "Generando..." : "✨ Mejorar con IA (Centro Progresa)"}
-                </button>
-              </div>
+              <label className="block text-[11px] font-semibold text-slate-300 mb-1">Perfil Ocupacional</label>
               <textarea name="profile" rows={4} placeholder="Estudiante apasionado..." value={formData.profile} onChange={handleInputChange} className="w-full p-3 text-xs bg-slate-950 border border-slate-700 rounded-xl text-white outline-none focus:border-amber-400 resize-none"></textarea>
             </div>
             <div>
@@ -218,13 +187,13 @@ export default function Home() {
               <h2 className="text-xs font-extrabold uppercase tracking-widest text-amber-400 flex items-center gap-2">
                 <Laptop size={15}/> 3. Software y Programas
               </h2>
-              <button onClick={addSoftware} className="text-[11px] bg-amber-400 hover:bg-amber-300 text-slate-950 px-3 py-1.5 rounded-lg font-bold flex items-center gap-1 shadow transition cursor-pointer">
+              <button onClick={addSoftware} className="text-[11px] bg-amber-400 hover:bg-amber-300 text-slate-950 px-3 py-1.5 rounded-lg font-bold flex items-center gap-1 shadow transition">
                 <Plus size={13}/> Añadir
               </button>
             </div>
             {formData.software.map((sw, idx) => (
               <div key={idx} className="p-3 border border-slate-800 rounded-xl bg-slate-950/50 flex gap-2 items-center relative">
-                <button onClick={() => removeSoftware(idx)} className="text-rose-300 hover:text-rose-100 cursor-pointer"><Trash2 size={15}/></button>
+                <button onClick={() => removeSoftware(idx)} className="text-rose-300 hover:text-rose-100"><Trash2 size={15}/></button>
                 <input type="text" placeholder="Ej. Python, Excel, SAP" value={sw.name} onChange={(e) => updateSoftware(idx, "name", e.target.value)} className="flex-1 p-2 text-xs bg-slate-900 border border-slate-800 rounded-lg text-white" />
                 <select value={sw.level} onChange={(e) => updateSoftware(idx, "level", e.target.value)} className="p-2 text-xs bg-slate-900 border border-slate-800 rounded-lg text-white">
                   <option value="Básico">Básico</option>
@@ -242,13 +211,13 @@ export default function Home() {
               <h2 className="text-xs font-extrabold uppercase tracking-widest text-amber-400 flex items-center gap-2">
                 <Languages size={15}/> 4. Idiomas
               </h2>
-              <button onClick={addLanguage} className="text-[11px] bg-amber-400 hover:bg-amber-300 text-slate-950 px-3 py-1.5 rounded-lg font-bold flex items-center gap-1 shadow transition cursor-pointer">
+              <button onClick={addLanguage} className="text-[11px] bg-amber-400 hover:bg-amber-300 text-slate-950 px-3 py-1.5 rounded-lg font-bold flex items-center gap-1 shadow transition">
                 <Plus size={13}/> Añadir
               </button>
             </div>
             {formData.languages.map((lang, idx) => (
               <div key={idx} className="p-3 border border-slate-800 rounded-xl bg-slate-950/50 flex gap-2 items-center relative">
-                <button onClick={() => removeLanguage(idx)} className="text-rose-300 hover:text-rose-100 cursor-pointer"><Trash2 size={15}/></button>
+                <button onClick={() => removeLanguage(idx)} className="text-rose-300 hover:text-rose-100"><Trash2 size={15}/></button>
                 <input type="text" placeholder="Ej. Inglés, Francés" value={lang.name} onChange={(e) => updateLanguage(idx, "name", e.target.value)} className="flex-1 p-2 text-xs bg-slate-900 border border-slate-800 rounded-lg text-white" />
                 <select value={lang.level} onChange={(e) => updateLanguage(idx, "level", e.target.value)} className="p-2 text-xs bg-slate-900 border border-slate-800 rounded-lg text-white">
                   <option value="A1 - Acceso">A1 - Acceso</option>
@@ -269,13 +238,13 @@ export default function Home() {
               <h2 className="text-xs font-extrabold uppercase tracking-widest text-amber-400 flex items-center gap-2">
                 <GraduationCap size={15}/> 5. Formación Académica
               </h2>
-              <button onClick={addEducation} className="text-[11px] bg-amber-400 hover:bg-amber-300 text-slate-950 px-3 py-1.5 rounded-lg font-bold flex items-center gap-1 shadow transition cursor-pointer">
+              <button onClick={addEducation} className="text-[11px] bg-amber-400 hover:bg-amber-300 text-slate-950 px-3 py-1.5 rounded-lg font-bold flex items-center gap-1 shadow transition">
                 <Plus size={13}/> Añadir
               </button>
             </div>
             {formData.education.map((edu, idx) => (
               <div key={idx} className="p-3.5 border border-slate-800 rounded-xl bg-slate-950/50 space-y-2.5 relative">
-                <button onClick={() => removeEducation(idx)} className="absolute top-3 right-3 text-rose-300 hover:text-rose-100 cursor-pointer"><Trash2 size={15}/></button>
+                <button onClick={() => removeEducation(idx)} className="absolute top-3 right-3 text-rose-300 hover:text-rose-100"><Trash2 size={15}/></button>
                 <select value={edu.level} onChange={(e) => updateEducation(idx, "level", e.target.value)} className="w-full p-2.5 text-xs bg-slate-900 border border-slate-800 rounded-lg text-white">
                   <option value="Técnico">Técnico</option>
                   <option value="Tecnólogo">Tecnólogo</option>
@@ -296,13 +265,13 @@ export default function Home() {
               <h2 className="text-xs font-extrabold uppercase tracking-widest text-amber-400 flex items-center gap-2">
                 <BookOpen size={15}/> 6. Formación Complementaria
               </h2>
-              <button onClick={addCourse} className="text-[11px] bg-amber-400 hover:bg-amber-300 text-slate-950 px-3 py-1.5 rounded-lg font-bold flex items-center gap-1 shadow transition cursor-pointer">
+              <button onClick={addCourse} className="text-[11px] bg-amber-400 hover:bg-amber-300 text-slate-950 px-3 py-1.5 rounded-lg font-bold flex items-center gap-1 shadow transition">
                 <Plus size={13}/> Añadir
               </button>
             </div>
             {formData.courses.map((course, idx) => (
               <div key={idx} className="p-3.5 border border-slate-800 rounded-xl bg-slate-950/50 space-y-2.5 relative">
-                <button onClick={() => removeCourse(idx)} className="absolute top-3 right-3 text-rose-300 hover:text-rose-100 cursor-pointer"><Trash2 size={15}/></button>
+                <button onClick={() => removeCourse(idx)} className="absolute top-3 right-3 text-rose-300 hover:text-rose-100"><Trash2 size={15}/></button>
                 <input type="text" placeholder="Nombre del curso, taller o conferencia" value={course.name} onChange={(e) => updateCourse(idx, "name", e.target.value)} className="w-full p-2.5 text-xs bg-slate-900 border border-slate-800 rounded-lg text-white" />
                 <input type="text" placeholder="Institución o entidad certificadora" value={course.institution} onChange={(e) => updateCourse(idx, "institution", e.target.value)} className="w-full p-2.5 text-xs bg-slate-900 border border-slate-800 rounded-lg text-white" />
                 <input type="text" placeholder="Año" value={course.year} onChange={(e) => updateCourse(idx, "year", e.target.value)} className="w-full p-2.5 text-xs bg-slate-900 border border-slate-800 rounded-lg text-white" />
@@ -316,13 +285,13 @@ export default function Home() {
               <h2 className="text-xs font-extrabold uppercase tracking-widest text-amber-400 flex items-center gap-2">
                 <Briefcase size={15}/> 7. Experiencia Laboral
               </h2>
-              <button onClick={addExperience} className="text-[11px] bg-amber-400 hover:bg-amber-300 text-slate-950 px-3 py-1.5 rounded-lg font-bold flex items-center gap-1 shadow transition cursor-pointer">
+              <button onClick={addExperience} className="text-[11px] bg-amber-400 hover:bg-amber-300 text-slate-950 px-3 py-1.5 rounded-lg font-bold flex items-center gap-1 shadow transition">
                 <Plus size={13}/> Añadir
               </button>
             </div>
             {formData.experiences.map((exp, idx) => (
               <div key={idx} className="p-3.5 border border-slate-800 rounded-xl bg-slate-950/50 space-y-2.5 relative">
-                <button onClick={() => removeExperience(idx)} className="absolute top-3 right-3 text-rose-300 hover:text-rose-100 cursor-pointer"><Trash2 size={15}/></button>
+                <button onClick={() => removeExperience(idx)} className="absolute top-3 right-3 text-rose-300 hover:text-rose-100"><Trash2 size={15}/></button>
                 <input type="text" placeholder="Empresa" value={exp.company} onChange={(e) => updateExperience(idx, "company", e.target.value)} className="w-full p-2.5 text-xs bg-slate-900 border border-slate-800 rounded-lg text-white" />
                 <input type="text" placeholder="Cargo" value={exp.position} onChange={(e) => updateExperience(idx, "position", e.target.value)} className="w-full p-2.5 text-xs bg-slate-900 border border-slate-800 rounded-lg text-white" />
                 <input type="text" placeholder="Ciudad" value={exp.city} onChange={(e) => updateExperience(idx, "city", e.target.value)} className="w-full p-2.5 text-xs bg-slate-900 border border-slate-800 rounded-lg text-white" />
@@ -341,13 +310,13 @@ export default function Home() {
               <h2 className="text-xs font-extrabold uppercase tracking-widest text-amber-400 flex items-center gap-2">
                 <HeartHandshake size={15}/> 8. Voluntariado
               </h2>
-              <button onClick={addVolunteer} className="text-[11px] bg-amber-400 hover:bg-amber-300 text-slate-950 px-3 py-1.5 rounded-lg font-bold flex items-center gap-1 shadow transition cursor-pointer">
+              <button onClick={addVolunteer} className="text-[11px] bg-amber-400 hover:bg-amber-300 text-slate-950 px-3 py-1.5 rounded-lg font-bold flex items-center gap-1 shadow transition">
                 <Plus size={13}/> Añadir
               </button>
             </div>
             {formData.volunteers.map((vol, idx) => (
               <div key={idx} className="p-3.5 border border-slate-800 rounded-xl bg-slate-950/50 space-y-2.5 relative">
-                <button onClick={() => removeVolunteer(idx)} className="absolute top-3 right-3 text-rose-300 hover:text-rose-100 cursor-pointer"><Trash2 size={15}/></button>
+                <button onClick={() => removeVolunteer(idx)} className="absolute top-3 right-3 text-rose-300 hover:text-rose-100"><Trash2 size={15}/></button>
                 <input type="text" placeholder="Organización" value={vol.organization} onChange={(e) => updateVolunteer(idx, "organization", e.target.value)} className="w-full p-2.5 text-xs bg-slate-900 border border-slate-800 rounded-lg text-white" />
                 <input type="text" placeholder="Rol / Cargo" value={vol.role} onChange={(e) => updateVolunteer(idx, "role", e.target.value)} className="w-full p-2.5 text-xs bg-slate-900 border border-slate-800 rounded-lg text-white" />
                 <input type="text" placeholder="Ciudad" value={vol.city} onChange={(e) => updateVolunteer(idx, "city", e.target.value)} className="w-full p-2.5 text-xs bg-slate-900 border border-slate-800 rounded-lg text-white" />
@@ -362,7 +331,7 @@ export default function Home() {
 
         </div>
 
-        {/* PANEL DERECHO: Vista Previa (Restaurado a ancho fluido original de la plantilla) */}
+        {/* PANEL DERECHO: Vista Previa */}
         <div className="lg:col-span-7 bg-slate-900/90 p-6 rounded-2xl flex justify-center items-start shadow-2xl border border-slate-800 overflow-auto max-h-[88vh] print:p-0 print:m-0 print:bg-white print:border-none print:shadow-none print:overflow-visible print:w-full">
           <div className="bg-white text-slate-800 w-full max-w-[800px] min-h-[1050px] p-12 shadow-[0_0_50px_rgba(0,0,0,0.5)] rounded-xl flex flex-col justify-between print:shadow-none print:border-none print:m-0 print:p-0 print:w-full print:max-w-none">
             <div>
@@ -486,7 +455,7 @@ export default function Home() {
                         </div>
                         <ul className="list-disc pl-4 space-y-1 text-slate-700 leading-relaxed">
                           {exp.description.split(/\n|\u2022|\./).map((item, idx) => {
-                            const trimmed = item.trim();
+                            const trimmed = item.Item?.trim() || item.trim();
                             return trimmed ? <li key={idx}>{trimmed}</li> : null;
                           })}
                         </ul>
