@@ -46,33 +46,37 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-blue-950 flex flex-col font-sans text-slate-100 print:bg-white print:m-0 print:p-0">
-      {/* Barra superior institucional (Se oculta al imprimir) */}
-      <header className="bg-blue-900 text-white px-6 py-4 print:hidden flex justify-between items-center border-b border-blue-800 shadow-xl">
-        <div className="flex items-center gap-4">
-          <div className="flex items-center gap-2 bg-white px-3 py-1.5 rounded-xl border border-blue-200 shadow-sm">
-            <img src="/Rectoría%20Bogotá%20Letras%20Colores%20(Sin%20Fondo).png" alt="Rectoría Bogotá" className="h-6 object-contain" />
-            <div className="h-4 w-px bg-blue-200"></div>
-            <img src="/Centro%20Progresa%20Letras%20Negras%20Iconos%20Blancos%20(sin%20fondo).png" alt="Centro Progresa" className="h-6 object-contain" />
+      
+      {/* Ocultamos por completo la barra de navegación heredada de Open-Resume al imprimir */}
+      <div className="print:hidden">
+        {/* Barra superior institucional */}
+        <header className="bg-blue-900 text-white px-6 py-4 flex justify-between items-center border-b border-blue-800 shadow-xl">
+          <div className="flex items-center gap-4">
+            <div className="flex items-center gap-2 bg-white px-3 py-1.5 rounded-xl border border-blue-200 shadow-sm">
+              <img src="/Rectoría%20Bogotá%20Letras%20Colores%20(Sin%20Fondo).png" alt="Rectoría Bogotá" className="h-6 object-contain" />
+              <div className="h-4 w-px bg-blue-200"></div>
+              <img src="/Centro%20Progresa%20Letras%20Negras%20Iconos%20Blancos%20(sin%20fondo).png" alt="Centro Progresa" className="h-6 object-contain" />
+            </div>
+            <div>
+              <h1 className="text-sm font-bold tracking-tight text-white">
+                Creador de Hoja de Vida Institucional
+              </h1>
+              <p className="text-xs text-blue-200">Centro Progresa E.P.E. • Prácticas Profesionales</p>
+            </div>
           </div>
-          <div>
-            <h1 className="text-sm font-bold tracking-tight text-white">
-              Creador de Hoja de Vida Institucional
-            </h1>
-            <p className="text-xs text-blue-200">Centro Progresa E.P.E. • Prácticas Profesionales</p>
-          </div>
-        </div>
-        <button 
-          onClick={() => window.print()} 
-          className="bg-amber-400 hover:bg-amber-300 text-blue-950 text-xs font-black px-5 py-2.5 rounded-xl flex items-center gap-2 shadow-lg shadow-amber-500/20 transition transform active:scale-95"
-        >
-          <Printer size={16} /> Descargar / Imprimir PDF
-        </button>
-      </header>
+          <button 
+            onClick={() => window.print()} 
+            className="bg-amber-400 hover:bg-amber-300 text-blue-950 text-xs font-black px-5 py-2.5 rounded-xl flex items-center gap-2 shadow-lg shadow-amber-500/20 transition transform active:scale-95"
+          >
+            <Printer size={16} /> Descargar / Imprimir PDF
+          </button>
+        </header>
+      </div>
 
       {/* Contenedor principal */}
       <div className="flex-1 max-w-[1800px] w-full mx-auto p-4 lg:p-6 grid grid-cols-1 lg:grid-cols-12 gap-6 items-start print:block print:p-0 print:m-0">
         
-        {/* PANEL IZQUIERDO: Formulario (Se oculta por completo al imprimir) */}
+        {/* PANEL IZQUIERDO: Formulario (Se oculta al imprimir) */}
         <div className="lg:col-span-5 bg-blue-900/90 backdrop-blur-md rounded-2xl shadow-2xl border border-blue-800/80 overflow-hidden print:hidden flex flex-col max-h-[88vh] overflow-y-auto p-6 space-y-6">
           
           {/* Tarjeta 1: Información Personal */}
