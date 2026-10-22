@@ -9,7 +9,7 @@ export async function POST(req: Request) {
     const { prompt, type } = await req.json();
 
     let systemInstruction = "Eres un experto asesor de empleabilidad del Centro Progresa de UNIMINUTO. Ayudas a estudiantes universitarios a redactar hojas de vida profesionales orientadas a prácticas profesionales.";
-    
+
     if (type === "profile") {
       systemInstruction += " Mejora el siguiente perfil ocupacional para que sea profesional, atractivo para reclutadores y formal.";
     } else if (type === "experience") {
@@ -25,7 +25,7 @@ export async function POST(req: Request) {
       },
     });
 
-    return NextResponse.json({ result: response.text() });
+    return NextResponse.json({ result: response.text });
   } catch (error) {
     console.error("Error al generar con Gemini:", error);
     return NextResponse.json({ error: "No se pudo generar la sugerencia." }, { status: 500 });
