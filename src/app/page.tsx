@@ -365,7 +365,7 @@ export default function Home() {
         {/* PANEL DERECHO: Vista Previa */}
         <div className="lg:col-span-7 bg-slate-900/90 p-6 rounded-2xl flex justify-center items-start shadow-2xl border border-slate-800 overflow-auto max-h-[88vh] print:p-0 print:m-0 print:bg-white print:border-none print:shadow-none print:overflow-visible print:w-full">
           <div className="bg-white text-slate-800 w-full max-w-[800px] min-h-[1050px] p-12 shadow-[0_0_50px_rgba(0,0,0,0.5)] rounded-xl flex flex-col justify-between print:shadow-none print:border-none print:m-0 print:p-0 print:w-full print:max-w-none">
-            <div>
+            <div className="w-full">
               {/* Encabezado */}
               <div className="border-b-2 border-slate-900 pb-5 mb-6 flex flex-row justify-between items-center bg-white">
                 <div className="pr-4">
@@ -393,17 +393,17 @@ export default function Home() {
 
               {/* Perfil */}
               {formData.profile && (
-                <div className="mb-6">
+                <div className="mb-6 w-full">
                   <h3 className="text-xs font-bold uppercase text-slate-900 tracking-wider border-l-4 border-amber-400 pl-2 mb-2">Perfil Ocupacional</h3>
-                  <p className="text-xs text-slate-700 text-justify leading-relaxed whitespace-pre-line">{formData.profile}</p>
+                  <p className="text-xs text-slate-700 text-justify leading-relaxed whitespace-pre-line w-full break-words">{formData.profile}</p>
                 </div>
               )}
 
               {/* Competencias */}
               {formData.competencies && (
-                <div className="mb-6">
+                <div className="mb-6 w-full">
                   <h3 className="text-xs font-bold uppercase text-slate-900 tracking-wider border-l-4 border-amber-400 pl-2 mb-2">Competencias</h3>
-                  <div className="flex flex-wrap gap-1.5">
+                  <div className="flex flex-wrap gap-1.5 w-full">
                     {formData.competencies.split(",").map((s, i) => <span key={i} className="text-[11px] bg-slate-100 text-slate-800 px-2.5 py-1 rounded font-medium border border-slate-200">{s.trim()}</span>)}
                   </div>
                 </div>
@@ -411,9 +411,9 @@ export default function Home() {
 
               {/* Software y Programas con Nivel */}
               {formData.software.length > 0 && (
-                <div className="mb-6">
+                <div className="mb-6 w-full">
                   <h3 className="text-xs font-bold uppercase text-slate-900 tracking-wider border-l-4 border-amber-400 pl-2 mb-2">Software y Programas</h3>
-                  <div className="flex flex-wrap gap-1.5">
+                  <div className="flex flex-wrap gap-1.5 w-full">
                     {formData.software.map((sw, i) => sw.name && (
                       <span key={i} className="text-[11px] bg-slate-100 text-slate-800 px-2.5 py-1 rounded font-medium border border-slate-200">
                         {sw.name} <span className="text-slate-900 font-bold">({sw.level})</span>
@@ -425,9 +425,9 @@ export default function Home() {
 
               {/* Idiomas con Estandar Internacional */}
               {formData.languages.length > 0 && (
-                <div className="mb-6">
+                <div className="mb-6 w-full">
                   <h3 className="text-xs font-bold uppercase text-slate-900 tracking-wider border-l-4 border-amber-400 pl-2 mb-2">Idiomas</h3>
-                  <div className="flex flex-wrap gap-1.5">
+                  <div className="flex flex-wrap gap-1.5 w-full">
                     {formData.languages.map((lang, i) => lang.name && (
                       <span key={i} className="text-[11px] bg-slate-100 text-slate-800 px-2.5 py-1 rounded font-medium border border-slate-200">
                         {lang.name}: <span className="font-bold">{lang.level}</span>
@@ -439,11 +439,11 @@ export default function Home() {
 
               {/* Formación Académica */}
               {formData.education.length > 0 && (
-                <div className="mb-6">
+                <div className="mb-6 w-full">
                   <h3 className="text-xs font-bold uppercase text-slate-900 tracking-wider border-l-4 border-amber-400 pl-2 mb-3">Formación Académica</h3>
-                  <div className="space-y-3">
+                  <div className="space-y-3 w-full">
                     {formData.education.map((edu, i) => (
-                      <div key={i} className="text-xs flex justify-between items-baseline">
+                      <div key={i} className="text-xs flex justify-between items-baseline w-full">
                         <div>
                           <span className="font-bold text-slate-900 block">[{edu.level}] {edu.degree || "Título obtenido"}</span>
                           <span className="text-slate-600">{edu.institution || "Institución"}</span>
@@ -457,11 +457,11 @@ export default function Home() {
 
               {/* Formación Complementaria */}
               {formData.courses.length > 0 && (
-                <div className="mb-6">
+                <div className="mb-6 w-full">
                   <h3 className="text-xs font-bold uppercase text-slate-900 tracking-wider border-l-4 border-amber-400 pl-2 mb-3">Formación Complementaria</h3>
-                  <div className="space-y-3">
+                  <div className="space-y-3 w-full">
                     {formData.courses.map((course, i) => (
-                      <div key={i} className="text-xs flex justify-between items-baseline">
+                      <div key={i} className="text-xs flex justify-between items-baseline w-full">
                         <div>
                           <span className="font-bold text-slate-900 block">{course.name || "Curso / Taller"}</span>
                           <span className="text-slate-600">{course.institution || "Institución"}</span>
@@ -475,16 +475,16 @@ export default function Home() {
 
               {/* Experiencia Laboral */}
               {formData.experiences.length > 0 && (
-                <div className="mb-6">
+                <div className="mb-6 w-full">
                   <h3 className="text-xs font-bold uppercase text-slate-900 tracking-wider border-l-4 border-amber-400 pl-2 mb-3">Experiencia Laboral</h3>
-                  <div className="space-y-4">
+                  <div className="space-y-4 w-full">
                     {formData.experiences.map((exp, i) => (
-                      <div key={i} className="text-xs space-y-1.5">
-                        <div className="flex justify-between font-bold text-slate-900">
+                      <div key={i} className="text-xs space-y-1.5 w-full">
+                        <div className="flex justify-between font-bold text-slate-900 w-full">
                           <span>{exp.position || "Cargo"} — <span className="text-slate-900">{exp.company || "Empresa"}</span> {exp.city ? `(${exp.city})` : ""}</span>
                           <span className="text-slate-500 font-normal">{exp.startDate} {exp.endDate ? `- ${exp.endDate}` : ""}</span>
                         </div>
-                        <ul className="list-disc pl-4 space-y-1 text-slate-700 leading-relaxed">
+                        <ul className="list-disc pl-4 space-y-1 text-slate-700 leading-relaxed w-full break-words">
                           {exp.description.split(/\n|\u2022|\./).map((item, idx) => {
                             const trimmed = item.trim();
                             return trimmed ? <li key={idx}>{trimmed}</li> : null;
@@ -498,16 +498,16 @@ export default function Home() {
 
               {/* Voluntariado */}
               {formData.volunteers.length > 0 && (
-                <div className="mb-6">
+                <div className="mb-6 w-full">
                   <h3 className="text-xs font-bold uppercase text-slate-900 tracking-wider border-l-4 border-amber-400 pl-2 mb-3">Voluntariado</h3>
-                  <div className="space-y-4">
+                  <div className="space-y-4 w-full">
                     {formData.volunteers.map((vol, i) => (
-                      <div key={i} className="text-xs space-y-1.5">
-                        <div className="flex justify-between font-bold text-slate-900">
+                      <div key={i} className="text-xs space-y-1.5 w-full">
+                        <div className="flex justify-between font-bold text-slate-900 w-full">
                           <span>{vol.role || "Rol"} — <span className="text-slate-900">{vol.organization || "Organización"}</span> {vol.city ? `(${vol.city})` : ""}</span>
                           <span className="text-slate-500 font-normal">{vol.startDate} {vol.endDate ? `- ${vol.endDate}` : ""}</span>
                         </div>
-                        <ul className="list-disc pl-4 space-y-1 text-slate-700 leading-relaxed">
+                        <ul className="list-disc pl-4 space-y-1 text-slate-700 leading-relaxed w-full break-words">
                           {vol.description.split(/\n|\u2022|\./).map((item, idx) => {
                             const trimmed = item.trim();
                             return trimmed ? <li key={idx}>{trimmed}</li> : null;
@@ -521,7 +521,7 @@ export default function Home() {
             </div>
 
             {/* Pie de página institucional */}
-            <div className="border-t pt-4 mt-8 text-center text-[10px] text-slate-500 space-y-1">
+            <div className="border-t pt-4 mt-8 text-center text-[10px] text-slate-500 space-y-1 w-full">
               <p>Línea de Atención al Usuario: 601 593 3004 · Línea Nacional: 01 8000 936 670</p>
               <p className="font-bold text-slate-800">www.uniminuto.edu</p>
             </div>
