@@ -121,7 +121,7 @@ export default function Home() {
         </header>
       </div>
 
-      {/* Contenedor principal con fondo gris (bg-slate-900) */}
+      {/* Contenedor principal con fondo gris unificado */}
       <div className="flex-1 max-w-[1800px] w-full mx-auto p-4 lg:p-6 grid grid-cols-1 lg:grid-cols-12 gap-6 items-start print:block print:p-0 print:m-0">
         
         {/* PANEL IZQUIERDO: Formulario */}
