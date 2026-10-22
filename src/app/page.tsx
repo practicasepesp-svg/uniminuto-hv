@@ -96,7 +96,7 @@ export default function Home() {
   return (
     <div className="min-h-screen bg-slate-900 flex flex-col font-sans text-slate-100 print:bg-white print:m-0 print:p-0">
       
-      {/* Cabecera institucional (Header) unificada con el mismo gris exacto de la Navbar superior (bg-slate-900) */}
+      {/* Cabecera institucional (Header) unificada */}
       <div className="print:hidden">
         <header className="bg-slate-900 text-white px-6 py-4 flex flex-col sm:flex-row justify-between items-center gap-4 border-b border-slate-800 shadow-xl">
           <div className="flex items-center gap-4 w-full sm:w-auto">
@@ -121,7 +121,7 @@ export default function Home() {
         </header>
       </div>
 
-      {/* Contenedor principal con fondo gris unificado */}
+      {/* Contenedor principal */}
       <div className="flex-1 max-w-[1800px] w-full mx-auto p-4 lg:p-6 grid grid-cols-1 lg:grid-cols-12 gap-6 items-start print:block print:p-0 print:m-0">
         
         {/* PANEL IZQUIERDO: Formulario */}
@@ -489,9 +489,10 @@ export default function Home() {
               )}
             </div>
 
-            {/* Pie */}
-            <div className="border-t pt-4 mt-8 text-center text-[10px] text-slate-400">
-              Documento oficial generado institucionalmente a través del Centro Progresa E.P.E. • UNIMINUTO
+            {/* Pie de página actualizado con la información institucional */}
+            <div className="border-t pt-4 mt-8 text-center text-[10px] text-slate-500 space-y-1">
+              <p>Línea de Atención al Usuario: 601 593 3004 · Línea Nacional: 01 8000 936 670</p>
+              <p className="font-bold text-slate-800">www.uniminuto.edu</p>
             </div>
           </div>
         </div>
