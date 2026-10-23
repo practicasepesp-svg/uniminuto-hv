@@ -91,7 +91,7 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-blue-950 flex flex-col font-sans text-slate-100 print:bg-white print:min-h-0">
-      {/* Estilos globales para impresión y saltos de página físicos */}
+      {/* Estilos globales para impresión exacta y manejo de paginación fluida */}
       <style jsx global>{`
         @media print {
           @page {
@@ -100,14 +100,19 @@ export default function Home() {
           }
           body {
             background: white !important;
+            -webkit-print-color-adjust: exact;
           }
-          .page-break-sheet {
+          header, .print\\:hidden {
+            display: none !important;
+          }
+          .resume-sheet {
             box-shadow: none !important;
             margin: 0 !important;
             padding: 0 !important;
+            width: 100% !important;
+            max-width: none !important;
             min-height: auto !important;
             border: none !important;
-            page-break-after: always;
           }
         }
       `}</style>
@@ -381,19 +386,19 @@ export default function Home() {
 
         </div>
 
-        {/* PANEL DERECHO: Simulador Estilo Word (Múltiples Páginas Independientes) */}
+        {/* PANEL DERECHO: Simulador Continuo Tipo Word */}
         <div className="lg:col-span-7 bg-blue-950/90 p-6 rounded-2xl flex flex-col items-center shadow-2xl border border-blue-900 overflow-auto max-h-[88vh] print:p-0 print:m-0 print:bg-white print:overflow-visible print:max-h-none print:w-full print:shadow-none print:border-none">
           
           <div className="w-full flex justify-between items-center mb-4 print:hidden px-2 text-xs text-blue-200">
-            <span className="font-semibold tracking-wide uppercase">📄 Simulador de Páginas (Estilo Word)</span>
-            <span className="bg-blue-900 px-3 py-1 rounded-full border border-blue-800">Páginas físicas separadas</span>
+            <span className="font-semibold tracking-wide uppercase">📄 Vista Previa y Flujo Continuo</span>
+            <span className="bg-blue-900 px-3 py-1 rounded-full border border-blue-800">Se adapta a cualquier número de páginas</span>
           </div>
 
-          {/* HOJA 1 */}
-          <div className="page-break-sheet bg-white text-slate-800 w-full max-w-[800px] min-h-[1050px] p-[2.5cm] shadow-[0_0_40px_rgba(0,0,0,0.4)] rounded-xl flex flex-col justify-between mb-8 print:mb-0">
+          {/* HOJA ÚNICA FLUIDA (crece dinámicamente según la cantidad de datos) */}
+          <div className="resume-sheet bg-white text-slate-800 w-full max-w-[800px] p-[2.5cm] shadow-[0_0_40px_rgba(0,0,0,0.4)] rounded-xl flex flex-col justify-between">
             <div>
               {/* Encabezado Institucional */}
-              <div className="border-b-2 border-blue-900 pb-5 mb-6 flex flex-row justify-between items-center bg-white break-inside-avoid page-break-inside-avoid">
+              <div className="border-b-2 border-blue-900 pb-5 mb-6 flex flex-row justify-between items-center bg-white">
                 <div className="pr-4">
                   <h1 className="text-2xl lg:text-3xl font-black text-slate-900 uppercase tracking-tight break-words">
                     {formData.fullName || "Nombre del Estudiante"}
@@ -411,7 +416,7 @@ export default function Home() {
               </div>
 
               {/* Contacto */}
-              <div className="flex flex-wrap gap-4 text-xs text-slate-600 mb-6 pb-4 border-b border-slate-100 font-medium break-inside-avoid page-break-inside-avoid">
+              <div className="flex flex-wrap gap-4 text-xs text-slate-600 mb-6 pb-4 border-b border-slate-100 font-medium">
                 {formData.documentNumber && <span><b>{formData.documentType}:</b> {formData.documentNumber}</span>}
                 {formData.email && <span className="flex items-center gap-1"><Mail size={12} className="text-blue-900"/> {formData.email}</span>}
                 {formData.phone && <span className="flex items-center gap-1"><Phone size={12} className="text-blue-900"/> {formData.phone}</span>}
@@ -420,7 +425,7 @@ export default function Home() {
 
               {/* Perfil */}
               {formData.profile && (
-                <div className="mb-6 break-inside-avoid page-break-inside-avoid">
+                <div className="mb-6">
                   <h3 className="text-xs font-bold uppercase text-blue-900 tracking-wider border-l-4 border-amber-400 pl-2 mb-2">Perfil Ocupacional</h3>
                   <p className="text-xs text-slate-700 text-justify leading-relaxed">{formData.profile}</p>
                 </div>
@@ -428,7 +433,7 @@ export default function Home() {
 
               {/* Competencias */}
               {formData.competencies && (
-                <div className="mb-6 pt-3 border-t border-slate-100 break-inside-avoid page-break-inside-avoid">
+                <div className="mb-6 pt-3 border-t border-slate-100">
                   <h3 className="text-xs font-bold uppercase text-blue-900 tracking-wider border-l-4 border-amber-400 pl-2 mb-2">Competencias</h3>
                   <div className="flex flex-wrap gap-1.5">
                     {formData.competencies.split(",").map((c, i) => <span key={i} className="text-[11px] bg-blue-50 text-blue-900 px-2.5 py-1 rounded font-medium border border-blue-100">{c.trim()}</span>)}
@@ -438,11 +443,11 @@ export default function Home() {
 
               {/* Formación Académica */}
               {formData.education.length > 0 && (
-                <div className="mb-6 pt-3 border-t border-slate-100 break-inside-avoid page-break-inside-avoid">
+                <div className="mb-6 pt-3 border-t border-slate-100">
                   <h3 className="text-xs font-bold uppercase text-blue-900 tracking-wider border-l-4 border-amber-400 pl-2 mb-3">Formación Académica</h3>
                   <div className="space-y-3">
                     {formData.education.map((edu, i) => (
-                      <div key={i} className="text-xs space-y-0.5 break-inside-avoid page-break-inside-avoid">
+                      <div key={i} className="text-xs space-y-0.5">
                         <span className="font-bold text-slate-900 uppercase block">{edu.degree || "Título obtenido"} <span className="font-normal text-blue-900 normal-case">({edu.level})</span></span>
                         <span className="text-slate-700 font-medium block capitalize">{edu.institution || "Institución"}</span>
                         <span className="text-slate-500 block text-[11px]">{edu.year}</span>
@@ -454,7 +459,7 @@ export default function Home() {
 
               {/* Habilidades (Programas e Idiomas) */}
               {(formData.softwareList.length > 0 || formData.languageList.length > 0) && (
-                <div className="mb-6 pt-3 border-t border-slate-100 break-inside-avoid page-break-inside-avoid">
+                <div className="mb-6 pt-3 border-t border-slate-100">
                   <h3 className="text-xs font-bold uppercase text-blue-900 tracking-wider border-l-4 border-amber-400 pl-2 mb-3">Habilidades</h3>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
                     {formData.softwareList.length > 0 && (
@@ -483,11 +488,11 @@ export default function Home() {
 
               {/* Experiencia Laboral */}
               {formData.experiences.length > 0 && (
-                <div className="mb-6 pt-3 border-t border-slate-100 break-inside-avoid page-break-inside-avoid">
+                <div className="mb-6 pt-3 border-t border-slate-100">
                   <h3 className="text-xs font-bold uppercase text-blue-900 tracking-wider border-l-4 border-amber-400 pl-2 mb-3">Experiencia Laboral</h3>
                   <div className="space-y-4">
                     {formData.experiences.map((exp, i) => (
-                      <div key={i} className="text-xs space-y-1.5 break-inside-avoid page-break-inside-avoid">
+                      <div key={i} className="text-xs space-y-1.5 break-inside-avoid">
                         <div>
                           <span className="font-black text-slate-900 uppercase block">{exp.position || "Cargo"}</span>
                           <span className="text-blue-900 font-semibold block capitalize">{exp.company || "Empresa"}</span>
@@ -507,11 +512,11 @@ export default function Home() {
 
               {/* Voluntariado */}
               {formData.volunteers.length > 0 && (
-                <div className="mb-6 pt-3 border-t border-slate-100 break-inside-avoid page-break-inside-avoid">
+                <div className="mb-6 pt-3 border-t border-slate-100">
                   <h3 className="text-xs font-bold uppercase text-blue-900 tracking-wider border-l-4 border-amber-400 pl-2 mb-3">Voluntariado</h3>
                   <div className="space-y-4">
                     {formData.volunteers.map((vol, i) => (
-                      <div key={i} className="text-xs space-y-1.5 break-inside-avoid page-break-inside-avoid">
+                      <div key={i} className="text-xs space-y-1.5 break-inside-avoid">
                         <div>
                           <span className="font-black text-slate-900 uppercase block">{vol.role || "Rol"}</span>
                           <span className="text-blue-900 font-semibold block capitalize">{vol.organization || "Organización"}</span>
@@ -531,30 +536,7 @@ export default function Home() {
             </div>
 
             {/* Pie de página institucional */}
-            <div className="border-t pt-4 mt-8 text-center text-[10px] text-slate-500 space-y-1 break-inside-avoid page-break-inside-avoid">
-              <p>Línea de Atención al Usuario: 601 593 3004 · Línea Nacional: 01 8000 936 670</p>
-              <p className="font-bold text-slate-700">www.uniminuto.edu</p>
-            </div>
-          </div>
-
-          {/* HOJA 2 (Simulador dinámico en pantalla si se requiere extender contenido) */}
-          <div className="page-break-sheet bg-white text-slate-800 w-full max-w-[800px] min-h-[1050px] p-[2.5cm] shadow-[0_0_40px_rgba(0,0,0,0.4)] rounded-xl flex flex-col justify-between print:mb-0">
-            <div>
-              <div className="text-right text-[10px] text-slate-400 mb-4 uppercase tracking-wider font-semibold">
-                Hoja de Vida Institucional • Página 2
-              </div>
-              <div className="border-b border-slate-200 pb-2 mb-4">
-                <p className="text-xs font-bold text-blue-900">
-                  {formData.fullName ? `${formData.fullName} — Continuación` : "Continuación de Hoja de Vida"}
-                </p>
-              </div>
-              <p className="text-xs text-slate-400 italic">
-                (Este espacio adicional se utiliza automáticamente cuando tu formación, experiencia o voluntariados superan el espacio de la primera página).
-              </p>
-            </div>
-
-            {/* Pie de página institucional Hoja 2 */}
-            <div className="border-t pt-4 mt-8 text-center text-[10px] text-slate-500 space-y-1 break-inside-avoid page-break-inside-avoid">
+            <div className="border-t pt-4 mt-8 text-center text-[10px] text-slate-500 space-y-1">
               <p>Línea de Atención al Usuario: 601 593 3004 · Línea Nacional: 01 8000 936 670</p>
               <p className="font-bold text-slate-700">www.uniminuto.edu</p>
             </div>
