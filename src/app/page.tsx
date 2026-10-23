@@ -3,6 +3,9 @@
 import { useState } from "react";
 import { Printer, Briefcase, GraduationCap, Award, Phone, Mail, MapPin, Trash2, Plus, User, Cpu, Languages, HeartHandshake, Link as LinkIcon, BookOpen, Wrench, FolderGit2 } from "lucide-react";
 
+interface LinkItem { label: string; url: string; }
+interface ToolItem { name: string; level: string; }
+interface LanguageItem { language: string; level: string; }
 interface Education { institution: string; degree: string; level: string; year: string; }
 interface ComplementaryEdu { title: string; institution: string; year: string; }
 interface Experience { company: string; position: string; startDate: string; endDate: string; description: string; }
@@ -11,8 +14,12 @@ interface Volunteer { organization: string; role: string; startDate: string; end
 
 export default function Home() {
   const [formData, setFormData] = useState({
-    fullName: "", email: "", phone: "", city: "Bogotá D.C.", professionalLink: "",
-    profile: "", softSkills: "", tools: "", languages: "",
+    fullName: "", email: "", phone: "", city: "Bogotá D.C.",
+    links: [] as LinkItem[],
+    profile: "", 
+    softSkills: "", 
+    toolsList: [] as ToolItem[],
+    languageList: [] as LanguageItem[],
     education: [] as Education[],
     complementaryEdu: [] as ComplementaryEdu[],
     experiences: [] as Experience[],
@@ -22,6 +29,45 @@ export default function Home() {
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  // Enlaces Profesionales (Sección 1)
+  const addLink = () => {
+    setFormData({ ...formData, links: [...formData.links, { label: "LinkedIn", url: "" }] });
+  };
+  const updateLink = (index: number, field: string, value: string) => {
+    const list = [...formData.links];
+    (list[index] as any)[field] = value;
+    setFormData({ ...formData, links: list });
+  };
+  const removeLink = (index: number) => {
+    setFormData({ ...formData, links: formData.links.filter((_, i) => i !== index) });
+  };
+
+  // Herramientas (Sección 2)
+  const addTool = () => {
+    setFormData({ ...formData, toolsList: [...formData.toolsList, { name: "", level: "Intermedio" }] });
+  };
+  const updateTool = (index: number, field: string, value: string) => {
+    const list = [...formData.toolsList];
+    (list[index] as any)[field] = value;
+    setFormData({ ...formData, toolsList: list });
+  };
+  const removeTool = (index: number) => {
+    setFormData({ ...formData, toolsList: formData.toolsList.filter((_, i) => i !== index) });
+  };
+
+  // Idiomas (Sección 2)
+  const addLanguage = () => {
+    setFormData({ ...formData, languageList: [...formData.languageList, { language: "", level: "B2 - Intermedio Alto" }] });
+  };
+  const updateLanguage = (index: number, field: string, value: string) => {
+    const list = [...formData.languageList];
+    (list[index] as any)[field] = value;
+    setFormData({ ...formData, languageList: list });
+  };
+  const removeLanguage = (index: number) => {
+    setFormData({ ...formData, languageList: formData.languageList.filter((_, i) => i !== index) });
   };
 
   // Formación Académica
@@ -151,7 +197,7 @@ export default function Home() {
       {/* Contenedor principal */}
       <div className="flex-1 max-w-[1800px] w-full mx-auto p-4 lg:p-6 grid grid-cols-1 lg:grid-cols-12 gap-6 items-start print:block print:p-0 print:m-0 print:w-full print:max-w-none">
         
-        {/* PANEL IZQUIERDO: Formulario Actualizado */}
+        {/* PANEL IZQUIERDO: Formulario */}
         <div className="lg:col-span-5 bg-blue-900/90 backdrop-blur-md rounded-2xl shadow-2xl border border-blue-800/80 overflow-hidden print:hidden flex flex-col max-h-[88vh] overflow-y-auto p-6 space-y-6">
           
           {/* SECCIÓN 1: INFORMACIÓN PERSONAL */}
@@ -194,28 +240,32 @@ export default function Home() {
                 />
               </div>
             </div>
-            <div className="grid grid-cols-2 gap-3">
-              <div>
-                <label className="block text-[11px] font-semibold text-blue-200 mb-1">Ciudad</label>
-                <input 
-                  type="text" 
-                  name="city" 
-                  value={formData.city} 
-                  onChange={handleInputChange} 
-                  className="w-full p-3 text-xs bg-blue-900 border border-blue-700 rounded-xl text-white outline-none focus:border-amber-400" 
-                />
+            <div>
+              <label className="block text-[11px] font-semibold text-blue-200 mb-1">Ciudad</label>
+              <input 
+                type="text" 
+                name="city" 
+                value={formData.city} 
+                onChange={handleInputChange} 
+                className="w-full p-3 text-xs bg-blue-900 border border-blue-700 rounded-xl text-white outline-none focus:border-amber-400" 
+              />
+            </div>
+
+            {/* Enlaces / Portafolios múltiples */}
+            <div className="space-y-3 pt-2 border-t border-blue-900/60">
+              <div className="flex justify-between items-center">
+                <span className="text-[11px] font-bold text-blue-200 flex items-center gap-1"><LinkIcon size={13}/> Enlaces y Portafolios</span>
+                <button onClick={addLink} className="text-[10px] bg-amber-400 hover:bg-amber-300 text-blue-950 px-2.5 py-1 rounded-md font-bold flex items-center gap-1">
+                  <Plus size={11}/> Añadir Enlace
+                </button>
               </div>
-              <div>
-                <label className="block text-[11px] font-semibold text-blue-200 mb-1">Perfil Profesional / Portafolio</label>
-                <input 
-                  type="text" 
-                  name="professionalLink" 
-                  placeholder="linkedin.com/in/usuario" 
-                  value={formData.professionalLink} 
-                  onChange={handleInputChange} 
-                  className="w-full p-3 text-xs bg-blue-900 border border-blue-700 rounded-xl text-white outline-none focus:border-amber-400" 
-                />
-              </div>
+              {formData.links.map((link, idx) => (
+                <div key={idx} className="flex gap-2 items-center bg-blue-900/40 p-2.5 rounded-lg border border-blue-800">
+                  <input type="text" placeholder="Red (Ej. LinkedIn)" value={link.label} onChange={(e) => updateLink(idx, "label", e.target.value)} className="w-1/3 p-2 text-xs bg-blue-950 border border-blue-800 rounded text-white" />
+                  <input type="text" placeholder="URL (linkedin.com/in/...)" value={link.url} onChange={(e) => updateLink(idx, "url", e.target.value)} className="flex-1 p-2 text-xs bg-blue-950 border border-blue-800 rounded text-white" />
+                  <button onClick={() => removeLink(idx)} className="text-rose-300 hover:text-rose-100 p-1"><Trash2 size={14}/></button>
+                </div>
+              ))}
             </div>
           </div>
 
@@ -236,7 +286,7 @@ export default function Home() {
               ></textarea>
             </div>
             <div>
-              <label className="block text-[11px] font-semibold text-blue-200 mb-1">Habilidades (Blandas)</label>
+              <label className="block text-[11px] font-semibold text-blue-200 mb-1">Habilidades</label>
               <input 
                 type="text" 
                 name="softSkills" 
@@ -246,27 +296,51 @@ export default function Home() {
                 className="w-full p-3 text-xs bg-blue-900 border border-blue-700 rounded-xl text-white outline-none focus:border-amber-400" 
               />
             </div>
-            <div>
-              <label className="block text-[11px] font-semibold text-blue-200 mb-1">Herramientas (Software / Apps)</label>
-              <input 
-                type="text" 
-                name="tools" 
-                placeholder="Ej. Python, Excel Avanzado, Jira, Figma" 
-                value={formData.tools} 
-                onChange={handleInputChange} 
-                className="w-full p-3 text-xs bg-blue-900 border border-blue-700 rounded-xl text-white outline-none focus:border-amber-400" 
-              />
+
+            {/* Herramientas con niveles */}
+            <div className="space-y-3 pt-2 border-t border-blue-900/60">
+              <div className="flex justify-between items-center">
+                <span className="text-[11px] font-bold text-blue-200 flex items-center gap-1"><Wrench size={13}/> Herramientas (Software / Apps)</span>
+                <button onClick={addTool} className="text-[10px] bg-amber-400 hover:bg-amber-300 text-blue-950 px-2.5 py-1 rounded-md font-bold flex items-center gap-1">
+                  <Plus size={11}/> Añadir Herramienta
+                </button>
+              </div>
+              {formData.toolsList.map((tool, idx) => (
+                <div key={idx} className="flex gap-2 items-center bg-blue-900/40 p-2.5 rounded-lg border border-blue-800">
+                  <input type="text" placeholder="Ej. Python, Excel" value={tool.name} onChange={(e) => updateTool(idx, "name", e.target.value)} className="flex-1 p-2 text-xs bg-blue-950 border border-blue-800 rounded text-white" />
+                  <select value={tool.level} onChange={(e) => updateTool(idx, "level", e.target.value)} className="p-2 text-xs bg-blue-950 border border-blue-800 rounded text-white">
+                    <option value="Básico">Básico</option>
+                    <option value="Intermedio">Intermedio</option>
+                    <option value="Avanzado">Avanzado</option>
+                    <option value="Experto">Experto</option>
+                  </select>
+                  <button onClick={() => removeTool(idx)} className="text-rose-300 hover:text-rose-100 p-1"><Trash2 size={14}/></button>
+                </div>
+              ))}
             </div>
-            <div>
-              <label className="block text-[11px] font-semibold text-blue-200 mb-1">Idioma</label>
-              <input 
-                type="text" 
-                name="languages" 
-                placeholder="Ej. Inglés B2 - Intermedio Alto" 
-                value={formData.languages} 
-                onChange={handleInputChange} 
-                className="w-full p-3 text-xs bg-blue-900 border border-blue-700 rounded-xl text-white outline-none focus:border-amber-400" 
-              />
+
+            {/* Idiomas con estándares internacionales (MCER) */}
+            <div className="space-y-3 pt-2 border-t border-blue-900/60">
+              <div className="flex justify-between items-center">
+                <span className="text-[11px] font-bold text-blue-200 flex items-center gap-1"><Languages size={13}/> Idiomas</span>
+                <button onClick={addLanguage} className="text-[10px] bg-amber-400 hover:bg-amber-300 text-blue-950 px-2.5 py-1 rounded-md font-bold flex items-center gap-1">
+                  <Plus size={11}/> Añadir Idioma
+                </button>
+              </div>
+              {formData.languageList.map((lang, idx) => (
+                <div key={idx} className="flex gap-2 items-center bg-blue-900/40 p-2.5 rounded-lg border border-blue-800">
+                  <input type="text" placeholder="Ej. Inglés, Francés" value={lang.language} onChange={(e) => updateLanguage(idx, "language", e.target.value)} className="flex-1 p-2 text-xs bg-blue-950 border border-blue-800 rounded text-white" />
+                  <select value={lang.level} onChange={(e) => updateLanguage(idx, "level", e.target.value)} className="p-2 text-xs bg-blue-950 border border-blue-800 rounded text-white">
+                    <option value="A1 - Principiante">A1 - Principiante</option>
+                    <option value="A2 - Básico">A2 - Básico</option>
+                    <option value="B1 - Intermedio">B1 - Intermedio</option>
+                    <option value="B2 - Intermedio Alto">B2 - Intermedio Alto</option>
+                    <option value="C1 - Avanzado">C1 - Avanzado</option>
+                    <option value="C2 - Maestría / Nativo">C2 - Maestría / Nativo</option>
+                  </select>
+                  <button onClick={() => removeLanguage(idx)} className="text-rose-300 hover:text-rose-100 p-1"><Trash2 size={14}/></button>
+                </div>
+              ))}
             </div>
           </div>
 
@@ -431,16 +505,18 @@ export default function Home() {
                 </div>
               </div>
 
-              {/* Contacto actualizado (Sección 1) */}
+              {/* Contacto actualizado con enlaces múltiples (Sección 1) */}
               <div className="flex flex-wrap gap-4 text-xs text-slate-600 mb-6 pb-4 border-b border-slate-100 font-medium">
                 {formData.email && <span className="flex items-center gap-1"><Mail size={12} className="text-blue-900"/> {formData.email}</span>}
                 {formData.phone && <span className="flex items-center gap-1"><Phone size={12} className="text-blue-900"/> {formData.phone}</span>}
                 {formData.city && <span className="flex items-center gap-1"><MapPin size={12} className="text-blue-900"/> {formData.city}</span>}
-                {formData.professionalLink && <span className="flex items-center gap-1"><LinkIcon size={12} className="text-blue-900"/> {formData.professionalLink}</span>}
+                {formData.links.map((l, i) => (
+                  l.url ? <span key={i} className="flex items-center gap-1"><LinkIcon size={12} className="text-blue-900"/> <b>{l.label || "Enlace"}:</b> {l.url}</span> : null
+                ))}
               </div>
 
-              {/* Perfil Profesional (Sección 2) */}
-              {(formData.profile || formData.softSkills || formData.tools || formData.languages) && (
+              {/* Perfil Profesional (Sección 2 actualizada) */}
+              {(formData.profile || formData.softSkills || formData.toolsList.length > 0 || formData.languageList.length > 0) && (
                 <div className="mb-6">
                   <h3 className="text-xs font-bold uppercase text-blue-900 tracking-wider border-l-4 border-amber-400 pl-2 mb-2">Perfil Profesional</h3>
                   {formData.profile && <p className="text-xs text-slate-700 text-justify leading-relaxed mb-3">{formData.profile}</p>}
@@ -448,20 +524,28 @@ export default function Home() {
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-2 text-xs pt-2">
                     {formData.softSkills && (
                       <div className="bg-slate-50 p-2.5 rounded border border-slate-100">
-                        <span className="font-bold text-slate-900 block mb-0.5">Habilidades Blandas:</span>
+                        <span className="font-bold text-slate-900 block mb-0.5">Habilidades:</span>
                         <span className="text-slate-700">{formData.softSkills}</span>
                       </div>
                     )}
-                    {formData.tools && (
+                    {formData.toolsList.length > 0 && (
                       <div className="bg-slate-50 p-2.5 rounded border border-slate-100">
                         <span className="font-bold text-slate-900 block mb-0.5">Herramientas:</span>
-                        <span className="text-slate-700">{formData.tools}</span>
+                        <ul className="text-slate-700 space-y-0.5">
+                          {formData.toolsList.map((t, i) => (
+                            <li key={i}>• {t.name} <span className="text-blue-900 font-semibold">({t.level})</span></li>
+                          ))}
+                        </ul>
                       </div>
                     )}
-                    {formData.languages && (
+                    {formData.languageList.length > 0 && (
                       <div className="bg-slate-50 p-2.5 rounded border border-slate-100">
-                        <span className="font-bold text-slate-900 block mb-0.5">Idioma:</span>
-                        <span className="text-slate-700">{formData.languages}</span>
+                        <span className="font-bold text-slate-900 block mb-0.5">Idiomas:</span>
+                        <ul className="text-slate-700 space-y-0.5">
+                          {formData.languageList.map((l, i) => (
+                            <li key={i}>• {l.language} <span className="text-blue-900 font-semibold">({l.level})</span></li>
+                          ))}
+                        </ul>
                       </div>
                     )}
                   </div>
