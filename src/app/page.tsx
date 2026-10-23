@@ -91,7 +91,7 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-blue-950 flex flex-col font-sans text-slate-100 print:bg-white print:min-h-0">
-      {/* Estilos globales para impresión exacta y manejo de paginación fluida */}
+      {/* Estilos globales para impresión exacta y pie de página fijo por hoja */}
       <style jsx global>{`
         @media print {
           @page {
@@ -113,6 +113,15 @@ export default function Home() {
             max-width: none !important;
             min-height: auto !important;
             border: none !important;
+          }
+          .print-footer {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            width: 100%;
+            text-align: center;
+            background: white;
           }
         }
       `}</style>
@@ -395,8 +404,8 @@ export default function Home() {
           </div>
 
           {/* HOJA ÚNICA FLUIDA (crece dinámicamente según la cantidad de datos) */}
-          <div className="resume-sheet bg-white text-slate-800 w-full max-w-[800px] p-[2.5cm] shadow-[0_0_40px_rgba(0,0,0,0.4)] rounded-xl flex flex-col justify-between">
-            <div>
+          <div className="resume-sheet bg-white text-slate-800 w-full max-w-[800px] p-[2.5cm] pb-[2cm] shadow-[0_0_40px_rgba(0,0,0,0.4)] rounded-xl flex flex-col justify-between">
+            <div className="pb-12">
               {/* Encabezado Institucional */}
               <div className="border-b-2 border-blue-900 pb-5 mb-6 flex flex-row justify-between items-center bg-white">
                 <div className="pr-4">
@@ -535,8 +544,8 @@ export default function Home() {
               )}
             </div>
 
-            {/* Pie de página institucional */}
-            <div className="border-t pt-4 mt-8 text-center text-[10px] text-slate-500 space-y-1">
+            {/* Pie de página institucional (Fijo en cada hoja impresa, normal en pantalla) */}
+            <div className="print-footer border-t pt-3 mt-8 text-center text-[10px] text-slate-500 space-y-1 bg-white">
               <p>Línea de Atención al Usuario: 601 593 3004 · Línea Nacional: 01 8000 936 670</p>
               <p className="font-bold text-slate-700">www.uniminuto.edu</p>
             </div>
