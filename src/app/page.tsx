@@ -21,7 +21,7 @@ export default function Home() {
     toolsList: [] as ToolItem[],
     languageList: [] as LanguageItem[],
     education: [
-      { institution: "Corporación Universitaria Minuto de Dios - UNIMINUTO", degree: "Administración de Empresas / Ingeniería / etc.", level: "Profesional", year: "En curso", isCurrent: true, semester: "Séptimo Semestre" }
+      { institution: "Corporación Universitaria Minuto de Dios - UNIMINUTO", degree: "", level: "Profesional", year: "", isCurrent: true, semester: "" }
     ] as Education[],
     complementaryEdu: [] as ComplementaryEdu[],
     experiences: [] as Experience[],
@@ -378,9 +378,14 @@ export default function Home() {
                       /> En curso
                     </label>
                   </div>
-                  <input type="text" placeholder="Institución" value={edu.institution} onChange={(e) => updateEducation(idx, "institution", e.target.value)} className="w-full p-2 text-xs bg-blue-950 border border-blue-800 rounded text-white" />
+                  {/* Institución fija para el primer elemento, editable para los demás */}
+                  {idx === 0 ? (
+                    <input type="text" disabled value="Corporación Universitaria Minuto de Dios - UNIMINUTO" className="w-full p-2 text-xs bg-blue-950/60 border border-blue-800/60 rounded text-blue-300 cursor-not-allowed" />
+                  ) : (
+                    <input type="text" placeholder="Institución" value={edu.institution} onChange={(e) => updateEducation(idx, "institution", e.target.value)} className="w-full p-2 text-xs bg-blue-950 border border-blue-800 rounded text-white" />
+                  )}
                   <div className="grid grid-cols-2 gap-2">
-                    <input type="text" placeholder="Título obtenido / Programa" value={edu.degree} onChange={(e) => updateEducation(idx, "degree", e.target.value)} className="p-2 text-xs bg-blue-950 border border-blue-800 rounded text-white" />
+                    <input type="text" placeholder="Título a obtener / Programa" value={edu.degree} onChange={(e) => updateEducation(idx, "degree", e.target.value)} className="p-2 text-xs bg-blue-950 border border-blue-800 rounded text-white" />
                     <select value={edu.level} onChange={(e) => updateEducation(idx, "level", e.target.value)} className="p-2 text-xs bg-blue-950 border border-blue-800 rounded text-white">
                       <option value="Bachiller">Bachiller</option>
                       <option value="Técnico">Técnico</option>
@@ -391,7 +396,7 @@ export default function Home() {
                     </select>
                   </div>
                   <div className="grid grid-cols-2 gap-2">
-                    <input type="text" placeholder={edu.isCurrent ? "Semestre (Ej. 7mo Semestre)" : "Año de grado (Ej. 2024)"} value={edu.year} onChange={(e) => updateEducation(idx, "year", e.target.value)} className="p-2 text-xs bg-blue-950 border border-blue-800 rounded text-white" />
+                    <input type="text" placeholder={edu.isCurrent ? "Ej. Octavo Semestre" : "Año de grado (Ej. 2024)"} value={edu.year} onChange={(e) => updateEducation(idx, "year", e.target.value)} className="p-2 text-xs bg-blue-950 border border-blue-800 rounded text-white" />
                   </div>
                 </div>
               ))}
@@ -584,7 +589,7 @@ export default function Home() {
                 </div>
               )}
 
-              {/* Formación (Sección 3: Académica con UNIMINUTO en curso por defecto y Complementaria) */}
+              {/* Formación (Sección 3: Académica y Complementaria) */}
               {formData.education.length > 0 && (
                 <div className="mb-6 pt-3 border-t border-slate-100">
                   <h3 className="text-xs font-bold uppercase text-blue-900 tracking-wider border-l-4 border-amber-400 pl-2 mb-3">Formación</h3>
@@ -594,7 +599,7 @@ export default function Home() {
                     {formData.education.map((edu, i) => (
                       <div key={i} className="text-xs space-y-0.5">
                         <span className="font-bold text-slate-900 uppercase block">
-                          {edu.degree || "Título obtenido"} <span className="font-normal text-blue-900 normal-case">({edu.level})</span>
+                          {edu.degree || "Título a obtener / Programa"} <span className="font-normal text-blue-900 normal-case">({edu.level})</span>
                         </span>
                         <span className="text-slate-700 font-medium block capitalize">{edu.institution || "Institución"}</span>
                         <span className="text-blue-900 font-semibold block text-[11px]">
