@@ -91,7 +91,7 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-blue-950 flex flex-col font-sans text-slate-100 print:bg-white print:min-h-0">
-      {/* Estilos globales incrustados para forzar el comportamiento de página física y márgenes exactas */}
+      {/* Estilos globales para impresión y saltos de página físicos */}
       <style jsx global>{`
         @media print {
           @page {
@@ -381,12 +381,12 @@ export default function Home() {
 
         </div>
 
-        {/* PANEL DERECHO: Vista Previa Simulador de Páginas Múltiples estilo Word */}
+        {/* PANEL DERECHO: Simulador Estilo Word (Múltiples Páginas Independientes) */}
         <div className="lg:col-span-7 bg-blue-950/90 p-6 rounded-2xl flex flex-col items-center shadow-2xl border border-blue-900 overflow-auto max-h-[88vh] print:p-0 print:m-0 print:bg-white print:overflow-visible print:max-h-none print:w-full print:shadow-none print:border-none">
           
           <div className="w-full flex justify-between items-center mb-4 print:hidden px-2 text-xs text-blue-200">
-            <span className="font-semibold tracking-wide uppercase">📄 Vista Previa de Páginas (Simulador Word)</span>
-            <span className="bg-blue-900 px-3 py-1 rounded-full border border-blue-800">Se adapta automáticamente por página física</span>
+            <span className="font-semibold tracking-wide uppercase">📄 Simulador de Páginas (Estilo Word)</span>
+            <span className="bg-blue-900 px-3 py-1 rounded-full border border-blue-800">Páginas físicas separadas</span>
           </div>
 
           {/* HOJA 1 */}
@@ -531,6 +531,29 @@ export default function Home() {
             </div>
 
             {/* Pie de página institucional */}
+            <div className="border-t pt-4 mt-8 text-center text-[10px] text-slate-500 space-y-1 break-inside-avoid page-break-inside-avoid">
+              <p>Línea de Atención al Usuario: 601 593 3004 · Línea Nacional: 01 8000 936 670</p>
+              <p className="font-bold text-slate-700">www.uniminuto.edu</p>
+            </div>
+          </div>
+
+          {/* HOJA 2 (Simulador dinámico en pantalla si se requiere extender contenido) */}
+          <div className="page-break-sheet bg-white text-slate-800 w-full max-w-[800px] min-h-[1050px] p-[2.5cm] shadow-[0_0_40px_rgba(0,0,0,0.4)] rounded-xl flex flex-col justify-between print:mb-0">
+            <div>
+              <div className="text-right text-[10px] text-slate-400 mb-4 uppercase tracking-wider font-semibold">
+                Hoja de Vida Institucional • Página 2
+              </div>
+              <div className="border-b border-slate-200 pb-2 mb-4">
+                <p className="text-xs font-bold text-blue-900">
+                  {formData.fullName ? `${formData.fullName} — Continuación` : "Continuación de Hoja de Vida"}
+                </p>
+              </div>
+              <p className="text-xs text-slate-400 italic">
+                (Este espacio adicional se utiliza automáticamente cuando tu formación, experiencia o voluntariados superan el espacio de la primera página).
+              </p>
+            </div>
+
+            {/* Pie de página institucional Hoja 2 */}
             <div className="border-t pt-4 mt-8 text-center text-[10px] text-slate-500 space-y-1 break-inside-avoid page-break-inside-avoid">
               <p>Línea de Atención al Usuario: 601 593 3004 · Línea Nacional: 01 8000 936 670</p>
               <p className="font-bold text-slate-700">www.uniminuto.edu</p>
