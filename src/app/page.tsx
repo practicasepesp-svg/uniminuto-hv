@@ -149,7 +149,7 @@ export default function Home() {
         @media print {
           @page {
             size: letter;
-            margin: 1.5cm 1.5cm 1.8cm 1.5cm;
+            margin: 1.5cm 1.5cm 2.5cm 1.5cm;
           }
           body {
             background: white !important;
@@ -163,7 +163,7 @@ export default function Home() {
             box-shadow: none !important;
             margin: 0 !important;
             padding: 0 !important;
-            padding-bottom: 2.8cm !important;
+            padding-bottom: 3.8cm !important;
             width: 100% !important;
             max-width: none !important;
             min-height: auto !important;
@@ -172,7 +172,7 @@ export default function Home() {
           }
           .print-footer {
             position: fixed;
-            bottom: 0.1cm;
+            bottom: 0cm;
             left: 0;
             right: 0;
             width: 100%;
@@ -514,7 +514,7 @@ export default function Home() {
           </div>
 
           {/* HOJA ÚNICA FLUIDA */}
-          <div className="resume-sheet bg-white text-slate-800 w-full max-w-[800px] p-[2cm] pb-[2.8cm] shadow-[0_0_40px_rgba(0,0,0,0.4)] rounded-xl flex flex-col justify-between" style={{ fontSize: '12px' }}>
+          <div className="resume-sheet bg-white text-slate-800 w-full max-w-[800px] p-[2cm] pb-[3.8cm] shadow-[0_0_40px_rgba(0,0,0,0.4)] rounded-xl flex flex-col justify-between" style={{ fontSize: '12px' }}>
             <div className="pb-8">
               
               {/* Encabezado Institucional (Sin recuadro en los logos) */}
@@ -548,7 +548,7 @@ export default function Home() {
               {/* Perfil Profesional (Sección 2) */}
               {(formData.profile || formData.softSkills || formData.toolsList.length > 0 || formData.languageList.length > 0) && (
                 <div className="mb-6 break-inside-avoid">
-                  <div className="w-full py-1.5 px-3 mb-3 flex items-center" style={{ background: 'linear-gradient(to right, #fbbf24 38%, rgba(251, 191, 36, 0.3) 45%, transparent 52%)' }}>
+                  <div className="w-full py-1.5 px-3 mb-3 flex items-center" style={{ background: 'linear-gradient(to right, #fbbf24 40%, rgba(251, 191, 36, 0.8) 70%, transparent 100%)' }}>
                     <h3 className="text-[13px] font-extrabold uppercase text-blue-950 tracking-wider">Perfil Profesional</h3>
                   </div>
                   {formData.profile && <p className="text-[12px] text-slate-700 text-justify leading-relaxed mb-3">{formData.profile}</p>}
@@ -602,7 +602,7 @@ export default function Home() {
               {/* Formación (Sección 3: Académica y Complementaria) */}
               {formData.education.length > 0 && (
                 <div className="mb-6 pt-3 border-t border-slate-100">
-                  <div className="w-full py-1.5 px-3 mb-3 flex items-center" style={{ background: 'linear-gradient(to right, #fbbf24 38%, rgba(251, 191, 36, 0.3) 45%, transparent 52%)' }}>
+                  <div className="w-full py-1.5 px-3 mb-3 flex items-center" style={{ background: 'linear-gradient(to right, #fbbf24 40%, rgba(251, 191, 36, 0.8) 70%, transparent 100%)' }}>
                     <h3 className="text-[13px] font-extrabold uppercase text-blue-950 tracking-wider">Formación</h3>
                   </div>
                   
@@ -639,7 +639,7 @@ export default function Home() {
               {/* Experiencia Profesional (Sección 4: Laboral y Proyectos Académicos) */}
               {(formData.experiences.length > 0 || formData.projects.length > 0) && (
                 <div className="mb-6 pt-3 border-t border-slate-100">
-                  <div className="w-full py-1.5 px-3 mb-3 flex items-center" style={{ background: 'linear-gradient(to right, #fbbf24 38%, rgba(251, 191, 36, 0.3) 45%, transparent 52%)' }}>
+                  <div className="w-full py-1.5 px-3 mb-3 flex items-center" style={{ background: 'linear-gradient(to right, #fbbf24 40%, rgba(251, 191, 36, 0.8) 70%, transparent 100%)' }}>
                     <h3 className="text-[13px] font-extrabold uppercase text-blue-950 tracking-wider">Experiencia Profesional</h3>
                   </div>
                   
@@ -656,7 +656,7 @@ export default function Home() {
                           <ol className="list-decimal space-y-1 text-slate-700 leading-relaxed" style={{ paddingLeft: '1cm' }}>
                             {exp.description.split(/\n/).map((item, idx) => {
                               const trimmed = item.trim();
-                              return trimmed ? <li key={idx}>{trimmed}</li> : null;
+                              return trimmed ? <li key={idx} className="break-inside-avoid">{trimmed}</li> : null;
                             })}
                           </ol>
                         </div>
@@ -684,7 +684,7 @@ export default function Home() {
               {/* Voluntariado (Sección 5) */}
               {formData.volunteers.length > 0 && (
                 <div className="mb-6 pt-3 border-t border-slate-100">
-                  <div className="w-full py-1.5 px-3 mb-3 flex items-center" style={{ background: 'linear-gradient(to right, #fbbf24 38%, rgba(251, 191, 36, 0.3) 45%, transparent 52%)' }}>
+                  <div className="w-full py-1.5 px-3 mb-3 flex items-center" style={{ background: 'linear-gradient(to right, #fbbf24 40%, rgba(251, 191, 36, 0.8) 70%, transparent 100%)' }}>
                     <h3 className="text-[13px] font-extrabold uppercase text-blue-950 tracking-wider">Voluntariado</h3>
                   </div>
                   <div className="space-y-4">
@@ -698,7 +698,7 @@ export default function Home() {
                         <ol className="list-decimal space-y-1 text-slate-700 leading-relaxed" style={{ paddingLeft: '1cm' }}>
                           {vol.description.split(/\n/).map((item, idx) => {
                             const trimmed = item.trim();
-                            return trimmed ? <li key={idx}>{trimmed}</li> : null;
+                            return trimmed ? <li key={idx} className="break-inside-avoid">{trimmed}</li> : null;
                           })}
                         </ol>
                       </div>
