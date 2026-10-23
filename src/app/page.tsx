@@ -149,7 +149,7 @@ export default function Home() {
         @media print {
           @page {
             size: letter;
-            margin: 2.5cm;
+            margin: 2cm 2cm 2.5cm 2cm;
           }
           body {
             background: white !important;
@@ -163,6 +163,7 @@ export default function Home() {
             box-shadow: none !important;
             margin: 0 !important;
             padding: 0 !important;
+            padding-bottom: 2.8cm !important;
             width: 100% !important;
             max-width: none !important;
             min-height: auto !important;
@@ -171,7 +172,7 @@ export default function Home() {
           }
           .print-footer {
             position: fixed;
-            bottom: 0;
+            bottom: 0.5cm;
             left: 0;
             right: 0;
             width: 100%;
@@ -513,8 +514,8 @@ export default function Home() {
           </div>
 
           {/* HOJA ÚNICA FLUIDA */}
-          <div className="resume-sheet bg-white text-slate-800 w-full max-w-[800px] p-[2.5cm] pb-[2cm] shadow-[0_0_40px_rgba(0,0,0,0.4)] rounded-xl flex flex-col justify-between" style={{ fontSize: '12px' }}>
-            <div className="pb-12">
+          <div className="resume-sheet bg-white text-slate-800 w-full max-w-[800px] p-[2cm] pb-[3cm] shadow-[0_0_40px_rgba(0,0,0,0.4)] rounded-xl flex flex-col justify-between" style={{ fontSize: '12px' }}>
+            <div className="pb-8">
               
               {/* Encabezado Institucional (Sin recuadro en los logos) */}
               <div className="border-b-2 border-blue-900 pb-5 mb-6 flex flex-row justify-between items-center bg-white">
@@ -547,7 +548,7 @@ export default function Home() {
               {/* Perfil Profesional (Sección 2) */}
               {(formData.profile || formData.softSkills || formData.toolsList.length > 0 || formData.languageList.length > 0) && (
                 <div className="mb-6 break-inside-avoid">
-                  <div className="w-full py-1.5 px-3 mb-3 flex items-center" style={{ background: 'linear-gradient(to right, #fbbf24 35%, rgba(251, 191, 36, 0.5) 75%, transparent 100%)' }}>
+                  <div className="w-full py-1.5 px-3 mb-3 flex items-center" style={{ background: 'linear-gradient(to right, #fbbf24 65%, rgba(251, 191, 36, 0.2) 85%, transparent 100%)' }}>
                     <h3 className="text-[13px] font-extrabold uppercase text-blue-950 tracking-wider">Perfil Profesional</h3>
                   </div>
                   {formData.profile && <p className="text-[12px] text-slate-700 text-justify leading-relaxed mb-3">{formData.profile}</p>}
@@ -601,7 +602,7 @@ export default function Home() {
               {/* Formación (Sección 3: Académica y Complementaria) */}
               {formData.education.length > 0 && (
                 <div className="mb-6 pt-3 border-t border-slate-100">
-                  <div className="w-full py-1.5 px-3 mb-3 flex items-center" style={{ background: 'linear-gradient(to right, #fbbf24 35%, rgba(251, 191, 36, 0.5) 75%, transparent 100%)' }}>
+                  <div className="w-full py-1.5 px-3 mb-3 flex items-center" style={{ background: 'linear-gradient(to right, #fbbf24 65%, rgba(251, 191, 36, 0.2) 85%, transparent 100%)' }}>
                     <h3 className="text-[13px] font-extrabold uppercase text-blue-950 tracking-wider">Formación</h3>
                   </div>
                   
@@ -638,7 +639,7 @@ export default function Home() {
               {/* Experiencia Profesional (Sección 4: Laboral y Proyectos Académicos) */}
               {(formData.experiences.length > 0 || formData.projects.length > 0) && (
                 <div className="mb-6 pt-3 border-t border-slate-100">
-                  <div className="w-full py-1.5 px-3 mb-3 flex items-center" style={{ background: 'linear-gradient(to right, #fbbf24 35%, rgba(251, 191, 36, 0.5) 75%, transparent 100%)' }}>
+                  <div className="w-full py-1.5 px-3 mb-3 flex items-center" style={{ background: 'linear-gradient(to right, #fbbf24 65%, rgba(251, 191, 36, 0.2) 85%, transparent 100%)' }}>
                     <h3 className="text-[13px] font-extrabold uppercase text-blue-950 tracking-wider">Experiencia Profesional</h3>
                   </div>
                   
@@ -652,7 +653,7 @@ export default function Home() {
                             <span className="text-blue-900 font-semibold block capitalize">{exp.company || "Empresa"}</span>
                             <span className="text-slate-500 block text-[11px]">{exp.startDate} {exp.endDate ? `- ${exp.endDate}` : ""}</span>
                           </div>
-                          <ol className="list-decimal pl-4 space-y-1 text-slate-700 leading-relaxed">
+                          <ol className="list-decimal space-y-1 text-slate-700 leading-relaxed" style={{ paddingLeft: '0.5cm' }}>
                             {exp.description.split(/\n/).map((item, idx) => {
                               const trimmed = item.trim();
                               return trimmed ? <li key={idx}>{trimmed}</li> : null;
@@ -672,7 +673,7 @@ export default function Home() {
                             <span className="font-black text-slate-900 uppercase block">{proj.name || "Proyecto"} {proj.url && <span className="font-normal text-blue-600 lowercase">({proj.url})</span>}</span>
                             <span className="text-blue-900 font-semibold block capitalize">{proj.role || "Rol"}</span>
                           </div>
-                          <p className="text-slate-700 leading-relaxed text-justify">{proj.description}</p>
+                          <p className="text-slate-700 leading-relaxed text-justify" style={{ paddingLeft: '0.5cm' }}>{proj.description}</p>
                         </div>
                       ))}
                     </div>
@@ -683,7 +684,7 @@ export default function Home() {
               {/* Voluntariado (Sección 5) */}
               {formData.volunteers.length > 0 && (
                 <div className="mb-6 pt-3 border-t border-slate-100">
-                  <div className="w-full py-1.5 px-3 mb-3 flex items-center" style={{ background: 'linear-gradient(to right, #fbbf24 35%, rgba(251, 191, 36, 0.5) 75%, transparent 100%)' }}>
+                  <div className="w-full py-1.5 px-3 mb-3 flex items-center" style={{ background: 'linear-gradient(to right, #fbbf24 65%, rgba(251, 191, 36, 0.2) 85%, transparent 100%)' }}>
                     <h3 className="text-[13px] font-extrabold uppercase text-blue-950 tracking-wider">Voluntariado</h3>
                   </div>
                   <div className="space-y-4">
@@ -694,7 +695,7 @@ export default function Home() {
                           <span className="text-blue-900 font-semibold block capitalize">{vol.organization || "Organización"}</span>
                           <span className="text-slate-500 block text-[11px]">{vol.startDate} {vol.endDate ? `- ${vol.endDate}` : ""}</span>
                         </div>
-                        <ol className="list-decimal pl-4 space-y-1 text-slate-700 leading-relaxed">
+                        <ol className="list-decimal space-y-1 text-slate-700 leading-relaxed" style={{ paddingLeft: '0.5cm' }}>
                           {vol.description.split(/\n/).map((item, idx) => {
                             const trimmed = item.trim();
                             return trimmed ? <li key={idx}>{trimmed}</li> : null;
