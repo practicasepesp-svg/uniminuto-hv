@@ -422,8 +422,8 @@ export default function Home() {
                   <button onClick={() => removeComplementary(idx)} className="absolute top-2.5 right-2.5 text-rose-300 hover:text-rose-100"><Trash2 size={14}/></button>
                   <input type="text" placeholder="Nombre del Curso o Taller" value={comp.title} onChange={(e) => updateComplementary(idx, "title", e.target.value)} className="w-full p-2 text-[12px] bg-blue-950 border border-blue-800 rounded text-white" />
                   <div className="grid grid-cols-2 gap-2">
-                    <input type="text" placeholder="Institución / Plataforma" value={comp.institution} onChange={(e) => updateComplementary(idx, "institution", e.target.value)} className="p-2 text-[12px] bg-blue-950 border border-blue-800 rounded text-white" />
-                    <input type="text" placeholder="Año (Ej. 2025)" value={comp.year} onChange={(e) => updateComplementary(idx, "year", e.target.value)} className="p-2 text-[12px] bg-blue-950 border border-blue-800 rounded text-white" />
+                    <input type="text" placeholder="Institución / Plataforma" value={comp.institution} onChange={(e) => updateComplementary(idx, "institution", e.target.value)} className="w-full p-2 text-[12px] bg-blue-950 border border-blue-800 rounded text-white" />
+                    <input type="text" placeholder="Año (Ej. 2025)" value={comp.year} onChange={(e) => updateComplementary(idx, "year", e.target.value)} className="w-full p-2 text-[12px] bg-blue-950 border border-blue-800 rounded text-white" />
                   </div>
                 </div>
               ))}
@@ -547,7 +547,7 @@ export default function Home() {
               {/* Perfil Profesional (Sección 2) */}
               {(formData.profile || formData.softSkills || formData.toolsList.length > 0 || formData.languageList.length > 0) && (
                 <div className="mb-6 break-inside-avoid">
-                  <h3 className="text-[14px] font-bold uppercase text-blue-900 tracking-wider border-l-4 border-amber-400 pl-2 mb-2">Perfil Profesional</h3>
+                  <h3 className="text-[14px] font-bold uppercase text-blue-900 tracking-wider border-l-4 border-amber-400 pl-2 mb-2 break-after-avoid">Perfil Profesional</h3>
                   {formData.profile && <p className="text-[12px] text-slate-700 text-justify leading-relaxed mb-3">{formData.profile}</p>}
                   
                   <table className="w-full text-[12px] mt-2 border-separate border-spacing-2">
@@ -599,10 +599,10 @@ export default function Home() {
               {/* Formación (Sección 3: Académica y Complementaria) */}
               {formData.education.length > 0 && (
                 <div className="mb-6 pt-3 border-t border-slate-100">
-                  <h3 className="text-[14px] font-bold uppercase text-blue-900 tracking-wider border-l-4 border-amber-400 pl-2 mb-3">Formación</h3>
+                  <h3 className="text-[14px] font-bold uppercase text-blue-900 tracking-wider border-l-4 border-amber-400 pl-2 mb-3 break-after-avoid">Formación</h3>
                   
                   <div className="space-y-3 mb-4">
-                    <span className="text-[11px] font-extrabold uppercase text-slate-600 block tracking-wide">Académica</span>
+                    <span className="text-[11px] font-extrabold uppercase text-slate-600 block tracking-wide text-center break-after-avoid">Académica</span>
                     {formData.education.map((edu, i) => (
                       <div key={i} className="text-[12px] space-y-0.5 break-inside-avoid">
                         <span className="font-bold text-slate-900 uppercase block">
@@ -618,7 +618,7 @@ export default function Home() {
 
                   {formData.complementaryEdu.length > 0 && (
                     <div className="space-y-3 pt-2">
-                      <span className="text-[11px] font-extrabold uppercase text-slate-600 block tracking-wide">Complementaria</span>
+                      <span className="text-[11px] font-extrabold uppercase text-slate-600 block tracking-wide text-center break-after-avoid">Complementaria</span>
                       {formData.complementaryEdu.map((comp, i) => (
                         <div key={i} className="text-[12px] space-y-0.5 break-inside-avoid">
                           <span className="font-bold text-slate-900 uppercase block">{comp.title || "Curso o Taller"}</span>
@@ -634,11 +634,11 @@ export default function Home() {
               {/* Experiencia Profesional (Sección 4: Laboral y Proyectos Académicos) */}
               {(formData.experiences.length > 0 || formData.projects.length > 0) && (
                 <div className="mb-6 pt-3 border-t border-slate-100">
-                  <h3 className="text-[14px] font-bold uppercase text-blue-900 tracking-wider border-l-4 border-amber-400 pl-2 mb-3">Experiencia Profesional</h3>
+                  <h3 className="text-[14px] font-bold uppercase text-blue-900 tracking-wider border-l-4 border-amber-400 pl-2 mb-3 break-after-avoid">Experiencia Profesional</h3>
                   
                   {formData.experiences.length > 0 && (
                     <div className="space-y-4 mb-4">
-                      <span className="text-[11px] font-extrabold uppercase text-slate-600 block tracking-wide">Laboral</span>
+                      <span className="text-[11px] font-extrabold uppercase text-slate-600 block tracking-wide text-center break-after-avoid">Laboral</span>
                       {formData.experiences.map((exp, i) => (
                         <div key={i} className="text-[12px] space-y-1.5 break-inside-avoid">
                           <div>
@@ -659,7 +659,7 @@ export default function Home() {
 
                   {formData.projects.length > 0 && (
                     <div className="space-y-4 pt-2">
-                      <span className="text-[11px] font-extrabold uppercase text-slate-600 block tracking-wide">Proyectos Académicos</span>
+                      <span className="text-[11px] font-extrabold uppercase text-slate-600 block tracking-wide text-center break-after-avoid">Proyectos Académicos</span>
                       {formData.projects.map((proj, i) => (
                         <div key={i} className="text-[12px] space-y-1.5 break-inside-avoid">
                           <div>
@@ -677,7 +677,7 @@ export default function Home() {
               {/* Voluntariado (Sección 5) */}
               {formData.volunteers.length > 0 && (
                 <div className="mb-6 pt-3 border-t border-slate-100">
-                  <h3 className="text-[14px] font-bold uppercase text-blue-900 tracking-wider border-l-4 border-amber-400 pl-2 mb-3">Voluntariado</h3>
+                  <h3 className="text-[14px] font-bold uppercase text-blue-900 tracking-wider border-l-4 border-amber-400 pl-2 mb-3 break-after-avoid">Voluntariado</h3>
                   <div className="space-y-4">
                     {formData.volunteers.map((vol, i) => (
                       <div key={i} className="text-[12px] space-y-1.5 break-inside-avoid">
