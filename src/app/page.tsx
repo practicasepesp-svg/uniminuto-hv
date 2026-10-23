@@ -547,8 +547,9 @@ export default function Home() {
               {/* Perfil Profesional (Sección 2) */}
               {(formData.profile || formData.softSkills || formData.toolsList.length > 0 || formData.languageList.length > 0) && (
                 <div className="mb-6 break-inside-avoid">
-                  <h3 className="text-[14px] font-bold uppercase text-blue-900 tracking-wider mb-1.5 break-after-avoid">Perfil Profesional</h3>
-                  <div className="w-full h-1.5 bg-gradient-to-r from-transparent via-amber-400 to-transparent mb-3"></div>
+                  <div className="w-full py-1.5 px-3 mb-3 flex items-center" style={{ background: 'linear-gradient(to right, #fbbf24 35%, rgba(251, 191, 36, 0.5) 75%, transparent 100%)' }}>
+                    <h3 className="text-[13px] font-extrabold uppercase text-blue-950 tracking-wider">Perfil Profesional</h3>
+                  </div>
                   {formData.profile && <p className="text-[12px] text-slate-700 text-justify leading-relaxed mb-3">{formData.profile}</p>}
                   
                   <table className="w-full text-[12px] mt-2 border-separate border-spacing-2">
@@ -600,8 +601,9 @@ export default function Home() {
               {/* Formación (Sección 3: Académica y Complementaria) */}
               {formData.education.length > 0 && (
                 <div className="mb-6 pt-3 border-t border-slate-100">
-                  <h3 className="text-[14px] font-bold uppercase text-blue-900 tracking-wider mb-1.5 break-after-avoid">Formación</h3>
-                  <div className="w-full h-1.5 bg-gradient-to-r from-transparent via-amber-400 to-transparent mb-3"></div>
+                  <div className="w-full py-1.5 px-3 mb-3 flex items-center" style={{ background: 'linear-gradient(to right, #fbbf24 35%, rgba(251, 191, 36, 0.5) 75%, transparent 100%)' }}>
+                    <h3 className="text-[13px] font-extrabold uppercase text-blue-950 tracking-wider">Formación</h3>
+                  </div>
                   
                   <div className="space-y-3 mb-4">
                     <span className="text-[11px] font-extrabold uppercase text-slate-600 block tracking-wide text-center break-after-avoid">Académica</span>
@@ -636,8 +638,9 @@ export default function Home() {
               {/* Experiencia Profesional (Sección 4: Laboral y Proyectos Académicos) */}
               {(formData.experiences.length > 0 || formData.projects.length > 0) && (
                 <div className="mb-6 pt-3 border-t border-slate-100">
-                  <h3 className="text-[14px] font-bold uppercase text-blue-900 tracking-wider mb-1.5 break-after-avoid">Experiencia Profesional</h3>
-                  <div className="w-full h-1.5 bg-gradient-to-r from-transparent via-amber-400 to-transparent mb-3"></div>
+                  <div className="w-full py-1.5 px-3 mb-3 flex items-center" style={{ background: 'linear-gradient(to right, #fbbf24 35%, rgba(251, 191, 36, 0.5) 75%, transparent 100%)' }}>
+                    <h3 className="text-[13px] font-extrabold uppercase text-blue-950 tracking-wider">Experiencia Profesional</h3>
+                  </div>
                   
                   {formData.experiences.length > 0 && (
                     <div className="space-y-4 mb-4">
@@ -680,8 +683,9 @@ export default function Home() {
               {/* Voluntariado (Sección 5) */}
               {formData.volunteers.length > 0 && (
                 <div className="mb-6 pt-3 border-t border-slate-100">
-                  <h3 className="text-[14px] font-bold uppercase text-blue-900 tracking-wider mb-1.5 break-after-avoid">Voluntariado</h3>
-                  <div className="w-full h-1.5 bg-gradient-to-r from-transparent via-amber-400 to-transparent mb-3"></div>
+                  <div className="w-full py-1.5 px-3 mb-3 flex items-center" style={{ background: 'linear-gradient(to right, #fbbf24 35%, rgba(251, 191, 36, 0.5) 75%, transparent 100%)' }}>
+                    <h3 className="text-[13px] font-extrabold uppercase text-blue-950 tracking-wider">Voluntariado</h3>
+                  </div>
                   <div className="space-y-4">
                     {formData.volunteers.map((vol, i) => (
                       <div key={i} className="text-[12px] space-y-1.5 break-inside-avoid">
