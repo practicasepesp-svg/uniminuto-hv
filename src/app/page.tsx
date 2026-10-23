@@ -701,7 +701,10 @@ export default function Home() {
             </div>
 
             {/* Pie de página institucional fijo al imprimir */}
-            <div className="print-footer border-t pt-3 mt-8 text-center text-[10px] text-slate-500 space-y-1 bg-white">
+            <div className="print-footer border-t pt-2 mt-8 text-center text-[10px] text-slate-500 space-y-1.5 bg-white">
+              <div className="w-56 mx-auto py-1 border-t border-b border-slate-400 font-bold tracking-widest text-slate-600 text-[9px]">
+                VIGILADA MINEDUCACIÓN
+              </div>
               <p>Línea de Atención al Usuario: 601 593 3004 · Línea Nacional: 01 8000 936 670</p>
               <p className="font-bold text-slate-700">www.uniminuto.edu</p>
             </div>
