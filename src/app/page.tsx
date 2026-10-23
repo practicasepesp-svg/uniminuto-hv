@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Printer, Briefcase, GraduationCap, Award, Phone, Mail, MapPin, Trash2, Plus, User, Cpu, Languages, HeartHandshake, Link as LinkIcon, BookOpen, Wrench, FolderGit2 } from "lucide-react";
+import { Printer, Briefcase, GraduationCap, Award, Phone, Mail, MapPin, Trash2, Plus, User, Cpu, Languages, HeartHandshake, Link as LinkIcon, BookOpen, Wrench, FolderGit2, CheckCircle, Globe } from "lucide-react";
 
 interface LinkItem { label: string; url: string; }
 interface ToolItem { name: string; level: string; }
@@ -487,7 +487,7 @@ export default function Home() {
           <div className="resume-sheet bg-white text-slate-800 w-full max-w-[800px] p-[2.5cm] pb-[2cm] shadow-[0_0_40px_rgba(0,0,0,0.4)] rounded-xl flex flex-col justify-between">
             <div className="pb-12">
               
-              {/* Encabezado Institucional */}
+              {/* Encabezado Institucional (Sin recuadro en los logos) */}
               <div className="border-b-2 border-blue-900 pb-5 mb-6 flex flex-row justify-between items-center bg-white">
                 <div className="pr-4">
                   <h1 className="text-2xl lg:text-3xl font-black text-slate-900 uppercase tracking-tight break-words">
@@ -498,15 +498,15 @@ export default function Home() {
                   </p>
                 </div>
                 
-                <div className="flex items-center gap-3 bg-white p-3.5 rounded-xl border border-blue-200 shadow-sm flex-shrink-0">
-                  <img src="/Rectoría%20Bogotá%20Letras%20Colores%20(Sin%20Fondo).png" alt="Rectoría Bogotá" className="h-7 lg:h-8 object-contain" />
+                <div className="flex items-center gap-4 bg-white flex-shrink-0">
+                  <img src="/Rectoría%20Bogotá%20Letras%20Colores%20(Sin%20Fondo).png" alt="Rectoría Bogotá" className="h-8 object-contain" />
                   <div className="h-6 w-px bg-slate-300"></div>
-                  <img src="/Centro%20Progresa%20Letras%20Negras%20Iconos%20Blancos%20(sin%20fondo).png" alt="Centro Progresa" className="h-7 lg:h-8 object-contain" />
+                  <img src="/Centro%20Progresa%20Letras%20Negras%20Iconos%20Blancos%20(sin%20fondo).png" alt="Centro Progresa" className="h-8 object-contain" />
                 </div>
               </div>
 
-              {/* Contacto actualizado con enlaces múltiples (Sección 1) */}
-              <div className="flex flex-wrap gap-4 text-xs text-slate-600 mb-6 pb-4 border-b border-slate-100 font-medium">
+              {/* Contacto centrado (Sección 1) */}
+              <div className="flex flex-wrap justify-center items-center gap-4 text-xs text-slate-600 mb-6 pb-4 border-b border-slate-100 font-medium text-center">
                 {formData.email && <span className="flex items-center gap-1"><Mail size={12} className="text-blue-900"/> {formData.email}</span>}
                 {formData.phone && <span className="flex items-center gap-1"><Phone size={12} className="text-blue-900"/> {formData.phone}</span>}
                 {formData.city && <span className="flex items-center gap-1"><MapPin size={12} className="text-blue-900"/> {formData.city}</span>}
@@ -515,7 +515,7 @@ export default function Home() {
                 ))}
               </div>
 
-              {/* Perfil Profesional (Sección 2 optimizada con diseño en tabla para mantener 3 columnas al imprimir) */}
+              {/* Perfil Profesional (Sección 2 optimizada con 3 columnas en tabla y sus respectivos iconos) */}
               {(formData.profile || formData.softSkills || formData.toolsList.length > 0 || formData.languageList.length > 0) && (
                 <div className="mb-6">
                   <h3 className="text-xs font-bold uppercase text-blue-900 tracking-wider border-l-4 border-amber-400 pl-2 mb-2">Perfil Profesional</h3>
@@ -526,7 +526,9 @@ export default function Home() {
                       <tr>
                         {formData.softSkills && (
                           <td className="w-1/3 bg-slate-50 p-2.5 rounded border border-slate-100 align-top">
-                            <span className="font-bold text-slate-900 block mb-1">Habilidades:</span>
+                            <span className="font-bold text-slate-900 flex items-center gap-1.5 mb-1 text-blue-900">
+                              <CheckCircle size={13}/> Habilidades:
+                            </span>
                             <ul className="text-slate-700 space-y-0.5">
                               {formData.softSkills.split(",").map((s, i) => {
                                 const trimmed = s.trim();
@@ -537,7 +539,9 @@ export default function Home() {
                         )}
                         {formData.toolsList.length > 0 && (
                           <td className="w-1/3 bg-slate-50 p-2.5 rounded border border-slate-100 align-top">
-                            <span className="font-bold text-slate-900 block mb-1">Herramientas:</span>
+                            <span className="font-bold text-slate-900 flex items-center gap-1.5 mb-1 text-blue-900">
+                              <Wrench size={13}/> Herramientas:
+                            </span>
                             <ul className="text-slate-700 space-y-0.5">
                               {formData.toolsList.map((t, i) => (
                                 <li key={i}>• {t.name} <span className="text-blue-900 font-semibold">({t.level})</span></li>
@@ -547,7 +551,9 @@ export default function Home() {
                         )}
                         {formData.languageList.length > 0 && (
                           <td className="w-1/3 bg-slate-50 p-2.5 rounded border border-slate-100 align-top">
-                            <span className="font-bold text-slate-900 block mb-1">Idiomas:</span>
+                            <span className="font-bold text-slate-900 flex items-center gap-1.5 mb-1 text-blue-900">
+                              <Globe size={13}/> Idiomas:
+                            </span>
                             <ul className="text-slate-700 space-y-0.5">
                               {formData.languageList.map((l, i) => (
                                 <li key={i}>• {l.language} <span className="text-blue-900 font-semibold">({l.level})</span></li>
