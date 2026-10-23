@@ -516,7 +516,7 @@ export default function Home() {
           <div className="resume-sheet bg-white text-slate-800 w-full max-w-[800px] p-[2.5cm] pb-[2cm] shadow-[0_0_40px_rgba(0,0,0,0.4)] rounded-xl flex flex-col justify-between" style={{ fontSize: '12px' }}>
             <div className="pb-12">
               
-              {/* Encabezado Institucional (Sin recuadro en los logos - Mantiene su tamaño grande original) */}
+              {/* Encabezado Institucional (Sin recuadro en los logos) */}
               <div className="border-b-2 border-blue-900 pb-5 mb-6 flex flex-row justify-between items-center bg-white">
                 <div className="pr-4">
                   <h1 className="text-2xl lg:text-3xl font-black text-slate-900 uppercase tracking-tight break-words">
@@ -546,8 +546,7 @@ export default function Home() {
 
               {/* Perfil Profesional (Sección 2) */}
               {(formData.profile || formData.softSkills || formData.toolsList.length > 0 || formData.languageList.length > 0) && (
-                <div className="mb-6">
-                  {/* Título de sección en 14px (text-sm) */}
+                <div className="mb-6 break-inside-avoid">
                   <h3 className="text-[14px] font-bold uppercase text-blue-900 tracking-wider border-l-4 border-amber-400 pl-2 mb-2">Perfil Profesional</h3>
                   {formData.profile && <p className="text-[12px] text-slate-700 text-justify leading-relaxed mb-3">{formData.profile}</p>}
                   
@@ -600,13 +599,12 @@ export default function Home() {
               {/* Formación (Sección 3: Académica y Complementaria) */}
               {formData.education.length > 0 && (
                 <div className="mb-6 pt-3 border-t border-slate-100">
-                  {/* Título de sección en 14px (text-sm) */}
                   <h3 className="text-[14px] font-bold uppercase text-blue-900 tracking-wider border-l-4 border-amber-400 pl-2 mb-3">Formación</h3>
                   
                   <div className="space-y-3 mb-4">
                     <span className="text-[11px] font-extrabold uppercase text-slate-600 block tracking-wide">Académica</span>
                     {formData.education.map((edu, i) => (
-                      <div key={i} className="text-[12px] space-y-0.5">
+                      <div key={i} className="text-[12px] space-y-0.5 break-inside-avoid">
                         <span className="font-bold text-slate-900 uppercase block">
                           {edu.degree || "Título a obtener / Programa"} <span className="font-normal text-blue-900 normal-case">({edu.level})</span>
                         </span>
@@ -622,7 +620,7 @@ export default function Home() {
                     <div className="space-y-3 pt-2">
                       <span className="text-[11px] font-extrabold uppercase text-slate-600 block tracking-wide">Complementaria</span>
                       {formData.complementaryEdu.map((comp, i) => (
-                        <div key={i} className="text-[12px] space-y-0.5">
+                        <div key={i} className="text-[12px] space-y-0.5 break-inside-avoid">
                           <span className="font-bold text-slate-900 uppercase block">{comp.title || "Curso o Taller"}</span>
                           <span className="text-slate-700 font-medium block capitalize">{comp.institution || "Institución"}</span>
                           <span className="text-slate-500 block text-[11px]">{comp.year}</span>
@@ -636,7 +634,6 @@ export default function Home() {
               {/* Experiencia Profesional (Sección 4: Laboral y Proyectos Académicos) */}
               {(formData.experiences.length > 0 || formData.projects.length > 0) && (
                 <div className="mb-6 pt-3 border-t border-slate-100">
-                  {/* Título de sección en 14px (text-sm) */}
                   <h3 className="text-[14px] font-bold uppercase text-blue-900 tracking-wider border-l-4 border-amber-400 pl-2 mb-3">Experiencia Profesional</h3>
                   
                   {formData.experiences.length > 0 && (
@@ -680,7 +677,6 @@ export default function Home() {
               {/* Voluntariado (Sección 5) */}
               {formData.volunteers.length > 0 && (
                 <div className="mb-6 pt-3 border-t border-slate-100">
-                  {/* Título de sección en 14px (text-sm) */}
                   <h3 className="text-[14px] font-bold uppercase text-blue-900 tracking-wider border-l-4 border-amber-400 pl-2 mb-3">Voluntariado</h3>
                   <div className="space-y-4">
                     {formData.volunteers.map((vol, i) => (
