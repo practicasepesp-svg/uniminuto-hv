@@ -286,7 +286,7 @@ export default function Home() {
               ></textarea>
             </div>
             <div>
-              <label className="block text-[11px] font-semibold text-blue-200 mb-1">Habilidades</label>
+              <label className="block text-[11px] font-semibold text-blue-200 mb-1">Habilidades (separadas por comas)</label>
               <input 
                 type="text" 
                 name="softSkills" 
@@ -515,7 +515,7 @@ export default function Home() {
                 ))}
               </div>
 
-              {/* Perfil Profesional (Sección 2 actualizada) */}
+              {/* Perfil Profesional (Sección 2 actualizada con habilidades separadas por comas en lista) */}
               {(formData.profile || formData.softSkills || formData.toolsList.length > 0 || formData.languageList.length > 0) && (
                 <div className="mb-6">
                   <h3 className="text-xs font-bold uppercase text-blue-900 tracking-wider border-l-4 border-amber-400 pl-2 mb-2">Perfil Profesional</h3>
@@ -524,13 +524,18 @@ export default function Home() {
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-2 text-xs pt-2">
                     {formData.softSkills && (
                       <div className="bg-slate-50 p-2.5 rounded border border-slate-100">
-                        <span className="font-bold text-slate-900 block mb-0.5">Habilidades:</span>
-                        <span className="text-slate-700">{formData.softSkills}</span>
+                        <span className="font-bold text-slate-900 block mb-1">Habilidades:</span>
+                        <ul className="text-slate-700 space-y-0.5">
+                          {formData.softSkills.split(",").map((s, i) => {
+                            const trimmed = s.trim();
+                            return trimmed ? <li key={i}>• {trimmed}</li> : null;
+                          })}
+                        </ul>
                       </div>
                     )}
                     {formData.toolsList.length > 0 && (
                       <div className="bg-slate-50 p-2.5 rounded border border-slate-100">
-                        <span className="font-bold text-slate-900 block mb-0.5">Herramientas:</span>
+                        <span className="font-bold text-slate-900 block mb-1">Herramientas:</span>
                         <ul className="text-slate-700 space-y-0.5">
                           {formData.toolsList.map((t, i) => (
                             <li key={i}>• {t.name} <span className="text-blue-900 font-semibold">({t.level})</span></li>
@@ -540,7 +545,7 @@ export default function Home() {
                     )}
                     {formData.languageList.length > 0 && (
                       <div className="bg-slate-50 p-2.5 rounded border border-slate-100">
-                        <span className="font-bold text-slate-900 block mb-0.5">Idiomas:</span>
+                        <span className="font-bold text-slate-900 block mb-1">Idiomas:</span>
                         <ul className="text-slate-700 space-y-0.5">
                           {formData.languageList.map((l, i) => (
                             <li key={i}>• {l.language} <span className="text-blue-900 font-semibold">({l.level})</span></li>
