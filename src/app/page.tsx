@@ -6,7 +6,7 @@ import { Printer, Briefcase, GraduationCap, Award, Phone, Mail, MapPin, Trash2, 
 interface LinkItem { label: string; url: string; }
 interface ToolItem { name: string; level: string; }
 interface LanguageItem { language: string; level: string; }
-interface Education { institution: string; degree: string; level: string; year: string; }
+interface Education { institution: string; degree: string; level: string; year: string; isCurrent?: boolean; semester?: string; }
 interface ComplementaryEdu { title: string; institution: string; year: string; }
 interface Experience { company: string; position: string; startDate: string; endDate: string; description: string; }
 interface Project { name: string; role: string; description: string; url?: string; }
@@ -20,7 +20,9 @@ export default function Home() {
     softSkills: "", 
     toolsList: [] as ToolItem[],
     languageList: [] as LanguageItem[],
-    education: [] as Education[],
+    education: [
+      { institution: "Corporación Universitaria Minuto de Dios - UNIMINUTO", degree: "Administración de Empresas / Ingeniería / etc.", level: "Profesional", year: "En curso", isCurrent: true, semester: "Séptimo Semestre" }
+    ] as Education[],
     complementaryEdu: [] as ComplementaryEdu[],
     experiences: [] as Experience[],
     projects: [] as Project[],
@@ -72,9 +74,9 @@ export default function Home() {
 
   // Formación Académica
   const addEducation = () => {
-    setFormData({ ...formData, education: [...formData.education, { institution: "", degree: "", level: "Profesional", year: "" }] });
+    setFormData({ ...formData, education: [...formData.education, { institution: "", degree: "", level: "Profesional", year: "", isCurrent: false, semester: "" }] });
   };
-  const updateEducation = (index: number, field: string, value: string) => {
+  const updateEducation = (index: number, field: string, value: any) => {
     const newEdu = [...formData.education];
     (newEdu[index] as any)[field] = value;
     setFormData({ ...formData, education: newEdu });
@@ -362,9 +364,23 @@ export default function Home() {
               </div>
               {formData.education.map((edu, idx) => (
                 <div key={idx} className="p-3 border border-blue-800 rounded-xl bg-blue-900/50 space-y-2 relative">
-                  <button onClick={() => removeEducation(idx)} className="absolute top-2.5 right-2.5 text-rose-300 hover:text-rose-100"><Trash2 size={14}/></button>
+                  {idx > 0 && (
+                    <button onClick={() => removeEducation(idx)} className="absolute top-2.5 right-2.5 text-rose-300 hover:text-rose-100"><Trash2 size={14}/></button>
+                  )}
+                  <div className="flex items-center justify-between">
+                    <span className="text-[10px] font-bold text-amber-300">{idx === 0 ? "★ Formación Principal (UNIMINUTO)" : `Estudio #${idx + 1}`}</span>
+                    <label className="flex items-center gap-1 text-[10px] text-blue-200 cursor-pointer">
+                      <input 
+                        type="checkbox" 
+                        checked={edu.isCurrent || false} 
+                        onChange={(e) => updateEducation(idx, "isCurrent", e.target.checked)} 
+                        className="rounded bg-blue-950 border-blue-700" 
+                      /> En curso
+                    </label>
+                  </div>
+                  <input type="text" placeholder="Institución" value={edu.institution} onChange={(e) => updateEducation(idx, "institution", e.target.value)} className="w-full p-2 text-xs bg-blue-950 border border-blue-800 rounded text-white" />
                   <div className="grid grid-cols-2 gap-2">
-                    <input type="text" placeholder="Institución" value={edu.institution} onChange={(e) => updateEducation(idx, "institution", e.target.value)} className="p-2 text-xs bg-blue-950 border border-blue-800 rounded text-white" />
+                    <input type="text" placeholder="Título obtenido / Programa" value={edu.degree} onChange={(e) => updateEducation(idx, "degree", e.target.value)} className="p-2 text-xs bg-blue-950 border border-blue-800 rounded text-white" />
                     <select value={edu.level} onChange={(e) => updateEducation(idx, "level", e.target.value)} className="p-2 text-xs bg-blue-950 border border-blue-800 rounded text-white">
                       <option value="Bachiller">Bachiller</option>
                       <option value="Técnico">Técnico</option>
@@ -374,8 +390,9 @@ export default function Home() {
                       <option value="Maestría">Maestría</option>
                     </select>
                   </div>
-                  <input type="text" placeholder="Título obtenido" value={edu.degree} onChange={(e) => updateEducation(idx, "degree", e.target.value)} className="w-full p-2 text-xs bg-blue-950 border border-blue-800 rounded text-white" />
-                  <input type="text" placeholder="Año de grado (Ej. 2026)" value={edu.year} onChange={(e) => updateEducation(idx, "year", e.target.value)} className="w-full p-2 text-xs bg-blue-950 border border-blue-800 rounded text-white" />
+                  <div className="grid grid-cols-2 gap-2">
+                    <input type="text" placeholder={edu.isCurrent ? "Semestre (Ej. 7mo Semestre)" : "Año de grado (Ej. 2024)"} value={edu.year} onChange={(e) => updateEducation(idx, "year", e.target.value)} className="p-2 text-xs bg-blue-950 border border-blue-800 rounded text-white" />
+                  </div>
                 </div>
               ))}
             </div>
@@ -567,23 +584,25 @@ export default function Home() {
                 </div>
               )}
 
-              {/* Formación (Sección 3: Académica y Complementaria) */}
-              {(formData.education.length > 0 || formData.complementaryEdu.length > 0) && (
+              {/* Formación (Sección 3: Académica con UNIMINUTO en curso por defecto y Complementaria) */}
+              {formData.education.length > 0 && (
                 <div className="mb-6 pt-3 border-t border-slate-100">
                   <h3 className="text-xs font-bold uppercase text-blue-900 tracking-wider border-l-4 border-amber-400 pl-2 mb-3">Formación</h3>
                   
-                  {formData.education.length > 0 && (
-                    <div className="space-y-3 mb-4">
-                      <span className="text-[11px] font-extrabold uppercase text-slate-600 block tracking-wide">Académica</span>
-                      {formData.education.map((edu, i) => (
-                        <div key={i} className="text-xs space-y-0.5">
-                          <span className="font-bold text-slate-900 uppercase block">{edu.degree || "Título obtenido"} <span className="font-normal text-blue-900 normal-case">({edu.level})</span></span>
-                          <span className="text-slate-700 font-medium block capitalize">{edu.institution || "Institución"}</span>
-                          <span className="text-slate-500 block text-[11px]">{edu.year}</span>
-                        </div>
-                      ))}
-                    </div>
-                  )}
+                  <div className="space-y-3 mb-4">
+                    <span className="text-[11px] font-extrabold uppercase text-slate-600 block tracking-wide">Académica</span>
+                    {formData.education.map((edu, i) => (
+                      <div key={i} className="text-xs space-y-0.5">
+                        <span className="font-bold text-slate-900 uppercase block">
+                          {edu.degree || "Título obtenido"} <span className="font-normal text-blue-900 normal-case">({edu.level})</span>
+                        </span>
+                        <span className="text-slate-700 font-medium block capitalize">{edu.institution || "Institución"}</span>
+                        <span className="text-blue-900 font-semibold block text-[11px]">
+                          {edu.isCurrent ? `En curso — ${edu.year || "Semestre actual"}` : edu.year}
+                        </span>
+                      </div>
+                    ))}
+                  </div>
 
                   {formData.complementaryEdu.length > 0 && (
                     <div className="space-y-3 pt-2">
