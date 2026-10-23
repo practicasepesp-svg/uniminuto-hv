@@ -91,6 +91,27 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-blue-950 flex flex-col font-sans text-slate-100 print:bg-white print:min-h-0">
+      {/* Estilos globales incrustados para forzar el comportamiento de página física y márgenes exactas */}
+      <style jsx global>{`
+        @media print {
+          @page {
+            size: letter;
+            margin: 2.5cm;
+          }
+          body {
+            background: white !important;
+          }
+          .page-break-sheet {
+            box-shadow: none !important;
+            margin: 0 !important;
+            padding: 0 !important;
+            min-height: auto !important;
+            border: none !important;
+            page-break-after: always;
+          }
+        }
+      `}</style>
+
       {/* Barra superior institucional */}
       <header className="bg-blue-900 text-white px-6 py-4 print:hidden flex justify-between items-center border-b border-blue-800 shadow-xl">
         <div className="flex items-center gap-4">
@@ -360,9 +381,16 @@ export default function Home() {
 
         </div>
 
-        {/* PANEL DERECHO: Vista Previa */}
-        <div className="lg:col-span-7 bg-blue-950/90 p-6 rounded-2xl flex justify-center items-start shadow-2xl border border-blue-900 overflow-auto max-h-[88vh] print:p-0 print:m-0 print:bg-white print:overflow-visible print:max-h-none print:w-full print:shadow-none print:border-none">
-          <div className="bg-white text-slate-800 w-full max-w-[800px] min-h-[1050px] p-12 shadow-[0_0_50px_rgba(0,0,0,0.5)] rounded-xl flex flex-col justify-between print:shadow-none print:border-none print:m-0 print:p-[2.5cm] print:w-full print:max-w-none print:min-h-0">
+        {/* PANEL DERECHO: Vista Previa Simulador de Páginas Múltiples estilo Word */}
+        <div className="lg:col-span-7 bg-blue-950/90 p-6 rounded-2xl flex flex-col items-center shadow-2xl border border-blue-900 overflow-auto max-h-[88vh] print:p-0 print:m-0 print:bg-white print:overflow-visible print:max-h-none print:w-full print:shadow-none print:border-none">
+          
+          <div className="w-full flex justify-between items-center mb-4 print:hidden px-2 text-xs text-blue-200">
+            <span className="font-semibold tracking-wide uppercase">📄 Vista Previa de Páginas (Simulador Word)</span>
+            <span className="bg-blue-900 px-3 py-1 rounded-full border border-blue-800">Se adapta automáticamente por página física</span>
+          </div>
+
+          {/* HOJA 1 */}
+          <div className="page-break-sheet bg-white text-slate-800 w-full max-w-[800px] min-h-[1050px] p-[2.5cm] shadow-[0_0_40px_rgba(0,0,0,0.4)] rounded-xl flex flex-col justify-between mb-8 print:mb-0">
             <div>
               {/* Encabezado Institucional */}
               <div className="border-b-2 border-blue-900 pb-5 mb-6 flex flex-row justify-between items-center bg-white break-inside-avoid page-break-inside-avoid">
@@ -508,6 +536,7 @@ export default function Home() {
               <p className="font-bold text-slate-700">www.uniminuto.edu</p>
             </div>
           </div>
+
         </div>
 
       </div>
