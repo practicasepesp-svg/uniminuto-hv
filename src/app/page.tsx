@@ -138,8 +138,14 @@ export default function Home() {
   };
 
   return (
-    <div className="min-h-screen bg-blue-950 flex flex-col font-sans text-slate-100 print:bg-white print:min-h-0">
+    <div className="min-h-screen bg-blue-950 flex flex-col font-sans text-slate-100 print:bg-white print:min-h-0" style={{ fontFamily: "'Montserrat', sans-serif" }}>
       <style jsx global>{`
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap');
+
+        body, input, select, textarea, button {
+          font-family: 'Montserrat', sans-serif !important;
+        }
+
         @media print {
           @page {
             size: letter;
@@ -148,6 +154,7 @@ export default function Home() {
           body {
             background: white !important;
             -webkit-print-color-adjust: exact;
+            font-family: 'Montserrat', sans-serif !important;
           }
           header, .print\\:hidden {
             display: none !important;
@@ -160,6 +167,7 @@ export default function Home() {
             max-width: none !important;
             min-height: auto !important;
             border: none !important;
+            font-family: 'Montserrat', sans-serif !important;
           }
           .print-footer {
             position: fixed;
@@ -215,7 +223,7 @@ export default function Home() {
                 placeholder="Ej. Laura Sofía Martínez" 
                 value={formData.fullName} 
                 onChange={handleInputChange} 
-                className="w-full p-3 text-xs bg-blue-900 border border-blue-700 rounded-xl text-white outline-none focus:border-amber-400 transition" 
+                className="w-full p-3 text-[12px] bg-blue-900 border border-blue-700 rounded-xl text-white outline-none focus:border-amber-400 transition" 
               />
             </div>
             <div className="grid grid-cols-2 gap-3">
@@ -227,7 +235,7 @@ export default function Home() {
                   placeholder="correo@uniminuto.edu.co" 
                   value={formData.email} 
                   onChange={handleInputChange} 
-                  className="w-full p-3 text-xs bg-blue-900 border border-blue-700 rounded-xl text-white outline-none focus:border-amber-400" 
+                  className="w-full p-3 text-[12px] bg-blue-900 border border-blue-700 rounded-xl text-white outline-none focus:border-amber-400" 
                 />
               </div>
               <div>
@@ -238,7 +246,7 @@ export default function Home() {
                   placeholder="300 123 4567" 
                   value={formData.phone} 
                   onChange={handleInputChange} 
-                  className="w-full p-3 text-xs bg-blue-900 border border-blue-700 rounded-xl text-white outline-none focus:border-amber-400" 
+                  className="w-full p-3 text-[12px] bg-blue-900 border border-blue-700 rounded-xl text-white outline-none focus:border-amber-400" 
                 />
               </div>
             </div>
@@ -249,7 +257,7 @@ export default function Home() {
                 name="city" 
                 value={formData.city} 
                 onChange={handleInputChange} 
-                className="w-full p-3 text-xs bg-blue-900 border border-blue-700 rounded-xl text-white outline-none focus:border-amber-400" 
+                className="w-full p-3 text-[12px] bg-blue-900 border border-blue-700 rounded-xl text-white outline-none focus:border-amber-400" 
               />
             </div>
 
@@ -263,8 +271,8 @@ export default function Home() {
               </div>
               {formData.links.map((link, idx) => (
                 <div key={idx} className="flex gap-2 items-center bg-blue-900/40 p-2.5 rounded-lg border border-blue-800">
-                  <input type="text" placeholder="Red (Ej. LinkedIn)" value={link.label} onChange={(e) => updateLink(idx, "label", e.target.value)} className="w-1/3 p-2 text-xs bg-blue-950 border border-blue-800 rounded text-white" />
-                  <input type="text" placeholder="URL (linkedin.com/in/...)" value={link.url} onChange={(e) => updateLink(idx, "url", e.target.value)} className="flex-1 p-2 text-xs bg-blue-950 border border-blue-800 rounded text-white" />
+                  <input type="text" placeholder="Red (Ej. LinkedIn)" value={link.label} onChange={(e) => updateLink(idx, "label", e.target.value)} className="w-1/3 p-2 text-[12px] bg-blue-950 border border-blue-800 rounded text-white" />
+                  <input type="text" placeholder="URL (linkedin.com/in/...)" value={link.url} onChange={(e) => updateLink(idx, "url", e.target.value)} className="flex-1 p-2 text-[12px] bg-blue-950 border border-blue-800 rounded text-white" />
                   <button onClick={() => removeLink(idx)} className="text-rose-300 hover:text-rose-100 p-1"><Trash2 size={14}/></button>
                 </div>
               ))}
@@ -284,7 +292,7 @@ export default function Home() {
                 placeholder="Estudiante apasionado..." 
                 value={formData.profile} 
                 onChange={handleInputChange} 
-                className="w-full p-3 text-xs bg-blue-900 border border-blue-700 rounded-xl text-white outline-none focus:border-amber-400 resize-none"
+                className="w-full p-3 text-[12px] bg-blue-900 border border-blue-700 rounded-xl text-white outline-none focus:border-amber-400 resize-none"
               ></textarea>
             </div>
             <div>
@@ -295,7 +303,7 @@ export default function Home() {
                 placeholder="Ej. Trabajo en equipo, Adaptabilidad, Liderazgo" 
                 value={formData.softSkills} 
                 onChange={handleInputChange} 
-                className="w-full p-3 text-xs bg-blue-900 border border-blue-700 rounded-xl text-white outline-none focus:border-amber-400" 
+                className="w-full p-3 text-[12px] bg-blue-900 border border-blue-700 rounded-xl text-white outline-none focus:border-amber-400" 
               />
             </div>
 
@@ -309,8 +317,8 @@ export default function Home() {
               </div>
               {formData.toolsList.map((tool, idx) => (
                 <div key={idx} className="flex gap-2 items-center bg-blue-900/40 p-2.5 rounded-lg border border-blue-800">
-                  <input type="text" placeholder="Ej. Python, Excel" value={tool.name} onChange={(e) => updateTool(idx, "name", e.target.value)} className="flex-1 p-2 text-xs bg-blue-950 border border-blue-800 rounded text-white" />
-                  <select value={tool.level} onChange={(e) => updateTool(idx, "level", e.target.value)} className="p-2 text-xs bg-blue-950 border border-blue-800 rounded text-white">
+                  <input type="text" placeholder="Ej. Python, Excel" value={tool.name} onChange={(e) => updateTool(idx, "name", e.target.value)} className="flex-1 p-2 text-[12px] bg-blue-950 border border-blue-800 rounded text-white" />
+                  <select value={tool.level} onChange={(e) => updateTool(idx, "level", e.target.value)} className="p-2 text-[12px] bg-blue-950 border border-blue-800 rounded text-white">
                     <option value="Básico">Básico</option>
                     <option value="Intermedio">Intermedio</option>
                     <option value="Avanzado">Avanzado</option>
@@ -331,8 +339,8 @@ export default function Home() {
               </div>
               {formData.languageList.map((lang, idx) => (
                 <div key={idx} className="flex gap-2 items-center bg-blue-900/40 p-2.5 rounded-lg border border-blue-800">
-                  <input type="text" placeholder="Ej. Inglés, Francés" value={lang.language} onChange={(e) => updateLanguage(idx, "language", e.target.value)} className="flex-1 p-2 text-xs bg-blue-950 border border-blue-800 rounded text-white" />
-                  <select value={lang.level} onChange={(e) => updateLanguage(idx, "level", e.target.value)} className="p-2 text-xs bg-blue-950 border border-blue-800 rounded text-white">
+                  <input type="text" placeholder="Ej. Inglés, Francés" value={lang.language} onChange={(e) => updateLanguage(idx, "language", e.target.value)} className="flex-1 p-2 text-[12px] bg-blue-950 border border-blue-800 rounded text-white" />
+                  <select value={lang.level} onChange={(e) => updateLanguage(idx, "level", e.target.value)} className="p-2 text-[12px] bg-blue-950 border border-blue-800 rounded text-white">
                     <option value="A1 - Principiante">A1 - Principiante</option>
                     <option value="A2 - Básico">A2 - Básico</option>
                     <option value="B1 - Intermedio">B1 - Intermedio</option>
@@ -378,15 +386,14 @@ export default function Home() {
                       /> En curso
                     </label>
                   </div>
-                  {/* Institución fija para el primer elemento, editable para los demás */}
                   {idx === 0 ? (
-                    <input type="text" disabled value="Corporación Universitaria Minuto de Dios - UNIMINUTO" className="w-full p-2 text-xs bg-blue-950/60 border border-blue-800/60 rounded text-blue-300 cursor-not-allowed" />
+                    <input type="text" disabled value="Corporación Universitaria Minuto de Dios - UNIMINUTO" className="w-full p-2 text-[12px] bg-blue-950/60 border border-blue-800/60 rounded text-blue-300 cursor-not-allowed" />
                   ) : (
-                    <input type="text" placeholder="Institución" value={edu.institution} onChange={(e) => updateEducation(idx, "institution", e.target.value)} className="w-full p-2 text-xs bg-blue-950 border border-blue-800 rounded text-white" />
+                    <input type="text" placeholder="Institución" value={edu.institution} onChange={(e) => updateEducation(idx, "institution", e.target.value)} className="w-full p-2 text-[12px] bg-blue-950 border border-blue-800 rounded text-white" />
                   )}
                   <div className="grid grid-cols-2 gap-2">
-                    <input type="text" placeholder="Título a obtener / Programa" value={edu.degree} onChange={(e) => updateEducation(idx, "degree", e.target.value)} className="p-2 text-xs bg-blue-950 border border-blue-800 rounded text-white" />
-                    <select value={edu.level} onChange={(e) => updateEducation(idx, "level", e.target.value)} className="p-2 text-xs bg-blue-950 border border-blue-800 rounded text-white">
+                    <input type="text" placeholder="Título a obtener / Programa" value={edu.degree} onChange={(e) => updateEducation(idx, "degree", e.target.value)} className="p-2 text-[12px] bg-blue-950 border border-blue-800 rounded text-white" />
+                    <select value={edu.level} onChange={(e) => updateEducation(idx, "level", e.target.value)} className="p-2 text-[12px] bg-blue-950 border border-blue-800 rounded text-white">
                       <option value="Bachiller">Bachiller</option>
                       <option value="Técnico">Técnico</option>
                       <option value="Tecnólogo">Tecnólogo</option>
@@ -396,7 +403,7 @@ export default function Home() {
                     </select>
                   </div>
                   <div className="grid grid-cols-2 gap-2">
-                    <input type="text" placeholder={edu.isCurrent ? "Ej. Octavo Semestre" : "Año de grado (Ej. 2024)"} value={edu.year} onChange={(e) => updateEducation(idx, "year", e.target.value)} className="p-2 text-xs bg-blue-950 border border-blue-800 rounded text-white" />
+                    <input type="text" placeholder={edu.isCurrent ? "Ej. Octavo Semestre" : "Año de grado (Ej. 2024)"} value={edu.year} onChange={(e) => updateEducation(idx, "year", e.target.value)} className="p-2 text-[12px] bg-blue-950 border border-blue-800 rounded text-white" />
                   </div>
                 </div>
               ))}
@@ -413,10 +420,10 @@ export default function Home() {
               {formData.complementaryEdu.map((comp, idx) => (
                 <div key={idx} className="p-3 border border-blue-800 rounded-xl bg-blue-900/50 space-y-2 relative">
                   <button onClick={() => removeComplementary(idx)} className="absolute top-2.5 right-2.5 text-rose-300 hover:text-rose-100"><Trash2 size={14}/></button>
-                  <input type="text" placeholder="Nombre del Curso o Taller" value={comp.title} onChange={(e) => updateComplementary(idx, "title", e.target.value)} className="w-full p-2 text-xs bg-blue-950 border border-blue-800 rounded text-white" />
+                  <input type="text" placeholder="Nombre del Curso o Taller" value={comp.title} onChange={(e) => updateComplementary(idx, "title", e.target.value)} className="w-full p-2 text-[12px] bg-blue-950 border border-blue-800 rounded text-white" />
                   <div className="grid grid-cols-2 gap-2">
-                    <input type="text" placeholder="Institución / Plataforma" value={comp.institution} onChange={(e) => updateComplementary(idx, "institution", e.target.value)} className="p-2 text-xs bg-blue-950 border border-blue-800 rounded text-white" />
-                    <input type="text" placeholder="Año (Ej. 2025)" value={comp.year} onChange={(e) => updateComplementary(idx, "year", e.target.value)} className="p-2 text-xs bg-blue-950 border border-blue-800 rounded text-white" />
+                    <input type="text" placeholder="Institución / Plataforma" value={comp.institution} onChange={(e) => updateComplementary(idx, "institution", e.target.value)} className="p-2 text-[12px] bg-blue-950 border border-blue-800 rounded text-white" />
+                    <input type="text" placeholder="Año (Ej. 2025)" value={comp.year} onChange={(e) => updateComplementary(idx, "year", e.target.value)} className="p-2 text-[12px] bg-blue-950 border border-blue-800 rounded text-white" />
                   </div>
                 </div>
               ))}
@@ -440,13 +447,13 @@ export default function Home() {
               {formData.experiences.map((exp, idx) => (
                 <div key={idx} className="p-3 border border-blue-800 rounded-xl bg-blue-900/50 space-y-2 relative">
                   <button onClick={() => removeExperience(idx)} className="absolute top-2.5 right-2.5 text-rose-300 hover:text-rose-100"><Trash2 size={14}/></button>
-                  <input type="text" placeholder="Empresa" value={exp.company} onChange={(e) => updateExperience(idx, "company", e.target.value)} className="w-full p-2 text-xs bg-blue-950 border border-blue-800 rounded text-white" />
-                  <input type="text" placeholder="Cargo" value={exp.position} onChange={(e) => updateExperience(idx, "position", e.target.value)} className="w-full p-2 text-xs bg-blue-950 border border-blue-800 rounded text-white" />
+                  <input type="text" placeholder="Empresa" value={exp.company} onChange={(e) => updateExperience(idx, "company", e.target.value)} className="w-full p-2 text-[12px] bg-blue-950 border border-blue-800 rounded text-white" />
+                  <input type="text" placeholder="Cargo" value={exp.position} onChange={(e) => updateExperience(idx, "position", e.target.value)} className="w-full p-2 text-[12px] bg-blue-950 border border-blue-800 rounded text-white" />
                   <div className="grid grid-cols-2 gap-2">
-                    <input type="text" placeholder="Inicio" value={exp.startDate} onChange={(e) => updateExperience(idx, "startDate", e.target.value)} className="p-2 text-xs bg-blue-950 border border-blue-800 rounded text-white" />
-                    <input type="text" placeholder="Fin (Actual)" value={exp.endDate} onChange={(e) => updateExperience(idx, "endDate", e.target.value)} className="p-2 text-xs bg-blue-950 border border-blue-800 rounded text-white" />
+                    <input type="text" placeholder="Inicio" value={exp.startDate} onChange={(e) => updateExperience(idx, "startDate", e.target.value)} className="p-2 text-[12px] bg-blue-950 border border-blue-800 rounded text-white" />
+                    <input type="text" placeholder="Fin (Actual)" value={exp.endDate} onChange={(e) => updateExperience(idx, "endDate", e.target.value)} className="p-2 text-[12px] bg-blue-950 border border-blue-800 rounded text-white" />
                   </div>
-                  <textarea placeholder="Funciones (separadas por saltos de línea)..." rows={2} value={exp.description} onChange={(e) => updateExperience(idx, "description", e.target.value)} className="w-full p-2 text-xs bg-blue-950 border border-blue-800 rounded text-white resize-none"></textarea>
+                  <textarea placeholder="Funciones (separadas por saltos de línea)..." rows={2} value={exp.description} onChange={(e) => updateExperience(idx, "description", e.target.value)} className="w-full p-2 text-[12px] bg-blue-950 border border-blue-800 rounded text-white resize-none"></textarea>
                 </div>
               ))}
             </div>
@@ -462,10 +469,10 @@ export default function Home() {
               {formData.projects.map((proj, idx) => (
                 <div key={idx} className="p-3 border border-blue-800 rounded-xl bg-blue-900/50 space-y-2 relative">
                   <button onClick={() => removeProject(idx)} className="absolute top-2.5 right-2.5 text-rose-300 hover:text-rose-100"><Trash2 size={14}/></button>
-                  <input type="text" placeholder="Nombre del Proyecto" value={proj.name} onChange={(e) => updateProject(idx, "name", e.target.value)} className="w-full p-2 text-xs bg-blue-950 border border-blue-800 rounded text-white" />
-                  <input type="text" placeholder="Rol / Participación" value={proj.role} onChange={(e) => updateProject(idx, "role", e.target.value)} className="w-full p-2 text-xs bg-blue-950 border border-blue-800 rounded text-white" />
-                  <input type="text" placeholder="Enlace (GitHub / Demo)" value={proj.url || ""} onChange={(e) => updateProject(idx, "url", e.target.value)} className="w-full p-2 text-xs bg-blue-950 border border-blue-800 rounded text-white" />
-                  <textarea placeholder="Descripción del proyecto..." rows={2} value={proj.description} onChange={(e) => updateProject(idx, "description", e.target.value)} className="w-full p-2 text-xs bg-blue-950 border border-blue-800 rounded text-white resize-none"></textarea>
+                  <input type="text" placeholder="Nombre del Proyecto" value={proj.name} onChange={(e) => updateProject(idx, "name", e.target.value)} className="w-full p-2 text-[12px] bg-blue-950 border border-blue-800 rounded text-white" />
+                  <input type="text" placeholder="Rol / Participación" value={proj.role} onChange={(e) => updateProject(idx, "role", e.target.value)} className="w-full p-2 text-[12px] bg-blue-950 border border-blue-800 rounded text-white" />
+                  <input type="text" placeholder="Enlace (GitHub / Demo)" value={proj.url || ""} onChange={(e) => updateProject(idx, "url", e.target.value)} className="w-full p-2 text-[12px] bg-blue-950 border border-blue-800 rounded text-white" />
+                  <textarea placeholder="Descripción del proyecto..." rows={2} value={proj.description} onChange={(e) => updateProject(idx, "description", e.target.value)} className="w-full p-2 text-[12px] bg-blue-950 border border-blue-800 rounded text-white resize-none"></textarea>
                 </div>
               ))}
             </div>
@@ -484,13 +491,13 @@ export default function Home() {
             {formData.volunteers.map((vol, idx) => (
               <div key={idx} className="p-3.5 border border-blue-800 rounded-xl bg-blue-900/50 space-y-2.5 relative">
                 <button onClick={() => removeVolunteer(idx)} className="absolute top-3 right-3 text-rose-300 hover:text-rose-100"><Trash2 size={15}/></button>
-                <input type="text" placeholder="Organización / Fundación" value={vol.organization} onChange={(e) => updateVolunteer(idx, "organization", e.target.value)} className="w-full p-2.5 text-xs bg-blue-950 border border-blue-800 rounded-lg text-white" />
-                <input type="text" placeholder="Rol / Actividad" value={vol.role} onChange={(e) => updateVolunteer(idx, "role", e.target.value)} className="w-full p-2.5 text-xs bg-blue-950 border border-blue-800 rounded-lg text-white" />
+                <input type="text" placeholder="Organización / Fundación" value={vol.organization} onChange={(e) => updateVolunteer(idx, "organization", e.target.value)} className="w-full p-2.5 text-[12px] bg-blue-950 border border-blue-800 rounded-lg text-white" />
+                <input type="text" placeholder="Rol / Actividad" value={vol.role} onChange={(e) => updateVolunteer(idx, "role", e.target.value)} className="w-full p-2.5 text-[12px] bg-blue-950 border border-blue-800 rounded-lg text-white" />
                 <div className="grid grid-cols-2 gap-2">
-                  <input type="text" placeholder="Inicio" value={vol.startDate} onChange={(e) => updateVolunteer(idx, "startDate", e.target.value)} className="p-2.5 text-xs bg-blue-950 border border-blue-800 rounded-lg text-white" />
-                  <input type="text" placeholder="Fin" value={vol.endDate} onChange={(e) => updateVolunteer(idx, "endDate", e.target.value)} className="p-2.5 text-xs bg-blue-950 border border-blue-800 rounded-lg text-white" />
+                  <input type="text" placeholder="Inicio" value={vol.startDate} onChange={(e) => updateVolunteer(idx, "startDate", e.target.value)} className="p-2.5 text-[12px] bg-blue-950 border border-blue-800 rounded-lg text-white" />
+                  <input type="text" placeholder="Fin" value={vol.endDate} onChange={(e) => updateVolunteer(idx, "endDate", e.target.value)} className="p-2.5 text-[12px] bg-blue-950 border border-blue-800 rounded-lg text-white" />
                 </div>
-                <textarea placeholder="Funciones o aportes realizados..." rows={2} value={vol.description} onChange={(e) => updateVolunteer(idx, "description", e.target.value)} className="w-full p-2.5 text-xs bg-blue-950 border border-blue-800 rounded-lg text-white resize-none"></textarea>
+                <textarea placeholder="Funciones o aportes realizados..." rows={2} value={vol.description} onChange={(e) => updateVolunteer(idx, "description", e.target.value)} className="w-full p-2.5 text-[12px] bg-blue-950 border border-blue-800 rounded-lg text-white resize-none"></textarea>
               </div>
             ))}
           </div>
@@ -506,16 +513,16 @@ export default function Home() {
           </div>
 
           {/* HOJA ÚNICA FLUIDA */}
-          <div className="resume-sheet bg-white text-slate-800 w-full max-w-[800px] p-[2.5cm] pb-[2cm] shadow-[0_0_40px_rgba(0,0,0,0.4)] rounded-xl flex flex-col justify-between">
+          <div className="resume-sheet bg-white text-slate-800 w-full max-w-[800px] p-[2.5cm] pb-[2cm] shadow-[0_0_40px_rgba(0,0,0,0.4)] rounded-xl flex flex-col justify-between" style={{ fontSize: '12px' }}>
             <div className="pb-12">
               
-              {/* Encabezado Institucional (Sin recuadro en los logos) */}
+              {/* Encabezado Institucional (Sin recuadro en los logos - Mantiene su tamaño grande original) */}
               <div className="border-b-2 border-blue-900 pb-5 mb-6 flex flex-row justify-between items-center bg-white">
                 <div className="pr-4">
                   <h1 className="text-2xl lg:text-3xl font-black text-slate-900 uppercase tracking-tight break-words">
                     {formData.fullName || "Nombre del Estudiante"}
                   </h1>
-                  <p className="text-blue-900 font-bold text-xs uppercase tracking-widest mt-1">
+                  <p className="text-blue-900 font-bold text-[11px] uppercase tracking-widest mt-1">
                     Candidato a Práctica Profesional
                   </p>
                 </div>
@@ -528,7 +535,7 @@ export default function Home() {
               </div>
 
               {/* Contacto centrado (Sección 1) */}
-              <div className="flex flex-wrap justify-center items-center gap-4 text-xs text-slate-600 mb-6 pb-4 border-b border-slate-100 font-medium text-center">
+              <div className="flex flex-wrap justify-center items-center gap-4 text-[12px] text-slate-600 mb-6 pb-4 border-b border-slate-100 font-medium text-center">
                 {formData.email && <span className="flex items-center gap-1"><Mail size={12} className="text-blue-900"/> {formData.email}</span>}
                 {formData.phone && <span className="flex items-center gap-1"><Phone size={12} className="text-blue-900"/> {formData.phone}</span>}
                 {formData.city && <span className="flex items-center gap-1"><MapPin size={12} className="text-blue-900"/> {formData.city}</span>}
@@ -537,13 +544,14 @@ export default function Home() {
                 ))}
               </div>
 
-              {/* Perfil Profesional (Sección 2 optimizada con 3 columnas en tabla y sus respectivos iconos) */}
+              {/* Perfil Profesional (Sección 2) */}
               {(formData.profile || formData.softSkills || formData.toolsList.length > 0 || formData.languageList.length > 0) && (
                 <div className="mb-6">
-                  <h3 className="text-xs font-bold uppercase text-blue-900 tracking-wider border-l-4 border-amber-400 pl-2 mb-2">Perfil Profesional</h3>
-                  {formData.profile && <p className="text-xs text-slate-700 text-justify leading-relaxed mb-3">{formData.profile}</p>}
+                  {/* Título de sección en 14px (text-sm) */}
+                  <h3 className="text-[14px] font-bold uppercase text-blue-900 tracking-wider border-l-4 border-amber-400 pl-2 mb-2">Perfil Profesional</h3>
+                  {formData.profile && <p className="text-[12px] text-slate-700 text-justify leading-relaxed mb-3">{formData.profile}</p>}
                   
-                  <table className="w-full text-xs mt-2 border-separate border-spacing-2">
+                  <table className="w-full text-[12px] mt-2 border-separate border-spacing-2">
                     <tbody>
                       <tr>
                         {formData.softSkills && (
@@ -592,12 +600,13 @@ export default function Home() {
               {/* Formación (Sección 3: Académica y Complementaria) */}
               {formData.education.length > 0 && (
                 <div className="mb-6 pt-3 border-t border-slate-100">
-                  <h3 className="text-xs font-bold uppercase text-blue-900 tracking-wider border-l-4 border-amber-400 pl-2 mb-3">Formación</h3>
+                  {/* Título de sección en 14px (text-sm) */}
+                  <h3 className="text-[14px] font-bold uppercase text-blue-900 tracking-wider border-l-4 border-amber-400 pl-2 mb-3">Formación</h3>
                   
                   <div className="space-y-3 mb-4">
                     <span className="text-[11px] font-extrabold uppercase text-slate-600 block tracking-wide">Académica</span>
                     {formData.education.map((edu, i) => (
-                      <div key={i} className="text-xs space-y-0.5">
+                      <div key={i} className="text-[12px] space-y-0.5">
                         <span className="font-bold text-slate-900 uppercase block">
                           {edu.degree || "Título a obtener / Programa"} <span className="font-normal text-blue-900 normal-case">({edu.level})</span>
                         </span>
@@ -613,7 +622,7 @@ export default function Home() {
                     <div className="space-y-3 pt-2">
                       <span className="text-[11px] font-extrabold uppercase text-slate-600 block tracking-wide">Complementaria</span>
                       {formData.complementaryEdu.map((comp, i) => (
-                        <div key={i} className="text-xs space-y-0.5">
+                        <div key={i} className="text-[12px] space-y-0.5">
                           <span className="font-bold text-slate-900 uppercase block">{comp.title || "Curso o Taller"}</span>
                           <span className="text-slate-700 font-medium block capitalize">{comp.institution || "Institución"}</span>
                           <span className="text-slate-500 block text-[11px]">{comp.year}</span>
@@ -627,13 +636,14 @@ export default function Home() {
               {/* Experiencia Profesional (Sección 4: Laboral y Proyectos Académicos) */}
               {(formData.experiences.length > 0 || formData.projects.length > 0) && (
                 <div className="mb-6 pt-3 border-t border-slate-100">
-                  <h3 className="text-xs font-bold uppercase text-blue-900 tracking-wider border-l-4 border-amber-400 pl-2 mb-3">Experiencia Profesional</h3>
+                  {/* Título de sección en 14px (text-sm) */}
+                  <h3 className="text-[14px] font-bold uppercase text-blue-900 tracking-wider border-l-4 border-amber-400 pl-2 mb-3">Experiencia Profesional</h3>
                   
                   {formData.experiences.length > 0 && (
                     <div className="space-y-4 mb-4">
                       <span className="text-[11px] font-extrabold uppercase text-slate-600 block tracking-wide">Laboral</span>
                       {formData.experiences.map((exp, i) => (
-                        <div key={i} className="text-xs space-y-1.5 break-inside-avoid">
+                        <div key={i} className="text-[12px] space-y-1.5 break-inside-avoid">
                           <div>
                             <span className="font-black text-slate-900 uppercase block">{exp.position || "Cargo"}</span>
                             <span className="text-blue-900 font-semibold block capitalize">{exp.company || "Empresa"}</span>
@@ -654,7 +664,7 @@ export default function Home() {
                     <div className="space-y-4 pt-2">
                       <span className="text-[11px] font-extrabold uppercase text-slate-600 block tracking-wide">Proyectos Académicos</span>
                       {formData.projects.map((proj, i) => (
-                        <div key={i} className="text-xs space-y-1.5 break-inside-avoid">
+                        <div key={i} className="text-[12px] space-y-1.5 break-inside-avoid">
                           <div>
                             <span className="font-black text-slate-900 uppercase block">{proj.name || "Proyecto"} {proj.url && <span className="font-normal text-blue-600 lowercase">({proj.url})</span>}</span>
                             <span className="text-blue-900 font-semibold block capitalize">{proj.role || "Rol"}</span>
@@ -670,10 +680,11 @@ export default function Home() {
               {/* Voluntariado (Sección 5) */}
               {formData.volunteers.length > 0 && (
                 <div className="mb-6 pt-3 border-t border-slate-100">
-                  <h3 className="text-xs font-bold uppercase text-blue-900 tracking-wider border-l-4 border-amber-400 pl-2 mb-3">Voluntariado</h3>
+                  {/* Título de sección en 14px (text-sm) */}
+                  <h3 className="text-[14px] font-bold uppercase text-blue-900 tracking-wider border-l-4 border-amber-400 pl-2 mb-3">Voluntariado</h3>
                   <div className="space-y-4">
                     {formData.volunteers.map((vol, i) => (
-                      <div key={i} className="text-xs space-y-1.5 break-inside-avoid">
+                      <div key={i} className="text-[12px] space-y-1.5 break-inside-avoid">
                         <div>
                           <span className="font-black text-slate-900 uppercase block">{vol.role || "Rol"}</span>
                           <span className="text-blue-900 font-semibold block capitalize">{vol.organization || "Organización"}</span>
