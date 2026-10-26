@@ -149,7 +149,7 @@ export default function Home() {
         @media print {
           @page {
             size: letter;
-            margin: 1.5cm 1.5cm 2.5cm 1.5cm;
+            margin: 1.5cm 1.5cm 1cm 1.5cm;
           }
           body {
             background: white !important;
@@ -163,7 +163,7 @@ export default function Home() {
             box-shadow: none !important;
             margin: 0 !important;
             padding: 0 !important;
-            padding-bottom: 3.8cm !important;
+            padding-bottom: 2.8cm !important;
             width: 100% !important;
             max-width: none !important;
             min-height: auto !important;
@@ -172,7 +172,7 @@ export default function Home() {
           }
           .print-footer {
             position: fixed;
-            bottom: 0cm;
+            bottom: 0.1cm;
             left: 0;
             right: 0;
             width: 100%;
@@ -514,7 +514,7 @@ export default function Home() {
           </div>
 
           {/* HOJA ÚNICA FLUIDA */}
-          <div className="resume-sheet bg-white text-slate-800 w-full max-w-[800px] p-[2cm] pb-[3.8cm] shadow-[0_0_40px_rgba(0,0,0,0.4)] rounded-xl flex flex-col justify-between" style={{ fontSize: '12px' }}>
+          <div className="resume-sheet bg-white text-slate-800 w-full max-w-[800px] p-[2cm] pb-[4cm] shadow-[0_0_40px_rgba(0,0,0,0.4)] rounded-xl flex flex-col justify-between" style={{ fontSize: '12px' }}>
             <div className="pb-8">
               
               {/* Encabezado Institucional (Sin recuadro en los logos) */}
@@ -548,8 +548,11 @@ export default function Home() {
               {/* Perfil Profesional (Sección 2) */}
               {(formData.profile || formData.softSkills || formData.toolsList.length > 0 || formData.languageList.length > 0) && (
                 <div className="mb-6 break-inside-avoid">
-                  <div className="w-full py-1.5 px-3 mb-3 flex items-center" style={{ background: 'linear-gradient(to right, #fbbf24 40%, rgba(251, 191, 36, 0.8) 70%, transparent 100%)' }}>
-                    <h3 className="text-[13px] font-extrabold uppercase text-blue-950 tracking-wider">Perfil Profesional</h3>
+                  <div className="relative flex items-center justify-center my-4 break-after-avoid">
+                    <div className="absolute inset-0 flex items-center">
+                      <div className="w-full h-[2px]" style={{ background: 'linear-gradient(to right, transparent, #fbbf24 30%, #fbbf24 70%, transparent)' }}></div>
+                    </div>
+                    <h3 className="relative px-4 bg-white text-[13px] font-extrabold uppercase text-blue-950 tracking-wider">Perfil Profesional</h3>
                   </div>
                   {formData.profile && <p className="text-[12px] text-slate-700 text-justify leading-relaxed mb-3">{formData.profile}</p>}
                   
@@ -602,12 +605,15 @@ export default function Home() {
               {/* Formación (Sección 3: Académica y Complementaria) */}
               {formData.education.length > 0 && (
                 <div className="mb-6 pt-3 border-t border-slate-100">
-                  <div className="w-full py-1.5 px-3 mb-3 flex items-center" style={{ background: 'linear-gradient(to right, #fbbf24 40%, rgba(251, 191, 36, 0.8) 70%, transparent 100%)' }}>
-                    <h3 className="text-[13px] font-extrabold uppercase text-blue-950 tracking-wider">Formación</h3>
+                  <div className="relative flex items-center justify-center my-4 break-after-avoid">
+                    <div className="absolute inset-0 flex items-center">
+                      <div className="w-full h-[2px]" style={{ background: 'linear-gradient(to right, transparent, #fbbf24 30%, #fbbf24 70%, transparent)' }}></div>
+                    </div>
+                    <h3 className="relative px-4 bg-white text-[13px] font-extrabold uppercase text-blue-950 tracking-wider">Formación</h3>
                   </div>
                   
                   <div className="space-y-3 mb-4">
-                    <span className="text-[11px] font-extrabold uppercase text-slate-600 block tracking-wide text-center break-after-avoid">Académica</span>
+                    <span className="text-[11px] font-extrabold uppercase text-slate-700 block tracking-wide text-left break-after-avoid border-b border-slate-200 pb-1 mb-2">Académica</span>
                     {formData.education.map((edu, i) => (
                       <div key={i} className="text-[12px] space-y-0.5 break-inside-avoid">
                         <span className="font-bold text-slate-900 uppercase block">
@@ -623,7 +629,7 @@ export default function Home() {
 
                   {formData.complementaryEdu.length > 0 && (
                     <div className="space-y-3 pt-2">
-                      <span className="text-[11px] font-extrabold uppercase text-slate-600 block tracking-wide text-center break-after-avoid">Complementaria</span>
+                      <span className="text-[11px] font-extrabold uppercase text-slate-700 block tracking-wide text-left break-after-avoid border-b border-slate-200 pb-1 mb-2">Complementaria</span>
                       {formData.complementaryEdu.map((comp, i) => (
                         <div key={i} className="text-[12px] space-y-0.5 break-inside-avoid">
                           <span className="font-bold text-slate-900 uppercase block">{comp.title || "Curso o Taller"}</span>
@@ -639,13 +645,16 @@ export default function Home() {
               {/* Experiencia Profesional (Sección 4: Laboral y Proyectos Académicos) */}
               {(formData.experiences.length > 0 || formData.projects.length > 0) && (
                 <div className="mb-6 pt-3 border-t border-slate-100">
-                  <div className="w-full py-1.5 px-3 mb-3 flex items-center" style={{ background: 'linear-gradient(to right, #fbbf24 40%, rgba(251, 191, 36, 0.8) 70%, transparent 100%)' }}>
-                    <h3 className="text-[13px] font-extrabold uppercase text-blue-950 tracking-wider">Experiencia Profesional</h3>
+                  <div className="relative flex items-center justify-center my-4 break-after-avoid">
+                    <div className="absolute inset-0 flex items-center">
+                      <div className="w-full h-[2px]" style={{ background: 'linear-gradient(to right, transparent, #fbbf24 30%, #fbbf24 70%, transparent)' }}></div>
+                    </div>
+                    <h3 className="relative px-4 bg-white text-[13px] font-extrabold uppercase text-blue-950 tracking-wider">Experiencia Profesional</h3>
                   </div>
                   
                   {formData.experiences.length > 0 && (
                     <div className="space-y-4 mb-4">
-                      <span className="text-[11px] font-extrabold uppercase text-slate-600 block tracking-wide text-center break-after-avoid">Laboral</span>
+                      <span className="text-[11px] font-extrabold uppercase text-slate-700 block tracking-wide text-left break-after-avoid border-b border-slate-200 pb-1 mb-2">Laboral</span>
                       {formData.experiences.map((exp, i) => (
                         <div key={i} className="text-[12px] space-y-1.5 break-inside-avoid">
                           <div>
@@ -666,7 +675,7 @@ export default function Home() {
 
                   {formData.projects.length > 0 && (
                     <div className="space-y-4 pt-2">
-                      <span className="text-[11px] font-extrabold uppercase text-slate-600 block tracking-wide text-center break-after-avoid">Proyectos Académicos</span>
+                      <span className="text-[11px] font-extrabold uppercase text-slate-700 block tracking-wide text-left break-after-avoid border-b border-slate-200 pb-1 mb-2">Proyectos Académicos</span>
                       {formData.projects.map((proj, i) => (
                         <div key={i} className="text-[12px] space-y-1.5 break-inside-avoid">
                           <div>
@@ -684,8 +693,11 @@ export default function Home() {
               {/* Voluntariado (Sección 5) */}
               {formData.volunteers.length > 0 && (
                 <div className="mb-6 pt-3 border-t border-slate-100">
-                  <div className="w-full py-1.5 px-3 mb-3 flex items-center" style={{ background: 'linear-gradient(to right, #fbbf24 40%, rgba(251, 191, 36, 0.8) 70%, transparent 100%)' }}>
-                    <h3 className="text-[13px] font-extrabold uppercase text-blue-950 tracking-wider">Voluntariado</h3>
+                  <div className="relative flex items-center justify-center my-4 break-after-avoid">
+                    <div className="absolute inset-0 flex items-center">
+                      <div className="w-full h-[2px]" style={{ background: 'linear-gradient(to right, transparent, #fbbf24 30%, #fbbf24 70%, transparent)' }}></div>
+                    </div>
+                    <h3 className="relative px-4 bg-white text-[13px] font-extrabold uppercase text-blue-950 tracking-wider">Voluntariado</h3>
                   </div>
                   <div className="space-y-4">
                     {formData.volunteers.map((vol, i) => (
@@ -711,11 +723,11 @@ export default function Home() {
 
             {/* Pie de página institucional fijo al imprimir */}
             <div className="print-footer border-t pt-2 mt-8 text-center text-[10px] text-slate-500 space-y-1.5 bg-white">
+              <p>Línea de Atención al Usuario: 601 593 3004 · Línea Nacional: 01 8000 936 670</p>
+              <p className="font-bold text-slate-700">www.uniminuto.edu</p>
               <div className="w-56 mx-auto py-1 border-t border-b border-slate-400 font-bold tracking-widest text-slate-600 text-[9px]">
                 VIGILADA MINEDUCACIÓN
               </div>
-              <p>Línea de Atención al Usuario: 601 593 3004 · Línea Nacional: 01 8000 936 670</p>
-              <p className="font-bold text-slate-700">www.uniminuto.edu</p>
             </div>
           </div>
 
