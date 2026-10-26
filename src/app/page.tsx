@@ -149,7 +149,7 @@ export default function Home() {
         @media print {
           @page {
             size: letter;
-            margin: 1.5cm; /* Margen uniforme de 1.5cm para estabilidad en Firefox y Chrome */
+            margin: 1.5cm;
           }
           body {
             background: white !important;
@@ -162,25 +162,11 @@ export default function Home() {
           .resume-sheet {
             box-shadow: none !important;
             margin: 0 !important;
-            padding: 0 !important;
-            padding-bottom: 2.8cm !important; /* Colchón de seguridad para que el texto no pise el footer */
             width: 100% !important;
             max-width: none !important;
-            min-height: auto !important;
             border: none !important;
-            display: block !important;
             font-family: 'Montserrat', sans-serif !important;
           }
-          .print-footer {
-            position: fixed;
-            bottom: 0.4cm; /* Posición segura para Gecko (Firefox) y Blink (Chrome) */
-            left: 1.5cm;
-            right: 1.5cm;
-            width: auto;
-            text-align: center;
-            background: white;
-          }
-          /* Clases atómicas de protección contra cortes en impresión */
           .print-atomic-item {
             break-inside: avoid;
             page-break-inside: avoid;
@@ -515,227 +501,245 @@ export default function Home() {
         <div className="lg:col-span-7 bg-blue-950/90 p-6 rounded-2xl flex flex-col items-center shadow-2xl border border-blue-900 overflow-auto max-h-[88vh] print:p-0 print:m-0 print:bg-white print:overflow-visible print:max-h-none print:w-full print:shadow-none print:border-none">
           
           <div className="w-full flex justify-between items-center mb-4 print:hidden px-2 text-xs text-blue-200">
-            <span className="font-semibold tracking-wide uppercase">📄 Vista Previa y Flujo Continuo</span>
-            <span className="bg-blue-900 px-3 py-1 rounded-full border border-blue-800">Se adapta a cualquier número de páginas</span>
+            <span className="font-semibold tracking-wide uppercase">📄 Vista Previa y Flujo Continuo Cross-Browser</span>
+            <span className="bg-blue-900 px-3 py-1 rounded-full border border-blue-800">Compatible con Chrome y Firefox</span>
           </div>
 
-          {/* HOJA ÚNICA FLUIDA */}
-          <div className="resume-sheet bg-white text-slate-800 w-full max-w-[800px] p-[2cm] pb-[3.2cm] shadow-[0_0_40px_rgba(0,0,0,0.4)] rounded-xl" style={{ fontSize: '12px' }}>
-            <div className="pb-8">
-              
-              {/* Encabezado Institucional (Sin recuadro en los logos) */}
-              <div className="border-b-2 border-blue-900 pb-5 mb-6 flex flex-row justify-between items-center bg-white">
-                <div className="pr-4">
-                  <h1 className="text-2xl lg:text-3xl font-black text-slate-900 uppercase tracking-tight break-words">
-                    {formData.fullName || "Nombre del Estudiante"}
-                  </h1>
-                  <p className="text-blue-900 font-bold text-[11px] uppercase tracking-widest mt-1">
-                    Candidato a Práctica Profesional
-                  </p>
-                </div>
-                
-                <div className="flex items-center gap-4 bg-white flex-shrink-0">
-                  <img src="/Rectoría%20Bogotá%20Letras%20Colores%20(Sin%20Fondo).png" alt="Rectoría Bogotá" className="h-8 object-contain" />
-                  <div className="h-6 w-px bg-slate-300"></div>
-                  <img src="/Centro%20Progresa%20Letras%20Negras%20Iconos%20Blancos%20(sin%20fondo).png" alt="Centro Progresa" className="h-8 object-contain" />
-                </div>
-              </div>
-
-              {/* Contacto centrado (Sección 1) */}
-              <div className="flex flex-wrap justify-center items-center gap-4 text-[12px] text-slate-600 mb-6 pb-4 border-b border-slate-100 font-medium text-center">
-                {formData.email && <span className="flex items-center gap-1"><Mail size={12} className="text-blue-900"/> {formData.email}</span>}
-                {formData.phone && <span className="flex items-center gap-1"><Phone size={12} className="text-blue-900"/> {formData.phone}</span>}
-                {formData.city && <span className="flex items-center gap-1"><MapPin size={12} className="text-blue-900"/> {formData.city}</span>}
-                {formData.links.map((l, i) => (
-                  l.url ? <span key={i} className="flex items-center gap-1"><LinkIcon size={12} className="text-blue-900"/> <b>{l.label || "Enlace"}:</b> {l.url}</span> : null
-                ))}
-              </div>
-
-              {/* Perfil Profesional (Sección 2) */}
-              {(formData.profile || formData.softSkills || formData.toolsList.length > 0 || formData.languageList.length > 0) && (
-                <div className="mb-6 print-atomic-item">
-                  <div className="relative flex items-center justify-center my-4 break-after-avoid">
-                    <div className="absolute inset-0 flex items-center">
-                      <div className="w-full h-[2px]" style={{ background: 'linear-gradient(to right, transparent, #fbbf24 30%, #fbbf24 70%, transparent)' }}></div>
-                    </div>
-                    <h3 className="relative px-4 bg-white text-[13px] font-extrabold uppercase text-blue-950 tracking-wider">Perfil Profesional</h3>
-                  </div>
-                  {formData.profile && <p className="text-[12px] text-slate-700 text-justify leading-relaxed mb-3">{formData.profile}</p>}
+          {/* HOJA EN FORMATO TABLA NATIVA PARA IMPRESIÓN MULTIPÁGINA */}
+          <table className="resume-sheet bg-white text-slate-800 w-full max-w-[800px] shadow-[0_0_40px_rgba(0,0,0,0.4)] rounded-xl border-collapse" style={{ fontSize: '12px' }}>
+            <thead>
+              <tr>
+                <td className="p-[2cm] pb-0">
                   
-                  <table className="w-full text-[12px] mt-2 border-separate border-spacing-2">
-                    <tbody>
-                      <tr>
-                        {formData.softSkills && (
-                          <td className="w-1/3 bg-slate-50 p-2.5 rounded border border-slate-100 align-top">
-                            <span className="font-bold text-slate-900 flex items-center gap-1.5 mb-1 text-blue-900">
-                              <CheckCircle size={13}/> Habilidades:
+                  {/* Encabezado Institucional */}
+                  <div className="border-b-2 border-blue-900 pb-5 mb-6 flex flex-row justify-between items-center bg-white">
+                    <div className="pr-4">
+                      <h1 className="text-2xl lg:text-3xl font-black text-slate-900 uppercase tracking-tight break-words">
+                        {formData.fullName || "Nombre del Estudiante"}
+                      </h1>
+                      <p className="text-blue-900 font-bold text-[11px] uppercase tracking-widest mt-1">
+                        Candidato a Práctica Profesional
+                      </p>
+                    </div>
+                    
+                    <div className="flex items-center gap-4 bg-white flex-shrink-0">
+                      <img src="/Rectoría%20Bogotá%20Letras%20Colores%20(Sin%20Fondo).png" alt="Rectoría Bogotá" className="h-8 object-contain" />
+                      <div className="h-6 w-px bg-slate-300"></div>
+                      <img src="/Centro%20Progresa%20Letras%20Negras%20Iconos%20Blancos%20(sin%20fondo).png" alt="Centro Progresa" className="h-8 object-contain" />
+                    </div>
+                  </div>
+
+                  {/* Contacto centrado (Sección 1) */}
+                  <div className="flex flex-wrap justify-center items-center gap-4 text-[12px] text-slate-600 mb-6 pb-4 border-b border-slate-100 font-medium text-center">
+                    {formData.email && <span className="flex items-center gap-1"><Mail size={12} className="text-blue-900"/> {formData.email}</span>}
+                    {formData.phone && <span className="flex items-center gap-1"><Phone size={12} className="text-blue-900"/> {formData.phone}</span>}
+                    {formData.city && <span className="flex items-center gap-1"><MapPin size={12} className="text-blue-900"/> {formData.city}</span>}
+                    {formData.links.map((l, i) => (
+                      l.url ? <span key={i} className="flex items-center gap-1"><LinkIcon size={12} className="text-blue-900"/> <b>{l.label || "Enlace"}:</b> {l.url}</span> : null
+                    ))}
+                  </div>
+
+                </td>
+              </tr>
+            </thead>
+            
+            <tbody>
+              <tr>
+                <td className="px-[2cm]">
+                  
+                  {/* Perfil Profesional (Sección 2) */}
+                  {(formData.profile || formData.softSkills || formData.toolsList.length > 0 || formData.languageList.length > 0) && (
+                    <div className="mb-6 print-atomic-item">
+                      <div className="relative flex items-center justify-center my-4">
+                        <div className="absolute inset-0 flex items-center">
+                          <div className="w-full h-[2px]" style={{ background: 'linear-gradient(to right, transparent, #fbbf24 30%, #fbbf24 70%, transparent)' }}></div>
+                        </div>
+                        <h3 className="relative px-4 bg-white text-[13px] font-extrabold uppercase text-blue-950 tracking-wider">Perfil Profesional</h3>
+                      </div>
+                      {formData.profile && <p className="text-[12px] text-slate-700 text-justify leading-relaxed mb-3">{formData.profile}</p>}
+                      
+                      <table className="w-full text-[12px] mt-2 border-separate border-spacing-2">
+                        <tbody>
+                          <tr>
+                            {formData.softSkills && (
+                              <td className="w-1/3 bg-slate-50 p-2.5 rounded border border-slate-100 align-top">
+                                <span className="font-bold text-slate-900 flex items-center gap-1.5 mb-1 text-blue-900">
+                                  <CheckCircle size={13}/> Habilidades:
+                                </span>
+                                <ul className="text-slate-700 space-y-0.5">
+                                  {formData.softSkills.split(",").map((s, i) => {
+                                    const trimmed = s.trim();
+                                    return trimmed ? <li key={i}>• {trimmed}</li> : null;
+                                  })}
+                                </ul>
+                              </td>
+                            )}
+                            {formData.toolsList.length > 0 && (
+                              <td className="w-1/3 bg-slate-50 p-2.5 rounded border border-slate-100 align-top">
+                                <span className="font-bold text-slate-900 flex items-center gap-1.5 mb-1 text-blue-900">
+                                  <Wrench size={13}/> Herramientas:
+                                </span>
+                                <ul className="text-slate-700 space-y-0.5">
+                                  {formData.toolsList.map((t, i) => (
+                                    <li key={i}>• {t.name} <span className="text-blue-900 font-semibold">({t.level})</span></li>
+                                  ))}
+                                </ul>
+                              </td>
+                            )}
+                            {formData.languageList.length > 0 && (
+                              <td className="w-1/3 bg-slate-50 p-2.5 rounded border border-slate-100 align-top">
+                                <span className="font-bold text-slate-900 flex items-center gap-1.5 mb-1 text-blue-900">
+                                  <Globe size={13}/> Idiomas:
+                                </span>
+                                <ul className="text-slate-700 space-y-0.5">
+                                  {formData.languageList.map((l, i) => (
+                                    <li key={i}>• {l.language} <span className="text-blue-900 font-semibold">({l.level})</span></li>
+                                  ))}
+                                </ul>
+                              </td>
+                            )}
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  )}
+
+                  {/* Formación (Sección 3: Académica y Complementaria) */}
+                  {formData.education.length > 0 && (
+                    <div className="mb-6 pt-3 border-t border-slate-100">
+                      <div className="relative flex items-center justify-center my-4">
+                        <div className="absolute inset-0 flex items-center">
+                          <div className="w-full h-[2px]" style={{ background: 'linear-gradient(to right, transparent, #fbbf24 30%, #fbbf24 70%, transparent)' }}></div>
+                        </div>
+                        <h3 className="relative px-4 bg-white text-[13px] font-extrabold uppercase text-blue-950 tracking-wider">Formación</h3>
+                      </div>
+                      
+                      <div className="space-y-3 mb-4">
+                        <span className="text-[11px] font-extrabold uppercase text-slate-700 block tracking-wide text-left border-b border-slate-200 pb-1 mb-2">Académica</span>
+                        {formData.education.map((edu, i) => (
+                          <div key={i} className="text-[12px] space-y-0.5 print-atomic-item mb-3">
+                            <span className="font-bold text-slate-900 uppercase block">
+                              {edu.degree || "Título a obtener / Programa"} <span className="font-normal text-blue-900 normal-case">({edu.level})</span>
                             </span>
-                            <ul className="text-slate-700 space-y-0.5">
-                              {formData.softSkills.split(",").map((s, i) => {
-                                const trimmed = s.trim();
-                                return trimmed ? <li key={i}>• {trimmed}</li> : null;
+                            <span className="text-slate-700 font-medium block capitalize">{edu.institution || "Institución"}</span>
+                            <span className="text-blue-900 font-semibold block text-[11px]">
+                              {edu.isCurrent ? `En curso — ${edu.year || "Semestre actual"}` : edu.year}
+                            </span>
+                          </div>
+                        ))}
+                      </div>
+
+                      {formData.complementaryEdu.length > 0 && (
+                        <div className="space-y-3 pt-2">
+                          <span className="text-[11px] font-extrabold uppercase text-slate-700 block tracking-wide text-left border-b border-slate-200 pb-1 mb-2">Complementaria</span>
+                          {formData.complementaryEdu.map((comp, i) => (
+                            <div key={i} className="text-[12px] space-y-0.5 print-atomic-item mb-3">
+                              <span className="font-bold text-slate-900 uppercase block">{comp.title || "Curso o Taller"}</span>
+                              <span className="text-slate-700 font-medium block capitalize">{comp.institution || "Institución"}</span>
+                              <span className="text-slate-500 block text-[11px]">{comp.year}</span>
+                            </div>
+                          ))}
+                        </div>
+                      )}
+                    </div>
+                  )}
+
+                  {/* Experiencia Profesional (Sección 4: Laboral y Proyectos Académicos) */}
+                  {(formData.experiences.length > 0 || formData.projects.length > 0) && (
+                    <div className="mb-6 pt-3 border-t border-slate-100">
+                      <div className="relative flex items-center justify-center my-4">
+                        <div className="absolute inset-0 flex items-center">
+                          <div className="w-full h-[2px]" style={{ background: 'linear-gradient(to right, transparent, #fbbf24 30%, #fbbf24 70%, transparent)' }}></div>
+                        </div>
+                        <h3 className="relative px-4 bg-white text-[13px] font-extrabold uppercase text-blue-950 tracking-wider">Experiencia Profesional</h3>
+                      </div>
+                      
+                      {formData.experiences.length > 0 && (
+                        <div className="space-y-4 mb-4">
+                          <span className="text-[11px] font-extrabold uppercase text-slate-700 block tracking-wide text-left border-b border-slate-200 pb-1 mb-2">Laboral</span>
+                          {formData.experiences.map((exp, i) => (
+                            <div key={i} className="text-[12px] space-y-1.5 print-atomic-item mb-4">
+                              <div>
+                                <span className="font-black text-slate-900 uppercase block">{exp.position || "Cargo"}</span>
+                                <span className="text-blue-900 font-semibold block capitalize">{exp.company || "Empresa"}</span>
+                                <span className="text-slate-500 block text-[11px]">{exp.startDate} {exp.endDate ? `- ${exp.endDate}` : ""}</span>
+                              </div>
+                              <ol className="list-decimal space-y-1 text-slate-700 leading-relaxed" style={{ paddingLeft: '1cm' }}>
+                                {exp.description.split(/\n/).map((item, idx) => {
+                                  const trimmed = item.trim();
+                                  return trimmed ? <li key={idx} className="print-atomic-item">{trimmed}</li> : null;
+                                })}
+                              </ol>
+                            </div>
+                          ))}
+                        </div>
+                      )}
+
+                      {formData.projects.length > 0 && (
+                        <div className="space-y-4 pt-2">
+                          <span className="text-[11px] font-extrabold uppercase text-slate-700 block tracking-wide text-left border-b border-slate-200 pb-1 mb-2">Proyectos Académicos</span>
+                          {formData.projects.map((proj, i) => (
+                            <div key={i} className="text-[12px] space-y-1.5 print-atomic-item mb-4">
+                              <div>
+                                <span className="font-black text-slate-900 uppercase block">{proj.name || "Proyecto"} {proj.url && <span className="font-normal text-blue-600 lowercase">({proj.url})</span>}</span>
+                                <span className="text-blue-900 font-semibold block capitalize">{proj.role || "Rol"}</span>
+                              </div>
+                              <p className="text-slate-700 leading-relaxed text-justify" style={{ paddingLeft: '1cm' }}>{proj.description}</p>
+                            </div>
+                          ))}
+                        </div>
+                      )}
+                    </div>
+                  )}
+
+                  {/* Voluntariado (Sección 5) */}
+                  {formData.volunteers.length > 0 && (
+                    <div className="mb-6 pt-3 border-t border-slate-100">
+                      <div className="relative flex items-center justify-center my-4">
+                        <div className="absolute inset-0 flex items-center">
+                          <div className="w-full h-[2px]" style={{ background: 'linear-gradient(to right, transparent, #fbbf24 30%, #fbbf24 70%, transparent)' }}></div>
+                        </div>
+                        <h3 className="relative px-4 bg-white text-[13px] font-extrabold uppercase text-blue-950 tracking-wider">Voluntariado</h3>
+                      </div>
+                      <div className="space-y-4">
+                        {formData.volunteers.map((vol, i) => (
+                          <div key={i} className="text-[12px] space-y-1.5 print-atomic-item mb-4">
+                            <div>
+                              <span className="font-black text-slate-900 uppercase block">{vol.role || "Rol"}</span>
+                              <span className="text-blue-900 font-semibold block capitalize">{vol.organization || "Organización"}</span>
+                              <span className="text-slate-500 block text-[11px]">{vol.startDate} {vol.endDate ? `- ${vol.endDate}` : ""}</span>
+                            </div>
+                            <ol className="list-decimal space-y-1 text-slate-700 leading-relaxed" style={{ paddingLeft: '1cm' }}>
+                              {vol.description.split(/\n/).map((item, idx) => {
+                                const trimmed = item.trim();
+                                return trimmed ? <li key={idx} className="print-atomic-item">{trimmed}</li> : null;
                               })}
-                            </ul>
-                          </td>
-                        )}
-                        {formData.toolsList.length > 0 && (
-                          <td className="w-1/3 bg-slate-50 p-2.5 rounded border border-slate-100 align-top">
-                            <span className="font-bold text-slate-900 flex items-center gap-1.5 mb-1 text-blue-900">
-                              <Wrench size={13}/> Herramientas:
-                            </span>
-                            <ul className="text-slate-700 space-y-0.5">
-                              {formData.toolsList.map((t, i) => (
-                                <li key={i}>• {t.name} <span className="text-blue-900 font-semibold">({t.level})</span></li>
-                              ))}
-                            </ul>
-                          </td>
-                        )}
-                        {formData.languageList.length > 0 && (
-                          <td className="w-1/3 bg-slate-50 p-2.5 rounded border border-slate-100 align-top">
-                            <span className="font-bold text-slate-900 flex items-center gap-1.5 mb-1 text-blue-900">
-                              <Globe size={13}/> Idiomas:
-                            </span>
-                            <ul className="text-slate-700 space-y-0.5">
-                              {formData.languageList.map((l, i) => (
-                                <li key={i}>• {l.language} <span className="text-blue-900 font-semibold">({l.level})</span></li>
-                              ))}
-                            </ul>
-                          </td>
-                        )}
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
-              )}
-
-              {/* Formación (Sección 3: Académica y Complementaria) */}
-              {formData.education.length > 0 && (
-                <div className="mb-6 pt-3 border-t border-slate-100">
-                  <div className="relative flex items-center justify-center my-4 break-after-avoid">
-                    <div className="absolute inset-0 flex items-center">
-                      <div className="w-full h-[2px]" style={{ background: 'linear-gradient(to right, transparent, #fbbf24 30%, #fbbf24 70%, transparent)' }}></div>
-                    </div>
-                    <h3 className="relative px-4 bg-white text-[13px] font-extrabold uppercase text-blue-950 tracking-wider">Formación</h3>
-                  </div>
-                  
-                  <div className="space-y-3 mb-4">
-                    <span className="text-[11px] font-extrabold uppercase text-slate-700 block tracking-wide text-left break-after-avoid border-b border-slate-200 pb-1 mb-2">Académica</span>
-                    {formData.education.map((edu, i) => (
-                      <div key={i} className="text-[12px] space-y-0.5 print-atomic-item mb-3">
-                        <span className="font-bold text-slate-900 uppercase block">
-                          {edu.degree || "Título a obtener / Programa"} <span className="font-normal text-blue-900 normal-case">({edu.level})</span>
-                        </span>
-                        <span className="text-slate-700 font-medium block capitalize">{edu.institution || "Institución"}</span>
-                        <span className="text-blue-900 font-semibold block text-[11px]">
-                          {edu.isCurrent ? `En curso — ${edu.year || "Semestre actual"}` : edu.year}
-                        </span>
-                      </div>
-                    ))}
-                  </div>
-
-                  {formData.complementaryEdu.length > 0 && (
-                    <div className="space-y-3 pt-2">
-                      <span className="text-[11px] font-extrabold uppercase text-slate-700 block tracking-wide text-left break-after-avoid border-b border-slate-200 pb-1 mb-2">Complementaria</span>
-                      {formData.complementaryEdu.map((comp, i) => (
-                        <div key={i} className="text-[12px] space-y-0.5 print-atomic-item mb-3">
-                          <span className="font-bold text-slate-900 uppercase block">{comp.title || "Curso o Taller"}</span>
-                          <span className="text-slate-700 font-medium block capitalize">{comp.institution || "Institución"}</span>
-                          <span className="text-slate-500 block text-[11px]">{comp.year}</span>
-                        </div>
-                      ))}
-                    </div>
-                  )}
-                </div>
-              )}
-
-              {/* Experiencia Profesional (Sección 4: Laboral y Proyectos Académicos) */}
-              {(formData.experiences.length > 0 || formData.projects.length > 0) && (
-                <div className="mb-6 pt-3 border-t border-slate-100">
-                  <div className="relative flex items-center justify-center my-4 break-after-avoid">
-                    <div className="absolute inset-0 flex items-center">
-                      <div className="w-full h-[2px]" style={{ background: 'linear-gradient(to right, transparent, #fbbf24 30%, #fbbf24 70%, transparent)' }}></div>
-                    </div>
-                    <h3 className="relative px-4 bg-white text-[13px] font-extrabold uppercase text-blue-950 tracking-wider">Experiencia Profesional</h3>
-                  </div>
-                  
-                  {formData.experiences.length > 0 && (
-                    <div className="space-y-4 mb-4">
-                      <span className="text-[11px] font-extrabold uppercase text-slate-700 block tracking-wide text-left break-after-avoid border-b border-slate-200 pb-1 mb-2">Laboral</span>
-                      {formData.experiences.map((exp, i) => (
-                        <div key={i} className="text-[12px] space-y-1.5 print-atomic-item mb-4">
-                          <div>
-                            <span className="font-black text-slate-900 uppercase block">{exp.position || "Cargo"}</span>
-                            <span className="text-blue-900 font-semibold block capitalize">{exp.company || "Empresa"}</span>
-                            <span className="text-slate-500 block text-[11px]">{exp.startDate} {exp.endDate ? `- ${exp.endDate}` : ""}</span>
+                            </ol>
                           </div>
-                          <ol className="list-decimal space-y-1 text-slate-700 leading-relaxed" style={{ paddingLeft: '1cm' }}>
-                            {exp.description.split(/\n/).map((item, idx) => {
-                              const trimmed = item.trim();
-                              return trimmed ? <li key={idx} className="print-atomic-item">{trimmed}</li> : null;
-                            })}
-                          </ol>
-                        </div>
-                      ))}
-                    </div>
-                  )}
-
-                  {formData.projects.length > 0 && (
-                    <div className="space-y-4 pt-2">
-                      <span className="text-[11px] font-extrabold uppercase text-slate-700 block tracking-wide text-left break-after-avoid border-b border-slate-200 pb-1 mb-2">Proyectos Académicos</span>
-                      {formData.projects.map((proj, i) => (
-                        <div key={i} className="text-[12px] space-y-1.5 print-atomic-item mb-4">
-                          <div>
-                            <span className="font-black text-slate-900 uppercase block">{proj.name || "Proyecto"} {proj.url && <span className="font-normal text-blue-600 lowercase">({proj.url})</span>}</span>
-                            <span className="text-blue-900 font-semibold block capitalize">{proj.role || "Rol"}</span>
-                          </div>
-                          <p className="text-slate-700 leading-relaxed text-justify" style={{ paddingLeft: '1cm' }}>{proj.description}</p>
-                        </div>
-                      ))}
-                    </div>
-                  )}
-                </div>
-              )}
-
-              {/* Voluntariado (Sección 5) */}
-              {formData.volunteers.length > 0 && (
-                <div className="mb-6 pt-3 border-t border-slate-100">
-                  <div className="relative flex items-center justify-center my-4 break-after-avoid">
-                    <div className="absolute inset-0 flex items-center">
-                      <div className="w-full h-[2px]" style={{ background: 'linear-gradient(to right, transparent, #fbbf24 30%, #fbbf24 70%, transparent)' }}></div>
-                    </div>
-                    <h3 className="relative px-4 bg-white text-[13px] font-extrabold uppercase text-blue-950 tracking-wider">Voluntariado</h3>
-                  </div>
-                  <div className="space-y-4">
-                    {formData.volunteers.map((vol, i) => (
-                      <div key={i} className="text-[12px] space-y-1.5 print-atomic-item mb-4">
-                        <div>
-                          <span className="font-black text-slate-900 uppercase block">{vol.role || "Rol"}</span>
-                          <span className="text-blue-900 font-semibold block capitalize">{vol.organization || "Organización"}</span>
-                          <span className="text-slate-500 block text-[11px]">{vol.startDate} {vol.endDate ? `- ${vol.endDate}` : ""}</span>
-                        </div>
-                        <ol className="list-decimal space-y-1 text-slate-700 leading-relaxed" style={{ paddingLeft: '1cm' }}>
-                          {vol.description.split(/\n/).map((item, idx) => {
-                            const trimmed = item.trim();
-                            return trimmed ? <li key={idx} className="print-atomic-item">{trimmed}</li> : null;
-                          })}
-                        </ol>
+                        ))}
                       </div>
-                    ))}
+                    </div>
+                  )}
+
+                </td>
+              </tr>
+            </tbody>
+
+            <tfoot>
+              <tr>
+                <td className="p-[2cm] pt-4">
+                  {/* Pie de página institucional repetido automáticamente al pie de cada página */}
+                  <div className="border-t pt-2 text-center text-[10px] text-slate-500 space-y-1.5 bg-white">
+                    <p>Línea de Atención al Usuario: 601 593 3004 · Línea Nacional: 01 8000 936 670</p>
+                    <p className="font-bold text-slate-700">www.uniminuto.edu</p>
+                    <div className="w-56 mx-auto py-1 border-t border-b border-slate-400 font-bold tracking-widest text-slate-600 text-[9px]">
+                      VIGILADA MINEDUCACIÓN
+                    </div>
                   </div>
-                </div>
-              )}
-
-            </div>
-
-            {/* Pie de página institucional fijo al imprimir */}
-            <div className="print-footer border-t pt-2 mt-8 text-center text-[10px] text-slate-500 space-y-1.5 bg-white">
-              <p>Línea de Atención al Usuario: 601 593 3004 · Línea Nacional: 01 8000 936 670</p>
-              <p className="font-bold text-slate-700">www.uniminuto.edu</p>
-              <div className="w-56 mx-auto py-1 border-t border-b border-slate-400 font-bold tracking-widest text-slate-600 text-[9px]">
-                VIGILADA MINEDUCACIÓN
-              </div>
-            </div>
-          </div>
+                </td>
+              </tr>
+            </tfoot>
+          </table>
 
         </div>
 
