@@ -510,12 +510,12 @@ export default function Home() {
             <span className="bg-blue-900 px-3 py-1 rounded-full border border-blue-800">Compatible con Chrome y Firefox</span>
           </div>
 
-          {/* HOJA EN FORMATO TABLA NATIVA CON PROTECCIÓN CONTRA TÍTULOS HUÉRFANOS */}
+          {/* HOJA EN FORMATO TABLA NATIVA CON ENCABEZADO EXCLUSIVO EN PÁGINA 1 */}
           <table className="resume-sheet bg-white text-slate-800 w-full max-w-[800px] shadow-[0_0_40px_rgba(0,0,0,0.4)] rounded-xl border-collapse" style={{ fontSize: '12px' }}>
-            <thead>
+            <tbody>
+              {/* Encabezado y Contacto: Ubicados como primera fila, aparecen SOLO en la página 1 */}
               <tr>
                 <td className="p-[1.2cm] pb-0">
-                  
                   {/* Encabezado Institucional */}
                   <div className="border-b-2 border-blue-900 pb-4 mb-5 flex flex-row justify-between items-center bg-white">
                     <div className="pr-4">
@@ -543,12 +543,10 @@ export default function Home() {
                       l.url ? <span key={i} className="flex items-center gap-1"><LinkIcon size={12} className="text-blue-900"/> <b>{l.label || "Enlace"}:</b> {l.url}</span> : null
                     ))}
                   </div>
-
                 </td>
               </tr>
-            </thead>
-            
-            <tbody>
+
+              {/* Contenido principal de la Hoja de Vida */}
               <tr>
                 <td className="px-[1.2cm]">
                   
