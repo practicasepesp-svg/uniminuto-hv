@@ -1,11 +1,9 @@
-import "globals.css";
-import { TopNavBar } from "components/TopNavBar";
-import { Analytics } from "@vercel/analytics/react";
+import type { Metadata } from "next";
+import "./globals.css";
 
-export const metadata = {
-  title: "OpenResume - Free Open-source Resume Builder and Parser",
-  description:
-    "OpenResume is a free, open-source, and powerful resume builder that allows anyone to create a modern professional resume in 3 simple steps. For those who have an existing resume, OpenResume also provides a resume parser to help test and confirm its ATS readability.",
+export const metadata: Metadata = {
+  title: "Centro Progresa HV - Creador de Hoja de Vida Institucional",
+  description: "Plataforma institucional para la creación de hojas de vida para prácticas profesionales de UNIMINUTO.",
 };
 
 export default function RootLayout({
@@ -14,11 +12,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
-      <body>
-        <TopNavBar />
+    <html lang="es">
+      <body className="bg-blue-950 text-slate-100 font-sans antialiased min-h-screen">
         {children}
-        <Analytics />
       </body>
     </html>
   );
