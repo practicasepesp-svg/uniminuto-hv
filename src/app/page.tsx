@@ -163,7 +163,7 @@ export default function Home() {
             box-shadow: none !important;
             margin: 0 !important;
             padding: 0 !important;
-            padding-bottom: 3.2cm !important; /* Espacio de seguridad por página para evitar solapamiento con el pie de página */
+            padding-bottom: 3.2cm !important;
             width: 100% !important;
             max-width: none !important;
             min-height: auto !important;
@@ -660,8 +660,8 @@ export default function Home() {
                     <div className="space-y-4 mb-4">
                       <span className="text-[11px] font-extrabold uppercase text-slate-700 block tracking-wide text-left break-after-avoid border-b border-slate-200 pb-1 mb-2">Laboral</span>
                       {formData.experiences.map((exp, i) => (
-                        <div key={i} className="text-[12px] space-y-1.5 break-inside-avoid">
-                          <div>
+                        <div key={i} className="text-[12px] space-y-1.5">
+                          <div className="break-inside-avoid">
                             <span className="font-black text-slate-900 uppercase block">{exp.position || "Cargo"}</span>
                             <span className="text-blue-900 font-semibold block capitalize">{exp.company || "Empresa"}</span>
                             <span className="text-slate-500 block text-[11px]">{exp.startDate} {exp.endDate ? `- ${exp.endDate}` : ""}</span>
@@ -681,12 +681,12 @@ export default function Home() {
                     <div className="space-y-4 pt-2">
                       <span className="text-[11px] font-extrabold uppercase text-slate-700 block tracking-wide text-left break-after-avoid border-b border-slate-200 pb-1 mb-2">Proyectos Académicos</span>
                       {formData.projects.map((proj, i) => (
-                        <div key={i} className="text-[12px] space-y-1.5 break-inside-avoid">
-                          <div>
+                        <div key={i} className="text-[12px] space-y-1.5">
+                          <div className="break-inside-avoid">
                             <span className="font-black text-slate-900 uppercase block">{proj.name || "Proyecto"} {proj.url && <span className="font-normal text-blue-600 lowercase">({proj.url})</span>}</span>
                             <span className="text-blue-900 font-semibold block capitalize">{proj.role || "Rol"}</span>
                           </div>
-                          <p className="text-slate-700 leading-relaxed text-justify" style={{ paddingLeft: '1cm' }}>{proj.description}</p>
+                          <p className="text-slate-700 leading-relaxed text-justify break-inside-avoid" style={{ paddingLeft: '1cm' }}>{proj.description}</p>
                         </div>
                       ))}
                     </div>
@@ -705,8 +705,8 @@ export default function Home() {
                   </div>
                   <div className="space-y-4">
                     {formData.volunteers.map((vol, i) => (
-                      <div key={i} className="text-[12px] space-y-1.5 break-inside-avoid">
-                        <div>
+                      <div key={i} className="text-[12px] space-y-1.5">
+                        <div className="break-inside-avoid">
                           <span className="font-black text-slate-900 uppercase block">{vol.role || "Rol"}</span>
                           <span className="text-blue-900 font-semibold block capitalize">{vol.organization || "Organización"}</span>
                           <span className="text-slate-500 block text-[11px]">{vol.startDate} {vol.endDate ? `- ${vol.endDate}` : ""}</span>
