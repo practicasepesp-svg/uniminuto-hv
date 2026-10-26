@@ -183,9 +183,9 @@ export default function Home() {
       <header className="bg-blue-900 text-white px-6 py-4 print:hidden flex justify-between items-center border-b border-blue-800 shadow-xl">
         <div className="flex items-center gap-4">
           <div className="flex items-center gap-2 bg-white px-3 py-1.5 rounded-xl border border-blue-200 shadow-sm">
-            <img src="/Rectoría%20Bogotá%20Letras%20Colores%20(Sin%20Fondo).png" alt="Rectoría Bogotá" className="h-6 object-contain" />
+            <img src="/rectoria-uniminuto.svg" alt="Rectoría Bogotá" className="h-6 object-contain" />
             <div className="h-4 w-px bg-blue-200"></div>
-            <img src="/Centro%20Progresa%20Letras%20Negras%20Iconos%20Blancos%20(sin%20fondo).png" alt="Centro Progresa" className="h-6 object-contain" />
+            <img src="/centro-progresa.svg" alt="Centro Progresa" className="h-6 object-contain" />
           </div>
           <div>
             <h1 className="text-sm font-bold tracking-tight text-white">
@@ -510,13 +510,13 @@ export default function Home() {
             <span className="bg-blue-900 px-3 py-1 rounded-full border border-blue-800">Compatible con Chrome y Firefox</span>
           </div>
 
-          {/* HOJA EN FORMATO TABLA NATIVA CON ENCABEZADO EXCLUSIVO EN PÁGINA 1 */}
+          {/* HOJA EN FORMATO TABLA NATIVA CON ENCABEZADO EXCLUSIVO EN PÁGINA 1 Y SVG OPTIMIZADOS */}
           <table className="resume-sheet bg-white text-slate-800 w-full max-w-[800px] shadow-[0_0_40px_rgba(0,0,0,0.4)] rounded-xl border-collapse" style={{ fontSize: '12px' }}>
             <tbody>
               {/* Encabezado y Contacto: Ubicados como primera fila, aparecen SOLO en la página 1 */}
               <tr>
                 <td className="p-[1.2cm] pb-0">
-                  {/* Encabezado Institucional */}
+                  {/* Encabezado Institucional con SVG */}
                   <div className="border-b-2 border-blue-900 pb-4 mb-5 flex flex-row justify-between items-center bg-white">
                     <div className="pr-4">
                       <h1 className="text-2xl lg:text-3xl font-black text-slate-900 uppercase tracking-tight break-words">
@@ -528,9 +528,9 @@ export default function Home() {
                     </div>
                     
                     <div className="flex items-center gap-4 bg-white flex-shrink-0">
-                      <img src="/Rectoría%20Bogotá%20Letras%20Colores%20(Sin%20Fondo).png" alt="Rectoría Bogotá" className="h-8 object-contain" />
+                      <img src="/rectoria-uniminuto.svg" alt="Rectoría Bogotá" className="h-8 object-contain" />
                       <div className="h-6 w-px bg-slate-300"></div>
-                      <img src="/Centro%20Progresa%20Letras%20Negras%20Iconos%20Blancos%20(sin%20fondo).png" alt="Centro Progresa" className="h-8 object-contain" />
+                      <img src="/centro-progresa.svg" alt="Centro Progresa" className="h-8 object-contain" />
                     </div>
                   </div>
 
