@@ -149,7 +149,7 @@ export default function Home() {
         @media print {
           @page {
             size: letter;
-            margin: 1.5cm 1.5cm 1cm 1.5cm;
+            margin: 1.5cm; /* Margen uniforme de 1.5cm para estabilidad en Firefox y Chrome */
           }
           body {
             background: white !important;
@@ -163,24 +163,25 @@ export default function Home() {
             box-shadow: none !important;
             margin: 0 !important;
             padding: 0 !important;
-            padding-bottom: 3.2cm !important;
+            padding-bottom: 2.8cm !important; /* Colchón de seguridad para que el texto no pise el footer */
             width: 100% !important;
             max-width: none !important;
             min-height: auto !important;
             border: none !important;
-            display: block !important; /* Flujo natural de bloques para impresión multipágina */
+            display: block !important;
             font-family: 'Montserrat', sans-serif !important;
           }
           .print-footer {
             position: fixed;
-            bottom: 0.1cm;
-            left: 0;
-            right: 0;
-            width: 100%;
+            bottom: 0.4cm; /* Posición segura para Gecko (Firefox) y Blink (Chrome) */
+            left: 1.5cm;
+            right: 1.5cm;
+            width: auto;
             text-align: center;
             background: white;
           }
-          .break-inside-avoid {
+          /* Clases atómicas de protección contra cortes en impresión */
+          .print-atomic-item {
             break-inside: avoid;
             page-break-inside: avoid;
           }
@@ -552,7 +553,7 @@ export default function Home() {
 
               {/* Perfil Profesional (Sección 2) */}
               {(formData.profile || formData.softSkills || formData.toolsList.length > 0 || formData.languageList.length > 0) && (
-                <div className="mb-6 break-inside-avoid">
+                <div className="mb-6 print-atomic-item">
                   <div className="relative flex items-center justify-center my-4 break-after-avoid">
                     <div className="absolute inset-0 flex items-center">
                       <div className="w-full h-[2px]" style={{ background: 'linear-gradient(to right, transparent, #fbbf24 30%, #fbbf24 70%, transparent)' }}></div>
@@ -620,7 +621,7 @@ export default function Home() {
                   <div className="space-y-3 mb-4">
                     <span className="text-[11px] font-extrabold uppercase text-slate-700 block tracking-wide text-left break-after-avoid border-b border-slate-200 pb-1 mb-2">Académica</span>
                     {formData.education.map((edu, i) => (
-                      <div key={i} className="text-[12px] space-y-0.5 break-inside-avoid mb-3">
+                      <div key={i} className="text-[12px] space-y-0.5 print-atomic-item mb-3">
                         <span className="font-bold text-slate-900 uppercase block">
                           {edu.degree || "Título a obtener / Programa"} <span className="font-normal text-blue-900 normal-case">({edu.level})</span>
                         </span>
@@ -636,7 +637,7 @@ export default function Home() {
                     <div className="space-y-3 pt-2">
                       <span className="text-[11px] font-extrabold uppercase text-slate-700 block tracking-wide text-left break-after-avoid border-b border-slate-200 pb-1 mb-2">Complementaria</span>
                       {formData.complementaryEdu.map((comp, i) => (
-                        <div key={i} className="text-[12px] space-y-0.5 break-inside-avoid mb-3">
+                        <div key={i} className="text-[12px] space-y-0.5 print-atomic-item mb-3">
                           <span className="font-bold text-slate-900 uppercase block">{comp.title || "Curso o Taller"}</span>
                           <span className="text-slate-700 font-medium block capitalize">{comp.institution || "Institución"}</span>
                           <span className="text-slate-500 block text-[11px]">{comp.year}</span>
@@ -661,7 +662,7 @@ export default function Home() {
                     <div className="space-y-4 mb-4">
                       <span className="text-[11px] font-extrabold uppercase text-slate-700 block tracking-wide text-left break-after-avoid border-b border-slate-200 pb-1 mb-2">Laboral</span>
                       {formData.experiences.map((exp, i) => (
-                        <div key={i} className="text-[12px] space-y-1.5 break-inside-avoid mb-4">
+                        <div key={i} className="text-[12px] space-y-1.5 print-atomic-item mb-4">
                           <div>
                             <span className="font-black text-slate-900 uppercase block">{exp.position || "Cargo"}</span>
                             <span className="text-blue-900 font-semibold block capitalize">{exp.company || "Empresa"}</span>
@@ -670,7 +671,7 @@ export default function Home() {
                           <ol className="list-decimal space-y-1 text-slate-700 leading-relaxed" style={{ paddingLeft: '1cm' }}>
                             {exp.description.split(/\n/).map((item, idx) => {
                               const trimmed = item.trim();
-                              return trimmed ? <li key={idx}>{trimmed}</li> : null;
+                              return trimmed ? <li key={idx} className="print-atomic-item">{trimmed}</li> : null;
                             })}
                           </ol>
                         </div>
@@ -682,7 +683,7 @@ export default function Home() {
                     <div className="space-y-4 pt-2">
                       <span className="text-[11px] font-extrabold uppercase text-slate-700 block tracking-wide text-left break-after-avoid border-b border-slate-200 pb-1 mb-2">Proyectos Académicos</span>
                       {formData.projects.map((proj, i) => (
-                        <div key={i} className="text-[12px] space-y-1.5 break-inside-avoid mb-4">
+                        <div key={i} className="text-[12px] space-y-1.5 print-atomic-item mb-4">
                           <div>
                             <span className="font-black text-slate-900 uppercase block">{proj.name || "Proyecto"} {proj.url && <span className="font-normal text-blue-600 lowercase">({proj.url})</span>}</span>
                             <span className="text-blue-900 font-semibold block capitalize">{proj.role || "Rol"}</span>
@@ -706,7 +707,7 @@ export default function Home() {
                   </div>
                   <div className="space-y-4">
                     {formData.volunteers.map((vol, i) => (
-                      <div key={i} className="text-[12px] space-y-1.5 break-inside-avoid mb-4">
+                      <div key={i} className="text-[12px] space-y-1.5 print-atomic-item mb-4">
                         <div>
                           <span className="font-black text-slate-900 uppercase block">{vol.role || "Rol"}</span>
                           <span className="text-blue-900 font-semibold block capitalize">{vol.organization || "Organización"}</span>
@@ -715,7 +716,7 @@ export default function Home() {
                         <ol className="list-decimal space-y-1 text-slate-700 leading-relaxed" style={{ paddingLeft: '1cm' }}>
                           {vol.description.split(/\n/).map((item, idx) => {
                             const trimmed = item.trim();
-                            return trimmed ? <li key={idx}>{trimmed}</li> : null;
+                            return trimmed ? <li key={idx} className="print-atomic-item">{trimmed}</li> : null;
                           })}
                         </ol>
                       </div>
