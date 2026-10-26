@@ -149,7 +149,7 @@ export default function Home() {
         @media print {
           @page {
             size: letter;
-            margin: 1.5cm;
+            margin: 1cm; /* Margen exterior optimizado y más estilizado */
           }
           body {
             background: white !important;
@@ -505,14 +505,14 @@ export default function Home() {
             <span className="bg-blue-900 px-3 py-1 rounded-full border border-blue-800">Compatible con Chrome y Firefox</span>
           </div>
 
-          {/* HOJA EN FORMATO TABLA NATIVA PARA IMPRESIÓN MULTIPÁGINA */}
+          {/* HOJA EN FORMATO TABLA NATIVA CON MÁRGENES ESTILIZADOS (1.2cm) */}
           <table className="resume-sheet bg-white text-slate-800 w-full max-w-[800px] shadow-[0_0_40px_rgba(0,0,0,0.4)] rounded-xl border-collapse" style={{ fontSize: '12px' }}>
             <thead>
               <tr>
-                <td className="p-[2cm] pb-0">
+                <td className="p-[1.2cm] pb-0">
                   
                   {/* Encabezado Institucional */}
-                  <div className="border-b-2 border-blue-900 pb-5 mb-6 flex flex-row justify-between items-center bg-white">
+                  <div className="border-b-2 border-blue-900 pb-4 mb-5 flex flex-row justify-between items-center bg-white">
                     <div className="pr-4">
                       <h1 className="text-2xl lg:text-3xl font-black text-slate-900 uppercase tracking-tight break-words">
                         {formData.fullName || "Nombre del Estudiante"}
@@ -530,7 +530,7 @@ export default function Home() {
                   </div>
 
                   {/* Contacto centrado (Sección 1) */}
-                  <div className="flex flex-wrap justify-center items-center gap-4 text-[12px] text-slate-600 mb-6 pb-4 border-b border-slate-100 font-medium text-center">
+                  <div className="flex flex-wrap justify-center items-center gap-4 text-[12px] text-slate-600 mb-5 pb-3 border-b border-slate-100 font-medium text-center">
                     {formData.email && <span className="flex items-center gap-1"><Mail size={12} className="text-blue-900"/> {formData.email}</span>}
                     {formData.phone && <span className="flex items-center gap-1"><Phone size={12} className="text-blue-900"/> {formData.phone}</span>}
                     {formData.city && <span className="flex items-center gap-1"><MapPin size={12} className="text-blue-900"/> {formData.city}</span>}
@@ -545,12 +545,12 @@ export default function Home() {
             
             <tbody>
               <tr>
-                <td className="px-[2cm]">
+                <td className="px-[1.2cm]">
                   
                   {/* Perfil Profesional (Sección 2) */}
                   {(formData.profile || formData.softSkills || formData.toolsList.length > 0 || formData.languageList.length > 0) && (
-                    <div className="mb-6 print-atomic-item">
-                      <div className="relative flex items-center justify-center my-4">
+                    <div className="mb-5 print-atomic-item">
+                      <div className="relative flex items-center justify-center my-3">
                         <div className="absolute inset-0 flex items-center">
                           <div className="w-full h-[2px]" style={{ background: 'linear-gradient(to right, transparent, #fbbf24 30%, #fbbf24 70%, transparent)' }}></div>
                         </div>
@@ -606,18 +606,18 @@ export default function Home() {
 
                   {/* Formación (Sección 3: Académica y Complementaria) */}
                   {formData.education.length > 0 && (
-                    <div className="mb-6 pt-3 border-t border-slate-100">
-                      <div className="relative flex items-center justify-center my-4">
+                    <div className="mb-5 pt-2 border-t border-slate-100">
+                      <div className="relative flex items-center justify-center my-3">
                         <div className="absolute inset-0 flex items-center">
                           <div className="w-full h-[2px]" style={{ background: 'linear-gradient(to right, transparent, #fbbf24 30%, #fbbf24 70%, transparent)' }}></div>
                         </div>
                         <h3 className="relative px-4 bg-white text-[13px] font-extrabold uppercase text-blue-950 tracking-wider">Formación</h3>
                       </div>
                       
-                      <div className="space-y-3 mb-4">
+                      <div className="space-y-3 mb-3">
                         <span className="text-[11px] font-extrabold uppercase text-slate-700 block tracking-wide text-left border-b border-slate-200 pb-1 mb-2">Académica</span>
                         {formData.education.map((edu, i) => (
-                          <div key={i} className="text-[12px] space-y-0.5 print-atomic-item mb-3">
+                          <div key={i} className="text-[12px] space-y-0.5 print-atomic-item mb-2">
                             <span className="font-bold text-slate-900 uppercase block">
                               {edu.degree || "Título a obtener / Programa"} <span className="font-normal text-blue-900 normal-case">({edu.level})</span>
                             </span>
@@ -630,10 +630,10 @@ export default function Home() {
                       </div>
 
                       {formData.complementaryEdu.length > 0 && (
-                        <div className="space-y-3 pt-2">
+                        <div className="space-y-3 pt-1">
                           <span className="text-[11px] font-extrabold uppercase text-slate-700 block tracking-wide text-left border-b border-slate-200 pb-1 mb-2">Complementaria</span>
                           {formData.complementaryEdu.map((comp, i) => (
-                            <div key={i} className="text-[12px] space-y-0.5 print-atomic-item mb-3">
+                            <div key={i} className="text-[12px] space-y-0.5 print-atomic-item mb-2">
                               <span className="font-bold text-slate-900 uppercase block">{comp.title || "Curso o Taller"}</span>
                               <span className="text-slate-700 font-medium block capitalize">{comp.institution || "Institución"}</span>
                               <span className="text-slate-500 block text-[11px]">{comp.year}</span>
@@ -646,8 +646,8 @@ export default function Home() {
 
                   {/* Experiencia Profesional (Sección 4: Laboral y Proyectos Académicos) */}
                   {(formData.experiences.length > 0 || formData.projects.length > 0) && (
-                    <div className="mb-6 pt-3 border-t border-slate-100">
-                      <div className="relative flex items-center justify-center my-4">
+                    <div className="mb-5 pt-2 border-t border-slate-100">
+                      <div className="relative flex items-center justify-center my-3">
                         <div className="absolute inset-0 flex items-center">
                           <div className="w-full h-[2px]" style={{ background: 'linear-gradient(to right, transparent, #fbbf24 30%, #fbbf24 70%, transparent)' }}></div>
                         </div>
@@ -655,10 +655,10 @@ export default function Home() {
                       </div>
                       
                       {formData.experiences.length > 0 && (
-                        <div className="space-y-4 mb-4">
+                        <div className="space-y-3 mb-3">
                           <span className="text-[11px] font-extrabold uppercase text-slate-700 block tracking-wide text-left border-b border-slate-200 pb-1 mb-2">Laboral</span>
                           {formData.experiences.map((exp, i) => (
-                            <div key={i} className="text-[12px] space-y-1.5 print-atomic-item mb-4">
+                            <div key={i} className="text-[12px] space-y-1.5 print-atomic-item mb-3">
                               <div>
                                 <span className="font-black text-slate-900 uppercase block">{exp.position || "Cargo"}</span>
                                 <span className="text-blue-900 font-semibold block capitalize">{exp.company || "Empresa"}</span>
@@ -676,10 +676,10 @@ export default function Home() {
                       )}
 
                       {formData.projects.length > 0 && (
-                        <div className="space-y-4 pt-2">
+                        <div className="space-y-3 pt-1">
                           <span className="text-[11px] font-extrabold uppercase text-slate-700 block tracking-wide text-left border-b border-slate-200 pb-1 mb-2">Proyectos Académicos</span>
                           {formData.projects.map((proj, i) => (
-                            <div key={i} className="text-[12px] space-y-1.5 print-atomic-item mb-4">
+                            <div key={i} className="text-[12px] space-y-1.5 print-atomic-item mb-3">
                               <div>
                                 <span className="font-black text-slate-900 uppercase block">{proj.name || "Proyecto"} {proj.url && <span className="font-normal text-blue-600 lowercase">({proj.url})</span>}</span>
                                 <span className="text-blue-900 font-semibold block capitalize">{proj.role || "Rol"}</span>
@@ -694,16 +694,16 @@ export default function Home() {
 
                   {/* Voluntariado (Sección 5) */}
                   {formData.volunteers.length > 0 && (
-                    <div className="mb-6 pt-3 border-t border-slate-100">
-                      <div className="relative flex items-center justify-center my-4">
+                    <div className="mb-5 pt-2 border-t border-slate-100">
+                      <div className="relative flex items-center justify-center my-3">
                         <div className="absolute inset-0 flex items-center">
                           <div className="w-full h-[2px]" style={{ background: 'linear-gradient(to right, transparent, #fbbf24 30%, #fbbf24 70%, transparent)' }}></div>
                         </div>
                         <h3 className="relative px-4 bg-white text-[13px] font-extrabold uppercase text-blue-950 tracking-wider">Voluntariado</h3>
                       </div>
-                      <div className="space-y-4">
+                      <div className="space-y-3">
                         {formData.volunteers.map((vol, i) => (
-                          <div key={i} className="text-[12px] space-y-1.5 print-atomic-item mb-4">
+                          <div key={i} className="text-[12px] space-y-1.5 print-atomic-item mb-3">
                             <div>
                               <span className="font-black text-slate-900 uppercase block">{vol.role || "Rol"}</span>
                               <span className="text-blue-900 font-semibold block capitalize">{vol.organization || "Organización"}</span>
@@ -727,12 +727,12 @@ export default function Home() {
 
             <tfoot>
               <tr>
-                <td className="p-[2cm] pt-4">
+                <td className="p-[1.2cm] pt-3">
                   {/* Pie de página institucional repetido automáticamente al pie de cada página */}
-                  <div className="border-t pt-2 text-center text-[10px] text-slate-500 space-y-1.5 bg-white">
+                  <div className="border-t pt-2 text-center text-[10px] text-slate-500 space-y-1 bg-white">
                     <p>Línea de Atención al Usuario: 601 593 3004 · Línea Nacional: 01 8000 936 670</p>
                     <p className="font-bold text-slate-700">www.uniminuto.edu</p>
-                    <div className="w-56 mx-auto py-1 border-t border-b border-slate-400 font-bold tracking-widest text-slate-600 text-[9px]">
+                    <div className="w-56 mx-auto py-0.5 border-t border-b border-slate-400 font-bold tracking-widest text-slate-600 text-[9px]">
                       VIGILADA MINEDUCACIÓN
                     </div>
                   </div>
