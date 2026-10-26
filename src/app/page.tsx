@@ -168,6 +168,7 @@ export default function Home() {
             max-width: none !important;
             min-height: auto !important;
             border: none !important;
+            display: block !important; /* Flujo natural de bloques para impresión multipágina */
             font-family: 'Montserrat', sans-serif !important;
           }
           .print-footer {
@@ -518,7 +519,7 @@ export default function Home() {
           </div>
 
           {/* HOJA ÚNICA FLUIDA */}
-          <div className="resume-sheet bg-white text-slate-800 w-full max-w-[800px] p-[2cm] pb-[3.2cm] shadow-[0_0_40px_rgba(0,0,0,0.4)] rounded-xl flex flex-col justify-between" style={{ fontSize: '12px' }}>
+          <div className="resume-sheet bg-white text-slate-800 w-full max-w-[800px] p-[2cm] pb-[3.2cm] shadow-[0_0_40px_rgba(0,0,0,0.4)] rounded-xl" style={{ fontSize: '12px' }}>
             <div className="pb-8">
               
               {/* Encabezado Institucional (Sin recuadro en los logos) */}
@@ -619,7 +620,7 @@ export default function Home() {
                   <div className="space-y-3 mb-4">
                     <span className="text-[11px] font-extrabold uppercase text-slate-700 block tracking-wide text-left break-after-avoid border-b border-slate-200 pb-1 mb-2">Académica</span>
                     {formData.education.map((edu, i) => (
-                      <div key={i} className="text-[12px] space-y-0.5 break-inside-avoid">
+                      <div key={i} className="text-[12px] space-y-0.5 break-inside-avoid mb-3">
                         <span className="font-bold text-slate-900 uppercase block">
                           {edu.degree || "Título a obtener / Programa"} <span className="font-normal text-blue-900 normal-case">({edu.level})</span>
                         </span>
@@ -635,7 +636,7 @@ export default function Home() {
                     <div className="space-y-3 pt-2">
                       <span className="text-[11px] font-extrabold uppercase text-slate-700 block tracking-wide text-left break-after-avoid border-b border-slate-200 pb-1 mb-2">Complementaria</span>
                       {formData.complementaryEdu.map((comp, i) => (
-                        <div key={i} className="text-[12px] space-y-0.5 break-inside-avoid">
+                        <div key={i} className="text-[12px] space-y-0.5 break-inside-avoid mb-3">
                           <span className="font-bold text-slate-900 uppercase block">{comp.title || "Curso o Taller"}</span>
                           <span className="text-slate-700 font-medium block capitalize">{comp.institution || "Institución"}</span>
                           <span className="text-slate-500 block text-[11px]">{comp.year}</span>
@@ -660,7 +661,7 @@ export default function Home() {
                     <div className="space-y-4 mb-4">
                       <span className="text-[11px] font-extrabold uppercase text-slate-700 block tracking-wide text-left break-after-avoid border-b border-slate-200 pb-1 mb-2">Laboral</span>
                       {formData.experiences.map((exp, i) => (
-                        <div key={i} className="text-[12px] space-y-1.5 break-inside-avoid p-1">
+                        <div key={i} className="text-[12px] space-y-1.5 break-inside-avoid mb-4">
                           <div>
                             <span className="font-black text-slate-900 uppercase block">{exp.position || "Cargo"}</span>
                             <span className="text-blue-900 font-semibold block capitalize">{exp.company || "Empresa"}</span>
@@ -681,7 +682,7 @@ export default function Home() {
                     <div className="space-y-4 pt-2">
                       <span className="text-[11px] font-extrabold uppercase text-slate-700 block tracking-wide text-left break-after-avoid border-b border-slate-200 pb-1 mb-2">Proyectos Académicos</span>
                       {formData.projects.map((proj, i) => (
-                        <div key={i} className="text-[12px] space-y-1.5 break-inside-avoid p-1">
+                        <div key={i} className="text-[12px] space-y-1.5 break-inside-avoid mb-4">
                           <div>
                             <span className="font-black text-slate-900 uppercase block">{proj.name || "Proyecto"} {proj.url && <span className="font-normal text-blue-600 lowercase">({proj.url})</span>}</span>
                             <span className="text-blue-900 font-semibold block capitalize">{proj.role || "Rol"}</span>
@@ -705,7 +706,7 @@ export default function Home() {
                   </div>
                   <div className="space-y-4">
                     {formData.volunteers.map((vol, i) => (
-                      <div key={i} className="text-[12px] space-y-1.5 break-inside-avoid p-1">
+                      <div key={i} className="text-[12px] space-y-1.5 break-inside-avoid mb-4">
                         <div>
                           <span className="font-black text-slate-900 uppercase block">{vol.role || "Rol"}</span>
                           <span className="text-blue-900 font-semibold block capitalize">{vol.organization || "Organización"}</span>
