@@ -163,7 +163,7 @@ export default function Home() {
             box-shadow: none !important;
             margin: 0 !important;
             padding: 0 !important;
-            padding-bottom: 2.8cm !important;
+            padding-bottom: 3.2cm !important; /* Espacio de seguridad por página para evitar solapamiento con el pie de página */
             width: 100% !important;
             max-width: none !important;
             min-height: auto !important;
@@ -178,6 +178,10 @@ export default function Home() {
             width: 100%;
             text-align: center;
             background: white;
+          }
+          .break-inside-avoid {
+            break-inside: avoid;
+            page-break-inside: avoid;
           }
         }
       `}</style>
@@ -514,7 +518,7 @@ export default function Home() {
           </div>
 
           {/* HOJA ÚNICA FLUIDA */}
-          <div className="resume-sheet bg-white text-slate-800 w-full max-w-[800px] p-[2cm] pb-[4cm] shadow-[0_0_40px_rgba(0,0,0,0.4)] rounded-xl flex flex-col justify-between" style={{ fontSize: '12px' }}>
+          <div className="resume-sheet bg-white text-slate-800 w-full max-w-[800px] p-[2cm] pb-[3.2cm] shadow-[0_0_40px_rgba(0,0,0,0.4)] rounded-xl flex flex-col justify-between" style={{ fontSize: '12px' }}>
             <div className="pb-8">
               
               {/* Encabezado Institucional (Sin recuadro en los logos) */}
