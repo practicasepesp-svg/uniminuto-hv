@@ -171,7 +171,6 @@ export default function Home() {
             break-inside: avoid;
             page-break-inside: avoid;
           }
-          /* Evita que los títulos y subtítulos queden huérfanos al final de la página */
           .print-section-title {
             break-after: avoid;
             page-break-after: avoid;
@@ -506,8 +505,8 @@ export default function Home() {
         <div className="lg:col-span-7 bg-blue-950/90 p-6 rounded-2xl flex flex-col items-center shadow-2xl border border-blue-900 overflow-auto max-h-[88vh] print:p-0 print:m-0 print:bg-white print:overflow-visible print:max-h-none print:w-full print:shadow-none print:border-none">
           
           <div className="w-full flex justify-between items-center mb-4 print:hidden px-2 text-xs text-blue-200">
-            <span className="font-semibold tracking-wide uppercase">📄 Vista Previa y Flujo Continuo Cross-Browser</span>
-            <span className="bg-blue-900 px-3 py-1 rounded-full border border-blue-800">Compatible con Chrome y Firefox</span>
+            <span className="font-semibold tracking-wide uppercase">📄 Vista Previa y Flujo Continuo</span>
+            <span className="bg-blue-900 px-3 py-1 rounded-full border border-blue-800">Optimizado para Google Chrome</span>
           </div>
 
           {/* HOJA EN FORMATO TABLA NATIVA CON ENCABEZADO EXCLUSIVO EN PÁGINA 1 */}
