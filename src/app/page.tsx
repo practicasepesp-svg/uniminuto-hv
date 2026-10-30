@@ -182,7 +182,7 @@ export default function Home() {
       <header className="bg-blue-900 text-white px-6 py-4 print:hidden flex justify-between items-center border-b border-blue-800 shadow-xl">
         <div className="flex items-center gap-4">
           <div className="flex items-center gap-2 bg-white px-3 py-1.5 rounded-xl border border-blue-200 shadow-sm">
-            <img src="/Rectoría%20Bogotá%20Letras%20Colores%20(Sin%20Fondo).png" alt="Rectoría Bogotá" className="h-6 object-contain" />
+            <img src="/Rectoría%20Bogotá%20Letras%20Colores%20(Sin%20Fondo).webp" alt="Rectoría Bogotá" className="h-6 object-contain" />
             <div className="h-4 w-px bg-blue-200"></div>
             <img src="/Centro%20Progresa%20Letras%20Negras%20Iconos%20Blancos%20(sin%20fondo).png" alt="Centro Progresa" className="h-6 object-contain" />
           </div>
@@ -527,7 +527,7 @@ export default function Home() {
                     </div>
                     
                     <div className="flex items-center gap-4 bg-white flex-shrink-0">
-                      <img src="/Rectoría%20Bogotá%20Letras%20Colores%20(Sin%20Fondo).png" alt="Rectoría Bogotá" className="h-8 object-contain" />
+                      <img src="/Rectoría%20Bogotá%20Letras%20Colores%20(Sin%20Fondo).webp" alt="Rectoría Bogotá" className="h-8 object-contain" />
                       <div className="h-6 w-px bg-slate-300"></div>
                       <img src="/Centro%20Progresa%20Letras%20Negras%20Iconos%20Blancos%20(sin%20fondo).png" alt="Centro Progresa" className="h-8 object-contain" />
                     </div>
