@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Printer, Briefcase, GraduationCap, Award, Phone, Mail, MapPin, Trash2, Plus, User, Cpu, Languages, HeartHandshake, Link as LinkIcon, BookOpen, Wrench, FolderGit2, CheckCircle, Globe } from "lucide-react";
+import { Printer, Briefcase, GraduationCap, Award, Phone, Mail, MapPin, Trash2, Plus, User, Cpu, Languages, HeartHandshake, Link as LinkIcon, BookOpen, Wrench, FolderGit2, CheckCircle, Globe, ShieldCheck, Code, ArrowRight, Info, Heart } from "lucide-react";
 
 interface LinkItem { label: string; url: string; }
 interface ToolItem { name: string; level: string; }
@@ -13,6 +13,8 @@ interface Project { name: string; role: string; description: string; url?: strin
 interface Volunteer { organization: string; role: string; startDate: string; endDate: string; description: string; }
 
 export default function Home() {
+  const [started, setStarted] = useState(false);
+
   const [formData, setFormData] = useState({
     fullName: "", email: "", phone: "", city: "Bogotá D.C.",
     links: [] as LinkItem[],
@@ -137,6 +139,115 @@ export default function Home() {
     setFormData({ ...formData, volunteers: formData.volunteers.filter((_, i) => i !== index) });
   };
 
+  // PANTALLA INICIAL / LANDING PAGE
+  if (!started) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-blue-950 via-blue-900 to-slate-900 flex flex-col font-sans text-slate-100" style={{ fontFamily: "'Montserrat', sans-serif" }}>
+        <style jsx global>{`
+          @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap');
+          body, input, select, textarea, button { font-family: 'Montserrat', sans-serif !important; }
+        `}</style>
+
+        {/* Cabecera institucional superior */}
+        <header className="bg-blue-950/80 backdrop-blur-md text-white px-6 py-4 flex justify-between items-center border-b border-blue-800/60 shadow-xl">
+          <div className="flex items-center gap-4">
+            <div className="flex items-center gap-3 bg-white px-4 py-2 rounded-xl border border-blue-200 shadow-sm">
+              <img src="/rectoria.webp" alt="Rectoría Bogotá" className="h-7 object-contain" />
+              <div className="h-5 w-px bg-slate-300"></div>
+              <img src="/centro-progresa.webp" alt="Centro Progresa" className="h-7 object-contain" />
+            </div>
+            <div>
+              <h1 className="text-sm font-bold tracking-tight text-white">
+                Centro Progresa E.P.E.
+              </h1>
+              <p className="text-xs text-amber-400 font-medium">Prácticas Profesionales • UNIMINUTO</p>
+            </div>
+          </div>
+        </header>
+
+        {/* Contenido principal de bienvenida */}
+        <main className="flex-1 max-w-5xl w-full mx-auto p-6 lg:p-12 flex flex-col justify-center space-y-8">
+          
+          {/* Banner Hero */}
+          <div className="text-center space-y-4">
+            <div className="inline-flex items-center gap-2 bg-amber-400/10 border border-amber-400/30 text-amber-300 px-4 py-1.5 rounded-full text-xs font-bold tracking-wide uppercase">
+              ✨ Herramienta Oficial Institucional
+            </div>
+            <h2 className="text-3xl lg:text-5xl font-black tracking-tight text-white leading-tight">
+              Creador de Hoja de Vida <span className="text-amber-400">Profesional</span>
+            </h2>
+            <p className="text-slate-300 text-sm lg:text-base max-w-2xl mx-auto leading-relaxed">
+              Diseñado especialmente para estudiantes de UNIMINUTO que buscan postularse a sus prácticas profesionales con un formato moderno, elegante y optimizado para procesos de selección.
+            </p>
+          </div>
+
+          {/* Tarjetas informativas (Cómo funciona y Privacidad) */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            
+            {/* Cómo funciona */}
+            <div className="bg-blue-900/40 backdrop-blur-md border border-blue-700/60 rounded-2xl p-6 space-y-3 shadow-lg">
+              <div className="w-10 h-10 rounded-xl bg-amber-400/20 flex items-center justify-center text-amber-400 font-bold">
+                <BookOpen size={20}/>
+              </div>
+              <h3 className="text-lg font-bold text-white">1. ¿Cómo funciona?</h3>
+              <p className="text-slate-300 text-xs leading-relaxed">
+                Es muy sencillo. Solo debes completar el formulario con tu información personal, formación académica institucional, perfil y experiencia. Al mismo tiempo, podrás ver una **vista previa en tiempo real** de cómo va quedando tu hoja de vida y descargarla lista para imprimir o enviar en formato PDF.
+              </p>
+            </div>
+
+            {/* Protección de Datos (Ley 1581) */}
+            <div className="bg-blue-900/40 backdrop-blur-md border border-blue-700/60 rounded-2xl p-6 space-y-3 shadow-lg">
+              <div className="w-10 h-10 rounded-xl bg-emerald-400/20 flex items-center justify-center text-emerald-400 font-bold">
+                <ShieldCheck size={20}/>
+              </div>
+              <h3 className="text-lg font-bold text-white">2. Privacidad y Protección de Datos</h3>
+              <p className="text-slate-300 text-xs leading-relaxed">
+                De conformidad con la <strong className="text-white">Ley estatutaria 1581 de 2012</strong> de protección de datos personales en Colombia (Habeas Data), te informamos que <strong className="text-amber-400">ninguna información personal es almacenada ni enviada a servidores externos</strong>. Todo el proceso ocurre de forma 100% local en tu navegador web, garantizando absoluta seguridad y confidencialidad con tu información.
+              </p>
+            </div>
+
+          </div>
+
+          {/* Botón de acción principal */}
+          <div className="flex justify-center pt-4">
+            <button
+              onClick={() => setStarted(true)}
+              className="bg-amber-400 hover:bg-amber-300 text-blue-950 font-extrabold text-sm lg:text-base px-8 py-4 rounded-2xl shadow-xl shadow-amber-500/20 flex items-center gap-3 transition transform hover:-translate-y-0.5 active:scale-95"
+            >
+              Comenzar a Crear mi Hoja de Vida <ArrowRight size={20} />
+            </button>
+          </div>
+
+          {/* Agradecimientos y Licencias Internacionales */}
+          <div className="border-t border-blue-800/80 pt-6 mt-8 text-center space-y-3">
+            <p className="text-xs font-semibold text-slate-400 uppercase tracking-widest flex items-center justify-center gap-1.5">
+              <Code size={14} className="text-amber-400"/> Reconocimientos y Código Abierto
+            </p>
+            <div className="flex flex-wrap justify-center items-center gap-6 text-xs text-slate-300">
+              <span className="flex items-center gap-1.5 bg-blue-950/60 px-3 py-1.5 rounded-lg border border-blue-800">
+                <span className="font-bold text-white">OpenResume</span> (AGPL-3.0 License)
+              </span>
+              <span className="flex items-center gap-1.5 bg-blue-950/60 px-3 py-1.5 rounded-lg border border-blue-800">
+                Hosting en <strong className="text-white">Vercel</strong>
+              </span>
+              <span className="flex items-center gap-1.5 bg-blue-950/60 px-3 py-1.5 rounded-lg border border-blue-800">
+                Control en <strong className="text-white">GitHub</strong>
+              </span>
+              <span className="flex items-center gap-1.5 bg-blue-950/60 px-3 py-1.5 rounded-lg border border-blue-800">
+                Asistencia de <strong className="text-white">Gemini AI</strong>
+              </span>
+            </div>
+            <p className="text-[11px] text-slate-500 pt-1">
+              Desarrollado bajo los términos de las licencias internacionales de código abierto correspondientes para la masificación educativa.
+            </p>
+          </div>
+
+        </main>
+      </div>
+    );
+  }
+
+  // APLICACIÓN / FORMULARIO PRINCIPAL (UNA VEZ SE HACE CLIC EN COMENZAR)
   return (
     <div className="min-h-screen bg-blue-950 flex flex-col font-sans text-slate-100 print:bg-white print:min-h-0" style={{ fontFamily: "'Montserrat', sans-serif" }}>
       <style jsx global>{`
@@ -181,6 +292,14 @@ export default function Home() {
       {/* Barra superior institucional */}
       <header className="bg-blue-900 text-white px-6 py-4 print:hidden flex justify-between items-center border-b border-blue-800 shadow-xl">
         <div className="flex items-center gap-4">
+          <button 
+            onClick={() => setStarted(false)}
+            className="text-xs text-blue-200 hover:text-white bg-blue-800/60 hover:bg-blue-800 px-3 py-1.5 rounded-lg font-medium transition flex items-center gap-1"
+            title="Volver a la página de bienvenida"
+          >
+            ← Volver al inicio
+          </button>
+          <div className="h-4 w-px bg-blue-700"></div>
           <div className="flex items-center gap-2 bg-white px-3 py-1.5 rounded-xl border border-blue-200 shadow-sm">
             <img src="/rectoria.webp" alt="Rectoría Bogotá" className="h-6 object-contain" />
             <div className="h-4 w-px bg-blue-200"></div>
