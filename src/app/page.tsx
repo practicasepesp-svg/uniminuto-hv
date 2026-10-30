@@ -160,7 +160,7 @@ export default function Home() {
               <h1 className="text-sm font-bold tracking-tight text-white">
                 Centro Progresa E.P.E.
               </h1>
-              <p className="text-xs text-amber-400 font-medium">Prácticas Profesionales • UNIMINUTO</p>
+              <p className="text-xs text-amber-400 font-medium">Prácticas Profesionales • UNIMINUTO Rectoría Bogotá</p>
             </div>
           </div>
         </header>
@@ -170,14 +170,11 @@ export default function Home() {
           
           {/* Banner Hero */}
           <div className="text-center space-y-4">
-            <div className="inline-flex items-center gap-2 bg-amber-400/10 border border-amber-400/30 text-amber-300 px-4 py-1.5 rounded-full text-xs font-bold tracking-wide uppercase">
-              ✨ Herramienta Oficial Institucional
-            </div>
             <h2 className="text-3xl lg:text-5xl font-black tracking-tight text-white leading-tight">
               Creador de Hoja de Vida <span className="text-amber-400">Profesional</span>
             </h2>
             <p className="text-slate-300 text-sm lg:text-base max-w-2xl mx-auto leading-relaxed">
-              Diseñado especialmente para estudiantes de UNIMINUTO que buscan postularse a sus prácticas profesionales con un formato moderno, elegante y optimizado para procesos de selección.
+              Diseñado especialmente para estudiantes de UNIMINUTO Rectoría Bogotá que buscan postularse a sus prácticas profesionales.
             </p>
           </div>
 
@@ -191,7 +188,7 @@ export default function Home() {
               </div>
               <h3 className="text-lg font-bold text-white">1. ¿Cómo funciona?</h3>
               <p className="text-slate-300 text-xs leading-relaxed">
-                Es muy sencillo. Solo debes completar el formulario con tu información personal, formación académica institucional, perfil y experiencia. Al mismo tiempo, podrás ver una **vista previa en tiempo real** de cómo va quedando tu hoja de vida y descargarla lista para imprimir o enviar en formato PDF.
+                Es muy sencillo. Solo debes completar el formulario con tu información personal, formación académica institucional, perfil y experiencia. Al mismo tiempo, podrás ver una <strong>vista previa en tiempo real</strong> de cómo va quedando tu hoja de vida y descargarla lista para imprimir o enviar en formato PDF.
               </p>
             </div>
 
@@ -202,7 +199,7 @@ export default function Home() {
               </div>
               <h3 className="text-lg font-bold text-white">2. Privacidad y Protección de Datos</h3>
               <p className="text-slate-300 text-xs leading-relaxed">
-                De conformidad con la <strong className="text-white">Ley estatutaria 1581 de 2012</strong> de protección de datos personales en Colombia (Habeas Data), te informamos que <strong className="text-amber-400">ninguna información personal es almacenada ni enviada a servidores externos</strong>. Todo el proceso ocurre de forma 100% local en tu navegador web, garantizando absoluta seguridad y confidencialidad con tu información.
+                De conformidad con la <strong className="text-white">Ley estatutaria 1581 de 2012</strong> de protección de datos personales en Colombia (Habeas Data), te informamos que <strong className="text-amber-400">ninguna información personal es almacenada ni enviada a servidores externos</strong>. Todo el proceso ocurre de forma 100% local en tu navegador web. <strong className="text-white">En cuanto cierres la pestaña o el navegador, todos los datos ingresados se borran automáticamente de la memoria</strong>, garantizando absoluta seguridad y confidencialidad con tu información.
               </p>
             </div>
 
