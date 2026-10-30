@@ -148,13 +148,13 @@ export default function Home() {
           body, input, select, textarea, button { font-family: 'Montserrat', sans-serif !important; }
         `}</style>
 
-        {/* Cabecera institucional superior */}
+        {/* Cabecera institucional superior (Sin recuadro blanco, con logos blancos) */}
         <header className="bg-blue-950/80 backdrop-blur-md text-white px-6 py-4 flex justify-between items-center border-b border-blue-800/60 shadow-xl">
           <div className="flex items-center gap-4">
-            <div className="flex items-center gap-3 bg-white px-4 py-2 rounded-xl border border-blue-200 shadow-sm">
-              <img src="/rectoria.webp" alt="Rectoría Bogotá" className="h-7 object-contain" />
-              <div className="h-5 w-px bg-slate-300"></div>
-              <img src="/centro-progresa.webp" alt="Centro Progresa" className="h-7 object-contain" />
+            <div className="flex items-center gap-3">
+              <img src="/rectoria-blanca.webp" alt="Rectoría Bogotá" className="h-7 object-contain" />
+              <div className="h-5 w-px bg-blue-700"></div>
+              <img src="/centro-progresa-blanco.webp" alt="Centro Progresa" className="h-7 object-contain" />
             </div>
             <div>
               <h1 className="text-sm font-bold tracking-tight text-white">
@@ -178,10 +178,9 @@ export default function Home() {
             </p>
           </div>
 
-          {/* Tarjetas informativas (Cómo funciona y Privacidad) */}
+          {/* Tarjetas informativas */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             
-            {/* Cómo funciona */}
             <div className="bg-blue-900/40 backdrop-blur-md border border-blue-700/60 rounded-2xl p-6 space-y-3 shadow-lg">
               <div className="w-10 h-10 rounded-xl bg-amber-400/20 flex items-center justify-center text-amber-400 font-bold">
                 <BookOpen size={20}/>
@@ -192,7 +191,6 @@ export default function Home() {
               </p>
             </div>
 
-            {/* Protección de Datos (Ley 1581) */}
             <div className="bg-blue-900/40 backdrop-blur-md border border-blue-700/60 rounded-2xl p-6 space-y-3 shadow-lg">
               <div className="w-10 h-10 rounded-xl bg-emerald-400/20 flex items-center justify-center text-emerald-400 font-bold">
                 <ShieldCheck size={20}/>
@@ -215,7 +213,7 @@ export default function Home() {
             </button>
           </div>
 
-          {/* Agradecimientos y Licencias Internacionales */}
+          {/* Agradecimientos y Licencias */}
           <div className="border-t border-blue-800/80 pt-6 mt-8 text-center space-y-3">
             <p className="text-xs font-semibold text-slate-400 uppercase tracking-widest flex items-center justify-center gap-1.5">
               <Code size={14} className="text-amber-400"/> Reconocimientos y Código Abierto
@@ -244,7 +242,7 @@ export default function Home() {
     );
   }
 
-  // APLICACIÓN / FORMULARIO PRINCIPAL (UNA VEZ SE HACE CLIC EN COMENZAR)
+  // APLICACIÓN / FORMULARIO PRINCIPAL
   return (
     <div className="min-h-screen bg-blue-950 flex flex-col font-sans text-slate-100 print:bg-white print:min-h-0" style={{ fontFamily: "'Montserrat', sans-serif" }}>
       <style jsx global>{`
@@ -286,7 +284,7 @@ export default function Home() {
         }
       `}</style>
 
-      {/* Barra superior institucional */}
+      {/* Barra superior institucional (Sin recuadro blanco, con logos blancos) */}
       <header className="bg-blue-900 text-white px-6 py-4 print:hidden flex justify-between items-center border-b border-blue-800 shadow-xl">
         <div className="flex items-center gap-4">
           <button 
@@ -297,10 +295,10 @@ export default function Home() {
             ← Volver al inicio
           </button>
           <div className="h-4 w-px bg-blue-700"></div>
-          <div className="flex items-center gap-2 bg-white px-3 py-1.5 rounded-xl border border-blue-200 shadow-sm">
-            <img src="/rectoria.webp" alt="Rectoría Bogotá" className="h-6 object-contain" />
-            <div className="h-4 w-px bg-blue-200"></div>
-            <img src="/centro-progresa.webp" alt="Centro Progresa" className="h-6 object-contain" />
+          <div className="flex items-center gap-3">
+            <img src="/rectoria-blanca.webp" alt="Rectoría Bogotá" className="h-6 object-contain" />
+            <div className="h-4 w-px bg-blue-700"></div>
+            <img src="/centro-progresa-blanco.webp" alt="Centro Progresa" className="h-6 object-contain" />
           </div>
           <div>
             <h1 className="text-sm font-bold tracking-tight text-white">
@@ -637,13 +635,13 @@ export default function Home() {
             <span className="bg-blue-900 px-3 py-1 rounded-full border border-blue-800">Optimizado para Google Chrome</span>
           </div>
 
-          {/* HOJA EN FORMATO TABLA NATIVA CON ENCABEZADO EXCLUSIVO EN PÁGINA 1 */}
+          {/* HOJA EN FORMATO TABLA NATIVA CON LOS LOGOS ORIGINALES (Fondo Blanco de la Hoja) */}
           <table className="resume-sheet bg-white text-slate-800 w-full max-w-[800px] shadow-[0_0_40px_rgba(0,0,0,0.4)] rounded-xl border-collapse" style={{ fontSize: '12px' }}>
             <tbody>
-              {/* Encabezado y Contacto: Ubicados como primera fila, aparecen SOLO en la página 1 */}
+              {/* Encabezado y Contacto */}
               <tr>
                 <td className="p-[1.2cm] pb-0">
-                  {/* Encabezado Institucional */}
+                  {/* Encabezado Institucional con logos originales */}
                   <div className="border-b-2 border-blue-900 pb-4 mb-5 flex flex-row justify-between items-center bg-white">
                     <div className="pr-4">
                       <h1 className="text-2xl lg:text-3xl font-black text-slate-900 uppercase tracking-tight break-words">
@@ -858,7 +856,7 @@ export default function Home() {
             <tfoot>
               <tr>
                 <td className="p-[1.2cm] pt-3">
-                  {/* Pie de página institucional repetido automáticamente al pie de cada página */}
+                  {/* Pie de página institucional */}
                   <div className="border-t pt-2 text-center text-[10px] text-slate-500 space-y-1 bg-white">
                     <p>Línea de Atención al Usuario: 601 593 3004 · Línea Nacional: 01 8000 936 670</p>
                     <p className="font-bold text-slate-700">www.uniminuto.edu</p>
