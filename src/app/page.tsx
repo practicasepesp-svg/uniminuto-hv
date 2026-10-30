@@ -217,6 +217,8 @@ export default function Home() {
               <input 
                 type="text" 
                 name="fullName" 
+                lang="es-CO"
+                spellCheck={true}
                 placeholder="Ej. Laura Sofía Martínez" 
                 value={formData.fullName} 
                 onChange={handleInputChange} 
@@ -229,6 +231,8 @@ export default function Home() {
                 <input 
                   type="email" 
                   name="email" 
+                  lang="es-CO"
+                  spellCheck={false}
                   placeholder="correo@uniminuto.edu.co" 
                   value={formData.email} 
                   onChange={handleInputChange} 
@@ -240,6 +244,8 @@ export default function Home() {
                 <input 
                   type="text" 
                   name="phone" 
+                  lang="es-CO"
+                  spellCheck={false}
                   placeholder="300 123 4567" 
                   value={formData.phone} 
                   onChange={handleInputChange} 
@@ -252,6 +258,8 @@ export default function Home() {
               <input 
                 type="text" 
                 name="city" 
+                lang="es-CO"
+                spellCheck={true}
                 value={formData.city} 
                 onChange={handleInputChange} 
                 className="w-full p-3 text-[12px] bg-blue-900 border border-blue-700 rounded-xl text-white outline-none focus:border-amber-400" 
@@ -268,8 +276,8 @@ export default function Home() {
               </div>
               {formData.links.map((link, idx) => (
                 <div key={idx} className="flex gap-2 items-center bg-blue-900/40 p-2.5 rounded-lg border border-blue-800">
-                  <input type="text" placeholder="Red (Ej. LinkedIn)" value={link.label} onChange={(e) => updateLink(idx, "label", e.target.value)} className="w-1/3 p-2 text-[12px] bg-blue-950 border border-blue-800 rounded text-white" />
-                  <input type="text" placeholder="URL (linkedin.com/in/...)" value={link.url} onChange={(e) => updateLink(idx, "url", e.target.value)} className="flex-1 p-2 text-[12px] bg-blue-950 border border-blue-800 rounded text-white" />
+                  <input type="text" lang="es-CO" spellCheck={true} placeholder="Red (Ej. LinkedIn)" value={link.label} onChange={(e) => updateLink(idx, "label", e.target.value)} className="w-1/3 p-2 text-[12px] bg-blue-950 border border-blue-800 rounded text-white" />
+                  <input type="text" lang="es-CO" spellCheck={false} placeholder="URL (linkedin.com/in/...)" value={link.url} onChange={(e) => updateLink(idx, "url", e.target.value)} className="flex-1 p-2 text-[12px] bg-blue-950 border border-blue-800 rounded text-white" />
                   <button onClick={() => removeLink(idx)} className="text-rose-300 hover:text-rose-100 p-1"><Trash2 size={14}/></button>
                 </div>
               ))}
@@ -285,6 +293,8 @@ export default function Home() {
               <label className="block text-[11px] font-semibold text-blue-200 mb-1">Perfil Ocupacional</label>
               <textarea 
                 name="profile" 
+                lang="es-CO"
+                spellCheck={true}
                 rows={3} 
                 placeholder="Estudiante apasionado..." 
                 value={formData.profile} 
@@ -297,6 +307,8 @@ export default function Home() {
               <input 
                 type="text" 
                 name="softSkills" 
+                lang="es-CO"
+                spellCheck={true}
                 placeholder="Ej. Trabajo en equipo, Adaptabilidad, Liderazgo" 
                 value={formData.softSkills} 
                 onChange={handleInputChange} 
@@ -314,7 +326,7 @@ export default function Home() {
               </div>
               {formData.toolsList.map((tool, idx) => (
                 <div key={idx} className="flex gap-2 items-center bg-blue-900/40 p-2.5 rounded-lg border border-blue-800">
-                  <input type="text" placeholder="Ej. Python, Excel" value={tool.name} onChange={(e) => updateTool(idx, "name", e.target.value)} className="flex-1 p-2 text-[12px] bg-blue-950 border border-blue-800 rounded text-white" />
+                  <input type="text" lang="es-CO" spellCheck={true} placeholder="Ej. Python, Excel" value={tool.name} onChange={(e) => updateTool(idx, "name", e.target.value)} className="flex-1 p-2 text-[12px] bg-blue-950 border border-blue-800 rounded text-white" />
                   <select value={tool.level} onChange={(e) => updateTool(idx, "level", e.target.value)} className="p-2 text-[12px] bg-blue-950 border border-blue-800 rounded text-white">
                     <option value="Básico">Básico</option>
                     <option value="Intermedio">Intermedio</option>
@@ -336,7 +348,7 @@ export default function Home() {
               </div>
               {formData.languageList.map((lang, idx) => (
                 <div key={idx} className="flex gap-2 items-center bg-blue-900/40 p-2.5 rounded-lg border border-blue-800">
-                  <input type="text" placeholder="Ej. Inglés, Francés" value={lang.language} onChange={(e) => updateLanguage(idx, "language", e.target.value)} className="flex-1 p-2 text-[12px] bg-blue-950 border border-blue-800 rounded text-white" />
+                  <input type="text" lang="es-CO" spellCheck={true} placeholder="Ej. Inglés, Francés" value={lang.language} onChange={(e) => updateLanguage(idx, "language", e.target.value)} className="flex-1 p-2 text-[12px] bg-blue-950 border border-blue-800 rounded text-white" />
                   <select value={lang.level} onChange={(e) => updateLanguage(idx, "level", e.target.value)} className="p-2 text-[12px] bg-blue-950 border border-blue-800 rounded text-white">
                     <option value="A1 - Principiante">A1 - Principiante</option>
                     <option value="A2 - Básico">A2 - Básico</option>
@@ -386,10 +398,10 @@ export default function Home() {
                   {idx === 0 ? (
                     <input type="text" disabled value="Corporación Universitaria Minuto de Dios - UNIMINUTO" className="w-full p-2 text-[12px] bg-blue-950/60 border border-blue-800/60 rounded text-blue-300 cursor-not-allowed" />
                   ) : (
-                    <input type="text" placeholder="Institución" value={edu.institution} onChange={(e) => updateEducation(idx, "institution", e.target.value)} className="w-full p-2 text-[12px] bg-blue-950 border border-blue-800 rounded text-white" />
+                    <input type="text" lang="es-CO" spellCheck={true} placeholder="Institución" value={edu.institution} onChange={(e) => updateEducation(idx, "institution", e.target.value)} className="w-full p-2 text-[12px] bg-blue-950 border border-blue-800 rounded text-white" />
                   )}
                   <div className="grid grid-cols-2 gap-2">
-                    <input type="text" placeholder="Título a obtener / Programa" value={edu.degree} onChange={(e) => updateEducation(idx, "degree", e.target.value)} className="p-2 text-[12px] bg-blue-950 border border-blue-800 rounded text-white" />
+                    <input type="text" lang="es-CO" spellCheck={true} placeholder="Título a obtener / Programa" value={edu.degree} onChange={(e) => updateEducation(idx, "degree", e.target.value)} className="p-2 text-[12px] bg-blue-950 border border-blue-800 rounded text-white" />
                     <select value={edu.level} onChange={(e) => updateEducation(idx, "level", e.target.value)} className="p-2 text-[12px] bg-blue-950 border border-blue-800 rounded text-white">
                       <option value="Bachiller">Bachiller</option>
                       <option value="Técnico">Técnico</option>
@@ -400,7 +412,7 @@ export default function Home() {
                     </select>
                   </div>
                   <div className="grid grid-cols-2 gap-2">
-                    <input type="text" placeholder={edu.isCurrent ? "Ej. Octavo Semestre" : "Año de grado (Ej. 2024)"} value={edu.year} onChange={(e) => updateEducation(idx, "year", e.target.value)} className="p-2 text-[12px] bg-blue-950 border border-blue-800 rounded text-white" />
+                    <input type="text" lang="es-CO" spellCheck={false} placeholder={edu.isCurrent ? "Ej. Octavo Semestre" : "Año de grado (Ej. 2024)"} value={edu.year} onChange={(e) => updateEducation(idx, "year", e.target.value)} className="p-2 text-[12px] bg-blue-950 border border-blue-800 rounded text-white" />
                   </div>
                 </div>
               ))}
@@ -417,10 +429,10 @@ export default function Home() {
               {formData.complementaryEdu.map((comp, idx) => (
                 <div key={idx} className="p-3 border border-blue-800 rounded-xl bg-blue-900/50 space-y-2 relative">
                   <button onClick={() => removeComplementary(idx)} className="absolute top-2.5 right-2.5 text-rose-300 hover:text-rose-100"><Trash2 size={14}/></button>
-                  <input type="text" placeholder="Nombre del Curso o Taller" value={comp.title} onChange={(e) => updateComplementary(idx, "title", e.target.value)} className="w-full p-2 text-[12px] bg-blue-950 border border-blue-800 rounded text-white" />
+                  <input type="text" lang="es-CO" spellCheck={true} placeholder="Nombre del Curso o Taller" value={comp.title} onChange={(e) => updateComplementary(idx, "title", e.target.value)} className="w-full p-2 text-[12px] bg-blue-950 border border-blue-800 rounded text-white" />
                   <div className="grid grid-cols-2 gap-2">
-                    <input type="text" placeholder="Institución / Plataforma" value={comp.institution} onChange={(e) => updateComplementary(idx, "institution", e.target.value)} className="w-full p-2 text-[12px] bg-blue-950 border border-blue-800 rounded text-white" />
-                    <input type="text" placeholder="Año (Ej. 2025)" value={comp.year} onChange={(e) => updateComplementary(idx, "year", e.target.value)} className="w-full p-2 text-[12px] bg-blue-950 border border-blue-800 rounded text-white" />
+                    <input type="text" lang="es-CO" spellCheck={true} placeholder="Institución / Plataforma" value={comp.institution} onChange={(e) => updateComplementary(idx, "institution", e.target.value)} className="w-full p-2 text-[12px] bg-blue-950 border border-blue-800 rounded text-white" />
+                    <input type="text" lang="es-CO" spellCheck={false} placeholder="Año (Ej. 2025)" value={comp.year} onChange={(e) => updateComplementary(idx, "year", e.target.value)} className="w-full p-2 text-[12px] bg-blue-950 border border-blue-800 rounded text-white" />
                   </div>
                 </div>
               ))}
@@ -444,13 +456,13 @@ export default function Home() {
               {formData.experiences.map((exp, idx) => (
                 <div key={idx} className="p-3 border border-blue-800 rounded-xl bg-blue-900/50 space-y-2 relative">
                   <button onClick={() => removeExperience(idx)} className="absolute top-2.5 right-2.5 text-rose-300 hover:text-rose-100"><Trash2 size={14}/></button>
-                  <input type="text" placeholder="Empresa" value={exp.company} onChange={(e) => updateExperience(idx, "company", e.target.value)} className="w-full p-2 text-[12px] bg-blue-950 border border-blue-800 rounded text-white" />
-                  <input type="text" placeholder="Cargo" value={exp.position} onChange={(e) => updateExperience(idx, "position", e.target.value)} className="w-full p-2 text-[12px] bg-blue-950 border border-blue-800 rounded text-white" />
+                  <input type="text" lang="es-CO" spellCheck={true} placeholder="Empresa" value={exp.company} onChange={(e) => updateExperience(idx, "company", e.target.value)} className="w-full p-2 text-[12px] bg-blue-950 border border-blue-800 rounded text-white" />
+                  <input type="text" lang="es-CO" spellCheck={true} placeholder="Cargo" value={exp.position} onChange={(e) => updateExperience(idx, "position", e.target.value)} className="w-full p-2 text-[12px] bg-blue-950 border border-blue-800 rounded text-white" />
                   <div className="grid grid-cols-2 gap-2">
-                    <input type="text" placeholder="Inicio" value={exp.startDate} onChange={(e) => updateExperience(idx, "startDate", e.target.value)} className="p-2 text-[12px] bg-blue-950 border border-blue-800 rounded text-white" />
-                    <input type="text" placeholder="Fin (Actual)" value={exp.endDate} onChange={(e) => updateExperience(idx, "endDate", e.target.value)} className="p-2 text-[12px] bg-blue-950 border border-blue-800 rounded text-white" />
+                    <input type="text" lang="es-CO" spellCheck={false} placeholder="Inicio" value={exp.startDate} onChange={(e) => updateExperience(idx, "startDate", e.target.value)} className="p-2 text-[12px] bg-blue-950 border border-blue-800 rounded text-white" />
+                    <input type="text" lang="es-CO" spellCheck={false} placeholder="Fin (Actual)" value={exp.endDate} onChange={(e) => updateExperience(idx, "endDate", e.target.value)} className="p-2 text-[12px] bg-blue-950 border border-blue-800 rounded text-white" />
                   </div>
-                  <textarea placeholder="Funciones (separadas por saltos de línea)..." rows={2} value={exp.description} onChange={(e) => updateExperience(idx, "description", e.target.value)} className="w-full p-2 text-[12px] bg-blue-950 border border-blue-800 rounded text-white resize-none"></textarea>
+                  <textarea lang="es-CO" spellCheck={true} placeholder="Funciones (separadas por saltos de línea)..." rows={2} value={exp.description} onChange={(e) => updateExperience(idx, "description", e.target.value)} className="w-full p-2 text-[12px] bg-blue-950 border border-blue-800 rounded text-white resize-none"></textarea>
                 </div>
               ))}
             </div>
@@ -466,10 +478,10 @@ export default function Home() {
               {formData.projects.map((proj, idx) => (
                 <div key={idx} className="p-3 border border-blue-800 rounded-xl bg-blue-900/50 space-y-2 relative">
                   <button onClick={() => removeProject(idx)} className="absolute top-2.5 right-2.5 text-rose-300 hover:text-rose-100"><Trash2 size={14}/></button>
-                  <input type="text" placeholder="Nombre del Proyecto" value={proj.name} onChange={(e) => updateProject(idx, "name", e.target.value)} className="w-full p-2 text-[12px] bg-blue-950 border border-blue-800 rounded text-white" />
-                  <input type="text" placeholder="Rol / Participación" value={proj.role} onChange={(e) => updateProject(idx, "role", e.target.value)} className="w-full p-2 text-[12px] bg-blue-950 border border-blue-800 rounded text-white" />
-                  <input type="text" placeholder="Enlace (GitHub / Demo)" value={proj.url || ""} onChange={(e) => updateProject(idx, "url", e.target.value)} className="w-full p-2 text-[12px] bg-blue-950 border border-blue-800 rounded text-white" />
-                  <textarea placeholder="Descripción del proyecto..." rows={2} value={proj.description} onChange={(e) => updateProject(idx, "description", e.target.value)} className="w-full p-2 text-[12px] bg-blue-950 border border-blue-800 rounded text-white resize-none"></textarea>
+                  <input type="text" lang="es-CO" spellCheck={true} placeholder="Nombre del Proyecto" value={proj.name} onChange={(e) => updateProject(idx, "name", e.target.value)} className="w-full p-2 text-[12px] bg-blue-950 border border-blue-800 rounded text-white" />
+                  <input type="text" lang="es-CO" spellCheck={true} placeholder="Rol / Participación" value={proj.role} onChange={(e) => updateProject(idx, "role", e.target.value)} className="w-full p-2 text-[12px] bg-blue-950 border border-blue-800 rounded text-white" />
+                  <input type="text" lang="es-CO" spellCheck={false} placeholder="Enlace (GitHub / Demo)" value={proj.url || ""} onChange={(e) => updateProject(idx, "url", e.target.value)} className="w-full p-2 text-[12px] bg-blue-950 border border-blue-800 rounded text-white" />
+                  <textarea lang="es-CO" spellCheck={true} placeholder="Descripción del proyecto..." rows={2} value={proj.description} onChange={(e) => updateProject(idx, "description", e.target.value)} className="w-full p-2 text-[12px] bg-blue-950 border border-blue-800 rounded text-white resize-none"></textarea>
                 </div>
               ))}
             </div>
@@ -488,13 +500,13 @@ export default function Home() {
             {formData.volunteers.map((vol, idx) => (
               <div key={idx} className="p-3.5 border border-blue-800 rounded-xl bg-blue-900/50 space-y-2.5 relative">
                 <button onClick={() => removeVolunteer(idx)} className="absolute top-3 right-3 text-rose-300 hover:text-rose-100"><Trash2 size={15}/></button>
-                <input type="text" placeholder="Organización / Fundación" value={vol.organization} onChange={(e) => updateVolunteer(idx, "organization", e.target.value)} className="w-full p-2.5 text-[12px] bg-blue-950 border border-blue-800 rounded-lg text-white" />
-                <input type="text" placeholder="Rol / Actividad" value={vol.role} onChange={(e) => updateVolunteer(idx, "role", e.target.value)} className="w-full p-2.5 text-[12px] bg-blue-950 border border-blue-800 rounded-lg text-white" />
+                <input type="text" lang="es-CO" spellCheck={true} placeholder="Organización / Fundación" value={vol.organization} onChange={(e) => updateVolunteer(idx, "organization", e.target.value)} className="w-full p-2.5 text-[12px] bg-blue-950 border border-blue-800 rounded-lg text-white" />
+                <input type="text" lang="es-CO" spellCheck={true} placeholder="Rol / Actividad" value={vol.role} onChange={(e) => updateVolunteer(idx, "role", e.target.value)} className="w-full p-2.5 text-[12px] bg-blue-950 border border-blue-800 rounded-lg text-white" />
                 <div className="grid grid-cols-2 gap-2">
-                  <input type="text" placeholder="Inicio" value={vol.startDate} onChange={(e) => updateVolunteer(idx, "startDate", e.target.value)} className="p-2.5 text-[12px] bg-blue-950 border border-blue-800 rounded-lg text-white" />
-                  <input type="text" placeholder="Fin" value={vol.endDate} onChange={(e) => updateVolunteer(idx, "endDate", e.target.value)} className="p-2.5 text-[12px] bg-blue-950 border border-blue-800 rounded-lg text-white" />
+                  <input type="text" lang="es-CO" spellCheck={false} placeholder="Inicio" value={vol.startDate} onChange={(e) => updateVolunteer(idx, "startDate", e.target.value)} className="p-2.5 text-[12px] bg-blue-950 border border-blue-800 rounded-lg text-white" />
+                  <input type="text" lang="es-CO" spellCheck={false} placeholder="Fin" value={vol.endDate} onChange={(e) => updateVolunteer(idx, "endDate", e.target.value)} className="p-2.5 text-[12px] bg-blue-950 border border-blue-800 rounded-lg text-white" />
                 </div>
-                <textarea placeholder="Funciones o aportes realizados..." rows={2} value={vol.description} onChange={(e) => updateVolunteer(idx, "description", e.target.value)} className="w-full p-2.5 text-[12px] bg-blue-950 border border-blue-800 rounded-lg text-white resize-none"></textarea>
+                <textarea lang="es-CO" spellCheck={true} placeholder="Funciones o aportes realizados..." rows={2} value={vol.description} onChange={(e) => updateVolunteer(idx, "description", e.target.value)} className="w-full p-2.5 text-[12px] bg-blue-950 border border-blue-800 rounded-lg text-white resize-none"></textarea>
               </div>
             ))}
           </div>
