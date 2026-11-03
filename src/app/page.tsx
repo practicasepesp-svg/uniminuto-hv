@@ -2,6 +2,8 @@
 
 import { useState } from "react";
 import { Printer, Briefcase, GraduationCap, Award, Phone, Mail, MapPin, Trash2, Plus, User, Cpu, Languages, HeartHandshake, Link as LinkIcon, BookOpen, Wrench, FolderGit2, CheckCircle, Globe, ShieldCheck, Code, ArrowRight, Info, Heart } from "lucide-react";
+// Importamos el widget flotante del Tutor Progresa
+import TutorChat from "@/app/components/TutorChat";
 
 interface LinkItem { label: string; url: string; }
 interface ToolItem { name: string; level: string; }
@@ -148,7 +150,7 @@ export default function Home() {
           body, input, select, textarea, button { font-family: 'Montserrat', sans-serif !important; }
         `}</style>
 
-        {/* Cabecera institucional superior (Sin recuadro blanco, con logos blancos) */}
+        {/* Cabecera institucional superior */}
         <header className="bg-blue-950/80 backdrop-blur-md text-white px-6 py-4 flex justify-between items-center border-b border-blue-800/60 shadow-xl">
           <div className="flex items-center gap-4">
             <div className="flex items-center gap-3">
@@ -168,7 +170,6 @@ export default function Home() {
         {/* Contenido principal de bienvenida */}
         <main className="flex-1 max-w-5xl w-full mx-auto p-6 lg:p-12 flex flex-col justify-center space-y-8">
           
-          {/* Banner Hero */}
           <div className="text-center space-y-4">
             <h2 className="text-3xl lg:text-5xl font-black tracking-tight text-white leading-tight">
               Creador de Hoja de Vida <span className="text-amber-400">Profesional</span>
@@ -178,7 +179,6 @@ export default function Home() {
             </p>
           </div>
 
-          {/* Tarjetas informativas */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             
             <div className="bg-blue-900/40 backdrop-blur-md border border-blue-700/60 rounded-2xl p-6 space-y-3 shadow-lg">
@@ -203,7 +203,6 @@ export default function Home() {
 
           </div>
 
-          {/* Botón de acción principal */}
           <div className="flex justify-center pt-4">
             <button
               onClick={() => setStarted(true)}
@@ -213,7 +212,6 @@ export default function Home() {
             </button>
           </div>
 
-          {/* Agradecimientos y Licencias */}
           <div className="border-t border-blue-800/80 pt-6 mt-8 text-center space-y-3">
             <p className="text-xs font-semibold text-slate-400 uppercase tracking-widest flex items-center justify-center gap-1.5">
               <Code size={14} className="text-amber-400"/> Reconocimientos y Código Abierto
@@ -232,12 +230,12 @@ export default function Home() {
                 Asistencia de <strong className="text-white">Gemini AI</strong>
               </span>
             </div>
-            <p className="text-[11px] text-slate-500 pt-1">
-              Desarrollado bajo los términos de las licencias internacionales de código abierto correspondientes para la masificación educativa.
-            </p>
           </div>
 
         </main>
+        
+        {/* Incluimos también el chat flotante en la bienvenida */}
+        <TutorChat />
       </div>
     );
   }
@@ -284,7 +282,7 @@ export default function Home() {
         }
       `}</style>
 
-      {/* Barra superior institucional (Sin recuadro blanco, con logos blancos) */}
+      {/* Barra superior institucional */}
       <header className="bg-blue-900 text-white px-6 py-4 print:hidden flex justify-between items-center border-b border-blue-800 shadow-xl">
         <div className="flex items-center gap-4">
           <button 
@@ -872,6 +870,9 @@ export default function Home() {
         </div>
 
       </div>
+
+      {/* Widget flotante de la mascota y la IA (Integrado de forma limpia) */}
+      <TutorChat />
     </div>
   );
 }
