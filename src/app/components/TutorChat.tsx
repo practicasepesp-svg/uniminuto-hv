@@ -37,7 +37,7 @@ export default function TutorChat() {
   };
 
   return (
-    <div className="fixed bottom-6 right-6 z-50 font-sans" style={{ fontFamily: "'Montserrat', sans-serif" }}>
+    <div className="fixed bottom-6 right-6 z-50 font-sans print:hidden" style={{ fontFamily: "'Montserrat', sans-serif" }}>
       {!isOpen && (
         <button
           onClick={() => setIsOpen(true)}
@@ -50,7 +50,7 @@ export default function TutorChat() {
 
       {isOpen && (
         <div className="bg-white text-slate-800 w-80 sm:w-96 rounded-2xl shadow-2xl border border-slate-200 flex flex-col overflow-hidden max-h-[500px]">
-          {/* Cabecera del chat con el icono y nombre de Praxia */}
+          {/* Cabecera del chat con el icono restaurado de Praxia */}
           <div className="bg-blue-950 text-white p-4 flex justify-between items-center border-b border-blue-900">
             <div className="flex items-center gap-3">
               <div className="w-9 h-9 rounded-full bg-amber-400 text-blue-950 flex items-center justify-center font-black shadow-inner">
