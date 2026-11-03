@@ -1,15 +1,22 @@
 "use client";
 
 import { useState } from "react";
+import { usePathname } from "next/navigation";
 import { MessageSquare, X, Send, Sparkles } from "lucide-react";
 
 export default function TutorChat() {
+  const pathname = usePathname();
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState([
     { sender: "bot", text: "¡Hola! Soy Praxia, tu asistente experta en prácticas profesionales y primer empleo. ¿En qué te puedo ayudar hoy?" }
   ]);
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
+
+  // Si estamos en la página de bienvenida (/), no renderizamos el chat
+  if (pathname === "/") {
+    return null;
+  }
 
   const handleSend = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -50,7 +57,6 @@ export default function TutorChat() {
 
       {isOpen && (
         <div className="bg-white text-slate-800 w-80 sm:w-96 rounded-2xl shadow-2xl border border-slate-200 flex flex-col overflow-hidden max-h-[500px]">
-          {/* Cabecera del chat con el icono restaurado de Praxia */}
           <div className="bg-blue-950 text-white p-4 flex justify-between items-center border-b border-blue-900">
             <div className="flex items-center gap-3">
               <div className="w-9 h-9 rounded-full bg-amber-400 text-blue-950 flex items-center justify-center font-black shadow-inner">
@@ -66,7 +72,6 @@ export default function TutorChat() {
             </button>
           </div>
 
-          {/* Cuerpo de mensajes */}
           <div className="flex-1 p-4 overflow-y-auto space-y-3 bg-slate-50 text-xs max-h-[320px] min-h-[250px]">
             {messages.map((m, idx) => (
               <div key={idx} className={`flex ${m.sender === "user" ? "justify-end" : "justify-start"}`}>
@@ -84,7 +89,6 @@ export default function TutorChat() {
             )}
           </div>
 
-          {/* Formulario de entrada */}
           <form onSubmit={handleSend} className="p-3 bg-white border-t border-slate-200 flex gap-2 items-center">
             <input
               type="text"
