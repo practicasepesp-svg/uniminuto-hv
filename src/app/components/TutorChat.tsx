@@ -1,150 +1,107 @@
-'use client';
+"use client";
 
-import React, { useState, useRef, useEffect } from 'react';
-import Image from 'next/image';
-
-interface Message {
-  role: 'user' | 'assistant';
-  content: string;
-}
+import { useState } from "react";
+import { MessageSquare, X, Send, Bot } from "lucide-react";
 
 export default function TutorChat() {
   const [isOpen, setIsOpen] = useState(false);
-  const [messages, setMessages] = useState<Message[]>([
-    { role: 'assistant', content: '¡Hola! Soy tu Tutor Progresa. ¿En qué te puedo ayudar hoy con tu hoja de vida o práctica?' }
+  const [messages, setMessages] = useState([
+    { sender: "bot", text: "¡Hola! Soy tu Coach de Desarrollo Profesional. ¿En qué te puedo ayudar hoy con tu hoja de vida o perfil?" }
   ]);
-  const [input, setInput] = useState('');
+  const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
-  const messagesEndRef = useRef<HTMLDivElement>(null);
 
-  const scrollToBottom = () => {
-    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
-  };
-
-  useEffect(() => {
-    if (isOpen) {
-      scrollToBottom();
-    }
-  }, [messages, isOpen]);
-
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSend = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!input.trim() || loading) return;
 
-    const userMessage = input.trim();
-    setInput('');
-    setMessages(prev => [...prev, { role: 'user', content: userMessage }]);
+    const userMsg = input;
+    setInput("");
+    setMessages((prev) => [...prev, { sender: "user", text: userMsg }]);
     setLoading(true);
 
     try {
-      const res = await fetch('/api/tutor', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ message: userMessage }),
+      const res = await fetch("/api/tutor", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ message: userMsg }),
       });
-
       const data = await res.json();
-      if (res.ok) {
-        setMessages(prev => [...prev, { role: 'assistant', content: data.reply }]);
-      } else {
-        setMessages(prev => [...prev, { role: 'assistant', content: 'Lo siento, tuve un pequeño problema técnico. Inténtalo de nuevo en un momento.' }]);
-      }
-    } catch (error) {
-      console.error(error);
-      setMessages(prev => [...prev, { role: 'assistant', content: 'Error de conexión. Verifica tu red.' }]);
+      
+      setMessages((prev) => [...prev, { sender: "bot", text: data.reply || "¡Hola! Estoy listo para ayudarte con tu desarrollo profesional." }]);
+    } catch (err) {
+      setMessages((prev) => [...prev, { sender: "bot", text: "Tuve un pequeño problema de conexión. Inténtalo de nuevo." }]);
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    <div className="fixed bottom-6 right-6 z-50 flex flex-col items-end">
-      {/* Ventana de chat desplegable */}
+    <div className="fixed bottom-6 right-6 z-50 font-sans" style={{ fontFamily: "'Montserrat', sans-serif" }}>
+      {!isOpen && (
+        <button
+          onClick={() => setIsOpen(true)}
+          className="bg-amber-400 hover:bg-amber-300 text-blue-950 p-4 rounded-full shadow-2xl flex items-center justify-center transition transform hover:scale-105"
+          title="Abrir Coach de Desarrollo Profesional"
+        >
+          <Bot size={26} />
+        </button>
+      )}
+
       {isOpen && (
-        <div className="mb-4 w-80 sm:w-96 bg-white rounded-2xl shadow-2xl border border-gray-200 flex flex-col overflow-hidden transition-all duration-300">
-          {/* Cabecera del chat */}
-          <div className="bg-blue-900 text-white p-4 flex items-center justify-between">
-            <div className="flex items-center space-x-3">
-              <div className="relative w-10 h-10 rounded-full overflow-hidden bg-white/10 border border-white/20">
-                <Image src="/tutor-progresa.webp" alt="Tutor Progresa" fill className="object-cover" />
+        <div className="bg-white text-slate-800 w-80 sm:w-96 rounded-2xl shadow-2xl border border-slate-200 flex flex-col overflow-hidden max-h-[500px]">
+          {/* Cabecera del chat actualizada */}
+          <div className="bg-blue-950 text-white p-4 flex justify-between items-center border-b border-blue-900">
+            <div className="flex items-center gap-2">
+              <div className="w-8 h-8 rounded-full bg-amber-400 text-blue-950 flex items-center justify-center font-bold text-sm">
+                <Bot size={18} />
               </div>
               <div>
-                <h3 className="font-bold text-sm">Tutor Progresa</h3>
-                <p className="text-xs text-blue-200">Coach de Empleabilidad UNIMINUTO</p>
+                <h3 className="text-xs font-black tracking-wide">Progresito</h3>
+                <p className="text-[10px] text-amber-400 font-medium">Coach de Desarrollo Profesional</p>
               </div>
             </div>
-            <button 
-              onClick={() => setIsOpen(false)}
-              className="text-white/80 hover:text-white text-lg font-bold px-2"
-            >
-              ✕
+            <button onClick={() => setIsOpen(false)} className="text-slate-300 hover:text-white p-1">
+              <X size={18} />
             </button>
           </div>
 
           {/* Cuerpo de mensajes */}
-          <div className="p-4 h-80 overflow-y-auto space-y-3 bg-gray-50 text-sm">
-            {messages.map((msg, index) => (
-              <div 
-                key={index} 
-                className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}
-              >
-                <div 
-                  className={`max-w-[80%] p-3 rounded-2xl ${
-                    msg.role === 'user' 
-                      ? 'bg-blue-600 text-white rounded-br-none' 
-                      : 'bg-white text-gray-800 border border-gray-200 shadow-sm rounded-bl-none'
-                  }`}
-                >
-                  {msg.content}
+          <div className="flex-1 p-4 overflow-y-auto space-y-3 bg-slate-50 text-xs max-h-[320px] min-h-[250px]">
+            {messages.map((m, idx) => (
+              <div key={idx} className={`flex ${m.sender === "user" ? "justify-end" : "justify-start"}`}>
+                <div className={`p-3 rounded-xl max-w-[85%] leading-relaxed ${m.sender === "user" ? "bg-blue-900 text-white rounded-br-none" : "bg-white text-slate-700 shadow-sm border border-slate-200 rounded-bl-none"}`}>
+                  {m.text}
                 </div>
               </div>
             ))}
             {loading && (
               <div className="flex justify-start">
-                <div className="bg-white text-gray-500 border border-gray-200 p-3 rounded-2xl rounded-bl-none text-xs animate-pulse">
-                  El tutor está escribiendo...
+                <div className="p-3 rounded-xl bg-white text-slate-400 shadow-sm border border-slate-200 animate-pulse">
+                  Escribiendo respuesta...
                 </div>
               </div>
             )}
-            <div ref={messagesEndRef} />
           </div>
 
-          {/* Formulario de entrada */}
-          <form onSubmit={handleSubmit} className="p-3 bg-white border-t border-gray-200 flex gap-2">
+          {/* Formulario de entrada con texto oscuro visible */}
+          <form onSubmit={handleSend} className="p-3 bg-white border-t border-slate-200 flex gap-2 items-center">
             <input
               type="text"
               value={input}
               onChange={(e) => setInput(e.target.value)}
-              placeholder="Escribe tu duda sobre la hoja de vida..."
-              className="flex-1 px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-600"
+              placeholder="Escribe tu duda profesional..."
+              className="flex-1 p-2.5 text-xs bg-slate-100 border border-slate-300 rounded-xl text-slate-900 placeholder-slate-400 outline-none focus:border-blue-900"
             />
             <button
               type="submit"
-              disabled={loading}
-              className="bg-blue-900 text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-blue-800 transition-colors disabled:opacity-50"
+              className="bg-blue-950 hover:bg-blue-900 text-amber-400 p-2.5 rounded-xl transition flex items-center justify-center shadow"
             >
-              Enviar
+              <Send size={15} />
             </button>
           </form>
         </div>
       )}
-
-      {/* Botón flotante con la mascota */}
-      <button
-        onClick={() => setIsOpen(!isOpen)}
-        className="relative group focus:outline-none transform hover:scale-105 transition-transform duration-200"
-        title="Hablar con Tutor Progresa"
-      >
-        <div className="absolute -inset-1 bg-gradient-to-r from-red-600 to-blue-900 rounded-full blur opacity-40 group-hover:opacity-75 transition duration-300 animate-pulse"></div>
-        <div className="relative w-16 h-16 rounded-full bg-white border-2 border-white shadow-xl overflow-hidden flex items-center justify-center">
-          <Image 
-            src="/tutor-progresa.webp" 
-            alt="Mascota Tutor Progresa" 
-            fill 
-            className="object-cover" 
-          />
-        </div>
-      </button>
     </div>
   );
 }
