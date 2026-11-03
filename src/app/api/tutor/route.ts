@@ -1,8 +1,6 @@
 import { NextResponse } from 'next/server';
 import { GoogleGenerativeAI } from '@google/generative-ai';
 
-const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY || '');
-
 export async function POST(req: Request) {
   try {
     const body = await req.json();
@@ -12,9 +10,16 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: 'Falta el mensaje en la solicitud' }, { status: 400 });
     }
 
+    const apiKey = process.env.GEMINI_API_KEY;
+    if (!apiKey) {
+      console.error("GEMINI_API_KEY no está configurada en las variables de entorno.");
+      return NextResponse.json({ reply: 'Error de configuración: La clave de la IA no está disponible en el servidor.' });
+    }
+
+    const genAI = new GoogleGenerativeAI(apiKey);
     const model = genAI.getGenerativeModel({ model: 'gemini-1.5-flash' });
 
-    const prompt = `Eres un Coach de Desarrollo Profesional amigable y experto en empleabilidad para estudiantes universitarios. Ayúdalos de forma concisa, empática y orientada a la acción con su hoja de vida, habilidades y entrevistas. Pregunta del estudiante: ${message}`;
+    const prompt = `Eres Praxia, una asistente virtual y coach de desarrollo profesional amigable, experta en empleabilidad para estudiantes universitarios y enfocada en prácticas profesionales y primer empleo. Responde de forma cálida, empática, concisa y orientada a la acción. Pregunta del estudiante: ${message}`;
 
     const result = await model.generateContent(prompt);
     const response = await result.response;
@@ -22,7 +27,7 @@ export async function POST(req: Request) {
 
     return NextResponse.json({ reply: text });
   } catch (error: any) {
-    console.error('Error en la API del coach:', error);
-    return NextResponse.json({ reply: 'Lo siento, tuve un pequeño inconveniente conectando con la IA. ¡Inténtalo de nuevo en un momento!' });
+    console.error('Error detallado en la API del tutor:', error);
+    return NextResponse.json({ reply: 'Lo siento, tuve un pequeño inconveniente procesando tu mensaje. ¡Inténtalo de nuevo en un momento!' });
   }
 }
