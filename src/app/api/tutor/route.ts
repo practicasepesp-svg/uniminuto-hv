@@ -16,8 +16,8 @@ export async function POST(req: Request) {
     }
 
     const genAI = new GoogleGenerativeAI(apiKey);
-    // Cambiamos al modelo compatible con la API v1
-    const model = genAI.getGenerativeModel({ model: 'gemini-1.5-pro' });
+    // Usamos el modelo estándar y compatible con la API actual de Google
+    const model = genAI.getGenerativeModel({ model: 'gemini-1.5-flash' });
 
     const prompt = `Eres Praxia, una asistente virtual y coach de desarrollo profesional amigable, experta en empleabilidad para estudiantes universitarios y enfocada en prácticas profesionales y primer empleo en UNIMINUTO. Responde de forma cálida, empática, concisa y orientada a la acción. Pregunta del estudiante: ${message}`;
 
