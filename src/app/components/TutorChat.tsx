@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { MessageSquare, X, Send, Bot } from "lucide-react";
+import { MessageSquare, X, Send, Sparkles } from "lucide-react";
 
 export default function TutorChat() {
   const [isOpen, setIsOpen] = useState(false);
@@ -44,17 +44,17 @@ export default function TutorChat() {
           className="bg-amber-400 hover:bg-amber-300 text-blue-950 p-4 rounded-full shadow-2xl flex items-center justify-center transition transform hover:scale-105"
           title="Abrir Asistente de Prácticas"
         >
-          <Bot size={26} />
+          <Sparkles size={26} />
         </button>
       )}
 
       {isOpen && (
         <div className="bg-white text-slate-800 w-80 sm:w-96 rounded-2xl shadow-2xl border border-slate-200 flex flex-col overflow-hidden max-h-[500px]">
-          {/* Cabecera del chat con el nombre Praxia */}
+          {/* Cabecera del chat con el icono y nombre de Praxia */}
           <div className="bg-blue-950 text-white p-4 flex justify-between items-center border-b border-blue-900">
-            <div className="flex items-center gap-2">
-              <div className="w-8 h-8 rounded-full bg-amber-400 text-blue-950 flex items-center justify-center font-bold text-sm">
-                <Bot size={18} />
+            <div className="flex items-center gap-3">
+              <div className="w-9 h-9 rounded-full bg-amber-400 text-blue-950 flex items-center justify-center font-black shadow-inner">
+                <Sparkles size={20} />
               </div>
               <div>
                 <h3 className="text-xs font-black tracking-wide">Praxia</h3>
@@ -84,7 +84,7 @@ export default function TutorChat() {
             )}
           </div>
 
-          {/* Formulario de entrada con texto oscuro visible */}
+          {/* Formulario de entrada */}
           <form onSubmit={handleSend} className="p-3 bg-white border-t border-slate-200 flex gap-2 items-center">
             <input
               type="text"
