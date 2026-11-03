@@ -16,8 +16,8 @@ export async function POST(req: Request) {
     }
 
     const genAI = new GoogleGenerativeAI(apiKey);
-    // Usamos gemini-1.5-flash que es el modelo estándar y más estable para web
-    const model = genAI.getGenerativeModel({ model: 'gemini-1.5-flash' });
+    // Cambiamos al modelo compatible con la API v1
+    const model = genAI.getGenerativeModel({ model: 'gemini-1.5-pro' });
 
     const prompt = `Eres Praxia, una asistente virtual y coach de desarrollo profesional amigable, experta en empleabilidad para estudiantes universitarios y enfocada en prácticas profesionales y primer empleo en UNIMINUTO. Responde de forma cálida, empática, concisa y orientada a la acción. Pregunta del estudiante: ${message}`;
 
@@ -28,7 +28,6 @@ export async function POST(req: Request) {
     return NextResponse.json({ reply: text });
   } catch (error: any) {
     console.error('Error crítico en API Tutor:', error?.message || error);
-    // Devolvemos el error real para verlo en la consola del navegador
     return NextResponse.json({ reply: `Error de IA: ${error?.message || 'Fallo de conexión'}` });
   }
 }
