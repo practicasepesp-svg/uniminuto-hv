@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { MessageSquare, X, Send, Sparkles } from "lucide-react";
+import { X, Send } from "lucide-react";
 
 export default function TutorChat() {
   const [isOpen, setIsOpen] = useState(false);
@@ -41,19 +41,28 @@ export default function TutorChat() {
       {!isOpen && (
         <button
           onClick={() => setIsOpen(true)}
-          className="bg-amber-400 hover:bg-amber-300 text-blue-950 p-4 rounded-full shadow-2xl flex items-center justify-center transition transform hover:scale-105"
+          className="bg-amber-400 hover:bg-amber-300 text-blue-950 p-2.5 rounded-full shadow-2xl flex items-center justify-center transition transform hover:scale-105 border-2 border-blue-950 overflow-hidden w-14 h-14"
           title="Abrir Asistente de Prácticas"
         >
-          <Sparkles size={26} />
+          <img 
+            src="/tutor-progresa.webp" 
+            alt="Praxia - Tutor Progresa" 
+            className="w-full h-full object-cover scale-125 pt-1" 
+          />
         </button>
       )}
 
       {isOpen && (
         <div className="bg-white text-slate-800 w-80 sm:w-96 rounded-2xl shadow-2xl border border-slate-200 flex flex-col overflow-hidden max-h-[500px]">
+          {/* Cabecera del chat con la mascota oficial */}
           <div className="bg-blue-950 text-white p-4 flex justify-between items-center border-b border-blue-900">
             <div className="flex items-center gap-3">
-              <div className="w-9 h-9 rounded-full bg-amber-400 text-blue-950 flex items-center justify-center font-black shadow-inner">
-                <Sparkles size={20} />
+              <div className="w-10 h-10 rounded-full bg-amber-400 border-2 border-amber-300 flex items-center justify-center overflow-hidden flex-shrink-0 shadow-inner">
+                <img 
+                  src="/tutor-progresa.webp" 
+                  alt="Praxia" 
+                  className="w-full h-full object-cover scale-125 pt-1" 
+                />
               </div>
               <div>
                 <h3 className="text-xs font-black tracking-wide">Praxia</h3>
@@ -65,6 +74,7 @@ export default function TutorChat() {
             </button>
           </div>
 
+          {/* Cuerpo de mensajes */}
           <div className="flex-1 p-4 overflow-y-auto space-y-3 bg-slate-50 text-xs max-h-[320px] min-h-[250px]">
             {messages.map((m, idx) => (
               <div key={idx} className={`flex ${m.sender === "user" ? "justify-end" : "justify-start"}`}>
@@ -82,6 +92,7 @@ export default function TutorChat() {
             )}
           </div>
 
+          {/* Formulario de entrada */}
           <form onSubmit={handleSend} className="p-3 bg-white border-t border-slate-200 flex gap-2 items-center">
             <input
               type="text"
