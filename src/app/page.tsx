@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { Printer, Briefcase, GraduationCap, Award, Phone, Mail, MapPin, Trash2, Plus, User, Cpu, Languages, HeartHandshake, Link as LinkIcon, BookOpen, Wrench, FolderGit2, CheckCircle, Globe, ShieldCheck, Code, ArrowRight, Info, Heart } from "lucide-react";
 // Importamos el widget flotante del Tutor Progresa
-import TutorChat from "@/components/TutorChat";
+import TutorChat from "./components/TutorChat";
 
 interface LinkItem { label: string; url: string; }
 interface ToolItem { name: string; level: string; }
