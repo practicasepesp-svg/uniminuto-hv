@@ -14,8 +14,8 @@ export async function POST(req: Request) {
       return NextResponse.json({ reply: 'Configura la variable GEMINI_API_KEY en Vercel.' });
     }
 
-    // Petición HTTP directa a la API de Google para evitar bloqueos de la librería
-    const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`;
+    // Usamos el modelo actual y vigente en la API de Google
+    const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${apiKey}`;
 
     const response = await fetch(url, {
       method: 'POST',
@@ -42,7 +42,6 @@ export async function POST(req: Request) {
       return NextResponse.json({ reply: `Error de API: ${data.error?.message || 'Fallo desconocido de Google'}` });
     }
 
-    // Extraemos la respuesta limpia de la estructura de Gemini
     const text = data.candidates?.[0]?.content?.parts?.[0]?.text || "¡Hola! Estoy lista para ayudarte con tus prácticas en UNIMINUTO.";
 
     return NextResponse.json({ reply: text });
