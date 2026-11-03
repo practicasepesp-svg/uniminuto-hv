@@ -14,8 +14,8 @@ export async function POST(req: Request) {
       return NextResponse.json({ reply: 'Configura la variable GEMINI_API_KEY en Vercel.' });
     }
 
-    // Usamos el modelo oficial actual solicitado por la API de Google
-    const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3.8-flash:generateContent?key=${apiKey}`;
+    // Usamos el endpoint oficial estable 'v1' con el modelo gemini-1.5-flash
+    const url = `https://generativelanguage.googleapis.com/v1/models/gemini-1.5-flash:generateContent?key=${apiKey}`;
 
     const response = await fetch(url, {
       method: 'POST',
