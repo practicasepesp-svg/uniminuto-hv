@@ -1,33 +1,29 @@
-import { GoogleGenerativeAI } from '@google/generative-ai';
 import { NextResponse } from 'next/server';
+import { GoogleGenerativeAI } from '@google/generative-ai';
 
-// Inicializar Gemini con la llave secreta configurada en Vercel
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY || '');
 
 export async function POST(req: Request) {
   try {
-    const { message } = await req.json();
+    const body = await req.json();
+    const message = body.message;
 
     if (!message) {
-      return NextResponse.json({ error: 'Falta el mensaje' }, { status: 400 });
+      return NextResponse.json({ error: 'Falta el mensaje en la solicitud' }, { status: 400 });
     }
 
-    // Usamos gemini-1.5-flash por su rapidez y alta eficiencia en chats en tiempo real
-    const model = genAI.getGenerativeModel({
-      model: 'gemini-1.5-flash',
-      systemInstruction: `Eres el "Tutor Progresa", un coach de empleabilidad y mentor virtual del Centro Progresa E.P.E. de UNIMINUTO (Rectoría Bogotá). 
-      Tu tono es cálido, empático, maternal, profesional y muy motivador. 
-      Ayudas a los estudiantes a redactar de forma excelente su hoja de vida, perfilar sus habilidades profesionales y prepararse para sus prácticas. 
-      Responde de forma concisa, práctica, amigable y orientada a la acción.`,
-    });
+    const model = genAI.getGenerativeModel({ model: 'gemini-1.5-flash' });
 
-    const result = await model.generateContent(message);
+    // Incluimos la personalidad y la pregunta en un solo texto limpio
+    const prompt = `Eres el "Tutor Progresa", un coach de empleabilidad y mentor virtual del Centro Progresa E.P.E. de UNIMINUTO (Rectoría Bogotá). Responde de forma cálida, empática, concisa y orientada a la acción para ayudar a los estudiantes con su hoja de vida y prácticas. Pregunta del estudiante: ${message}`;
+
+    const result = await model.generateContent(prompt);
     const response = await result.response;
     const text = response.text();
 
     return NextResponse.json({ reply: text });
-  } catch (error) {
-    console.error('Error en el tutor AI:', error);
-    return NextResponse.json({ error: 'Error procesando la solicitud del tutor' }, { status: 500 });
+  } catch (error: any) {
+    console.error('Error en la API del tutor:', error);
+    return NextResponse.json({ error: error.message || 'Error interno del servidor' }, { status: 500 });
   }
 }
