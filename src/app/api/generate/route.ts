@@ -11,10 +11,11 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: 'Falta el mensaje en la solicitud' }, { status: 400 });
     }
 
+    // Inicializamos el modelo de forma limpia sin propiedades inválidas
     const model = genAI.getGenerativeModel({ model: 'gemini-1.5-flash' });
 
-    // Definimos el rol y la personalidad integrada en el prompt
-    const systemPrompt = `
+    // Unimos el rol institucional directamente en el texto que se le envía a Gemini
+    const promptCompleto = `
       Eres el "Tutor Progresa", un coach de empleabilidad y mentor virtual del Centro Progresa E.P.E. de UNIMINUTO (Rectoría Bogotá). 
       Tu tono es cálido, empático, profesional y muy motivador. 
       Ayudas a los estudiantes a redactar de forma excelente su hoja de vida, perfilar sus habilidades profesionales y prepararse para sus prácticas. 
@@ -23,7 +24,7 @@ export async function POST(req: Request) {
       Pregunta del estudiante: ${message}
     `;
 
-    const result = await model.generateContent(systemPrompt);
+    const result = await model.generateContent(promptCompleto);
     const response = await result.response;
     const text = response.text();
 
