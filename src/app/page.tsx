@@ -234,8 +234,7 @@ export default function Home() {
 
         </main>
         
-        {/* Incluimos también el chat flotante en la bienvenida */}
-        <TutorChat />
+        {/* (AQUÍ QUITAMOS EL CHAT DE LA BIENVENIDA) */}
       </div>
     );
   }
@@ -871,7 +870,7 @@ export default function Home() {
 
       </div>
 
-      {/* Widget flotante de la mascota y la IA */}
+      {/* Widget flotante de la mascota y la IA (Únicamente aquí en el editor) */}
       <TutorChat />
     </div>
   );
