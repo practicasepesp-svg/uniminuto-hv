@@ -1,33 +1,25 @@
+import { NextResponse } from 'next/server';
 import { GoogleGenerativeAI } from '@google/generative-ai';
-import { NextResponse } from "next/server";
 
 // Inicializa el cliente usando la clave secreta de las variables de entorno
-const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
+const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY || '');
 
 export async function POST(req: Request) {
   try {
-    const { prompt, type } = await req.json();
+    const { prompt } = await req.json();
 
-    let systemInstruction = "Eres un experto asesor de empleabilidad del Centro Progresa de UNIMINUTO. Ayudas a estudiantes universitarios a redactar hojas de vida profesionales orientadas a prácticas profesionales.";
-
-    if (type === "profile") {
-      systemInstruction += " Mejora el siguiente perfil ocupacional para que sea profesional, atractivo para reclutadores y formal.";
-    } else if (type === "experience") {
-      systemInstruction += " Mejora y formatea las siguientes funciones laborales usando viñetas (bullet points) con verbos de acción.";
+    if (!prompt) {
+      return NextResponse.json({ error: 'Falta el prompt en la solicitud' }, { status: 400 });
     }
 
-    const response = await ai.models.generateContent({
-      model: "gemini-1.5-flash",
-      contents: [prompt],
-      config: {
-        systemInstruction: systemInstruction,
-        temperature: 0.7,
-      },
-    });
+    const model = genAI.getGenerativeModel({ model: 'gemini-1.5-flash' });
+    const result = await model.generateContent(prompt);
+    const response = await result.response;
+    const text = response.text();
 
-    return NextResponse.json({ result: response.text });
-  } catch (error) {
-    console.error("Error al generar con Gemini:", error);
-    return NextResponse.json({ error: "No se pudo generar la sugerencia." }, { status: 500 });
+    return NextResponse.json({ reply: text });
+  } catch (error: any) {
+    console.error('Error en la API de generación:', error);
+    return NextResponse.json({ error: error.message || 'Error interno del servidor' }, { status: 500 });
   }
 }
