@@ -1,4 +1,4 @@
-import { GoogleGenAI } from "@google/genai";
+import { GoogleGenerativeAI } from '@google/generative-ai';
 import { NextResponse } from "next/server";
 
 // Inicializa el cliente usando la clave secreta de las variables de entorno
