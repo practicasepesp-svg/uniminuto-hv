@@ -1,22 +1,15 @@
 "use client";
 
 import { useState } from "react";
-import { usePathname } from "next/navigation";
 import { MessageSquare, X, Send, Sparkles } from "lucide-react";
 
 export default function TutorChat() {
-  const pathname = usePathname();
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState([
     { sender: "bot", text: "¡Hola! Soy Praxia, tu asistente experta en prácticas profesionales y primer empleo. ¿En qué te puedo ayudar hoy?" }
   ]);
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
-
-  // Si estamos en la página de bienvenida (/), no renderizamos el chat
-  if (pathname === "/") {
-    return null;
-  }
 
   const handleSend = async (e: React.FormEvent) => {
     e.preventDefault();
