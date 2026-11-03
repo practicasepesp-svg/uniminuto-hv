@@ -1,5 +1,4 @@
 import { NextResponse } from 'next/server';
-import { GoogleGenerativeAI } from '@google/generative-ai';
 
 export async function POST(req: Request) {
   try {
@@ -15,15 +14,36 @@ export async function POST(req: Request) {
       return NextResponse.json({ reply: 'Configura la variable GEMINI_API_KEY en Vercel.' });
     }
 
-    const genAI = new GoogleGenerativeAI(apiKey);
-    // Usamos el modelo estándar y compatible con la API actual de Google
-    const model = genAI.getGenerativeModel({ model: 'gemini-1.5-flash' });
+    // Petición HTTP directa a la API de Google para evitar bloqueos de la librería
+    const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`;
 
-    const prompt = `Eres Praxia, una asistente virtual y coach de desarrollo profesional amigable, experta en empleabilidad para estudiantes universitarios y enfocada en prácticas profesionales y primer empleo en UNIMINUTO. Responde de forma cálida, empática, concisa y orientada a la acción. Pregunta del estudiante: ${message}`;
+    const response = await fetch(url, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        contents: [
+          {
+            parts: [
+              {
+                text: `Eres Praxia, una asistente virtual y coach de desarrollo profesional amigable, experta en empleabilidad para estudiantes universitarios y enfocada en prácticas profesionales y primer empleo en UNIMINUTO. Responde de forma cálida, empática, concisa y orientada a la acción. Pregunta del estudiante: ${message}`
+              }
+            ]
+          }
+        ]
+      }),
+    });
 
-    const result = await model.generateContent(prompt);
-    const response = await result.response;
-    const text = response.text();
+    const data = await response.json();
+
+    if (!response.ok) {
+      console.error('Error de la API de Google:', data);
+      return NextResponse.json({ reply: `Error de API: ${data.error?.message || 'Fallo desconocido de Google'}` });
+    }
+
+    // Extraemos la respuesta limpia de la estructura de Gemini
+    const text = data.candidates?.[0]?.content?.parts?.[0]?.text || "¡Hola! Estoy lista para ayudarte con tus prácticas en UNIMINUTO.";
 
     return NextResponse.json({ reply: text });
   } catch (error: any) {
