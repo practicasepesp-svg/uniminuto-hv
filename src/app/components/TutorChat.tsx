@@ -6,7 +6,7 @@ import { MessageSquare, X, Send, Bot } from "lucide-react";
 export default function TutorChat() {
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState([
-    { sender: "bot", text: "¡Hola! Soy tu Coach de Desarrollo Profesional. ¿En qué te puedo ayudar hoy con tu hoja de vida o perfil?" }
+    { sender: "bot", text: "¡Hola! Soy Praxia, tu asistente experta en prácticas profesionales y primer empleo. ¿En qué te puedo ayudar hoy?" }
   ]);
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
@@ -28,7 +28,7 @@ export default function TutorChat() {
       });
       const data = await res.json();
       
-      setMessages((prev) => [...prev, { sender: "bot", text: data.reply || "¡Hola! Estoy listo para ayudarte con tu desarrollo profesional." }]);
+      setMessages((prev) => [...prev, { sender: "bot", text: data.reply || "¡Hola! Estoy lista para ayudarte con tus prácticas." }]);
     } catch (err) {
       setMessages((prev) => [...prev, { sender: "bot", text: "Tuve un pequeño problema de conexión. Inténtalo de nuevo." }]);
     } finally {
@@ -42,7 +42,7 @@ export default function TutorChat() {
         <button
           onClick={() => setIsOpen(true)}
           className="bg-amber-400 hover:bg-amber-300 text-blue-950 p-4 rounded-full shadow-2xl flex items-center justify-center transition transform hover:scale-105"
-          title="Abrir Coach de Desarrollo Profesional"
+          title="Abrir Asistente de Prácticas"
         >
           <Bot size={26} />
         </button>
@@ -50,15 +50,15 @@ export default function TutorChat() {
 
       {isOpen && (
         <div className="bg-white text-slate-800 w-80 sm:w-96 rounded-2xl shadow-2xl border border-slate-200 flex flex-col overflow-hidden max-h-[500px]">
-          {/* Cabecera del chat actualizada */}
+          {/* Cabecera del chat con el nombre Praxia */}
           <div className="bg-blue-950 text-white p-4 flex justify-between items-center border-b border-blue-900">
             <div className="flex items-center gap-2">
               <div className="w-8 h-8 rounded-full bg-amber-400 text-blue-950 flex items-center justify-center font-bold text-sm">
                 <Bot size={18} />
               </div>
               <div>
-                <h3 className="text-xs font-black tracking-wide">Progresito</h3>
-                <p className="text-[10px] text-amber-400 font-medium">Coach de Desarrollo Profesional</p>
+                <h3 className="text-xs font-black tracking-wide">Praxia</h3>
+                <p className="text-[10px] text-amber-400 font-medium">Asistente de Prácticas Profesionales</p>
               </div>
             </div>
             <button onClick={() => setIsOpen(false)} className="text-slate-300 hover:text-white p-1">
@@ -78,7 +78,7 @@ export default function TutorChat() {
             {loading && (
               <div className="flex justify-start">
                 <div className="p-3 rounded-xl bg-white text-slate-400 shadow-sm border border-slate-200 animate-pulse">
-                  Escribiendo respuesta...
+                  Praxia está escribiendo...
                 </div>
               </div>
             )}
@@ -90,7 +90,7 @@ export default function TutorChat() {
               type="text"
               value={input}
               onChange={(e) => setInput(e.target.value)}
-              placeholder="Escribe tu duda profesional..."
+              placeholder="Pregúntale a Praxia sobre tu hoja de vida..."
               className="flex-1 p-2.5 text-xs bg-slate-100 border border-slate-300 rounded-xl text-slate-900 placeholder-slate-400 outline-none focus:border-blue-900"
             />
             <button
