@@ -863,13 +863,8 @@ export default function Home() {
               </tr>
             </tfoot>
           </table>
-
         </div>
-
       </div>
-
-      {/* Widget flotante de la mascota y la IA (Únicamente aquí en el editor) */}
-      <TutorChat />
     </div>
   );
 }
