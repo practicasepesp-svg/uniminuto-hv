@@ -190,40 +190,44 @@ export default function Home() {
 
   if (!started) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-blue-950 via-blue-900 to-slate-900 flex flex-col font-sans text-slate-100" style={{ fontFamily: "'Montserrat', sans-serif" }}>
-        <style jsx global>{`
-          @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap');
-          body, input, select, textarea, button { font-family: 'Montserrat', sans-serif !important; }
-        `}</style>
-        <header className="bg-blue-950/80 backdrop-blur-md text-white px-6 py-4 flex justify-between items-center border-b border-blue-800/60 shadow-xl">
+      <main className="min-h-screen bg-gradient-to-br from-slate-900 via-blue-950 to-indigo-950 text-slate-100 flex flex-col justify-between p-6 lg:p-12">
+        <header className="max-w-6xl w-full mx-auto flex justify-between items-center">
           <div className="flex items-center gap-4">
-            <div className="flex items-center gap-3">
-              <img src="/rectoria-blanca.webp" alt="Rectoría Bogotá" className="h-7 object-contain" />
-              <div className="h-5 w-px bg-blue-700"></div>
-              <img src="/centro-progresa-blanco.webp" alt="Centro Progresa" className="h-7 object-contain" />
-            </div>
-            <div>
-              <h1 className="text-sm font-bold tracking-tight text-white">Centro Progresa E.P.E.</h1>
-              <p className="text-xs text-amber-400 font-medium">Prácticas Profesionales • UNIMINUTO Rectoría Bogotá</p>
-            </div>
+            <img src="/rectoria-blanca.webp" alt="Rectoría Bogotá" className="h-8 object-contain" />
+            <div className="h-6 w-px bg-slate-700"></div>
+            <img src="/centro-progresa-blanco.webp" alt="Centro Progresa" className="h-8 object-contain" />
+          </div>
+          <div className="text-right hidden sm:block">
+            <p className="text-xs text-amber-400 font-bold uppercase tracking-wider">Centro Progresa E.P.E.</p>
+            <p className="text-[11px] text-slate-300">Prácticas Profesionales • UNIMINUTO</p>
           </div>
         </header>
-        <main className="flex-1 max-w-5xl w-full mx-auto p-6 lg:p-12 flex flex-col justify-center space-y-8">
-          <div className="text-center space-y-4">
-            <h2 className="text-3xl lg:text-5xl font-black tracking-tight text-white leading-tight">
-              Creador de Hoja de Vida <span className="text-amber-400">Profesional</span>
-            </h2>
-            <p className="text-slate-300 text-sm lg:text-base max-w-2xl mx-auto leading-relaxed">
-              Diseñado especialmente para estudiantes de UNIMINUTO Rectoría Bogotá que buscan postularse a sus prácticas profesionales.
-            </p>
+
+        <div className="max-w-4xl mx-auto text-center space-y-6 my-auto py-12">
+          <div className="inline-flex items-center gap-2 bg-blue-900/60 border border-blue-700/50 px-4 py-1.5 rounded-full text-xs font-semibold text-amber-300">
+            <span>✨ Herramienta Oficial de Empleabilidad</span>
           </div>
-          <div className="flex justify-center pt-4">
-            <button onClick={() => setStarted(true)} className="bg-amber-400 hover:bg-amber-300 text-blue-950 font-extrabold text-sm lg:text-base px-8 py-4 rounded-2xl shadow-xl shadow-amber-500/20 flex items-center gap-3 transition transform hover:-translate-y-0.5 active:scale-95">
-              Comenzar a Crear mi Hoja de Vida <ArrowRight size={20} />
+          <h1 className="text-4xl lg:text-6xl font-black tracking-tight text-white leading-tight">
+            Creador de Hoja de Vida <span className="text-amber-400">Institucional</span>
+          </h1>
+          <p className="text-slate-300 text-sm lg:text-base max-w-2xl mx-auto leading-relaxed">
+            Diseñado especialmente para estudiantes de UNIMINUTO Rectoría Bogotá que buscan postularse a sus prácticas profesionales con un formato impecable, compatible con ATS y 100% privado.
+          </p>
+          <div className="pt-4 flex justify-center">
+            <button
+              onClick={() => setStarted(true)}
+              className="bg-amber-400 hover:bg-amber-300 text-blue-950 font-extrabold text-sm lg:text-base px-8 py-4 rounded-2xl shadow-xl shadow-amber-500/20 flex items-center gap-3 transition transform hover:-translate-y-0.5 active:scale-95"
+            >
+              <span>Comenzar a Crear mi Hoja de Vida</span>
+              <ArrowRight size={20} />
             </button>
           </div>
-        </main>
-      </div>
+        </div>
+
+        <footer className="max-w-6xl w-full mx-auto text-center text-xs text-slate-500 border-t border-slate-800/80 pt-6">
+          Corporación Universitaria Minuto de Dios • Vigilada Mineducación
+        </footer>
+      </main>
     );
   }
 
@@ -239,6 +243,8 @@ export default function Home() {
           .resume-sheet { box-shadow: none !important; margin: 0 !important; width: 100% !important; max-width: none !important; border: none !important; font-family: 'Montserrat', sans-serif !important; }
           .print-atomic-item { break-inside: avoid; page-break-inside: avoid; }
           .print-section-title { break-after: avoid; page-break-after: avoid; }
+          /* Forzar visibilidad y color de enlaces al imprimir en PDF */
+          a { color: #1e3a8a !important; text-decoration: underline !important; }
         }
       `}</style>
       
@@ -539,15 +545,15 @@ export default function Home() {
                     </div>
                   </div>
 
-                  {/* Enlaces limpios y funcionales para PDF */}
+                  {/* Enlaces con visibilidad garantizada al imprimir en PDF */}
                   <div className="flex flex-wrap justify-center items-center gap-4 text-[12px] text-slate-600 mb-5 pb-3 border-b border-slate-100 font-medium text-center">
                     {formData.email && <span className="flex items-center gap-1"><Mail size={12} className="text-blue-900"/> {formData.email}</span>}
                     {formData.phone && <span className="flex items-center gap-1"><Phone size={12} className="text-blue-900"/> {formData.phone}</span>}
                     {formData.city && <span className="flex items-center gap-1"><MapPin size={12} className="text-blue-900"/> {formData.city}</span>}
                     {formData.links.map((l, i) => (
                       l.url ? (
-                        <a key={i} href={l.url.startsWith('http') ? l.url : `https://${l.url}`} target="_blank" rel="noopener noreferrer" className="flex items-center gap-1 text-blue-900 hover:underline font-semibold">
-                          <LinkIcon size={12} /> {l.label || "Enlace"}
+                        <a key={i} href={l.url.startsWith('http') ? l.url : `https://${l.url}`} target="_blank" rel="noopener noreferrer" className="flex items-center gap-1 text-blue-900 hover:underline font-semibold print:text-blue-900 print:underline">
+                          <LinkIcon size={12} className="print:hidden" /> {l.label || "Enlace"}
                         </a>
                       ) : null
                     ))}
@@ -569,7 +575,6 @@ export default function Home() {
                       </div>
                       {formData.profile && <p className="text-[12px] text-slate-700 text-justify leading-relaxed mb-3">{formData.profile}</p>}
                       
-                      {/* Cajas con color institucional (Bordes y acentos azules UNIMINUTO) */}
                       <table className="w-full text-[12px] mt-2 border-separate border-spacing-2">
                         <tbody>
                           <tr>
@@ -616,7 +621,7 @@ export default function Home() {
                     </div>
                   )}
 
-                  {/* Formación (Títulos y subtítulos homogeneizados con Experiencia) */}
+                  {/* Formación */}
                   {formData.education.length > 0 && (
                     <div className="mb-5 pt-2 border-t border-slate-100">
                       <div className="relative flex items-center justify-center my-3 print-section-title">
@@ -693,7 +698,7 @@ export default function Home() {
                             <div key={i} className="text-[12px] space-y-1.5 print-atomic-item mb-3">
                               <div>
                                 <span className="font-black text-slate-900 uppercase block">
-                                  {proj.name || "Proyecto"} {proj.url && <a href={proj.url.startsWith('http') ? proj.url : `https://${proj.url}`} target="_blank" rel="noopener noreferrer" className="font-normal text-blue-600 underline lowercase">({proj.url})</a>}
+                                  {proj.name || "Proyecto"} {proj.url && <a href={proj.url.startsWith('http') ? proj.url : `https://${proj.url}`} target="_blank" rel="noopener noreferrer" className="font-normal text-blue-600 underline lowercase print:text-blue-900">({proj.url})</a>}
                                 </span>
                                 <span className="text-blue-900 font-semibold block capitalize">{proj.role || "Rol"}</span>
                               </div>
