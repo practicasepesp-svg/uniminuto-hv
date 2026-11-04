@@ -14,17 +14,17 @@ export async function POST(req: Request) {
       return NextResponse.json({ reply: 'Configura tu clave de API en Vercel.' });
     }
 
-    // Petición gratuita a OpenRouter usando un modelo libre (meta-llama/llama-3-8b-instruct:free)
+    // Petición gratuita a OpenRouter usando el modelo libre actualizado y disponible
     const response = await fetch('https://openrouter.ai/api/v1/chat/completions', {
       method: 'POST',
       headers: {
         'Authorization': `Bearer ${apiKey}`,
-        'HTTP-Referer': 'https://uniminuto-hv.vercel.app', // Opcional para OpenRouter
-        'X-Title': 'Centro Progresa HV', // Opcional para OpenRouter
+        'HTTP-Referer': 'https://uniminuto-hv.vercel.app',
+        'X-Title': 'Centro Progresa HV',
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        model: 'meta-llama/llama-3-8b-instruct:free',
+        model: 'meta-llama/llama-3.1-8b-instruct:free',
         messages: [
           {
             role: 'system',
