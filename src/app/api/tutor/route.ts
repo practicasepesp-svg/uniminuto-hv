@@ -1,5 +1,4 @@
 import { NextResponse } from 'next/server';
-import { GoogleGenerativeAI } from '@google/generative-ai';
 
 export async function POST(req: Request) {
   try {
@@ -15,21 +14,41 @@ export async function POST(req: Request) {
       return NextResponse.json({ reply: 'Configura la variable GEMINI_API_KEY en Vercel.' });
     }
 
-    // Inicializamos el SDK oficial de Google
-    const genAI = new GoogleGenerativeAI(apiKey);
-    
-    // Usamos el modelo que viene por defecto y es compatible con el SDK
-    const model = genAI.getGenerativeModel({ model: 'gemini-1.5-flash' });
+    // Usamos fetch nativo directo a la ruta v1beta y el modelo gemini-1.5-flash
+    const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`;
 
-    const prompt = `Eres Praxia, una asistente virtual y coach de desarrollo profesional amigable, experta en empleabilidad para estudiantes universitarios y enfocada en prácticas profesionales y primer empleo en UNIMINUTO. Responde de forma cálida, empática, concisa y orientada a la acción. Pregunta del estudiante: ${message}`;
+    const response = await fetch(url, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        contents: [
+          {
+            parts: [
+              {
+                text: `Eres Praxia, una asistente virtual y coach de desarrollo profesional amigable, experta en empleabilidad para estudiantes universitarios y enfocada en prácticas profesionales y primer empleo en UNIMINUTO. Responde de forma cálida, empática, concisa y orientada a la acción. Pregunta del estudiante: ${message}`
+              }
+            ]
+          }
+        ]
+      }),
+    });
 
-    const result = await model.generateContent(prompt);
-    const response = await result.response;
-    const text = response.text();
+    const data = await response.json();
+
+    if (!response.ok) {
+      console.error('Error detallado de Google:', JSON.stringify(data));
+      return NextResponse.json({ 
+        reply: `Error de Google: ${data.error?.message || 'Llave o permisos inválidos'}` 
+      });
+    }
+
+    const text = data.candidates?.[0]?.content?.parts?.[0]?.text || "¡Hola! Estoy lista para ayudarte con tus prácticas en UNIMINUTO.";
 
     return NextResponse.json({ reply: text });
   } catch (error: any) {
     console.error('Error crítico en API Tutor:', error?.message || error);
-    return NextResponse.json({ reply: `Error de IA: ${error?.message || 'Fallo de conexión'}` });
+    return NextResponse.json({ reply: `Error de servidor: ${error?.message || 'Fallo de conexión'}` });
   }
 }
