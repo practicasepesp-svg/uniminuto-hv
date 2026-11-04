@@ -1,37 +1,91 @@
 "use client";
-
 import { useState } from "react";
 import { Printer, Briefcase, GraduationCap, Award, Phone, Mail, MapPin, Trash2, Plus, User, Cpu, Languages, HeartHandshake, Link as LinkIcon, BookOpen, Wrench, FolderGit2, CheckCircle, Globe, ShieldCheck, Code, ArrowRight, Info, Heart } from "lucide-react";
 
-interface LinkItem { label: string; url: string; }
-interface ToolItem { name: string; level: string; }
-interface LanguageItem { language: string; level: string; }
-interface Education { institution: string; degree: string; level: string; year: string; isCurrent?: boolean; semester?: string; }
-interface ComplementaryEdu { title: string; institution: string; year: string; }
-interface Experience { company: string; position: string; startDate: string; endDate: string; description: string; }
-interface Project { name: string; role: string; description: string; url?: string; }
-interface Volunteer { organization: string; role: string; startDate: string; endDate: string; description: string; }
+interface LinkItem {
+  label: string;
+  url: string;
+}
+
+interface ToolItem {
+  name: string;
+  level: string;
+}
+
+interface LanguageItem {
+  language: string;
+  level: string;
+}
+
+interface Education {
+  institution: string;
+  degree: string;
+  level: string;
+  year: string;
+  isCurrent?: boolean;
+  semester?: string;
+}
+
+interface ComplementaryEdu {
+  title: string;
+  institution: string;
+  year: string;
+}
+
+interface Experience {
+  company: string;
+  position: string;
+  startDate: string;
+  endDate: string;
+  description: string;
+}
+
+interface Project {
+  name: string;
+  role: string;
+  description: string;
+  url?: string;
+}
+
+interface Volunteer {
+  organization: string;
+  role: string;
+  startDate: string;
+  endDate: string;
+  description: string;
+}
 
 export default function Home() {
   const [started, setStarted] = useState(false);
-
   const [formData, setFormData] = useState({
-    fullName: "", email: "", phone: "", city: "Bogotá D.C.",
+    fullName: "",
+    email: "",
+    phone: "",
+    city: "Bogotá D.C.",
     links: [] as LinkItem[],
-    profile: "", 
-    softSkills: "", 
+    profile: "",
+    softSkills: "",
     toolsList: [] as ToolItem[],
     languageList: [] as LanguageItem[],
     education: [
-      { institution: "Corporación Universitaria Minuto de Dios - UNIMINUTO", degree: "", level: "Profesional", year: "", isCurrent: true, semester: "" }
+      {
+        institution: "Corporación Universitaria Minuto de Dios - UNIMINUTO",
+        degree: "",
+        level: "Profesional",
+        year: "",
+        isCurrent: true,
+        semester: "",
+      },
     ] as Education[],
     complementaryEdu: [] as ComplementaryEdu[],
     experiences: [] as Experience[],
     projects: [] as Project[],
-    volunteers: [] as Volunteer[]
+    volunteers: [] as Volunteer[],
   });
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+  const handleInputChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
+  ) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
@@ -61,9 +115,9 @@ export default function Home() {
     setFormData({ ...formData, toolsList: formData.toolsList.filter((_, i) => i !== index) });
   };
 
-  // Idiomas (Sección 2)
+  // Idiomas
   const addLanguage = () => {
-    setFormData({ ...formData, languageList: [...formData.languageList, { language: "", level: "B2 - Intermedio Alto" }] });
+    setFormData({ ...formData, languageList: [...formData.languageList, { language: "", level: "B1 - Intermedio" }] });
   };
   const updateLanguage = (index: number, field: string, value: string) => {
     const list = [...formData.languageList];
@@ -74,14 +128,17 @@ export default function Home() {
     setFormData({ ...formData, languageList: formData.languageList.filter((_, i) => i !== index) });
   };
 
-  // Formación Académica
+  // Educación Formal
   const addEducation = () => {
-    setFormData({ ...formData, education: [...formData.education, { institution: "", degree: "", level: "Profesional", year: "", isCurrent: false, semester: "" }] });
+    setFormData({
+      ...formData,
+      education: [...formData.education, { institution: "", degree: "", level: "Profesional", year: "", isCurrent: false, semester: "" }],
+    });
   };
   const updateEducation = (index: number, field: string, value: any) => {
-    const newEdu = [...formData.education];
-    (newEdu[index] as any)[field] = value;
-    setFormData({ ...formData, education: newEdu });
+    const list = [...formData.education];
+    (list[index] as any)[field] = value;
+    setFormData({ ...formData, education: list });
   };
   const removeEducation = (index: number) => {
     setFormData({ ...formData, education: formData.education.filter((_, i) => i !== index) });
@@ -105,15 +162,15 @@ export default function Home() {
     setFormData({ ...formData, experiences: [...formData.experiences, { company: "", position: "", startDate: "", endDate: "", description: "" }] });
   };
   const updateExperience = (index: number, field: string, value: string) => {
-    const newExp = [...formData.experiences];
-    (newExp[index] as any)[field] = value;
-    setFormData({ ...formData, experiences: newExp });
+    const list = [...formData.experiences];
+    (list[index] as any)[field] = value;
+    setFormData({ ...formData, experiences: list });
   };
   const removeExperience = (index: number) => {
     setFormData({ ...formData, experiences: formData.experiences.filter((_, i) => i !== index) });
   };
 
-  // Proyectos Académicos
+  // Proyectos
   const addProject = () => {
     setFormData({ ...formData, projects: [...formData.projects, { name: "", role: "", description: "", url: "" }] });
   };
@@ -139,732 +196,718 @@ export default function Home() {
     setFormData({ ...formData, volunteers: formData.volunteers.filter((_, i) => i !== index) });
   };
 
-  // PANTALLA INICIAL / LANDING PAGE
-  if (!started) {
-    return (
-      <div className="min-h-screen bg-gradient-to-br from-blue-950 via-blue-900 to-slate-900 flex flex-col font-sans text-slate-100" style={{ fontFamily: "'Montserrat', sans-serif" }}>
-        <style jsx global>{`
-          @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap');
-          body, input, select, textarea, button { font-family: 'Montserrat', sans-serif !important; }
-        `}</style>
-
-        {/* Cabecera institucional superior */}
-        <header className="bg-blue-950/80 backdrop-blur-md text-white px-6 py-4 flex justify-between items-center border-b border-blue-800/60 shadow-xl">
-          <div className="flex items-center gap-4">
-            <div className="flex items-center gap-3">
-              <img src="/rectoria-blanca.webp" alt="Rectoría Bogotá" className="h-7 object-contain" />
-              <div className="h-5 w-px bg-blue-700"></div>
-              <img src="/centro-progresa-blanco.webp" alt="Centro Progresa" className="h-7 object-contain" />
+  return (
+    <main className="min-h-screen bg-slate-100 text-slate-800 flex flex-col items-center">
+      {!started ? (
+        <div className="flex-1 flex flex-col items-center justify-center p-6 text-center max-w-2xl my-auto">
+          <div className="bg-white p-8 rounded-2xl shadow-xl border border-slate-200 space-y-6">
+            <div className="flex justify-center space-x-4 mb-2">
+              <span className="px-3 py-1 bg-amber-100 text-amber-800 text-xs font-bold rounded-full">UNIMINUTO</span>
+              <span className="px-3 py-1 bg-blue-100 text-blue-800 text-xs font-bold rounded-full">Centro Progresa</span>
             </div>
-            <div>
-              <h1 className="text-sm font-bold tracking-tight text-white">
-                Centro Progresa E.P.E.
-              </h1>
-              <p className="text-xs text-amber-400 font-medium">Prácticas Profesionales • UNIMINUTO Rectoría Bogotá</p>
-            </div>
-          </div>
-        </header>
-
-        {/* Contenido principal de bienvenida */}
-        <main className="flex-1 max-w-5xl w-full mx-auto p-6 lg:p-12 flex flex-col justify-center space-y-8">
-          
-          <div className="text-center space-y-4">
-            <h2 className="text-3xl lg:text-5xl font-black tracking-tight text-white leading-tight">
-              Creador de Hoja de Vida <span className="text-amber-400">Profesional</span>
-            </h2>
-            <p className="text-slate-300 text-sm lg:text-base max-w-2xl mx-auto leading-relaxed">
-              Diseñado especialmente para estudiantes de UNIMINUTO Rectoría Bogotá que buscan postularse a sus prácticas profesionales.
+            <h1 className="text-3xl font-extrabold text-slate-900 tracking-tight">Creador de Hoja de Vida Institucional</h1>
+            <p className="text-sm text-slate-600 leading-relaxed">
+              Herramienta oficial optimizada para estudiantes y candidatos a prácticas profesionales. Diseñada bajo estándares ATS y con procesamiento 100% local en tu navegador para proteger tu privacidad.
             </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            
-            <div className="bg-blue-900/40 backdrop-blur-md border border-blue-700/60 rounded-2xl p-6 space-y-3 shadow-lg">
-              <div className="w-10 h-10 rounded-xl bg-amber-400/20 flex items-center justify-center text-amber-400 font-bold">
-                <BookOpen size={20}/>
-              </div>
-              <h3 className="text-lg font-bold text-white">1. ¿Cómo funciona?</h3>
-              <p className="text-slate-300 text-xs leading-relaxed">
-                Es muy sencillo. Solo debes completar el formulario con tu información personal, formación académica institucional, perfil y experiencia. Al mismo tiempo, podrás ver una <strong>vista previa en tiempo real</strong> de cómo va quedando tu hoja de vida y descargarla lista para imprimir o enviar en formato PDF.
-              </p>
-            </div>
-
-            <div className="bg-blue-900/40 backdrop-blur-md border border-blue-700/60 rounded-2xl p-6 space-y-3 shadow-lg">
-              <div className="w-10 h-10 rounded-xl bg-emerald-400/20 flex items-center justify-center text-emerald-400 font-bold">
-                <ShieldCheck size={20}/>
-              </div>
-              <h3 className="text-lg font-bold text-white">2. Privacidad y Protección de Datos</h3>
-              <p className="text-slate-300 text-xs leading-relaxed">
-                De conformidad con la <strong className="text-white">Ley estatutaria 1581 de 2012</strong> de protección de datos personales en Colombia (Habeas Data), te informamos que <strong className="text-amber-400">ninguna información personal es almacenada ni enviada a servidores externos</strong>. Todo el proceso ocurre de forma 100% local en tu navegador web. <strong className="text-white">En cuanto cierres la pestaña o el navegador, todos los datos ingresados se borran automáticamente de la memoria</strong>, garantizando absoluta seguridad y confidencialidad con tu información.
-              </p>
-            </div>
-
-          </div>
-
-          <div className="flex justify-center pt-4">
             <button
               onClick={() => setStarted(true)}
-              className="bg-amber-400 hover:bg-amber-300 text-blue-950 font-extrabold text-sm lg:text-base px-8 py-4 rounded-2xl shadow-xl shadow-amber-500/20 flex items-center gap-3 transition transform hover:-translate-y-0.5 active:scale-95"
+              className="inline-flex items-center justify-center px-6 py-3 bg-blue-900 hover:bg-blue-800 text-white font-semibold rounded-xl shadow-md transition-all space-x-2 w-full sm:w-auto"
             >
-              Comenzar a Crear mi Hoja de Vida <ArrowRight size={20} />
+              <span>Comenzar a crear mi Hoja de Vida</span>
+              <ArrowRight className="w-4 h-4" />
             </button>
           </div>
-
-          <div className="border-t border-blue-800/80 pt-6 mt-8 text-center space-y-3">
-            <p className="text-xs font-semibold text-slate-400 uppercase tracking-widest flex items-center justify-center gap-1.5">
-              <Code size={14} className="text-amber-400"/> Reconocimientos y Código Abierto
-            </p>
-            <div className="flex flex-wrap justify-center items-center gap-6 text-xs text-slate-300">
-              <span className="flex items-center gap-1.5 bg-blue-950/60 px-3 py-1.5 rounded-lg border border-blue-800">
-                <span className="font-bold text-white">OpenResume</span> (AGPL-3.0 License)
-              </span>
-              <span className="flex items-center gap-1.5 bg-blue-950/60 px-3 py-1.5 rounded-lg border border-blue-800">
-                Hosting en <strong className="text-white">Vercel</strong>
-              </span>
-              <span className="flex items-center gap-1.5 bg-blue-950/60 px-3 py-1.5 rounded-lg border border-blue-800">
-                Control en <strong className="text-white">GitHub</strong>
-              </span>
-              <span className="flex items-center gap-1.5 bg-blue-950/60 px-3 py-1.5 rounded-lg border border-blue-800">
-                Asistencia de <strong className="text-white">Gemini AI</strong>
-              </span>
-            </div>
-          </div>
-
-        </main>
-        
-        {/* (AQUÍ QUITAMOS EL CHAT DE LA BIENVENIDA) */}
-      </div>
-    );
-  }
-
-  // APLICACIÓN / FORMULARIO PRINCIPAL
-  return (
-    <div className="min-h-screen bg-blue-950 flex flex-col font-sans text-slate-100 print:bg-white print:min-h-0" style={{ fontFamily: "'Montserrat', sans-serif" }}>
-      <style jsx global>{`
-        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap');
-
-        body, input, select, textarea, button {
-          font-family: 'Montserrat', sans-serif !important;
-        }
-
-        @media print {
-          @page {
-            size: letter;
-            margin: 1cm;
-          }
-          body {
-            background: white !important;
-            -webkit-print-color-adjust: exact;
-            font-family: 'Montserrat', sans-serif !important;
-          }
-          header, .print\\:hidden {
-            display: none !important;
-          }
-          .resume-sheet {
-            box-shadow: none !important;
-            margin: 0 !important;
-            width: 100% !important;
-            max-width: none !important;
-            border: none !important;
-            font-family: 'Montserrat', sans-serif !important;
-          }
-          .print-atomic-item {
-            break-inside: avoid;
-            page-break-inside: avoid;
-          }
-          .print-section-title {
-            break-after: avoid;
-            page-break-after: avoid;
-          }
-        }
-      `}</style>
-
-      {/* Barra superior institucional */}
-      <header className="bg-blue-900 text-white px-6 py-4 print:hidden flex justify-between items-center border-b border-blue-800 shadow-xl">
-        <div className="flex items-center gap-4">
-          <button 
-            onClick={() => setStarted(false)}
-            className="text-xs text-blue-200 hover:text-white bg-blue-800/60 hover:bg-blue-800 px-3 py-1.5 rounded-lg font-medium transition flex items-center gap-1"
-            title="Volver a la página de bienvenida"
-          >
-            ← Volver al inicio
-          </button>
-          <div className="h-4 w-px bg-blue-700"></div>
-          <div className="flex items-center gap-3">
-            <img src="/rectoria-blanca.webp" alt="Rectoría Bogotá" className="h-6 object-contain" />
-            <div className="h-4 w-px bg-blue-700"></div>
-            <img src="/centro-progresa-blanco.webp" alt="Centro Progresa" className="h-6 object-contain" />
-          </div>
-          <div>
-            <h1 className="text-sm font-bold tracking-tight text-white">
-              Creador de Hoja de Vida Institucional
-            </h1>
-            <p className="text-xs text-blue-200">Centro Progresa E.P.E. • Prácticas Profesionales</p>
-          </div>
         </div>
-        <button 
-          onClick={() => window.print()} 
-          className="bg-amber-400 hover:bg-amber-300 text-blue-950 text-xs font-black px-5 py-2.5 rounded-xl flex items-center gap-2 shadow-lg shadow-amber-500/20 transition transform active:scale-95"
-        >
-          <Printer size={16} /> Descargar / Imprimir PDF
-        </button>
-      </header>
-
-      {/* Contenedor principal */}
-      <div className="flex-1 max-w-[1800px] w-full mx-auto p-4 lg:p-6 grid grid-cols-1 lg:grid-cols-12 gap-6 items-start print:block print:p-0 print:m-0 print:w-full print:max-w-none">
-        
-        {/* PANEL IZQUIERDO: Formulario */}
-        <div className="lg:col-span-5 bg-blue-900/90 backdrop-blur-md rounded-2xl shadow-2xl border border-blue-800/80 overflow-hidden print:hidden flex flex-col max-h-[88vh] overflow-y-auto p-6 space-y-6">
-          
-          {/* SECCIÓN 1: INFORMACIÓN PERSONAL */}
-          <div className="bg-blue-950/80 border border-blue-800 rounded-xl p-5 space-y-4 shadow-sm">
-            <h2 className="text-xs font-extrabold uppercase tracking-widest text-amber-400 flex items-center gap-2 border-b border-blue-900 pb-2">
-              <User size={15}/> 1. Información Personal
-            </h2>
-            <div>
-              <label className="block text-[11px] font-semibold text-blue-200 mb-1">Nombre Completo</label>
-              <input 
-                type="text" 
-                name="fullName" 
-                lang="es-CO"
-                spellCheck={true}
-                placeholder="Ej. Laura Sofía Martínez" 
-                value={formData.fullName} 
-                onChange={handleInputChange} 
-                className="w-full p-3 text-[12px] bg-blue-900 border border-blue-700 rounded-xl text-white outline-none focus:border-amber-400 transition" 
-              />
-            </div>
-            <div className="grid grid-cols-2 gap-3">
-              <div>
-                <label className="block text-[11px] font-semibold text-blue-200 mb-1">Correo Electrónico</label>
-                <input 
-                  type="email" 
-                  name="email" 
-                  lang="es-CO"
-                  spellCheck={false}
-                  placeholder="correo@uniminuto.edu.co" 
-                  value={formData.email} 
-                  onChange={handleInputChange} 
-                  className="w-full p-3 text-[12px] bg-blue-900 border border-blue-700 rounded-xl text-white outline-none focus:border-amber-400" 
-                />
-              </div>
-              <div>
-                <label className="block text-[11px] font-semibold text-blue-200 mb-1">Celular</label>
-                <input 
-                  type="text" 
-                  name="phone" 
-                  lang="es-CO"
-                  spellCheck={false}
-                  placeholder="300 123 4567" 
-                  value={formData.phone} 
-                  onChange={handleInputChange} 
-                  className="w-full p-3 text-[12px] bg-blue-900 border border-blue-700 rounded-xl text-white outline-none focus:border-amber-400" 
-                />
-              </div>
-            </div>
-            <div>
-              <label className="block text-[11px] font-semibold text-blue-200 mb-1">Ciudad</label>
-              <input 
-                type="text" 
-                name="city" 
-                lang="es-CO"
-                spellCheck={true}
-                value={formData.city} 
-                onChange={handleInputChange} 
-                className="w-full p-3 text-[12px] bg-blue-900 border border-blue-700 rounded-xl text-white outline-none focus:border-amber-400" 
-              />
+      ) : (
+        <div className="w-full max-w-7xl mx-auto p-4 md:p-6 grid grid-cols-1 lg:grid-cols-12 gap-6">
+          {/* Formulario (Columna Izquierda) */}
+          <div className="lg:col-span-6 bg-white p-6 rounded-2xl shadow-lg border border-slate-200 space-y-8 print:hidden">
+            <div className="flex items-center justify-between border-b pb-4">
+              <button
+                onClick={() => setStarted(false)}
+                className="text-xs font-semibold text-slate-500 hover:text-slate-800 flex items-center space-x-1"
+              >
+                <span>← Volver al inicio</span>
+              </button>
+              <h2 className="text-lg font-bold text-slate-900">Editor de Datos</h2>
             </div>
 
-            {/* Enlaces / Portafolios múltiples */}
-            <div className="space-y-3 pt-2 border-t border-blue-900/60">
-              <div className="flex justify-between items-center">
-                <span className="text-[11px] font-bold text-blue-200 flex items-center gap-1"><LinkIcon size={13}/> Enlaces y Portafolios</span>
-                <button onClick={addLink} className="text-[10px] bg-amber-400 hover:bg-amber-300 text-blue-950 px-2.5 py-1 rounded-md font-bold flex items-center gap-1">
-                  <Plus size={11}/> Añadir Enlace
-                </button>
-              </div>
-              {formData.links.map((link, idx) => (
-                <div key={idx} className="flex gap-2 items-center bg-blue-900/40 p-2.5 rounded-lg border border-blue-800">
-                  <input type="text" lang="es-CO" spellCheck={true} placeholder="Red (Ej. LinkedIn)" value={link.label} onChange={(e) => updateLink(idx, "label", e.target.value)} className="w-1/3 p-2 text-[12px] bg-blue-950 border border-blue-800 rounded text-white" />
-                  <input type="text" lang="es-CO" spellCheck={false} placeholder="URL (linkedin.com/in/...)" value={link.url} onChange={(e) => updateLink(idx, "url", e.target.value)} className="flex-1 p-2 text-[12px] bg-blue-950 border border-blue-800 rounded text-white" />
-                  <button onClick={() => removeLink(idx)} className="text-rose-300 hover:text-rose-100 p-1"><Trash2 size={14}/></button>
+            {/* 1. INFORMACIÓN PERSONAL */}
+            <div className="space-y-4">
+              <h3 className="text-sm font-bold uppercase text-blue-900 tracking-wider flex items-center space-x-2">
+                <User className="w-4 h-4" />
+                <span>1. Información Personal</span>
+              </h3>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-xs font-medium text-slate-700 mb-1">Nombre Completo</label>
+                  <input
+                    type="text"
+                    name="fullName"
+                    value={formData.fullName}
+                    onChange={handleInputChange}
+                    placeholder="Ej. Juan Pérez"
+                    className="w-full text-sm p-2.5 border rounded-lg focus:ring-2 focus:ring-blue-900 outline-none"
+                  />
                 </div>
-              ))}
-            </div>
-          </div>
-
-          {/* SECCIÓN 2: PERFIL PROFESIONAL */}
-          <div className="bg-blue-950/80 border border-blue-800 rounded-xl p-5 space-y-4 shadow-sm">
-            <h2 className="text-xs font-extrabold uppercase tracking-widest text-amber-400 flex items-center gap-2 border-b border-blue-900 pb-2">
-              <Award size={15}/> 2. Perfil Profesional
-            </h2>
-            <div>
-              <label className="block text-[11px] font-semibold text-blue-200 mb-1">Perfil Ocupacional</label>
-              <textarea 
-                name="profile" 
-                lang="es-CO"
-                spellCheck={true}
-                rows={3} 
-                placeholder="Estudiante apasionado..." 
-                value={formData.profile} 
-                onChange={handleInputChange} 
-                className="w-full p-3 text-[12px] bg-blue-900 border border-blue-700 rounded-xl text-white outline-none focus:border-amber-400 resize-none"
-              ></textarea>
-            </div>
-            <div>
-              <label className="block text-[11px] font-semibold text-blue-200 mb-1">Habilidades (separadas por comas)</label>
-              <input 
-                type="text" 
-                name="softSkills" 
-                lang="es-CO"
-                spellCheck={true}
-                placeholder="Ej. Trabajo en equipo, Adaptabilidad, Liderazgo" 
-                value={formData.softSkills} 
-                onChange={handleInputChange} 
-                className="w-full p-3 text-[12px] bg-blue-900 border border-blue-700 rounded-xl text-white outline-none focus:border-amber-400" 
-              />
-            </div>
-
-            {/* Herramientas con niveles */}
-            <div className="space-y-3 pt-2 border-t border-blue-900/60">
-              <div className="flex justify-between items-center">
-                <span className="text-[11px] font-bold text-blue-200 flex items-center gap-1"><Wrench size={13}/> Herramientas (Software / Apps)</span>
-                <button onClick={addTool} className="text-[10px] bg-amber-400 hover:bg-amber-300 text-blue-950 px-2.5 py-1 rounded-md font-bold flex items-center gap-1">
-                  <Plus size={11}/> Añadir Herramienta
-                </button>
-              </div>
-              {formData.toolsList.map((tool, idx) => (
-                <div key={idx} className="flex gap-2 items-center bg-blue-900/40 p-2.5 rounded-lg border border-blue-800">
-                  <input type="text" lang="es-CO" spellCheck={true} placeholder="Ej. Python, Excel" value={tool.name} onChange={(e) => updateTool(idx, "name", e.target.value)} className="flex-1 p-2 text-[12px] bg-blue-950 border border-blue-800 rounded text-white" />
-                  <select value={tool.level} onChange={(e) => updateTool(idx, "level", e.target.value)} className="p-2 text-[12px] bg-blue-950 border border-blue-800 rounded text-white">
-                    <option value="Básico">Básico</option>
-                    <option value="Intermedio">Intermedio</option>
-                    <option value="Avanzado">Avanzado</option>
-                    <option value="Experto">Experto</option>
-                  </select>
-                  <button onClick={() => removeTool(idx)} className="text-rose-300 hover:text-rose-100 p-1"><Trash2 size={14}/></button>
+                <div>
+                  <label className="block text-xs font-medium text-slate-700 mb-1">Correo Electrónico</label>
+                  <input
+                    type="email"
+                    name="email"
+                    value={formData.email}
+                    onChange={handleInputChange}
+                    placeholder="correo@uniminuto.edu"
+                    className="w-full text-sm p-2.5 border rounded-lg focus:ring-2 focus:ring-blue-900 outline-none"
+                  />
                 </div>
-              ))}
-            </div>
-
-            {/* Idiomas con estándares internacionales (MCER) */}
-            <div className="space-y-3 pt-2 border-t border-blue-900/60">
-              <div className="flex justify-between items-center">
-                <span className="text-[11px] font-bold text-blue-200 flex items-center gap-1"><Languages size={13}/> Idiomas</span>
-                <button onClick={addLanguage} className="text-[10px] bg-amber-400 hover:bg-amber-300 text-blue-950 px-2.5 py-1 rounded-md font-bold flex items-center gap-1">
-                  <Plus size={11}/> Añadir Idioma
-                </button>
-              </div>
-              {formData.languageList.map((lang, idx) => (
-                <div key={idx} className="flex gap-2 items-center bg-blue-900/40 p-2.5 rounded-lg border border-blue-800">
-                  <input type="text" lang="es-CO" spellCheck={true} placeholder="Ej. Inglés, Francés" value={lang.language} onChange={(e) => updateLanguage(idx, "language", e.target.value)} className="flex-1 p-2 text-[12px] bg-blue-950 border border-blue-800 rounded text-white" />
-                  <select value={lang.level} onChange={(e) => updateLanguage(idx, "level", e.target.value)} className="p-2 text-[12px] bg-blue-950 border border-blue-800 rounded text-white">
-                    <option value="A1 - Principiante">A1 - Principiante</option>
-                    <option value="A2 - Básico">A2 - Básico</option>
-                    <option value="B1 - Intermedio">B1 - Intermedio</option>
-                    <option value="B2 - Intermedio Alto">B2 - Intermedio Alto</option>
-                    <option value="C1 - Avanzado">C1 - Avanzado</option>
-                    <option value="C2 - Maestría / Nativo">C2 - Maestría / Nativo</option>
-                  </select>
-                  <button onClick={() => removeLanguage(idx)} className="text-rose-300 hover:text-rose-100 p-1"><Trash2 size={14}/></button>
+                <div>
+                  <label className="block text-xs font-medium text-slate-700 mb-1">Celular</label>
+                  <input
+                    type="text"
+                    name="phone"
+                    value={formData.phone}
+                    onChange={handleInputChange}
+                    placeholder="3000000000"
+                    className="w-full text-sm p-2.5 border rounded-lg focus:ring-2 focus:ring-blue-900 outline-none"
+                  />
                 </div>
-              ))}
-            </div>
-          </div>
-
-          {/* SECCIÓN 3: FORMACIÓN */}
-          <div className="bg-blue-950/80 border border-blue-800 rounded-xl p-5 space-y-4 shadow-sm">
-            <div className="flex justify-between items-center border-b border-blue-900 pb-2">
-              <h2 className="text-xs font-extrabold uppercase tracking-widest text-amber-400 flex items-center gap-2">
-                <GraduationCap size={15}/> 3. Formación
-              </h2>
-            </div>
-
-            {/* Subsección: Formación Académica */}
-            <div className="space-y-3 pt-1">
-              <div className="flex justify-between items-center">
-                <span className="text-[11px] font-bold text-blue-200">Formación Académica</span>
-                <button onClick={addEducation} className="text-[10px] bg-amber-400 hover:bg-amber-300 text-blue-950 px-2.5 py-1 rounded-md font-bold flex items-center gap-1">
-                  <Plus size={11}/> Añadir Título
-                </button>
+                <div>
+                  <label className="block text-xs font-medium text-slate-700 mb-1">Ciudad</label>
+                  <input
+                    type="text"
+                    name="city"
+                    value={formData.city}
+                    onChange={handleInputChange}
+                    className="w-full text-sm p-2.5 border rounded-lg focus:ring-2 focus:ring-blue-900 outline-none"
+                  />
+                </div>
               </div>
-              {formData.education.map((edu, idx) => (
-                <div key={idx} className="p-3 border border-blue-800 rounded-xl bg-blue-900/50 space-y-2 relative">
-                  {idx > 0 && (
-                    <button onClick={() => removeEducation(idx)} className="absolute top-2.5 right-2.5 text-rose-300 hover:text-rose-100"><Trash2 size={14}/></button>
-                  )}
-                  <div className="flex items-center justify-between">
-                    <span className="text-[10px] font-bold text-amber-300">{idx === 0 ? "★ Formación Principal (UNIMINUTO)" : `Estudio #${idx + 1}`}</span>
-                    <label className="flex items-center gap-1 text-[10px] text-blue-200 cursor-pointer">
-                      <input 
-                        type="checkbox" 
-                        checked={edu.isCurrent || false} 
-                        onChange={(e) => updateEducation(idx, "isCurrent", e.target.checked)} 
-                        className="rounded bg-blue-950 border-blue-700" 
-                      /> En curso
-                    </label>
+
+              {/* Enlaces */}
+              <div className="space-y-2 pt-2">
+                <div className="flex justify-between items-center">
+                  <label className="text-xs font-medium text-slate-700">Enlaces y Portafolios (LinkedIn, GitHub)</label>
+                  <button onClick={addLink} className="text-xs text-blue-900 font-bold flex items-center space-x-1 hover:underline">
+                    <Plus className="w-3.5 h-3.5" />
+                    <span>Añadir Enlace</span>
+                  </button>
+                </div>
+                {formData.links.map((link, index) => (
+                  <div key={index} className="flex gap-2 items-center">
+                    <input
+                      type="text"
+                      placeholder="Etiqueta (Ej. LinkedIn)"
+                      value={link.label}
+                      onChange={(e) => updateLink(index, "label", e.target.value)}
+                      className="w-1/3 text-xs p-2 border rounded-lg"
+                    />
+                    <input
+                      type="text"
+                      placeholder="https://..."
+                      value={link.url}
+                      onChange={(e) => updateLink(index, "url", e.target.value)}
+                      className="w-2/3 text-xs p-2 border rounded-lg"
+                    />
+                    <button onClick={() => removeLink(index)} className="text-red-500 hover:text-red-700 p-1">
+                      <Trash2 className="w-4 h-4" />
+                    </button>
                   </div>
-                  {idx === 0 ? (
-                    <input type="text" disabled value="Corporación Universitaria Minuto de Dios - UNIMINUTO" className="w-full p-2 text-[12px] bg-blue-950/60 border border-blue-800/60 rounded text-blue-300 cursor-not-allowed" />
-                  ) : (
-                    <input type="text" lang="es-CO" spellCheck={true} placeholder="Institución" value={edu.institution} onChange={(e) => updateEducation(idx, "institution", e.target.value)} className="w-full p-2 text-[12px] bg-blue-950 border border-blue-800 rounded text-white" />
-                  )}
+                ))}
+              </div>
+            </div>
+
+            {/* 2. PERFIL PROFESIONAL */}
+            <div className="space-y-4 pt-4 border-t">
+              <h3 className="text-sm font-bold uppercase text-blue-900 tracking-wider flex items-center space-x-2">
+                <Info className="w-4 h-4" />
+                <span>2. Perfil Profesional</span>
+              </h3>
+              <div>
+                <label className="block text-xs font-medium text-slate-700 mb-1">Perfil Ocupacional / Resumen</label>
+                <textarea
+                  name="profile"
+                  rows={4}
+                  value={formData.profile}
+                  onChange={handleInputChange}
+                  placeholder="Estudiante en formación de..."
+                  className="w-full text-sm p-2.5 border rounded-lg focus:ring-2 focus:ring-blue-900 outline-none"
+                />
+              </div>
+              <div>
+                <label className="block text-xs font-medium text-slate-700 mb-1">Habilidades Blandas (separadas por comas)</label>
+                <input
+                  type="text"
+                  name="softSkills"
+                  value={formData.softSkills}
+                  onChange={handleInputChange}
+                  placeholder="Disciplina, adaptación, trabajo en equipo"
+                  className="w-full text-sm p-2.5 border rounded-lg focus:ring-2 focus:ring-blue-900 outline-none"
+                />
+              </div>
+
+              {/* Herramientas */}
+              <div className="space-y-2 pt-2">
+                <div className="flex justify-between items-center">
+                  <label className="text-xs font-medium text-slate-700">Herramientas y Software</label>
+                  <button onClick={addTool} className="text-xs text-blue-900 font-bold flex items-center space-x-1 hover:underline">
+                    <Plus className="w-3.5 h-3.5" />
+                    <span>Añadir Herramienta</span>
+                  </button>
+                </div>
+                {formData.toolsList.map((tool, index) => (
+                  <div key={index} className="flex gap-2 items-center">
+                    <input
+                      type="text"
+                      placeholder="Ej. Excel, Python"
+                      value={tool.name}
+                      onChange={(e) => updateTool(index, "name", e.target.value)}
+                      className="w-1/2 text-xs p-2 border rounded-lg"
+                    />
+                    <select
+                      value={tool.level}
+                      onChange={(e) => updateTool(index, "level", e.target.value)}
+                      className="w-1/2 text-xs p-2 border rounded-lg bg-white"
+                    >
+                      <option value="Básico">Básico</option>
+                      <option value="Intermedio">Intermedio</option>
+                      <option value="Avanzado">Avanzado</option>
+                      <option value="Experto">Experto</option>
+                    </select>
+                    <button onClick={() => removeTool(index)} className="text-red-500 hover:text-red-700 p-1">
+                      <Trash2 className="w-4 h-4" />
+                    </button>
+                  </div>
+                ))}
+              </div>
+
+              {/* Idiomas */}
+              <div className="space-y-2 pt-2">
+                <div className="flex justify-between items-center">
+                  <label className="text-xs font-medium text-slate-700">Idiomas</label>
+                  <button onClick={addLanguage} className="text-xs text-blue-900 font-bold flex items-center space-x-1 hover:underline">
+                    <Plus className="w-3.5 h-3.5" />
+                    <span>Añadir Idioma</span>
+                  </button>
+                </div>
+                {formData.languageList.map((lang, index) => (
+                  <div key={index} className="flex gap-2 items-center">
+                    <input
+                      type="text"
+                      placeholder="Ej. Inglés"
+                      value={lang.language}
+                      onChange={(e) => updateLanguage(index, "language", e.target.value)}
+                      className="w-1/2 text-xs p-2 border rounded-lg"
+                    />
+                    <input
+                      type="text"
+                      placeholder="Ej. B2 - Intermedio Alto"
+                      value={lang.level}
+                      onChange={(e) => updateLanguage(index, "level", e.target.value)}
+                      className="w-1/2 text-xs p-2 border rounded-lg"
+                    />
+                    <button onClick={() => removeLanguage(index)} className="text-red-500 hover:text-red-700 p-1">
+                      <Trash2 className="w-4 h-4" />
+                    </button>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* 3. FORMACIÓN */}
+            <div className="space-y-4 pt-4 border-t">
+              <h3 className="text-sm font-bold uppercase text-blue-900 tracking-wider flex items-center space-x-2">
+                <GraduationCap className="w-4 h-4" />
+                <span>3. Formación Académica y Complementaria</span>
+              </h3>
+
+              {/* Educación principal y secundaria */}
+              {formData.education.map((edu, index) => (
+                <div key={index} className="p-3 bg-slate-50 border rounded-lg space-y-3 relative">
+                  <div className="flex justify-between items-center">
+                    <span className="text-xs font-bold text-slate-700">Estudio #{index + 1}</span>
+                    {index > 0 && (
+                      <button onClick={() => removeEducation(index)} className="text-red-500 hover:text-red-700">
+                        <Trash2 className="w-4 h-4" />
+                      </button>
+                    )}
+                  </div>
+                  <input
+                    type="text"
+                    placeholder="Institución Educativa"
+                    value={edu.institution}
+                    onChange={(e) => updateEducation(index, "institution", e.target.value)}
+                    className="w-full text-xs p-2 border rounded-lg bg-white"
+                  />
                   <div className="grid grid-cols-2 gap-2">
-                    <input type="text" lang="es-CO" spellCheck={true} placeholder="Título a obtener / Programa" value={edu.degree} onChange={(e) => updateEducation(idx, "degree", e.target.value)} className="p-2 text-[12px] bg-blue-950 border border-blue-800 rounded text-white" />
-                    <select value={edu.level} onChange={(e) => updateEducation(idx, "level", e.target.value)} className="p-2 text-[12px] bg-blue-950 border border-blue-800 rounded text-white">
+                    <input
+                      type="text"
+                      placeholder="Título obtenido"
+                      value={edu.degree}
+                      onChange={(e) => updateEducation(index, "degree", e.target.value)}
+                      className="text-xs p-2 border rounded-lg bg-white"
+                    />
+                    <select
+                      value={edu.level}
+                      onChange={(e) => updateEducation(index, "level", e.target.value)}
+                      className="text-xs p-2 border rounded-lg bg-white"
+                    >
+                      <option value="Profesional">Profesional</option>
                       <option value="Bachiller">Bachiller</option>
                       <option value="Técnico">Técnico</option>
                       <option value="Tecnólogo">Tecnólogo</option>
-                      <option value="Profesional">Profesional</option>
                       <option value="Especialización">Especialización</option>
                       <option value="Maestría">Maestría</option>
                     </select>
                   </div>
-                  <div className="grid grid-cols-2 gap-2">
-                    <input type="text" lang="es-CO" spellCheck={false} placeholder={edu.isCurrent ? "Ej. Octavo Semestre" : "Año de grado (Ej. 2024)"} value={edu.year} onChange={(e) => updateEducation(idx, "year", e.target.value)} className="p-2 text-[12px] bg-blue-950 border border-blue-800 rounded text-white" />
+                  <div className="grid grid-cols-2 gap-2 items-center">
+                    <input
+                      type="text"
+                      placeholder="Año de finalización"
+                      value={edu.year}
+                      onChange={(e) => updateEducation(index, "year", e.target.value)}
+                      className="text-xs p-2 border rounded-lg bg-white"
+                    />
+                    <input
+                      type="text"
+                      placeholder="Semestre (Ej. Octavo semestre)"
+                      value={edu.semester || ""}
+                      onChange={(e) => updateEducation(index, "semester", e.target.value)}
+                      className="text-xs p-2 border rounded-lg bg-white"
+                    />
                   </div>
                 </div>
               ))}
+              <button onClick={addEducation} className="text-xs text-blue-900 font-bold flex items-center space-x-1 hover:underline">
+                <Plus className="w-3.5 h-3.5" />
+                <span>Añadir otro estudio formal</span>
+              </button>
+
+              {/* Formación Complementaria */}
+              <div className="space-y-2 pt-2 border-t">
+                <div className="flex justify-between items-center">
+                  <label className="text-xs font-medium text-slate-700">Formación Complementaria (Cursos, Talleres)</label>
+                  <button onClick={addComplementary} className="text-xs text-blue-900 font-bold flex items-center space-x-1 hover:underline">
+                    <Plus className="w-3.5 h-3.5" />
+                    <span>Añadir Curso</span>
+                  </button>
+                </div>
+                {formData.complementaryEdu.map((comp, index) => (
+                  <div key={index} className="p-3 bg-slate-50 border rounded-lg space-y-2">
+                    <div className="flex justify-between items-center">
+                      <span className="text-xs font-semibold">Curso #{index + 1}</span>
+                      <button onClick={() => removeComplementary(index)} className="text-red-500 hover:text-red-700">
+                        <Trash2 className="w-4 h-4" />
+                      </button>
+                    </div>
+                    <input
+                      type="text"
+                      placeholder="Título del curso"
+                      value={comp.title}
+                      onChange={(e) => updateComplementary(index, "title", e.target.value)}
+                      className="w-full text-xs p-2 border rounded-lg bg-white"
+                    />
+                    <div className="grid grid-cols-2 gap-2">
+                      <input
+                        type="text"
+                        placeholder="Institución"
+                        value={comp.institution}
+                        onChange={(e) => updateComplementary(index, "institution", e.target.value)}
+                        className="text-xs p-2 border rounded-lg bg-white"
+                      />
+                      <input
+                        type="text"
+                        placeholder="Año (Ej. 2025)"
+                        value={comp.year}
+                        onChange={(e) => updateComplementary(index, "year", e.target.value)}
+                        className="text-xs p-2 border rounded-lg bg-white"
+                      />
+                    </div>
+                  </div>
+                ))}
+              </div>
             </div>
 
-            {/* Subsección: Formación Complementaria */}
-            <div className="space-y-3 pt-3 border-t border-blue-900/60">
+            {/* 4. EXPERIENCIA PROFESIONAL */}
+            <div className="space-y-4 pt-4 border-t">
+              <h3 className="text-sm font-bold uppercase text-blue-900 tracking-wider flex items-center space-x-2">
+                <Briefcase className="w-4 h-4" />
+                <span>4. Experiencia y Proyectos</span>
+              </h3>
+              <div className="space-y-3">
+                <div className="flex justify-between items-center">
+                  <label className="text-xs font-medium text-slate-700">Experiencia Laboral</label>
+                  <button onClick={addExperience} className="text-xs text-blue-900 font-bold flex items-center space-x-1 hover:underline">
+                    <Plus className="w-3.5 h-3.5" />
+                    <span>Añadir Experiencia</span>
+                  </button>
+                </div>
+                {formData.experiences.map((exp, index) => (
+                  <div key={index} className="p-3 bg-slate-50 border rounded-lg space-y-2">
+                    <div className="flex justify-between items-center">
+                      <span className="text-xs font-semibold">Experiencia #{index + 1}</span>
+                      <button onClick={() => removeExperience(index)} className="text-red-500 hover:text-red-700">
+                        <Trash2 className="w-4 h-4" />
+                      </button>
+                    </div>
+                    <div className="grid grid-cols-2 gap-2">
+                      <input
+                        type="text"
+                        placeholder="Empresa"
+                        value={exp.company}
+                        onChange={(e) => updateExperience(index, "company", e.target.value)}
+                        className="text-xs p-2 border rounded-lg bg-white"
+                      />
+                      <input
+                        type="text"
+                        placeholder="Cargo o Puesto"
+                        value={exp.position}
+                        onChange={(e) => updateExperience(index, "position", e.target.value)}
+                        className="text-xs p-2 border rounded-lg bg-white"
+                      />
+                    </div>
+                    <div className="grid grid-cols-2 gap-2">
+                      <input
+                        type="text"
+                        placeholder="Fecha Inicio (Ej. 2024)"
+                        value={exp.startDate}
+                        onChange={(e) => updateExperience(index, "startDate", e.target.value)}
+                        className="text-xs p-2 border rounded-lg bg-white"
+                      />
+                      <input
+                        type="text"
+                        placeholder="Fecha Fin (Ej. Actual)"
+                        value={exp.endDate}
+                        onChange={(e) => updateExperience(index, "endDate", e.target.value)}
+                        className="text-xs p-2 border rounded-lg bg-white"
+                      />
+                    </div>
+                    <textarea
+                      rows={2}
+                      placeholder="Funciones o logros principales..."
+                      value={exp.description}
+                      onChange={(e) => updateExperience(index, "description", e.target.value)}
+                      className="w-full text-xs p-2 border rounded-lg bg-white"
+                    />
+                  </div>
+                ))}
+              </div>
+
+              {/* Proyectos Académicos */}
+              <div className="space-y-3 pt-2">
+                <div className="flex justify-between items-center">
+                  <label className="text-xs font-medium text-slate-700">Proyectos Académicos / Prácticos</label>
+                  <button onClick={addProject} className="text-xs text-blue-900 font-bold flex items-center space-x-1 hover:underline">
+                    <Plus className="w-3.5 h-3.5" />
+                    <span>Añadir Proyecto</span>
+                  </button>
+                </div>
+                {formData.projects.map((proj, index) => (
+                  <div key={index} className="p-3 bg-slate-50 border rounded-lg space-y-2">
+                    <div className="flex justify-between items-center">
+                      <span className="text-xs font-semibold">Proyecto #{index + 1}</span>
+                      <button onClick={() => removeProject(index)} className="text-red-500 hover:text-red-700">
+                        <Trash2 className="w-4 h-4" />
+                      </button>
+                    </div>
+                    <div className="grid grid-cols-2 gap-2">
+                      <input
+                        type="text"
+                        placeholder="Nombre del proyecto"
+                        value={proj.name}
+                        onChange={(e) => updateProject(index, "name", e.target.value)}
+                        className="text-xs p-2 border rounded-lg bg-white"
+                      />
+                      <input
+                        type="text"
+                        placeholder="Rol (Ej. Líder de desarrollo)"
+                        value={proj.role}
+                        onChange={(e) => updateProject(index, "role", e.target.value)}
+                        className="text-xs p-2 border rounded-lg bg-white"
+                      />
+                    </div>
+                    <textarea
+                      rows={2}
+                      placeholder="Breve descripción de los resultados..."
+                      value={proj.description}
+                      onChange={(e) => updateProject(index, "description", e.target.value)}
+                      className="w-full text-xs p-2 border rounded-lg bg-white"
+                    />
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* 5. VOLUNTARIADO */}
+            <div className="space-y-4 pt-4 border-t">
+              <h3 className="text-sm font-bold uppercase text-blue-900 tracking-wider flex items-center space-x-2">
+                <HeartHandshake className="w-4 h-4" />
+                <span>5. Voluntariado y Responsabilidad Social</span>
+              </h3>
               <div className="flex justify-between items-center">
-                <span className="text-[11px] font-bold text-blue-200">Formación Complementaria</span>
-                <button onClick={addComplementary} className="text-[10px] bg-amber-400 hover:bg-amber-300 text-blue-950 px-2.5 py-1 rounded-md font-bold flex items-center gap-1">
-                  <Plus size={11}/> Añadir Curso / Taller
+                <label className="text-xs font-medium text-slate-700">Experiencias de Voluntariado</label>
+                <button onClick={addVolunteer} className="text-xs text-blue-900 font-bold flex items-center space-x-1 hover:underline">
+                  <Plus className="w-3.5 h-3.5" />
+                  <span>Añadir Voluntariado</span>
                 </button>
               </div>
-              {formData.complementaryEdu.map((comp, idx) => (
-                <div key={idx} className="p-3 border border-blue-800 rounded-xl bg-blue-900/50 space-y-2 relative">
-                  <button onClick={() => removeComplementary(idx)} className="absolute top-2.5 right-2.5 text-rose-300 hover:text-rose-100"><Trash2 size={14}/></button>
-                  <input type="text" lang="es-CO" spellCheck={true} placeholder="Nombre del Curso o Taller" value={comp.title} onChange={(e) => updateComplementary(idx, "title", e.target.value)} className="w-full p-2 text-[12px] bg-blue-950 border border-blue-800 rounded text-white" />
-                  <div className="grid grid-cols-2 gap-2">
-                    <input type="text" lang="es-CO" spellCheck={true} placeholder="Institución / Plataforma" value={comp.institution} onChange={(e) => updateComplementary(idx, "institution", e.target.value)} className="w-full p-2 text-[12px] bg-blue-950 border border-blue-800 rounded text-white" />
-                    <input type="text" lang="es-CO" spellCheck={false} placeholder="Año (Ej. 2025)" value={comp.year} onChange={(e) => updateComplementary(idx, "year", e.target.value)} className="w-full p-2 text-[12px] bg-blue-950 border border-blue-800 rounded text-white" />
+              {formData.volunteers.map((vol, index) => (
+                <div key={index} className="p-3 bg-slate-50 border rounded-lg space-y-2">
+                  <div className="flex justify-between items-center">
+                    <span className="text-xs font-semibold">Voluntariado #{index + 1}</span>
+                    <button onClick={() => removeVolunteer(index)} className="text-red-500 hover:text-red-700">
+                      <Trash2 className="w-4 h-4" />
+                    </button>
                   </div>
+                  <input
+                    type="text"
+                    placeholder="Organización"
+                    value={vol.organization}
+                    onChange={(e) => updateVolunteer(index, "organization", e.target.value)}
+                    className="w-full text-xs p-2 border rounded-lg bg-white"
+                  />
+                  <input
+                    type="text"
+                    placeholder="Rol o actividad"
+                    value={vol.role}
+                    onChange={(e) => updateVolunteer(index, "role", e.target.value)}
+                    className="w-full text-xs p-2 border rounded-lg bg-white"
+                  />
+                  <div className="grid grid-cols-2 gap-2">
+                    <input
+                      type="text"
+                      placeholder="Fecha Inicio"
+                      value={vol.startDate}
+                      onChange={(e) => updateVolunteer(index, "startDate", e.target.value)}
+                      className="text-xs p-2 border rounded-lg bg-white"
+                    />
+                    <input
+                      type="text"
+                      placeholder="Fecha Fin"
+                      value={vol.endDate}
+                      onChange={(e) => updateVolunteer(index, "endDate", e.target.value)}
+                      className="text-xs p-2 border rounded-lg bg-white"
+                    />
+                  </div>
+                  <textarea
+                    rows={2}
+                    placeholder="Descripción..."
+                    value={vol.description}
+                    onChange={(e) => updateVolunteer(index, "description", e.target.value)}
+                    className="w-full text-xs p-2 border rounded-lg bg-white"
+                  />
                 </div>
               ))}
             </div>
           </div>
 
-          {/* SECCIÓN 4: EXPERIENCIA PROFESIONAL */}
-          <div className="bg-blue-950/80 border border-blue-800 rounded-xl p-5 space-y-4 shadow-sm">
-            <h2 className="text-xs font-extrabold uppercase tracking-widest text-amber-400 flex items-center gap-2 border-b border-blue-900 pb-2">
-              <Briefcase size={15}/> 4. Experiencia Profesional
-            </h2>
-
-            {/* Subsección: Experiencia Laboral */}
-            <div className="space-y-3 pt-1">
-              <div className="flex justify-between items-center">
-                <span className="text-[11px] font-bold text-blue-200">Experiencia Laboral</span>
-                <button onClick={addExperience} className="text-[10px] bg-amber-400 hover:bg-amber-300 text-blue-950 px-2.5 py-1 rounded-md font-bold flex items-center gap-1">
-                  <Plus size={11}/> Añadir Experiencia
-                </button>
-              </div>
-              {formData.experiences.map((exp, idx) => (
-                <div key={idx} className="p-3 border border-blue-800 rounded-xl bg-blue-900/50 space-y-2 relative">
-                  <button onClick={() => removeExperience(idx)} className="absolute top-2.5 right-2.5 text-rose-300 hover:text-rose-100"><Trash2 size={14}/></button>
-                  <input type="text" lang="es-CO" spellCheck={true} placeholder="Empresa" value={exp.company} onChange={(e) => updateExperience(idx, "company", e.target.value)} className="w-full p-2 text-[12px] bg-blue-950 border border-blue-800 rounded text-white" />
-                  <input type="text" lang="es-CO" spellCheck={true} placeholder="Cargo" value={exp.position} onChange={(e) => updateExperience(idx, "position", e.target.value)} className="w-full p-2 text-[12px] bg-blue-950 border border-blue-800 rounded text-white" />
-                  <div className="grid grid-cols-2 gap-2">
-                    <input type="text" lang="es-CO" spellCheck={false} placeholder="Inicio" value={exp.startDate} onChange={(e) => updateExperience(idx, "startDate", e.target.value)} className="p-2 text-[12px] bg-blue-950 border border-blue-800 rounded text-white" />
-                    <input type="text" lang="es-CO" spellCheck={false} placeholder="Fin (Actual)" value={exp.endDate} onChange={(e) => updateExperience(idx, "endDate", e.target.value)} className="p-2 text-[12px] bg-blue-950 border border-blue-800 rounded text-white" />
-                  </div>
-                  <textarea lang="es-CO" spellCheck={true} placeholder="Funciones (separadas por saltos de línea)..." rows={2} value={exp.description} onChange={(e) => updateExperience(idx, "description", e.target.value)} className="w-full p-2 text-[12px] bg-blue-950 border border-blue-800 rounded text-white resize-none"></textarea>
-                </div>
-              ))}
-            </div>
-
-            {/* Subsección: Proyectos Académicos */}
-            <div className="space-y-3 pt-3 border-t border-blue-900/60">
-              <div className="flex justify-between items-center">
-                <span className="text-[11px] font-bold text-blue-200">Proyectos Académicos</span>
-                <button onClick={addProject} className="text-[10px] bg-amber-400 hover:bg-amber-300 text-blue-950 px-2.5 py-1 rounded-md font-bold flex items-center gap-1">
-                  <Plus size={11}/> Añadir Proyecto
-                </button>
-              </div>
-              {formData.projects.map((proj, idx) => (
-                <div key={idx} className="p-3 border border-blue-800 rounded-xl bg-blue-900/50 space-y-2 relative">
-                  <button onClick={() => removeProject(idx)} className="absolute top-2.5 right-2.5 text-rose-300 hover:text-rose-100"><Trash2 size={14}/></button>
-                  <input type="text" lang="es-CO" spellCheck={true} placeholder="Nombre del Proyecto" value={proj.name} onChange={(e) => updateProject(idx, "name", e.target.value)} className="w-full p-2 text-[12px] bg-blue-950 border border-blue-800 rounded text-white" />
-                  <input type="text" lang="es-CO" spellCheck={true} placeholder="Rol / Participación" value={proj.role} onChange={(e) => updateProject(idx, "role", e.target.value)} className="w-full p-2 text-[12px] bg-blue-950 border border-blue-800 rounded text-white" />
-                  <input type="text" lang="es-CO" spellCheck={false} placeholder="Enlace (GitHub / Demo)" value={proj.url || ""} onChange={(e) => updateProject(idx, "url", e.target.value)} className="w-full p-2 text-[12px] bg-blue-950 border border-blue-800 rounded text-white" />
-                  <textarea lang="es-CO" spellCheck={true} placeholder="Descripción del proyecto..." rows={2} value={proj.description} onChange={(e) => updateProject(idx, "description", e.target.value)} className="w-full p-2 text-[12px] bg-blue-950 border border-blue-800 rounded text-white resize-none"></textarea>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          {/* SECCIÓN 5: VOLUNTARIADO */}
-          <div className="bg-blue-950/80 border border-blue-800 rounded-xl p-5 space-y-4 shadow-sm">
-            <div className="flex justify-between items-center border-b border-blue-900 pb-2">
-              <h2 className="text-xs font-extrabold uppercase tracking-widest text-amber-400 flex items-center gap-2">
-                <HeartHandshake size={15}/> 5. Voluntariado
-              </h2>
-              <button onClick={addVolunteer} className="text-[11px] bg-amber-400 hover:bg-amber-300 text-blue-950 px-3 py-1.5 rounded-lg font-bold flex items-center gap-1 shadow transition">
-                <Plus size={13}/> Añadir
+          {/* VISTA PREVIA (Columna Derecha / Impresión) */}
+          <div className="lg:col-span-6 bg-slate-200 p-4 rounded-2xl flex flex-col items-center justify-start">
+            <div className="w-full flex justify-between items-center mb-4 px-2 print:hidden">
+              <span className="text-xs font-bold text-slate-600 uppercase tracking-wider">📄 Vista Previa Institucional</span>
+              <button
+                onClick={() => window.print()}
+                className="bg-blue-900 hover:bg-blue-800 text-white text-xs font-semibold px-4 py-2 rounded-lg shadow transition-all flex items-center space-x-1.5"
+              >
+                <Printer className="w-3.5 h-3.5" />
+                <span>Descargar / Imprimir PDF</span>
               </button>
             </div>
-            {formData.volunteers.map((vol, idx) => (
-              <div key={idx} className="p-3.5 border border-blue-800 rounded-xl bg-blue-900/50 space-y-2.5 relative">
-                <button onClick={() => removeVolunteer(idx)} className="absolute top-3 right-3 text-rose-300 hover:text-rose-100"><Trash2 size={15}/></button>
-                <input type="text" lang="es-CO" spellCheck={true} placeholder="Organización / Fundación" value={vol.organization} onChange={(e) => updateVolunteer(idx, "organization", e.target.value)} className="w-full p-2.5 text-[12px] bg-blue-950 border border-blue-800 rounded-lg text-white" />
-                <input type="text" lang="es-CO" spellCheck={true} placeholder="Rol / Actividad" value={vol.role} onChange={(e) => updateVolunteer(idx, "role", e.target.value)} className="w-full p-2.5 text-[12px] bg-blue-950 border border-blue-800 rounded-lg text-white" />
-                <div className="grid grid-cols-2 gap-2">
-                  <input type="text" lang="es-CO" spellCheck={false} placeholder="Inicio" value={vol.startDate} onChange={(e) => updateVolunteer(idx, "startDate", e.target.value)} className="p-2.5 text-[12px] bg-blue-950 border border-blue-800 rounded-lg text-white" />
-                  <input type="text" lang="es-CO" spellCheck={false} placeholder="Fin" value={vol.endDate} onChange={(e) => updateVolunteer(idx, "endDate", e.target.value)} className="p-2.5 text-[12px] bg-blue-950 border border-blue-800 rounded-lg text-white" />
+
+            {/* Hoja A4 / Carta Simulada */}
+            <div className="w-full bg-white shadow-2xl rounded-sm p-8 text-[11px] leading-tight text-slate-800 space-y-4 min-h-[1050px] relative font-sans">
+              
+              {/* Cabecera institucional */}
+              <div className="flex justify-between items-start border-b-2 border-slate-900 pb-4">
+                <div>
+                  <h1 className="text-lg font-black tracking-tight text-slate-900 uppercase">
+                    {formData.fullName || "NOMBRE APELLIDO"}
+                  </h1>
+                  <p className="text-[11px] font-bold text-blue-900 uppercase tracking-widest mt-0.5">
+                    Candidato a Práctica Profesional
+                  </p>
                 </div>
-                <textarea lang="es-CO" spellCheck={true} placeholder="Funciones o aportes realizados..." rows={2} value={vol.description} onChange={(e) => updateVolunteer(idx, "description", e.target.value)} className="w-full p-2.5 text-[12px] bg-blue-950 border border-blue-800 rounded-lg text-white resize-none"></textarea>
-              </div>
-            ))}
-          </div>
-
-        </div>
-
-        {/* PANEL DERECHO: Vista Previa Actualizada */}
-        <div className="lg:col-span-7 bg-blue-950/90 p-6 rounded-2xl flex flex-col items-center shadow-2xl border border-blue-900 overflow-auto max-h-[88vh] print:p-0 print:m-0 print:bg-white print:overflow-visible print:max-h-none print:w-full print:shadow-none print:border-none">
-          
-          <div className="w-full flex justify-between items-center mb-4 print:hidden px-2 text-xs text-blue-200">
-            <span className="font-semibold tracking-wide uppercase">📄 Vista Previa y Flujo Continuo</span>
-            <span className="bg-blue-900 px-3 py-1 rounded-full border border-blue-800">Optimizado para Google Chrome</span>
-          </div>
-
-          {/* HOJA EN FORMATO TABLA NATIVA CON LOS LOGOS ORIGINALES (Fondo Blanco de la Hoja) */}
-          <table className="resume-sheet bg-white text-slate-800 w-full max-w-[800px] shadow-[0_0_40px_rgba(0,0,0,0.4)] rounded-xl border-collapse" style={{ fontSize: '12px' }}>
-            <tbody>
-              {/* Encabezado y Contacto */}
-              <tr>
-                <td className="p-[1.2cm] pb-0">
-                  {/* Encabezado Institucional con logos originales */}
-                  <div className="border-b-2 border-blue-900 pb-4 mb-5 flex flex-row justify-between items-center bg-white">
-                    <div className="pr-4">
-                      <h1 className="text-2xl lg:text-3xl font-black text-slate-900 uppercase tracking-tight break-words">
-                        {formData.fullName || "Nombre del Estudiante"}
-                      </h1>
-                      <p className="text-blue-900 font-bold text-[11px] uppercase tracking-widest mt-1">
-                        Candidato a Práctica Profesional
-                      </p>
-                    </div>
-                    
-                    <div className="flex items-center gap-4 bg-white flex-shrink-0">
-                      <img src="/rectoria.webp" alt="Rectoría Bogotá" className="h-8 object-contain" />
-                      <div className="h-6 w-px bg-slate-300"></div>
-                      <img src="/centro-progresa.webp" alt="Centro Progresa" className="h-8 object-contain" />
-                    </div>
-                  </div>
-
-                  {/* Contacto centrado (Sección 1) */}
-                  <div className="flex flex-wrap justify-center items-center gap-4 text-[12px] text-slate-600 mb-5 pb-3 border-b border-slate-100 font-medium text-center">
-                    {formData.email && <span className="flex items-center gap-1"><Mail size={12} className="text-blue-900"/> {formData.email}</span>}
-                    {formData.phone && <span className="flex items-center gap-1"><Phone size={12} className="text-blue-900"/> {formData.phone}</span>}
-                    {formData.city && <span className="flex items-center gap-1"><MapPin size={12} className="text-blue-900"/> {formData.city}</span>}
+                <div className="text-right flex items-center space-x-3">
+                  <div className="text-right text-[10px] text-slate-600 space-y-0.5">
+                    <p className="font-semibold text-slate-800">{formData.email || "correo@uniminuto.edu"}</p>
+                    <p>{formData.phone || "3000000000"} • {formData.city}</p>
                     {formData.links.map((l, i) => (
-                      l.url ? <span key={i} className="flex items-center gap-1"><LinkIcon size={12} className="text-blue-900"/> <b>{l.label || "Enlace"}:</b> {l.url}</span> : null
+                      <p key={i} className="text-blue-700 underline truncate max-w-[200px]">{l.label}: {l.url}</p>
                     ))}
                   </div>
-                </td>
-              </tr>
+                  <div className="flex flex-col items-end space-y-1">
+                    <div className="w-12 h-6 bg-slate-300 rounded flex items-center justify-center text-[8px] font-bold text-slate-700">Rectoría Bogotá</div>
+                    <div className="w-12 h-6 bg-amber-200 rounded flex items-center justify-center text-[8px] font-bold text-amber-800">Centro Progresa</div>
+                  </div>
+                </div>
+              </div>
 
-              {/* Contenido principal de la Hoja de Vida */}
-              <tr>
-                <td className="px-[1.2cm]">
-                  
-                  {/* Perfil Profesional (Sección 2) */}
-                  {(formData.profile || formData.softSkills || formData.toolsList.length > 0 || formData.languageList.length > 0) && (
-                    <div className="mb-5 print-atomic-item">
-                      <div className="relative flex items-center justify-center my-3 print-section-title">
-                        <div className="absolute inset-0 flex items-center">
-                          <div className="w-full h-[2px]" style={{ background: 'linear-gradient(to right, transparent, #fbbf24 30%, #fbbf24 70%, transparent)' }}></div>
-                        </div>
-                        <h3 className="relative px-4 bg-white text-[13px] font-extrabold uppercase text-blue-950 tracking-wider">Perfil Profesional</h3>
+              {/* Perfil y Competencias */}
+              {formData.profile && (
+                <div className="space-y-1">
+                  <span className="text-[11px] font-extrabold uppercase text-slate-700 block tracking-wide border-b border-slate-200 pb-1">
+                    Perfil Profesional
+                  </span>
+                  <p className="text-slate-700 text-justify leading-relaxed">{formData.profile}</p>
+                </div>
+              )}
+
+              {/* Habilidades, Herramientas e Idiomas en mini badges */}
+              <div className="grid grid-cols-3 gap-2 pt-1">
+                {formData.softSkills && (
+                  <div className="bg-slate-50 p-2 rounded border border-slate-200">
+                    <span className="font-bold text-[10px] uppercase text-slate-900 block mb-1">Habilidades</span>
+                    <p className="text-slate-700">{formData.softSkills}</p>
+                  </div>
+                )}
+                {formData.toolsList.length > 0 && (
+                  <div className="bg-slate-50 p-2 rounded border border-slate-200">
+                    <span className="font-bold text-[10px] uppercase text-slate-900 block mb-1">Herramientas</span>
+                    <ul className="list-disc pl-3 text-slate-700">
+                      {formData.toolsList.map((t, i) => (
+                        <li key={i}>{t.name} <span className="text-slate-500 font-normal">({t.level})</span></li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
+                {formData.languageList.length > 0 && (
+                  <div className="bg-slate-50 p-2 rounded border border-slate-200">
+                    <span className="font-bold text-[10px] uppercase text-slate-900 block mb-1">Idiomas</span>
+                    <ul className="list-disc pl-3 text-slate-700">
+                      {formData.languageList.map((l, i) => (
+                        <li key={i}>{l.language} <span className="text-slate-500 font-normal">({l.level})</span></li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
+              </div>
+
+              {/* FORMACIÓN ACADÉMICA Y COMPLEMENTARIA (Con línea de tiempo) */}
+              <div className="space-y-2 pt-2">
+                <span className="text-[11px] font-extrabold uppercase text-slate-700 block tracking-wide border-b border-slate-200 pb-1">
+                  Formación Académica
+                </span>
+                
+                {/* Académica Principal */}
+                <div className="space-y-2">
+                  {formData.education.map((edu, i) => (
+                    <div key={i} className="flex justify-between items-start">
+                      <div>
+                        <h4 className="font-bold text-slate-900 uppercase">{edu.degree ? `${edu.degree} (${edu.level})` : edu.level}</h4>
+                        <p className="text-slate-700 font-medium">{edu.institution}</p>
+                        {edu.semester && <p className="text-blue-900 font-semibold">{edu.semester}</p>}
                       </div>
-                      {formData.profile && <p className="text-[12px] text-slate-700 text-justify leading-relaxed mb-3">{formData.profile}</p>}
-                      
-                      <table className="w-full text-[12px] mt-2 border-separate border-spacing-2">
-                        <tbody>
-                          <tr>
-                            {formData.softSkills && (
-                              <td className="w-1/3 bg-slate-50 p-2.5 rounded border border-slate-100 align-top">
-                                <span className="font-bold text-slate-900 flex items-center gap-1.5 mb-1 text-blue-900">
-                                  <CheckCircle size={13}/> Habilidades:
-                                </span>
-                                <ul className="text-slate-700 space-y-0.5">
-                                  {formData.softSkills.split(",").map((s, i) => {
-                                    const trimmed = s.trim();
-                                    return trimmed ? <li key={i}>• {trimmed}</li> : null;
-                                  })}
-                                </ul>
-                              </td>
-                            )}
-                            {formData.toolsList.length > 0 && (
-                              <td className="w-1/3 bg-slate-50 p-2.5 rounded border border-slate-100 align-top">
-                                <span className="font-bold text-slate-900 flex items-center gap-1.5 mb-1 text-blue-900">
-                                  <Wrench size={13}/> Herramientas:
-                                </span>
-                                <ul className="text-slate-700 space-y-0.5">
-                                  {formData.toolsList.map((t, i) => (
-                                    <li key={i}>• {t.name} <span className="text-blue-900 font-semibold">({t.level})</span></li>
-                                  ))}
-                                </ul>
-                              </td>
-                            )}
-                            {formData.languageList.length > 0 && (
-                              <td className="w-1/3 bg-slate-50 p-2.5 rounded border border-slate-100 align-top">
-                                <span className="font-bold text-slate-900 flex items-center gap-1.5 mb-1 text-blue-900">
-                                  <Globe size={13}/> Idiomas:
-                                </span>
-                                <ul className="text-slate-700 space-y-0.5">
-                                  {formData.languageList.map((l, i) => (
-                                    <li key={i}>• {l.language} <span className="text-blue-900 font-semibold">({l.level})</span></li>
-                                  ))}
-                                </ul>
-                              </td>
-                            )}
-                          </tr>
-                        </tbody>
-                      </table>
+                      <span className="text-slate-600 font-semibold">{edu.year || (edu.isCurrent ? "En curso" : "")}</span>
                     </div>
-                  )}
+                  ))}
+                </div>
 
-                  {/* Formación (Sección 3: Académica y Complementaria) */}
-                  {formData.education.length > 0 && (
-                    <div className="mb-5 pt-2 border-t border-slate-100">
-                      <div className="relative flex items-center justify-center my-3 print-section-title">
-                        <div className="absolute inset-0 flex items-center">
-                          <div className="w-full h-[2px]" style={{ background: 'linear-gradient(to right, transparent, #fbbf24 30%, #fbbf24 70%, transparent)' }}></div>
-                        </div>
-                        <h3 className="relative px-4 bg-white text-[13px] font-extrabold uppercase text-blue-950 tracking-wider">Formación</h3>
-                      </div>
-                      
-                      <div className="space-y-3 mb-3">
-                        <span className="text-[11px] font-extrabold uppercase text-slate-700 block tracking-wide text-left border-b border-slate-200 pb-1 mb-2 print-section-title">Académica</span>
-                        {formData.education.map((edu, i) => (
-                          <div key={i} className="text-[12px] space-y-0.5 print-atomic-item mb-2">
-                            <span className="font-bold text-slate-900 uppercase block">
-                              {edu.degree || "Título a obtener / Programa"} <span className="font-normal text-blue-900 normal-case">({edu.level})</span>
-                            </span>
-                            <span className="text-slate-700 font-medium block capitalize">{edu.institution || "Institución"}</span>
-                            <span className="text-blue-900 font-semibold block text-[11px]">
-                              {edu.isCurrent ? `En curso — ${edu.year || "Semestre actual"}` : edu.year}
-                            </span>
+                {/* Formación Complementaria en formato Línea de Tiempo */}
+                {formData.complementaryEdu.length > 0 && (
+                  <div className="mt-3 pt-2">
+                    <span className="text-[10px] font-bold uppercase text-slate-500 block mb-2">Formación Complementaria</span>
+                    <div className="relative border-l-2 border-slate-300 ml-2 pl-4 space-y-3">
+                      {[...formData.complementaryEdu]
+                        .sort((a, b) => parseInt(b.year || "0") - parseInt(a.year || "0"))
+                        .map((comp, i) => (
+                          <div key={i} className="relative group">
+                            <div className="absolute -left-[21px] top-1 w-2.5 h-2.5 rounded-full border-2 border-slate-700 bg-white"></div>
+                            <div className="flex justify-between items-start">
+                              <div>
+                                <h5 className="font-bold text-slate-900 uppercase">{comp.title}</h5>
+                                <p className="text-slate-600">{comp.institution}</p>
+                              </div>
+                              <span className="text-slate-700 font-semibold">{comp.year}</span>
+                            </div>
                           </div>
                         ))}
-                      </div>
-
-                      {formData.complementaryEdu.length > 0 && (
-                        <div className="space-y-3 pt-1">
-                          <span className="text-[11px] font-extrabold uppercase text-slate-700 block tracking-wide text-left border-b border-slate-200 pb-1 mb-2 print-section-title">Complementaria</span>
-                          {formData.complementaryEdu.map((comp, i) => (
-                            <div key={i} className="text-[12px] space-y-0.5 print-atomic-item mb-2">
-                              <span className="font-bold text-slate-900 uppercase block">{comp.title || "Curso o Taller"}</span>
-                              <span className="text-slate-700 font-medium block capitalize">{comp.institution || "Institución"}</span>
-                              <span className="text-slate-500 block text-[11px]">{comp.year}</span>
-                            </div>
-                          ))}
-                        </div>
-                      )}
-                    </div>
-                  )}
-
-                  {/* Experiencia Profesional (Sección 4: Laboral y Proyectos Académicos) */}
-                  {(formData.experiences.length > 0 || formData.projects.length > 0) && (
-                    <div className="mb-5 pt-2 border-t border-slate-100">
-                      <div className="relative flex items-center justify-center my-3 print-section-title">
-                        <div className="absolute inset-0 flex items-center">
-                          <div className="w-full h-[2px]" style={{ background: 'linear-gradient(to right, transparent, #fbbf24 30%, #fbbf24 70%, transparent)' }}></div>
-                        </div>
-                        <h3 className="relative px-4 bg-white text-[13px] font-extrabold uppercase text-blue-950 tracking-wider">Experiencia Profesional</h3>
-                      </div>
-                      
-                      {formData.experiences.length > 0 && (
-                        <div className="space-y-3 mb-3">
-                          <span className="text-[11px] font-extrabold uppercase text-slate-700 block tracking-wide text-left border-b border-slate-200 pb-1 mb-2 print-section-title">Laboral</span>
-                          {formData.experiences.map((exp, i) => (
-                            <div key={i} className="text-[12px] space-y-1.5 print-atomic-item mb-3">
-                              <div>
-                                <span className="font-black text-slate-900 uppercase block">{exp.position || "Cargo"}</span>
-                                <span className="text-blue-900 font-semibold block capitalize">{exp.company || "Empresa"}</span>
-                                <span className="text-slate-500 block text-[11px]">{exp.startDate} {exp.endDate ? `- ${exp.endDate}` : ""}</span>
-                              </div>
-                              <ol className="list-decimal space-y-1 text-slate-700 leading-relaxed" style={{ paddingLeft: '1cm' }}>
-                                {exp.description.split(/\n/).map((item, idx) => {
-                                  const trimmed = item.trim();
-                                  return trimmed ? <li key={idx} className="print-atomic-item">{trimmed}</li> : null;
-                                })}
-                              </ol>
-                            </div>
-                          ))}
-                        </div>
-                      )}
-
-                      {formData.projects.length > 0 && (
-                        <div className="space-y-3 pt-1">
-                          <span className="text-[11px] font-extrabold uppercase text-slate-700 block tracking-wide text-left border-b border-slate-200 pb-1 mb-2 print-section-title">Proyectos Académicos</span>
-                          {formData.projects.map((proj, i) => (
-                            <div key={i} className="text-[12px] space-y-1.5 print-atomic-item mb-3">
-                              <div>
-                                <span className="font-black text-slate-900 uppercase block">{proj.name || "Proyecto"} {proj.url && <span className="font-normal text-blue-600 lowercase">({proj.url})</span>}</span>
-                                <span className="text-blue-900 font-semibold block capitalize">{proj.role || "Rol"}</span>
-                              </div>
-                              <p className="text-slate-700 leading-relaxed text-justify" style={{ paddingLeft: '1cm' }}>{proj.description}</p>
-                            </div>
-                          ))}
-                        </div>
-                      )}
-                    </div>
-                  )}
-
-                  {/* Voluntariado (Sección 5) */}
-                  {formData.volunteers.length > 0 && (
-                    <div className="mb-5 pt-2 border-t border-slate-100">
-                      <div className="relative flex items-center justify-center my-3 print-section-title">
-                        <div className="absolute inset-0 flex items-center">
-                          <div className="w-full h-[2px]" style={{ background: 'linear-gradient(to right, transparent, #fbbf24 30%, #fbbf24 70%, transparent)' }}></div>
-                        </div>
-                        <h3 className="relative px-4 bg-white text-[13px] font-extrabold uppercase text-blue-950 tracking-wider">Voluntariado</h3>
-                      </div>
-                      <div className="space-y-3">
-                        {formData.volunteers.map((vol, i) => (
-                          <div key={i} className="text-[12px] space-y-1.5 print-atomic-item mb-3">
-                            <div>
-                              <span className="font-black text-slate-900 uppercase block">{vol.role || "Rol"}</span>
-                              <span className="text-blue-900 font-semibold block capitalize">{vol.organization || "Organización"}</span>
-                              <span className="text-slate-500 block text-[11px]">{vol.startDate} {vol.endDate ? `- ${vol.endDate}` : ""}</span>
-                            </div>
-                            <ol className="list-decimal space-y-1 text-slate-700 leading-relaxed" style={{ paddingLeft: '1cm' }}>
-                              {vol.description.split(/\n/).map((item, idx) => {
-                                const trimmed = item.trim();
-                                return trimmed ? <li key={idx} className="print-atomic-item">{trimmed}</li> : null;
-                              })}
-                            </ol>
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-                  )}
-
-                </td>
-              </tr>
-            </tbody>
-
-            <tfoot>
-              <tr>
-                <td className="p-[1.2cm] pt-3">
-                  {/* Pie de página institucional */}
-                  <div className="border-t pt-2 text-center text-[10px] text-slate-500 space-y-1 bg-white">
-                    <p>Línea de Atención al Usuario: 601 593 3004 · Línea Nacional: 01 8000 936 670</p>
-                    <p className="font-bold text-slate-700">www.uniminuto.edu</p>
-                    <div className="w-56 mx-auto py-0.5 border-t border-b border-slate-400 font-bold tracking-widest text-slate-600 text-[9px]">
-                      VIGILADA MINEDUCACIÓN
                     </div>
                   </div>
-                </td>
-              </tr>
-            </tfoot>
-          </table>
+                )}
+              </div>
+
+              {/* EXPERIENCIA PROFESIONAL (Con línea de tiempo vertical) */}
+              {formData.experiences.length > 0 && (
+                <div className="space-y-2 pt-2">
+                  <span className="text-[11px] font-extrabold uppercase text-slate-700 block tracking-wide border-b border-slate-200 pb-1">
+                    Experiencia Profesional
+                  </span>
+                  <div className="relative border-l-2 border-slate-300 ml-2 pl-4 space-y-4">
+                    {[...formData.experiences]
+                      .sort((a, b) => (b.startDate || "").localeCompare(a.startDate || ""))
+                      .map((exp, i) => (
+                        <div key={i} className="relative group">
+                          <div className="absolute -left-[21px] top-1 w-2.5 h-2.5 rounded-full border-2 border-slate-700 bg-white"></div>
+                          <div className="flex justify-between items-start">
+                            <div>
+                              <h4 className="font-bold text-slate-900 uppercase">{exp.position}</h4>
+                              <p className="text-blue-900 font-semibold">{exp.company}</p>
+                              {exp.description && (
+                                <p className="text-slate-700 mt-1 whitespace-pre-line leading-normal">
+                                  • {exp.description}
+                                </p>
+                              )}
+                            </div>
+                            <span className="text-slate-600 font-semibold whitespace-nowrap ml-2">
+                              {exp.startDate} - {exp.endDate}
+                            </span>
+                          </div>
+                        </div>
+                      ))}
+                  </div>
+                </div>
+              )}
+
+              {/* PROYECTOS ACADÉMICOS */}
+              {formData.projects.length > 0 && (
+                <div className="space-y-2 pt-2">
+                  <span className="text-[11px] font-extrabold uppercase text-slate-700 block tracking-wide border-b border-slate-200 pb-1">
+                    Proyectos Académicos
+                  </span>
+                  <div className="space-y-2">
+                    {formData.projects.map((proj, i) => (
+                      <div key={i} className="flex justify-between items-start">
+                        <div>
+                          <h4 className="font-bold text-slate-900 uppercase">{proj.name} <span className="font-normal text-slate-600">({proj.role})</span></h4>
+                          <p className="text-slate-700">{proj.description}</p>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {/* VOLUNTARIADO */}
+              {formData.volunteers.length > 0 && (
+                <div className="space-y-2 pt-2">
+                  <span className="text-[11px] font-extrabold uppercase text-slate-700 block tracking-wide border-b border-slate-200 pb-1">
+                    Voluntariado y Responsabilidad Social
+                  </span>
+                  <div className="space-y-2">
+                    {formData.volunteers.map((vol, i) => (
+                      <div key={i} className="flex justify-between items-start">
+                        <div>
+                          <h4 className="font-bold text-slate-900 uppercase">{vol.role}</h4>
+                          <p className="text-blue-900 font-semibold">{vol.organization}</p>
+                          <p className="text-slate-700">{vol.description}</p>
+                        </div>
+                        <span className="text-slate-600 font-semibold">{vol.startDate} - {vol.endDate}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {/* Pie de página institucional */}
+              <div className="absolute bottom-6 left-8 right-8 text-center border-t border-slate-300 pt-3 text-[9px] text-slate-500 space-y-0.5">
+                <p>Línea de Atención al Usuario: 601 593 3004 · Línea Nacional: 01 8000 936 670</p>
+                <p className="font-semibold text-slate-700">www.uniminuto.edu — VIGILADA MINEDUCACIÓN</p>
+              </div>
+
+            </div>
+          </div>
         </div>
-      </div>
-    </div>
+      )}
+    </main>
   );
 }
