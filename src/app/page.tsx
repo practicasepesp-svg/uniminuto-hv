@@ -274,6 +274,11 @@ export default function Home() {
             break-after: avoid;
             page-break-after: avoid;
           }
+          /* Forzar que los hipervínculos se vean limpios y activos al imprimir en PDF */
+          a {
+            color: #1e3a8a !important;
+            text-decoration: underline !important;
+          }
         }
       `}</style>
 
@@ -379,7 +384,7 @@ export default function Home() {
               {formData.links.map((link, idx) => (
                 <div key={idx} className="flex gap-2 items-center bg-blue-900/40 p-2.5 rounded-lg border border-blue-800">
                   <input type="text" lang="es-CO" spellCheck={true} placeholder="Red (Ej. LinkedIn)" value={link.label} onChange={(e) => updateLink(idx, "label", e.target.value)} className="w-1/3 p-2 text-[12px] bg-blue-950 border border-blue-800 rounded text-white" />
-                  <input type="text" lang="es-CO" spellCheck={false} placeholder="URL (linkedin.com/in/...)" value={link.url} onChange={(e) => updateLink(idx, "url", e.target.value)} className="flex-1 p-2 text-[12px] bg-blue-950 border border-blue-800 rounded text-white" />
+                  <input type="text" lang="es-CO" spellCheck={false} placeholder="URL (ej. linkedin.com/in/usuario)" value={link.url} onChange={(e) => updateLink(idx, "url", e.target.value)} className="flex-1 p-2 text-[12px] bg-blue-950 border border-blue-800 rounded text-white" />
                   <button onClick={() => removeLink(idx)} className="text-rose-300 hover:text-rose-100 p-1"><Trash2 size={14}/></button>
                 </div>
               ))}
@@ -622,7 +627,7 @@ export default function Home() {
 
         </div>
 
-        {/* PANEL DERECHO: Vista Previa Actualizada con Colores Homogeneizados */}
+        {/* PANEL DERECHO: Vista Previa Actualizada */}
         <div className="lg:col-span-7 bg-blue-950/90 p-6 rounded-2xl flex flex-col items-center shadow-2xl border border-blue-900 overflow-auto max-h-[88vh] print:p-0 print:m-0 print:bg-white print:overflow-visible print:max-h-none print:w-full print:shadow-none print:border-none">
           
           <div className="w-full flex justify-between items-center mb-4 print:hidden px-2 text-xs text-blue-200">
@@ -630,7 +635,7 @@ export default function Home() {
             <span className="bg-blue-900 px-3 py-1 rounded-full border border-blue-800">Optimizado para Google Chrome</span>
           </div>
 
-          {/* HOJA EN FORMATO TABLA NATIVA CON LOS LOGOS ORIGINALES Y FUENTES HOMOGENEIZADAS */}
+          {/* HOJA EN FORMATO TABLA NATIVA CON LOS LOGOS ORIGINALES Y ENLACES FUNCIONALES */}
           <table className="resume-sheet bg-white text-slate-800 w-full max-w-[800px] shadow-[0_0_40px_rgba(0,0,0,0.4)] rounded-xl border-collapse" style={{ fontSize: '12px' }}>
             <tbody>
               {/* Encabezado y Contacto */}
@@ -654,13 +659,23 @@ export default function Home() {
                     </div>
                   </div>
 
-                  {/* Contacto centrado (Sección 1) */}
+                  {/* Contacto centrado e hipervínculos funcionales al imprimir PDF */}
                   <div className="flex flex-wrap justify-center items-center gap-4 text-[12px] text-slate-600 mb-5 pb-3 border-b border-slate-100 font-medium text-center">
                     {formData.email && <span className="flex items-center gap-1"><Mail size={12} className="text-blue-900"/> {formData.email}</span>}
                     {formData.phone && <span className="flex items-center gap-1"><Phone size={12} className="text-blue-900"/> {formData.phone}</span>}
                     {formData.city && <span className="flex items-center gap-1"><MapPin size={12} className="text-blue-900"/> {formData.city}</span>}
                     {formData.links.map((l, i) => (
-                      l.url ? <span key={i} className="flex items-center gap-1"><LinkIcon size={12} className="text-blue-900"/> <b>{l.label || "Enlace"}:</b> {l.url}</span> : null
+                      l.url ? (
+                        <a 
+                          key={i} 
+                          href={l.url.startsWith('http') ? l.url : `https://${l.url}`} 
+                          target="_blank" 
+                          rel="noopener noreferrer" 
+                          className="flex items-center gap-1 text-blue-900 hover:underline font-semibold"
+                        >
+                          <LinkIcon size={12} className="text-blue-900"/> <b>{l.label || "Enlace"}:</b> {l.url}
+                        </a>
+                      ) : null
                     ))}
                   </div>
                 </td>
@@ -804,7 +819,9 @@ export default function Home() {
                           {formData.projects.map((proj, i) => (
                             <div key={i} className="text-[12px] space-y-1.5 print-atomic-item mb-3">
                               <div>
-                                <span className="font-black text-slate-900 uppercase block">{proj.name || "Proyecto"} {proj.url && <span className="font-normal text-blue-600 lowercase">({proj.url})</span>}</span>
+                                <span className="font-black text-slate-900 uppercase block">
+                                  {proj.name || "Proyecto"} {proj.url && <a href={proj.url.startsWith('http') ? proj.url : `https://${proj.url}`} target="_blank" rel="noopener noreferrer" className="font-normal text-blue-600 underline lowercase">({proj.url})</a>}
+                                </span>
                                 <span className="text-blue-900 font-semibold block capitalize">{proj.role || "Rol"}</span>
                               </div>
                               <p className="text-slate-700 leading-relaxed text-justify" style={{ paddingLeft: '1cm' }}>{proj.description}</p>
