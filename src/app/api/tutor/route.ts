@@ -1,4 +1,5 @@
 import { NextResponse } from 'next/server';
+import { GoogleGenerativeAI } from '@google/generative-ai';
 
 export async function POST(req: Request) {
   try {
@@ -14,35 +15,17 @@ export async function POST(req: Request) {
       return NextResponse.json({ reply: 'Configura la variable GEMINI_API_KEY en Vercel.' });
     }
 
-    // Usamos el endpoint oficial estable 'v1' con el modelo gemini-1.5-flash
-    const url = `https://generativelanguage.googleapis.com/v1/models/gemini-1.5-flash:generateContent?key=${apiKey}`;
+    // Inicializamos el SDK oficial de Google
+    const genAI = new GoogleGenerativeAI(apiKey);
+    
+    // Usamos el modelo que viene por defecto y es compatible con el SDK
+    const model = genAI.getGenerativeModel({ model: 'gemini-1.5-flash' });
 
-    const response = await fetch(url, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        contents: [
-          {
-            parts: [
-              {
-                text: `Eres Praxia, una asistente virtual y coach de desarrollo profesional amigable, experta en empleabilidad para estudiantes universitarios y enfocada en prácticas profesionales y primer empleo en UNIMINUTO. Responde de forma cálida, empática, concisa y orientada a la acción. Pregunta del estudiante: ${message}`
-              }
-            ]
-          }
-        ]
-      }),
-    });
+    const prompt = `Eres Praxia, una asistente virtual y coach de desarrollo profesional amigable, experta en empleabilidad para estudiantes universitarios y enfocada en prácticas profesionales y primer empleo en UNIMINUTO. Responde de forma cálida, empática, concisa y orientada a la acción. Pregunta del estudiante: ${message}`;
 
-    const data = await response.json();
-
-    if (!response.ok) {
-      console.error('Error de la API de Google:', data);
-      return NextResponse.json({ reply: `Error de API: ${data.error?.message || 'Fallo desconocido de Google'}` });
-    }
-
-    const text = data.candidates?.[0]?.content?.parts?.[0]?.text || "¡Hola! Estoy lista para ayudarte con tus prácticas en UNIMINUTO.";
+    const result = await model.generateContent(prompt);
+    const response = await result.response;
+    const text = response.text();
 
     return NextResponse.json({ reply: text });
   } catch (error: any) {
