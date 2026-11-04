@@ -9,14 +9,14 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: 'Falta el mensaje' }, { status: 400 });
     }
 
-    const apiKey = process.env.GEMINI_API_KEY; // Puedes usar esta misma variable para tu Token de Hugging Face
+    const apiKey = process.env.GEMINI_API_KEY; // Aquí estás usando tu Token de Hugging Face (hf_...)
     if (!apiKey) {
       return NextResponse.json({ reply: 'Configura tu token de Hugging Face en Vercel.' });
     }
 
-    // Usamos la API pública y gratuita de Hugging Face con un modelo estable de Mistral o Llama
+    // Usamos la API de inferencia de Hugging Face con el modelo conversacional gratuito
     const response = await fetch(
-      'https://api-inference.huggingface.co/models/mistralai/Mistral-7B-Instruct-v0.2',
+      'https://api-inference.huggingface.co/models/HuggingFaceH4/zephyr-7b-beta',
       {
         method: 'POST',
         headers: {
@@ -24,7 +24,7 @@ export async function POST(req: Request) {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          inputs: `<s>[INST] Eres Praxia, una asistente virtual y coach de desarrollo profesional amigable, experta en empleabilidad para estudiantes universitarios y enfocada en prácticas profesionales y primer empleo en UNIMINUTO. Responde de forma cálida, empática, concisa y orientada a la acción. Pregunta: ${message} [/INST]`,
+          inputs: `<|system|>Eres Praxia, una asistente virtual y coach de desarrollo profesional amigable, experta en empleabilidad para estudiantes universitarios y enfocada en prácticas profesionales y primer empleo en UNIMINUTO. Responde de forma cálida, empática, concisa y orientada a la acción.<|user|>${message}<|assistant|>`,
           parameters: {
             max_new_tokens: 250,
             temperature: 0.7,
@@ -38,10 +38,10 @@ export async function POST(req: Request) {
 
     if (!response.ok) {
       console.error('Error de Hugging Face:', data);
-      return NextResponse.json({ reply: `Error de IA: ${data.error || 'Fallo de conexión'}` });
+      return NextResponse.json({ reply: `Error de IA: ${data.error || 'Fallo de conexión con Hugging Face'}` });
     }
 
-    // Hugging Face devuelve un array con la respuesta
+    // Extraemos la respuesta del modelo
     const text = data[0]?.generated_text || data.generated_text || "¡Hola! Estoy lista para ayudarte con tus prácticas en UNIMINUTO.";
 
     return NextResponse.json({ reply: text.trim() });
