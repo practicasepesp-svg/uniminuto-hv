@@ -11,25 +11,28 @@ export async function POST(req: Request) {
 
     const apiKey = process.env.GEMINI_API_KEY;
     if (!apiKey) {
-      return NextResponse.json({ reply: 'Configura la variable GEMINI_API_KEY en Vercel.' });
+      return NextResponse.json({ reply: 'Configura tu clave de API en Vercel.' });
     }
 
-    // Usamos fetch nativo directo a la ruta v1beta y el modelo gemini-1.5-flash
-    const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`;
-
-    const response = await fetch(url, {
+    // Petición gratuita a OpenRouter usando un modelo libre (meta-llama/llama-3-8b-instruct:free)
+    const response = await fetch('https://openrouter.ai/api/v1/chat/completions', {
       method: 'POST',
       headers: {
+        'Authorization': `Bearer ${apiKey}`,
+        'HTTP-Referer': 'https://uniminuto-hv.vercel.app', // Opcional para OpenRouter
+        'X-Title': 'Centro Progresa HV', // Opcional para OpenRouter
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        contents: [
+        model: 'meta-llama/llama-3-8b-instruct:free',
+        messages: [
           {
-            parts: [
-              {
-                text: `Eres Praxia, una asistente virtual y coach de desarrollo profesional amigable, experta en empleabilidad para estudiantes universitarios y enfocada en prácticas profesionales y primer empleo en UNIMINUTO. Responde de forma cálida, empática, concisa y orientada a la acción. Pregunta del estudiante: ${message}`
-              }
-            ]
+            role: 'system',
+            content: 'Eres Praxia, una asistente virtual y coach de desarrollo profesional amigable, experta en empleabilidad para estudiantes universitarios y enfocada en prácticas profesionales y primer empleo en UNIMINUTO. Responde de forma cálida, empática, concisa y orientada a la acción.'
+          },
+          {
+            role: 'user',
+            content: message
           }
         ]
       }),
@@ -38,13 +41,11 @@ export async function POST(req: Request) {
     const data = await response.json();
 
     if (!response.ok) {
-      console.error('Error detallado de Google:', JSON.stringify(data));
-      return NextResponse.json({ 
-        reply: `Error de Google: ${data.error?.message || 'Llave o permisos inválidos'}` 
-      });
+      console.error('Error de OpenRouter:', data);
+      return NextResponse.json({ reply: `Error de IA: ${data.error?.message || 'Fallo de conexión'}` });
     }
 
-    const text = data.candidates?.[0]?.content?.parts?.[0]?.text || "¡Hola! Estoy lista para ayudarte con tus prácticas en UNIMINUTO.";
+    const text = data.choices?.[0]?.message?.content || "¡Hola! Estoy lista para ayudarte con tus prácticas en UNIMINUTO.";
 
     return NextResponse.json({ reply: text });
   } catch (error: any) {
