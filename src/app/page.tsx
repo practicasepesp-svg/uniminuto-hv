@@ -40,7 +40,8 @@ export default function Home() {
     const element = document.getElementById("resume-preview-sheet");
     if (!element) return;
 
-    // Importación dinámica para evitar errores de SSR en Next.js
+    // Importación dinámica para evitar errores de SSR en Next.js y omitir el chequeo de TypeScript
+    // @ts-ignore
     const html2pdf = (await import("html2pdf.js")).default;
 
     const opt = {
