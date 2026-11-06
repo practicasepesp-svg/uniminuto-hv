@@ -274,12 +274,6 @@ export default function Home() {
             break-after: avoid;
             page-break-after: avoid;
           }
-          a.pdf-link::after { 
-            content: " (" attr(href) ")"; 
-            font-size: 10px; 
-            color: #475569; 
-            font-weight: normal; 
-          }
         }
       `}</style>
 
@@ -660,7 +654,7 @@ export default function Home() {
                     </div>
                   </div>
 
-                  {/* Contacto centrado y Enlaces limpios e interactivos */}
+                  {/* Contacto centrado y Enlaces limpios sin mostrar URL duplicada al imprimir */}
                   <div className="flex flex-wrap justify-center items-center gap-4 text-[12px] text-slate-600 mb-5 pb-3 border-b border-slate-100 font-medium text-center">
                     {formData.email && <span className="flex items-center gap-1"><Mail size={12} className="text-blue-900"/> {formData.email}</span>}
                     {formData.phone && <span className="flex items-center gap-1"><Phone size={12} className="text-blue-900"/> {formData.phone}</span>}
@@ -672,7 +666,7 @@ export default function Home() {
                           href={l.url.startsWith('http') ? l.url : `https://${l.url}`} 
                           target="_blank" 
                           rel="noopener noreferrer" 
-                          className="flex items-center gap-1 text-blue-900 hover:underline font-semibold pdf-link"
+                          className="flex items-center gap-1 text-blue-900 hover:underline font-semibold"
                         >
                           <LinkIcon size={12} className="text-blue-900"/> {l.label || "Enlace"}
                         </a>
@@ -783,7 +777,7 @@ export default function Home() {
                     </div>
                   )}
 
-                  {/* Experiencia Profesional (Sección 4: Laboral y Proyectos Académicos con enlace limpio) */}
+                  {/* Experiencia Profesional (Sección 4: Laboral y Proyectos Académicos) */}
                   {(formData.experiences.length > 0 || formData.projects.length > 0) && (
                     <div className="mb-5 pt-2 border-t border-slate-100">
                       <div className="relative flex items-center justify-center my-3 print-section-title">
@@ -821,7 +815,7 @@ export default function Home() {
                             <div key={i} className="text-[12px] space-y-1.5 print-atomic-item mb-3">
                               <div>
                                 <span className="font-black text-slate-900 uppercase block">
-                                  {proj.name || "Proyecto"} {proj.url && <a href={proj.url.startsWith('http') ? proj.url : `https://${proj.url}`} target="_blank" rel="noopener noreferrer" className="font-normal text-blue-600 underline lowercase pdf-link">({proj.url})</a>}
+                                  {proj.name || "Proyecto"} {proj.url && <a href={proj.url.startsWith('http') ? proj.url : `https://${proj.url}`} target="_blank" rel="noopener noreferrer" className="font-normal text-blue-600 underline lowercase">({proj.url})</a>}
                                 </span>
                                 <span className="text-blue-900 font-semibold block capitalize">{proj.role || "Rol"}</span>
                               </div>
