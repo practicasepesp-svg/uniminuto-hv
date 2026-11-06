@@ -654,7 +654,7 @@ export default function Home() {
                     </div>
                   </div>
 
-                  {/* Contacto centrado y Enlaces limpios sin mostrar URL duplicada al imprimir */}
+                  {/* Contacto centrado y Enlaces con atributo href absoluto optimizado para impresión interactiva */}
                   <div className="flex flex-wrap justify-center items-center gap-4 text-[12px] text-slate-600 mb-5 pb-3 border-b border-slate-100 font-medium text-center">
                     {formData.email && <span className="flex items-center gap-1"><Mail size={12} className="text-blue-900"/> {formData.email}</span>}
                     {formData.phone && <span className="flex items-center gap-1"><Phone size={12} className="text-blue-900"/> {formData.phone}</span>}
@@ -663,10 +663,10 @@ export default function Home() {
                       l.url ? (
                         <a 
                           key={i} 
-                          href={l.url.startsWith('http') ? l.url : `https://${l.url}`} 
+                          href={l.url.startsWith('http://') || l.url.startsWith('https://') ? l.url : `https://${l.url}`} 
                           target="_blank" 
                           rel="noopener noreferrer" 
-                          className="flex items-center gap-1 text-blue-900 hover:underline font-semibold"
+                          className="flex items-center gap-1 text-blue-900 hover:underline font-semibold cursor-pointer print:text-blue-900"
                         >
                           <LinkIcon size={12} className="text-blue-900"/> {l.label || "Enlace"}
                         </a>
@@ -815,7 +815,7 @@ export default function Home() {
                             <div key={i} className="text-[12px] space-y-1.5 print-atomic-item mb-3">
                               <div>
                                 <span className="font-black text-slate-900 uppercase block">
-                                  {proj.name || "Proyecto"} {proj.url && <a href={proj.url.startsWith('http') ? proj.url : `https://${proj.url}`} target="_blank" rel="noopener noreferrer" className="font-normal text-blue-600 underline lowercase">({proj.url})</a>}
+                                  {proj.name || "Proyecto"} {proj.url && <a href={proj.url.startsWith('http://') || proj.url.startsWith('https://') ? proj.url : `https://${proj.url}`} target="_blank" rel="noopener noreferrer" className="font-normal text-blue-600 underline lowercase">({proj.url})</a>}
                                 </span>
                                 <span className="text-blue-900 font-semibold block capitalize">{proj.role || "Rol"}</span>
                               </div>
