@@ -35,6 +35,25 @@ export default function Home() {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
+  // Función para descargar PDF usando html2pdf.js manteniendo hipervínculos activos
+  const handleDownloadPDF = async () => {
+    const element = document.getElementById("resume-preview-sheet");
+    if (!element) return;
+
+    // Importación dinámica para evitar errores de SSR en Next.js
+    const html2pdf = (await import("html2pdf.js")).default;
+
+    const opt = {
+      margin:       0,
+      filename:     `Hoja_de_Vida_${formData.fullName ? formData.fullName.replace(/\s+/g, '_') : 'UNIMINUTO'}.pdf`,
+      image:        { type: 'jpeg', quality: 0.98 },
+      html2canvas:  { scale: 2, useCORS: true, letterRendering: true },
+      jsPDF:        { unit: 'cm', format: 'letter', orientation: 'portrait' }
+    };
+
+    html2pdf().from(element).set(opt).save();
+  };
+
   // Enlaces Profesionales (Sección 1)
   const addLink = () => {
     setFormData({ ...formData, links: [...formData.links, { label: "LinkedIn", url: "" }] });
@@ -300,12 +319,14 @@ export default function Home() {
             <p className="text-xs text-blue-200">Centro Progresa E.P.E. • Prácticas Profesionales</p>
           </div>
         </div>
-        <button 
-          onClick={() => window.print()} 
-          className="bg-amber-400 hover:bg-amber-300 text-blue-950 text-xs font-black px-5 py-2.5 rounded-xl flex items-center gap-2 shadow-lg shadow-amber-500/20 transition transform active:scale-95"
-        >
-          <Printer size={16} /> Descargar / Imprimir PDF
-        </button>
+        <div className="flex items-center gap-3">
+          <button 
+            onClick={handleDownloadPDF} 
+            className="bg-amber-400 hover:bg-amber-300 text-blue-950 text-xs font-black px-5 py-2.5 rounded-xl flex items-center gap-2 shadow-lg shadow-amber-500/20 transition transform active:scale-95 cursor-pointer"
+          >
+            <Printer size={16} /> Descargar PDF Interactivo
+          </button>
+        </div>
       </header>
 
       {/* Contenedor principal */}
@@ -622,7 +643,7 @@ export default function Home() {
 
         </div>
 
-        {/* PANEL DERECHO: Vista Previa Actualizada con Colores Homogeneizados */}
+        {/* PANEL DERECHO: Vista Previa con el ID requerido para html2pdf */}
         <div className="lg:col-span-7 bg-blue-950/90 p-6 rounded-2xl flex flex-col items-center shadow-2xl border border-blue-900 overflow-auto max-h-[88vh] print:p-0 print:m-0 print:bg-white print:overflow-visible print:max-h-none print:w-full print:shadow-none print:border-none">
           
           <div className="w-full flex justify-between items-center mb-4 print:hidden px-2 text-xs text-blue-200">
@@ -630,8 +651,8 @@ export default function Home() {
             <span className="bg-blue-900 px-3 py-1 rounded-full border border-blue-800">Optimizado para Google Chrome</span>
           </div>
 
-          {/* HOJA EN FORMATO TABLA NATIVA CON LOS LOGOS ORIGINALES Y FUENTES HOMOGENEIZADAS */}
-          <table className="resume-sheet bg-white text-slate-800 w-full max-w-[800px] shadow-[0_0_40px_rgba(0,0,0,0.4)] rounded-xl border-collapse" style={{ fontSize: '12px' }}>
+          {/* HOJA EN FORMATO TABLA NATIVA CON EL ID "resume-preview-sheet" */}
+          <table id="resume-preview-sheet" className="resume-sheet bg-white text-slate-800 w-full max-w-[800px] shadow-[0_0_40px_rgba(0,0,0,0.4)] rounded-xl border-collapse" style={{ fontSize: '12px' }}>
             <tbody>
               {/* Encabezado y Contacto */}
               <tr>
@@ -654,7 +675,7 @@ export default function Home() {
                     </div>
                   </div>
 
-                  {/* Contacto centrado y Enlaces con atributo href absoluto optimizado para impresión interactiva */}
+                  {/* Contacto centrado y Enlaces interactivos */}
                   <div className="flex flex-wrap justify-center items-center gap-4 text-[12px] text-slate-600 mb-5 pb-3 border-b border-slate-100 font-medium text-center">
                     {formData.email && <span className="flex items-center gap-1"><Mail size={12} className="text-blue-900"/> {formData.email}</span>}
                     {formData.phone && <span className="flex items-center gap-1"><Phone size={12} className="text-blue-900"/> {formData.phone}</span>}
@@ -666,7 +687,7 @@ export default function Home() {
                           href={l.url.startsWith('http://') || l.url.startsWith('https://') ? l.url : `https://${l.url}`} 
                           target="_blank" 
                           rel="noopener noreferrer" 
-                          className="flex items-center gap-1 text-blue-900 hover:underline font-semibold cursor-pointer print:text-blue-900"
+                          className="flex items-center gap-1 text-blue-900 hover:underline font-semibold cursor-pointer"
                         >
                           <LinkIcon size={12} className="text-blue-900"/> {l.label || "Enlace"}
                         </a>
@@ -737,7 +758,7 @@ export default function Home() {
                     </div>
                   )}
 
-                  {/* Formación (Sección 3: Académica y Complementaria - Homogeneizada) */}
+                  {/* Formación (Sección 3) */}
                   {formData.education.length > 0 && (
                     <div className="mb-5 pt-2 border-t border-slate-100">
                       <div className="relative flex items-center justify-center my-3 print-section-title">
@@ -777,7 +798,7 @@ export default function Home() {
                     </div>
                   )}
 
-                  {/* Experiencia Profesional (Sección 4: Laboral y Proyectos Académicos) */}
+                  {/* Experiencia Profesional (Sección 4) */}
                   {(formData.experiences.length > 0 || formData.projects.length > 0) && (
                     <div className="mb-5 pt-2 border-t border-slate-100">
                       <div className="relative flex items-center justify-center my-3 print-section-title">
@@ -827,7 +848,7 @@ export default function Home() {
                     </div>
                   )}
 
-                  {/* Voluntariado (Sección 5 - Homogeneizado) */}
+                  {/* Voluntariado (Sección 5) */}
                   {formData.volunteers.length > 0 && (
                     <div className="mb-5 pt-2 border-t border-slate-100">
                       <div className="relative flex items-center justify-center my-3 print-section-title">
