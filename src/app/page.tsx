@@ -35,7 +35,7 @@ export default function Home() {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  // Función para descargar PDF usando html2pdf.js manteniendo hipervínculos activos
+  // Función para descargar PDF usando html2pdf.js con márgenes y control de saltos estrictos
   const handleDownloadPDF = async () => {
     const element = document.getElementById("resume-preview-sheet");
     if (!element) return;
@@ -45,11 +45,12 @@ export default function Home() {
     const html2pdf = (await import("html2pdf.js")).default;
 
     const opt = {
-      margin:       0,
+      margin:       [1, 1, 1, 1], // Margen estricto de 1 cm en todos los lados
       filename:     `Hoja_de_Vida_${formData.fullName ? formData.fullName.replace(/\s+/g, '_') : 'UNIMINUTO'}.pdf`,
       image:        { type: 'jpeg', quality: 0.98 },
       html2canvas:  { scale: 2, useCORS: true, letterRendering: true },
-      jsPDF:        { unit: 'cm', format: 'letter', orientation: 'portrait' }
+      jsPDF:        { unit: 'cm', format: 'letter', orientation: 'portrait' },
+      pagebreak:    { mode: ['css', 'legacy'], avoid: ['.print-atomic-item', 'tr'] }
     };
 
     html2pdf().from(element).set(opt).save();
@@ -265,6 +266,18 @@ export default function Home() {
           font-family: 'Montserrat', sans-serif !important;
         }
 
+        @media print, screen {
+          .print-atomic-item {
+            break-inside: avoid;
+            page-break-inside: avoid;
+          }
+          .print-section-title {
+            break-after: avoid;
+            page-break-after: avoid;
+            break-inside: avoid;
+          }
+        }
+
         @media print {
           @page {
             size: letter;
@@ -285,14 +298,6 @@ export default function Home() {
             max-width: none !important;
             border: none !important;
             font-family: 'Montserrat', sans-serif !important;
-          }
-          .print-atomic-item {
-            break-inside: avoid;
-            page-break-inside: avoid;
-          }
-          .print-section-title {
-            break-after: avoid;
-            page-break-after: avoid;
           }
         }
       `}</style>
