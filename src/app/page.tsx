@@ -50,7 +50,7 @@ export default function Home() {
       image:        { type: 'jpeg', quality: 0.98 },
       html2canvas:  { scale: 2, useCORS: true, letterRendering: true },
       jsPDF:        { unit: 'cm', format: 'letter', orientation: 'portrait' },
-      pagebreak:    { mode: ['css', 'legacy'], avoid: ['.print-atomic-item'] }
+      pagebreak:    { mode: ['css', 'legacy'], avoid: ['.print-atomic-item', '.print-section-block'] }
     };
 
     html2pdf().from(element).set(opt).save();
@@ -276,6 +276,10 @@ export default function Home() {
             page-break-after: avoid;
             break-inside: avoid;
           }
+          .print-section-block {
+            break-inside: avoid;
+            page-break-inside: avoid;
+          }
         }
 
         @media print {
@@ -338,7 +342,7 @@ export default function Home() {
       {/* Contenedor principal */}
       <div className="flex-1 max-w-[1800px] w-full mx-auto p-4 lg:p-6 grid grid-cols-1 lg:grid-cols-12 gap-6 items-start print:block print:p-0 print:m-0 print:w-full print:max-w-none">
         
-        {/* PANEL IZQUIERDO: Formulario con textarea ampliado para funciones */}
+        {/* PANEL IZQUIERDO: Formulario */}
         <div className="lg:col-span-5 bg-blue-900/90 backdrop-blur-md rounded-2xl shadow-2xl border border-blue-800/80 overflow-hidden print:hidden flex flex-col max-h-[88vh] overflow-y-auto p-6 space-y-6">
           
           {/* SECCIÓN 1: INFORMACIÓN PERSONAL */}
@@ -400,7 +404,7 @@ export default function Home() {
               />
             </div>
 
-            {/* Enlaces / Portafolios múltiples con botón al pie */}
+            {/* Enlaces / Portafolios múltiples */}
             <div className="space-y-3 pt-2 border-t border-blue-900/60">
               <span className="text-[11px] font-bold text-blue-200 flex items-center gap-1"><LinkIcon size={13}/> Enlaces y Portafolios</span>
               {formData.links.map((link, idx) => (
@@ -450,7 +454,7 @@ export default function Home() {
               />
             </div>
 
-            {/* Herramientas con niveles y botón al pie */}
+            {/* Herramientas */}
             <div className="space-y-3 pt-2 border-t border-blue-900/60">
               <span className="text-[11px] font-bold text-blue-200 flex items-center gap-1"><Wrench size={13}/> Herramientas (Software / Apps)</span>
               {formData.toolsList.map((tool, idx) => (
@@ -472,7 +476,7 @@ export default function Home() {
               </div>
             </div>
 
-            {/* Idiomas con estándares internacionales (MCER) y botón al pie */}
+            {/* Idiomas */}
             <div className="space-y-3 pt-2 border-t border-blue-900/60">
               <span className="text-[11px] font-bold text-blue-200 flex items-center gap-1"><Languages size={13}/> Idiomas</span>
               {formData.languageList.map((lang, idx) => (
@@ -505,7 +509,7 @@ export default function Home() {
               </h2>
             </div>
 
-            {/* Subsección: Formación Académica con botón al pie */}
+            {/* Académica */}
             <div className="space-y-3 pt-1">
               <span className="text-[11px] font-bold text-blue-200">Formación Académica</span>
               {formData.education.map((edu, idx) => (
@@ -552,7 +556,7 @@ export default function Home() {
               </div>
             </div>
 
-            {/* Subsección: Formación Complementaria con botón al pie */}
+            {/* Complementaria */}
             <div className="space-y-3 pt-3 border-t border-blue-900/60">
               <span className="text-[11px] font-bold text-blue-200">Formación Complementaria</span>
               {formData.complementaryEdu.map((comp, idx) => (
@@ -573,13 +577,13 @@ export default function Home() {
             </div>
           </div>
 
-          {/* SECCIÓN 4: EXPERIENCIA PROFESIONAL (Textarea ampliado rows={4} para funciones cómodas) */}
+          {/* SECCIÓN 4: EXPERIENCIA PROFESIONAL */}
           <div className="bg-blue-950/80 border border-blue-800 rounded-xl p-5 space-y-4 shadow-sm">
             <h2 className="text-xs font-extrabold uppercase tracking-widest text-amber-400 flex items-center gap-2 border-b border-blue-900 pb-2">
               <Briefcase size={15}/> 4. Experiencia Profesional
             </h2>
 
-            {/* Subsección: Experiencia Laboral con botón al pie */}
+            {/* Laboral */}
             <div className="space-y-3 pt-1">
               <span className="text-[11px] font-bold text-blue-200">Experiencia Laboral</span>
               {formData.experiences.map((exp, idx) => (
@@ -591,7 +595,7 @@ export default function Home() {
                     <input type="text" lang="es-CO" spellCheck={false} placeholder="Inicio" value={exp.startDate} onChange={(e) => updateExperience(idx, "startDate", e.target.value)} className="p-2 text-[12px] bg-blue-950 border border-blue-800 rounded text-white" />
                     <input type="text" lang="es-CO" spellCheck={false} placeholder="Fin (Actual)" value={exp.endDate} onChange={(e) => updateExperience(idx, "endDate", e.target.value)} className="p-2 text-[12px] bg-blue-950 border border-blue-800 rounded text-white" />
                   </div>
-                  <textarea lang="es-CO" spellCheck={true} placeholder="Escribe aquí tus funciones (cada línea será un punto numerado)..." rows={4} value={exp.description} onChange={(e) => updateExperience(idx, "description", e.target.value)} className="w-full p-2.5 text-[12px] bg-blue-950 border border-blue-800 rounded text-white resize-y"></textarea>
+                  <textarea lang="es-CO" spellCheck={true} placeholder="Funciones (cada línea será un punto numerado)..." rows={4} value={exp.description} onChange={(e) => updateExperience(idx, "description", e.target.value)} className="w-full p-2.5 text-[12px] bg-blue-950 border border-blue-800 rounded text-white resize-y"></textarea>
                 </div>
               ))}
               <div className="flex justify-end pt-1">
@@ -601,7 +605,7 @@ export default function Home() {
               </div>
             </div>
 
-            {/* Subsección: Proyectos Académicos con botón al pie */}
+            {/* Proyectos */}
             <div className="space-y-3 pt-3 border-t border-blue-900/60">
               <span className="text-[11px] font-bold text-blue-200">Proyectos Académicos</span>
               {formData.projects.map((proj, idx) => (
@@ -621,7 +625,7 @@ export default function Home() {
             </div>
           </div>
 
-          {/* SECCIÓN 5: VOLUNTARIADO con botón al pie */}
+          {/* SECCIÓN 5: VOLUNTARIADO */}
           <div className="bg-blue-950/80 border border-blue-800 rounded-xl p-5 space-y-4 shadow-sm">
             <div className="flex justify-between items-center border-b border-blue-900 pb-2">
               <h2 className="text-xs font-extrabold uppercase tracking-widest text-amber-400 flex items-center gap-2">
@@ -649,7 +653,7 @@ export default function Home() {
 
         </div>
 
-        {/* PANEL DERECHO: Vista Previa con bloques diferenciados y títulos alineados por tabla nativa */}
+        {/* PANEL DERECHO: Vista Previa protegida contra títulos huérfanos y desajustes */}
         <div className="lg:col-span-7 bg-blue-950/90 p-6 rounded-2xl flex flex-col items-center shadow-2xl border border-blue-900 overflow-auto max-h-[88vh] print:p-0 print:m-0 print:bg-white print:overflow-visible print:max-h-none print:w-full print:shadow-none print:border-none">
           
           <div className="w-full flex justify-between items-center mb-4 print:hidden px-2 text-xs text-blue-200">
@@ -709,8 +713,8 @@ export default function Home() {
                   
                   {/* Perfil Profesional (Sección 2) */}
                   {(formData.profile || formData.softSkills || formData.toolsList.length > 0 || formData.languageList.length > 0) && (
-                    <div className="mb-5 print-atomic-item">
-                      <table style={{ width: '100%', borderCollapse: 'collapse', margin: '12px 0 10px 0' }} className="print-section-title">
+                    <div className="mb-5 print-atomic-item print-section-block">
+                      <table style={{ width: '100%', borderCollapse: 'collapse', margin: '14px 0 10px 0' }} className="print-section-title">
                         <tbody>
                           <tr>
                             <td style={{ width: '38%', verticalAlign: 'middle' }}><div style={{ height: '2px', background: '#fbbf24', width: '100%' }}></div></td>
@@ -768,10 +772,10 @@ export default function Home() {
                     </div>
                   )}
 
-                  {/* Formación (Sección 3 - Bloques diferenciados con espaciado óptimo) */}
+                  {/* Formación (Sección 3) */}
                   {formData.education.length > 0 && (
                     <div className="mb-5 pt-2 border-t border-slate-100">
-                      <table style={{ width: '100%', borderCollapse: 'collapse', margin: '12px 0 10px 0' }} className="print-section-title">
+                      <table style={{ width: '100%', borderCollapse: 'collapse', margin: '14px 0 10px 0' }} className="print-section-title">
                         <tbody>
                           <tr>
                             <td style={{ width: '38%', verticalAlign: 'middle' }}><div style={{ height: '2px', background: '#fbbf24', width: '100%' }}></div></td>
@@ -811,10 +815,10 @@ export default function Home() {
                     </div>
                   )}
 
-                  {/* Experiencia Profesional (Sección 4 - Bloques diferenciados) */}
+                  {/* Experiencia Profesional (Sección 4) */}
                   {(formData.experiences.length > 0 || formData.projects.length > 0) && (
                     <div className="mb-5 pt-2 border-t border-slate-100">
-                      <table style={{ width: '100%', borderCollapse: 'collapse', margin: '12px 0 10px 0' }} className="print-section-title">
+                      <table style={{ width: '100%', borderCollapse: 'collapse', margin: '14px 0 10px 0' }} className="print-section-title">
                         <tbody>
                           <tr>
                             <td style={{ width: '30%', verticalAlign: 'middle' }}><div style={{ height: '2px', background: '#fbbf24', width: '100%' }}></div></td>
@@ -871,10 +875,10 @@ export default function Home() {
                     </div>
                   )}
 
-                  {/* Voluntariado (Sección 5 - Bloques diferenciados) */}
+                  {/* Voluntariado (Sección 5) */}
                   {formData.volunteers.length > 0 && (
                     <div className="mb-5 pt-2 border-t border-slate-100">
-                      <table style={{ width: '100%', borderCollapse: 'collapse', margin: '12px 0 10px 0' }} className="print-section-title">
+                      <table style={{ width: '100%', borderCollapse: 'collapse', margin: '14px 0 10px 0' }} className="print-section-title">
                         <tbody>
                           <tr>
                             <td style={{ width: '38%', verticalAlign: 'middle' }}><div style={{ height: '2px', background: '#fbbf24', width: '100%' }}></div></td>
@@ -917,7 +921,7 @@ export default function Home() {
             <tfoot>
               <tr>
                 <td className="p-[1.2cm] pt-3">
-                  {/* Pie de página institucional simétrico */}
+                  {/* Pie de página institucional */}
                   <table style={{ width: '100%', borderCollapse: 'collapse' }}>
                     <tbody>
                       <tr>
