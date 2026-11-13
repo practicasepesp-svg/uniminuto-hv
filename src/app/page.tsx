@@ -35,7 +35,7 @@ export default function Home() {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  // Función para descargar PDF usando html2pdf.js con márgenes y control de saltos estrictos
+  // Función para descargar PDF optimizada con margen inferior de 2 cm y control de saltos
   const handleDownloadPDF = async () => {
     const element = document.getElementById("resume-preview-sheet");
     if (!element) return;
@@ -45,7 +45,7 @@ export default function Home() {
     const html2pdf = (await import("html2pdf.js")).default;
 
     const opt = {
-      margin:       [1, 1, 1, 1], // Margen estricto de 1 cm en todos los lados
+      margin:       [1, 1, 2, 1], // [Arriba, Izquierda, Abajo(2cm), Derecha]
       filename:     `Hoja_de_Vida_${formData.fullName ? formData.fullName.replace(/\s+/g, '_') : 'UNIMINUTO'}.pdf`,
       image:        { type: 'jpeg', quality: 0.98 },
       html2canvas:  { scale: 2, useCORS: true, letterRendering: true },
@@ -268,6 +268,10 @@ export default function Home() {
 
         @media print, screen {
           .print-atomic-item {
+            break-inside: avoid;
+            page-break-inside: avoid;
+          }
+          .print-section-container {
             break-inside: avoid;
             page-break-inside: avoid;
           }
@@ -854,9 +858,9 @@ export default function Home() {
                     </div>
                   )}
 
-                  {/* Voluntariado (Sección 5) */}
+                  {/* Voluntariado (Sección 5 - Sin subtítulo y protegida contra títulos huérfanos) */}
                   {formData.volunteers.length > 0 && (
-                    <div className="mb-5 pt-2 border-t border-slate-100">
+                    <div className="mb-5 pt-2 border-t border-slate-100 print-section-container">
                       <div className="relative flex items-center justify-center my-3 print-section-title">
                         <div className="absolute inset-0 flex items-center">
                           <div className="w-full h-[2px]" style={{ background: 'linear-gradient(to right, transparent, #fbbf24 30%, #fbbf24 70%, transparent)' }}></div>
@@ -864,7 +868,6 @@ export default function Home() {
                         <h3 className="relative px-4 bg-white text-[13px] font-extrabold uppercase text-blue-950 tracking-wider">Voluntariado</h3>
                       </div>
                       <div className="space-y-3">
-                        <span className="text-[11px] font-extrabold uppercase text-slate-700 block tracking-wide text-left border-b border-slate-200 pb-1 mb-2 print-section-title">Responsabilidad Social</span>
                         {formData.volunteers.map((vol, i) => (
                           <div key={i} className="text-[12px] space-y-1.5 print-atomic-item mb-3">
                             <div>
