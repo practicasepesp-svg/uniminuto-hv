@@ -35,7 +35,7 @@ export default function Home() {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  // Función para descargar PDF optimizada con márgenes y control de saltos
+  // Función para descargar PDF optimizada con flujo continuo por elementos individuales
   const handleDownloadPDF = async () => {
     const element = document.getElementById("resume-preview-sheet");
     if (!element) return;
@@ -50,7 +50,7 @@ export default function Home() {
       image:        { type: 'jpeg', quality: 0.98 },
       html2canvas:  { scale: 2, useCORS: true, letterRendering: true },
       jsPDF:        { unit: 'cm', format: 'letter', orientation: 'portrait' },
-      pagebreak:    { mode: ['css', 'legacy'], avoid: ['.print-atomic-item', 'tr'] }
+      pagebreak:    { mode: ['css', 'legacy'], avoid: ['.print-atomic-item'] }
     };
 
     html2pdf().from(element).set(opt).save();
@@ -268,10 +268,6 @@ export default function Home() {
 
         @media print, screen {
           .print-atomic-item {
-            break-inside: avoid;
-            page-break-inside: avoid;
-          }
-          .print-section-container {
             break-inside: avoid;
             page-break-inside: avoid;
           }
@@ -638,8 +634,8 @@ export default function Home() {
                 <input type="text" lang="es-CO" spellCheck={true} placeholder="Organización / Fundación" value={vol.organization} onChange={(e) => updateVolunteer(idx, "organization", e.target.value)} className="w-full p-2.5 text-[12px] bg-blue-950 border border-blue-800 rounded-lg text-white" />
                 <input type="text" lang="es-CO" spellCheck={true} placeholder="Rol / Actividad" value={vol.role} onChange={(e) => updateVolunteer(idx, "role", e.target.value)} className="w-full p-2.5 text-[12px] bg-blue-950 border border-blue-800 rounded-lg text-white" />
                 <div className="grid grid-cols-2 gap-2">
-                  <input type="text" lang="es-CO" spellCheck={false} placeholder="Inicio" value={vol.startDate} onChange={(e) => updateVolunteer(idx, "startDate", e.target.value)} className="p-2.5 text-[12px] bg-blue-950 border border-blue-800 rounded-lg text-white" />
-                  <input type="text" lang="es-CO" spellCheck={false} placeholder="Fin" value={vol.endDate} onChange={(e) => updateVolunteer(idx, "endDate", e.target.value)} className="p-2.5 text-[12px] bg-blue-950 border border-blue-800 rounded-lg text-white" />
+                  <input type="text" lang="es-CO" spellCheck={false} placeholder="Inicio" value={vol.startDate} onChange={(e) => updateVolunteer(idx, "startDate", e.target.value)} className="w-full p-2.5 text-[12px] bg-blue-950 border border-blue-800 rounded-lg text-white" />
+                  <input type="text" lang="es-CO" spellCheck={false} placeholder="Fin" value={vol.endDate} onChange={(e) => updateVolunteer(idx, "endDate", e.target.value)} className="w-full p-2.5 text-[12px] bg-blue-950 border border-blue-800 rounded-lg text-white" />
                 </div>
                 <textarea lang="es-CO" spellCheck={true} placeholder="Funciones o aportes realizados..." rows={2} value={vol.description} onChange={(e) => updateVolunteer(idx, "description", e.target.value)} className="w-full p-2.5 text-[12px] bg-blue-950 border border-blue-800 rounded-lg text-white resize-none"></textarea>
               </div>
@@ -653,7 +649,7 @@ export default function Home() {
 
         </div>
 
-        {/* PANEL DERECHO: Vista Previa robusta y 100% alineada para impresión */}
+        {/* PANEL DERECHO: Vista Previa robusta y adaptada al flujo continuo */}
         <div className="lg:col-span-7 bg-blue-950/90 p-6 rounded-2xl flex flex-col items-center shadow-2xl border border-blue-900 overflow-auto max-h-[88vh] print:p-0 print:m-0 print:bg-white print:overflow-visible print:max-h-none print:w-full print:shadow-none print:border-none">
           
           <div className="w-full flex justify-between items-center mb-4 print:hidden px-2 text-xs text-blue-200">
@@ -769,9 +765,9 @@ export default function Home() {
                     </div>
                   )}
 
-                  {/* Formación (Sección 3) */}
+                  {/* Formación (Sección 3 - Cada item fluye individualmente) */}
                   {formData.education.length > 0 && (
-                    <div className="mb-5 pt-2 border-t border-slate-100 print-section-container">
+                    <div className="mb-5 pt-2 border-t border-slate-100">
                       <div className="my-3 text-center print-section-title">
                         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                           <hr style={{ flex: 1, border: 'none', height: '2px', background: '#fbbf24' }} />
@@ -812,7 +808,7 @@ export default function Home() {
 
                   {/* Experiencia Profesional (Sección 4) */}
                   {(formData.experiences.length > 0 || formData.projects.length > 0) && (
-                    <div className="mb-5 pt-2 border-t border-slate-100 print-section-container">
+                    <div className="mb-5 pt-2 border-t border-slate-100">
                       <div className="my-3 text-center print-section-title">
                         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                           <hr style={{ flex: 1, border: 'none', height: '2px', background: '#fbbf24' }} />
@@ -870,7 +866,7 @@ export default function Home() {
 
                   {/* Voluntariado (Sección 5) */}
                   {formData.volunteers.length > 0 && (
-                    <div className="mb-5 pt-2 border-t border-slate-100 print-section-container">
+                    <div className="mb-5 pt-2 border-t border-slate-100">
                       <div className="my-3 text-center print-section-title">
                         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                           <hr style={{ flex: 1, border: 'none', height: '2px', background: '#fbbf24' }} />
@@ -912,7 +908,7 @@ export default function Home() {
             <tfoot>
               <tr>
                 <td className="p-[1.2cm] pt-3">
-                  {/* Pie de página institucional con diseño de tabla simétrico para perfecto centrado */}
+                  {/* Pie de página institucional */}
                   <table style={{ width: '100%', borderCollapse: 'collapse' }}>
                     <tbody>
                       <tr>
