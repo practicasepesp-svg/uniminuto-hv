@@ -35,7 +35,7 @@ export default function Home() {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  // Función para descargar PDF optimizada con flujo continuo por elementos individuales
+  // Función para descargar PDF optimizada
   const handleDownloadPDF = async () => {
     const element = document.getElementById("resume-preview-sheet");
     if (!element) return;
@@ -338,7 +338,7 @@ export default function Home() {
       {/* Contenedor principal */}
       <div className="flex-1 max-w-[1800px] w-full mx-auto p-4 lg:p-6 grid grid-cols-1 lg:grid-cols-12 gap-6 items-start print:block print:p-0 print:m-0 print:w-full print:max-w-none">
         
-        {/* PANEL IZQUIERDO: Formulario con botones ubicados al pie de cada subsección */}
+        {/* PANEL IZQUIERDO: Formulario con textarea ampliado para funciones */}
         <div className="lg:col-span-5 bg-blue-900/90 backdrop-blur-md rounded-2xl shadow-2xl border border-blue-800/80 overflow-hidden print:hidden flex flex-col max-h-[88vh] overflow-y-auto p-6 space-y-6">
           
           {/* SECCIÓN 1: INFORMACIÓN PERSONAL */}
@@ -573,7 +573,7 @@ export default function Home() {
             </div>
           </div>
 
-          {/* SECCIÓN 4: EXPERIENCIA PROFESIONAL */}
+          {/* SECCIÓN 4: EXPERIENCIA PROFESIONAL (Textarea ampliado rows={4} para funciones cómodas) */}
           <div className="bg-blue-950/80 border border-blue-800 rounded-xl p-5 space-y-4 shadow-sm">
             <h2 className="text-xs font-extrabold uppercase tracking-widest text-amber-400 flex items-center gap-2 border-b border-blue-900 pb-2">
               <Briefcase size={15}/> 4. Experiencia Profesional
@@ -591,7 +591,7 @@ export default function Home() {
                     <input type="text" lang="es-CO" spellCheck={false} placeholder="Inicio" value={exp.startDate} onChange={(e) => updateExperience(idx, "startDate", e.target.value)} className="p-2 text-[12px] bg-blue-950 border border-blue-800 rounded text-white" />
                     <input type="text" lang="es-CO" spellCheck={false} placeholder="Fin (Actual)" value={exp.endDate} onChange={(e) => updateExperience(idx, "endDate", e.target.value)} className="p-2 text-[12px] bg-blue-950 border border-blue-800 rounded text-white" />
                   </div>
-                  <textarea lang="es-CO" spellCheck={true} placeholder="Funciones (separadas por saltos de línea)..." rows={2} value={exp.description} onChange={(e) => updateExperience(idx, "description", e.target.value)} className="w-full p-2 text-[12px] bg-blue-950 border border-blue-800 rounded text-white resize-none"></textarea>
+                  <textarea lang="es-CO" spellCheck={true} placeholder="Escribe aquí tus funciones (cada línea será un punto numerado)..." rows={4} value={exp.description} onChange={(e) => updateExperience(idx, "description", e.target.value)} className="w-full p-2.5 text-[12px] bg-blue-950 border border-blue-800 rounded text-white resize-y"></textarea>
                 </div>
               ))}
               <div className="flex justify-end pt-1">
@@ -610,7 +610,7 @@ export default function Home() {
                   <input type="text" lang="es-CO" spellCheck={true} placeholder="Nombre del Proyecto" value={proj.name} onChange={(e) => updateProject(idx, "name", e.target.value)} className="w-full p-2 text-[12px] bg-blue-950 border border-blue-800 rounded text-white" />
                   <input type="text" lang="es-CO" spellCheck={true} placeholder="Rol / Participación" value={proj.role} onChange={(e) => updateProject(idx, "role", e.target.value)} className="w-full p-2 text-[12px] bg-blue-950 border border-blue-800 rounded text-white" />
                   <input type="text" lang="es-CO" spellCheck={false} placeholder="Enlace (GitHub / Demo)" value={proj.url || ""} onChange={(e) => updateProject(idx, "url", e.target.value)} className="w-full p-2 text-[12px] bg-blue-950 border border-blue-800 rounded text-white" />
-                  <textarea lang="es-CO" spellCheck={true} placeholder="Descripción del proyecto..." rows={2} value={proj.description} onChange={(e) => updateProject(idx, "description", e.target.value)} className="w-full p-2 text-[12px] bg-blue-950 border border-blue-800 rounded text-white resize-none"></textarea>
+                  <textarea lang="es-CO" spellCheck={true} placeholder="Descripción del proyecto..." rows={3} value={proj.description} onChange={(e) => updateProject(idx, "description", e.target.value)} className="w-full p-2.5 text-[12px] bg-blue-950 border border-blue-800 rounded text-white resize-y"></textarea>
                 </div>
               ))}
               <div className="flex justify-end pt-1">
@@ -634,10 +634,10 @@ export default function Home() {
                 <input type="text" lang="es-CO" spellCheck={true} placeholder="Organización / Fundación" value={vol.organization} onChange={(e) => updateVolunteer(idx, "organization", e.target.value)} className="w-full p-2.5 text-[12px] bg-blue-950 border border-blue-800 rounded-lg text-white" />
                 <input type="text" lang="es-CO" spellCheck={true} placeholder="Rol / Actividad" value={vol.role} onChange={(e) => updateVolunteer(idx, "role", e.target.value)} className="w-full p-2.5 text-[12px] bg-blue-950 border border-blue-800 rounded-lg text-white" />
                 <div className="grid grid-cols-2 gap-2">
-                  <input type="text" lang="es-CO" spellCheck={false} placeholder="Inicio" value={vol.startDate} onChange={(e) => updateVolunteer(idx, "startDate", e.target.value)} className="w-full p-2.5 text-[12px] bg-blue-950 border border-blue-800 rounded-lg text-white" />
-                  <input type="text" lang="es-CO" spellCheck={false} placeholder="Fin" value={vol.endDate} onChange={(e) => updateVolunteer(idx, "endDate", e.target.value)} className="w-full p-2.5 text-[12px] bg-blue-950 border border-blue-800 rounded-lg text-white" />
+                  <input type="text" lang="es-CO" spellCheck={false} placeholder="Inicio" value={vol.startDate} onChange={(e) => updateVolunteer(idx, "startDate", e.target.value)} className="p-2.5 text-[12px] bg-blue-950 border border-blue-800 rounded-lg text-white" />
+                  <input type="text" lang="es-CO" spellCheck={false} placeholder="Fin" value={vol.endDate} onChange={(e) => updateVolunteer(idx, "endDate", e.target.value)} className="p-2.5 text-[12px] bg-blue-950 border border-blue-800 rounded-lg text-white" />
                 </div>
-                <textarea lang="es-CO" spellCheck={true} placeholder="Funciones o aportes realizados..." rows={2} value={vol.description} onChange={(e) => updateVolunteer(idx, "description", e.target.value)} className="w-full p-2.5 text-[12px] bg-blue-950 border border-blue-800 rounded-lg text-white resize-none"></textarea>
+                <textarea lang="es-CO" spellCheck={true} placeholder="Funciones o aportes realizados..." rows={3} value={vol.description} onChange={(e) => updateVolunteer(idx, "description", e.target.value)} className="w-full p-2.5 text-[12px] bg-blue-950 border border-blue-800 rounded-lg text-white resize-y"></textarea>
               </div>
             ))}
             <div className="flex justify-end pt-1">
@@ -649,7 +649,7 @@ export default function Home() {
 
         </div>
 
-        {/* PANEL DERECHO: Vista Previa robusta y adaptada al flujo continuo */}
+        {/* PANEL DERECHO: Vista Previa con bloques diferenciados y títulos alineados por tabla nativa */}
         <div className="lg:col-span-7 bg-blue-950/90 p-6 rounded-2xl flex flex-col items-center shadow-2xl border border-blue-900 overflow-auto max-h-[88vh] print:p-0 print:m-0 print:bg-white print:overflow-visible print:max-h-none print:w-full print:shadow-none print:border-none">
           
           <div className="w-full flex justify-between items-center mb-4 print:hidden px-2 text-xs text-blue-200">
@@ -710,13 +710,16 @@ export default function Home() {
                   {/* Perfil Profesional (Sección 2) */}
                   {(formData.profile || formData.softSkills || formData.toolsList.length > 0 || formData.languageList.length > 0) && (
                     <div className="mb-5 print-atomic-item">
-                      <div className="my-3 text-center print-section-title">
-                        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                          <hr style={{ flex: 1, border: 'none', height: '2px', background: '#fbbf24' }} />
-                          <h3 className="px-4 text-[13px] font-extrabold uppercase text-blue-950 tracking-wider">Perfil Profesional</h3>
-                          <hr style={{ flex: 1, border: 'none', height: '2px', background: '#fbbf24' }} />
-                        </div>
-                      </div>
+                      <table style={{ width: '100%', borderCollapse: 'collapse', margin: '12px 0 10px 0' }} className="print-section-title">
+                        <tbody>
+                          <tr>
+                            <td style={{ width: '38%', verticalAlign: 'middle' }}><div style={{ height: '2px', background: '#fbbf24', width: '100%' }}></div></td>
+                            <td style={{ width: '24%', textAlign: 'center', whiteSpace: 'nowrap', padding: '0 8px', fontSize: '13px', fontWeight: 800, textTransform: 'uppercase', color: '#020617', letterSpacing: '0.05em' }}>Perfil Profesional</td>
+                            <td style={{ width: '38%', verticalAlign: 'middle' }}><div style={{ height: '2px', background: '#fbbf24', width: '100%' }}></div></td>
+                          </tr>
+                        </tbody>
+                      </table>
+
                       {formData.profile && <p className="text-[12px] text-slate-700 text-justify leading-relaxed mb-3">{formData.profile}</p>}
                       
                       <table className="w-full text-[12px] mt-2 border-separate border-spacing-2">
@@ -765,21 +768,23 @@ export default function Home() {
                     </div>
                   )}
 
-                  {/* Formación (Sección 3 - Cada item fluye individualmente) */}
+                  {/* Formación (Sección 3 - Bloques diferenciados con espaciado óptimo) */}
                   {formData.education.length > 0 && (
                     <div className="mb-5 pt-2 border-t border-slate-100">
-                      <div className="my-3 text-center print-section-title">
-                        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                          <hr style={{ flex: 1, border: 'none', height: '2px', background: '#fbbf24' }} />
-                          <h3 className="px-4 text-[13px] font-extrabold uppercase text-blue-950 tracking-wider">Formación</h3>
-                          <hr style={{ flex: 1, border: 'none', height: '2px', background: '#fbbf24' }} />
-                        </div>
-                      </div>
+                      <table style={{ width: '100%', borderCollapse: 'collapse', margin: '12px 0 10px 0' }} className="print-section-title">
+                        <tbody>
+                          <tr>
+                            <td style={{ width: '38%', verticalAlign: 'middle' }}><div style={{ height: '2px', background: '#fbbf24', width: '100%' }}></div></td>
+                            <td style={{ width: '24%', textAlign: 'center', whiteSpace: 'nowrap', padding: '0 8px', fontSize: '13px', fontWeight: 800, textTransform: 'uppercase', color: '#020617', letterSpacing: '0.05em' }}>Formación</td>
+                            <td style={{ width: '38%', verticalAlign: 'middle' }}><div style={{ height: '2px', background: '#fbbf24', width: '100%' }}></div></td>
+                          </tr>
+                        </tbody>
+                      </table>
                       
                       <div className="space-y-3 mb-3">
                         <span className="text-[11px] font-extrabold uppercase text-slate-700 block tracking-wide text-left border-b border-slate-200 pb-1 mb-2 print-section-title">Académica</span>
                         {formData.education.map((edu, i) => (
-                          <div key={i} className="text-[12px] space-y-0.5 print-atomic-item mb-2">
+                          <div key={i} className="text-[12px] space-y-0.5 print-atomic-item mb-3.5 pb-2.5 border-b border-slate-50 last:border-b-0">
                             <span className="font-black text-slate-900 uppercase block">
                               {edu.degree || "Título a obtener / Programa"} <span className="font-normal text-blue-900 normal-case">({edu.level})</span>
                             </span>
@@ -795,7 +800,7 @@ export default function Home() {
                         <div className="space-y-3 pt-1">
                           <span className="text-[11px] font-extrabold uppercase text-slate-700 block tracking-wide text-left border-b border-slate-200 pb-1 mb-2 print-section-title">Complementaria</span>
                           {formData.complementaryEdu.map((comp, i) => (
-                            <div key={i} className="text-[12px] space-y-0.5 print-atomic-item mb-2">
+                            <div key={i} className="text-[12px] space-y-0.5 print-atomic-item mb-3.5 pb-2.5 border-b border-slate-50 last:border-b-0">
                               <span className="font-black text-slate-900 uppercase block">{comp.title || "Curso o Taller"}</span>
                               <span className="text-blue-900 font-semibold block capitalize">{comp.institution || "Institución"}</span>
                               <span className="text-slate-500 block text-[11px]">{comp.year}</span>
@@ -806,22 +811,24 @@ export default function Home() {
                     </div>
                   )}
 
-                  {/* Experiencia Profesional (Sección 4) */}
+                  {/* Experiencia Profesional (Sección 4 - Bloques diferenciados) */}
                   {(formData.experiences.length > 0 || formData.projects.length > 0) && (
                     <div className="mb-5 pt-2 border-t border-slate-100">
-                      <div className="my-3 text-center print-section-title">
-                        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                          <hr style={{ flex: 1, border: 'none', height: '2px', background: '#fbbf24' }} />
-                          <h3 className="px-4 text-[13px] font-extrabold uppercase text-blue-950 tracking-wider">Experiencia Profesional</h3>
-                          <hr style={{ flex: 1, border: 'none', height: '2px', background: '#fbbf24' }} />
-                        </div>
-                      </div>
+                      <table style={{ width: '100%', borderCollapse: 'collapse', margin: '12px 0 10px 0' }} className="print-section-title">
+                        <tbody>
+                          <tr>
+                            <td style={{ width: '30%', verticalAlign: 'middle' }}><div style={{ height: '2px', background: '#fbbf24', width: '100%' }}></div></td>
+                            <td style={{ width: '40%', textAlign: 'center', whiteSpace: 'nowrap', padding: '0 8px', fontSize: '13px', fontWeight: 800, textTransform: 'uppercase', color: '#020617', letterSpacing: '0.05em' }}>Experiencia Profesional</td>
+                            <td style={{ width: '30%', verticalAlign: 'middle' }}><div style={{ height: '2px', background: '#fbbf24', width: '100%' }}></div></td>
+                          </tr>
+                        </tbody>
+                      </table>
                       
                       {formData.experiences.length > 0 && (
                         <div className="space-y-3 mb-3">
                           <span className="text-[11px] font-extrabold uppercase text-slate-700 block tracking-wide text-left border-b border-slate-200 pb-1 mb-2 print-section-title">Laboral</span>
                           {formData.experiences.map((exp, i) => (
-                            <div key={i} className="text-[12px] space-y-1.5 print-atomic-item mb-3">
+                            <div key={i} className="text-[12px] space-y-1.5 print-atomic-item mb-4 pb-3 border-b border-slate-100 last:border-b-0">
                               <div>
                                 <span className="font-black text-slate-900 uppercase block">{exp.position || "Cargo"}</span>
                                 <span className="text-blue-900 font-semibold block capitalize">{exp.company || "Empresa"}</span>
@@ -849,7 +856,7 @@ export default function Home() {
                         <div className="space-y-3 pt-1">
                           <span className="text-[11px] font-extrabold uppercase text-slate-700 block tracking-wide text-left border-b border-slate-200 pb-1 mb-2 print-section-title">Proyectos Académicos</span>
                           {formData.projects.map((proj, i) => (
-                            <div key={i} className="text-[12px] space-y-1.5 print-atomic-item mb-3">
+                            <div key={i} className="text-[12px] space-y-1.5 print-atomic-item mb-4 pb-3 border-b border-slate-100 last:border-b-0">
                               <div>
                                 <span className="font-black text-slate-900 uppercase block">
                                   {proj.name || "Proyecto"} {proj.url && <a href={proj.url.startsWith('http://') || proj.url.startsWith('https://') ? proj.url : `https://${proj.url}`} target="_blank" rel="noopener noreferrer" className="font-normal text-blue-600 underline lowercase">({proj.url})</a>}
@@ -864,19 +871,21 @@ export default function Home() {
                     </div>
                   )}
 
-                  {/* Voluntariado (Sección 5) */}
+                  {/* Voluntariado (Sección 5 - Bloques diferenciados) */}
                   {formData.volunteers.length > 0 && (
                     <div className="mb-5 pt-2 border-t border-slate-100">
-                      <div className="my-3 text-center print-section-title">
-                        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                          <hr style={{ flex: 1, border: 'none', height: '2px', background: '#fbbf24' }} />
-                          <h3 className="px-4 text-[13px] font-extrabold uppercase text-blue-950 tracking-wider">Voluntariado</h3>
-                          <hr style={{ flex: 1, border: 'none', height: '2px', background: '#fbbf24' }} />
-                        </div>
-                      </div>
+                      <table style={{ width: '100%', borderCollapse: 'collapse', margin: '12px 0 10px 0' }} className="print-section-title">
+                        <tbody>
+                          <tr>
+                            <td style={{ width: '38%', verticalAlign: 'middle' }}><div style={{ height: '2px', background: '#fbbf24', width: '100%' }}></div></td>
+                            <td style={{ width: '24%', textAlign: 'center', whiteSpace: 'nowrap', padding: '0 8px', fontSize: '13px', fontWeight: 800, textTransform: 'uppercase', color: '#020617', letterSpacing: '0.05em' }}>Voluntariado</td>
+                            <td style={{ width: '38%', verticalAlign: 'middle' }}><div style={{ height: '2px', background: '#fbbf24', width: '100%' }}></div></td>
+                          </tr>
+                        </tbody>
+                      </table>
                       <div className="space-y-3">
                         {formData.volunteers.map((vol, i) => (
-                          <div key={i} className="text-[12px] space-y-1.5 print-atomic-item mb-3">
+                          <div key={i} className="text-[12px] space-y-1.5 print-atomic-item mb-4 pb-3 border-b border-slate-100 last:border-b-0">
                             <div>
                               <span className="font-black text-slate-900 uppercase block">{vol.role || "Rol"}</span>
                               <span className="text-blue-900 font-semibold block capitalize">{vol.organization || "Organización"}</span>
@@ -908,7 +917,7 @@ export default function Home() {
             <tfoot>
               <tr>
                 <td className="p-[1.2cm] pt-3">
-                  {/* Pie de página institucional */}
+                  {/* Pie de página institucional simétrico */}
                   <table style={{ width: '100%', borderCollapse: 'collapse' }}>
                     <tbody>
                       <tr>
