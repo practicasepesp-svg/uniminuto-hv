@@ -50,7 +50,7 @@ export default function Home() {
       image:        { type: 'jpeg', quality: 0.98 },
       html2canvas:  { scale: 2, useCORS: true, letterRendering: true },
       jsPDF:        { unit: 'cm', format: 'letter', orientation: 'portrait' },
-      pagebreak:    { mode: ['css', 'legacy'], avoid: ['.print-atomic-item', '.print-section-block'] }
+      pagebreak:    { mode: ['css', 'legacy'], avoid: ['.print-atomic-item'] }
     };
 
     html2pdf().from(element).set(opt).save();
@@ -270,15 +270,7 @@ export default function Home() {
           .print-atomic-item {
             break-inside: avoid;
             page-break-inside: avoid;
-          }
-          .print-section-title {
-            break-after: avoid;
-            page-break-after: avoid;
-            break-inside: avoid;
-          }
-          .print-section-block {
-            break-inside: avoid;
-            page-break-inside: avoid;
+            display: block;
           }
         }
 
@@ -404,7 +396,7 @@ export default function Home() {
               />
             </div>
 
-            {/* Enlaces / Portafolios múltiples */}
+            {/* Enlaces / Portafolios */}
             <div className="space-y-3 pt-2 border-t border-blue-900/60">
               <span className="text-[11px] font-bold text-blue-200 flex items-center gap-1"><LinkIcon size={13}/> Enlaces y Portafolios</span>
               {formData.links.map((link, idx) => (
@@ -653,7 +645,7 @@ export default function Home() {
 
         </div>
 
-        {/* PANEL DERECHO: Vista Previa protegida contra títulos huérfanos y desajustes */}
+        {/* PANEL DERECHO: Vista Previa blindada contra huérfanos */}
         <div className="lg:col-span-7 bg-blue-950/90 p-6 rounded-2xl flex flex-col items-center shadow-2xl border border-blue-900 overflow-auto max-h-[88vh] print:p-0 print:m-0 print:bg-white print:overflow-visible print:max-h-none print:w-full print:shadow-none print:border-none">
           
           <div className="w-full flex justify-between items-center mb-4 print:hidden px-2 text-xs text-blue-200">
@@ -713,13 +705,13 @@ export default function Home() {
                   
                   {/* Perfil Profesional (Sección 2) */}
                   {(formData.profile || formData.softSkills || formData.toolsList.length > 0 || formData.languageList.length > 0) && (
-                    <div className="mb-5 print-atomic-item print-section-block">
-                      <table style={{ width: '100%', borderCollapse: 'collapse', margin: '14px 0 10px 0' }} className="print-section-title">
+                    <div className="mb-5 print-atomic-item">
+                      <table style={{ width: '100%', borderCollapse: 'collapse', margin: '14px 0 10px 0' }}>
                         <tbody>
                           <tr>
-                            <td style={{ width: '38%', verticalAlign: 'middle' }}><div style={{ height: '2px', background: '#fbbf24', width: '100%' }}></div></td>
+                            <td style={{ width: '38%', verticalAlign: 'middle', padding: 0 }}><div style={{ height: '2px', background: '#fbbf24', width: '100%' }}></div></td>
                             <td style={{ width: '24%', textAlign: 'center', whiteSpace: 'nowrap', padding: '0 8px', fontSize: '13px', fontWeight: 800, textTransform: 'uppercase', color: '#020617', letterSpacing: '0.05em' }}>Perfil Profesional</td>
-                            <td style={{ width: '38%', verticalAlign: 'middle' }}><div style={{ height: '2px', background: '#fbbf24', width: '100%' }}></div></td>
+                            <td style={{ width: '38%', verticalAlign: 'middle', padding: 0 }}><div style={{ height: '2px', background: '#fbbf24', width: '100%' }}></div></td>
                           </tr>
                         </tbody>
                       </table>
@@ -775,18 +767,22 @@ export default function Home() {
                   {/* Formación (Sección 3) */}
                   {formData.education.length > 0 && (
                     <div className="mb-5 pt-2 border-t border-slate-100">
-                      <table style={{ width: '100%', borderCollapse: 'collapse', margin: '14px 0 10px 0' }} className="print-section-title">
-                        <tbody>
-                          <tr>
-                            <td style={{ width: '38%', verticalAlign: 'middle' }}><div style={{ height: '2px', background: '#fbbf24', width: '100%' }}></div></td>
-                            <td style={{ width: '24%', textAlign: 'center', whiteSpace: 'nowrap', padding: '0 8px', fontSize: '13px', fontWeight: 800, textTransform: 'uppercase', color: '#020617', letterSpacing: '0.05em' }}>Formación</td>
-                            <td style={{ width: '38%', verticalAlign: 'middle' }}><div style={{ height: '2px', background: '#fbbf24', width: '100%' }}></div></td>
-                          </tr>
-                        </tbody>
-                      </table>
+                      <div className="print-atomic-item">
+                        <table style={{ width: '100%', borderCollapse: 'collapse', margin: '14px 0 10px 0' }}>
+                          <tbody>
+                            <tr>
+                              <td style={{ width: '38%', verticalAlign: 'middle', padding: 0 }}><div style={{ height: '2px', background: '#fbbf24', width: '100%' }}></div></td>
+                              <td style={{ width: '24%', textAlign: 'center', whiteSpace: 'nowrap', padding: '0 8px', fontSize: '13px', fontWeight: 800, textTransform: 'uppercase', color: '#020617', letterSpacing: '0.05em' }}>Formación</td>
+                              <td style={{ width: '38%', verticalAlign: 'middle', padding: 0 }}><div style={{ height: '2px', background: '#fbbf24', width: '100%' }}></div></td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
                       
                       <div className="space-y-3 mb-3">
-                        <span className="text-[11px] font-extrabold uppercase text-slate-700 block tracking-wide text-left border-b border-slate-200 pb-1 mb-2 print-section-title">Académica</span>
+                        <div className="print-atomic-item">
+                          <span className="text-[11px] font-extrabold uppercase text-slate-700 block tracking-wide text-left border-b border-slate-200 pb-1 mb-2">Académica</span>
+                        </div>
                         {formData.education.map((edu, i) => (
                           <div key={i} className="text-[12px] space-y-0.5 print-atomic-item mb-3.5 pb-2.5 border-b border-slate-50 last:border-b-0">
                             <span className="font-black text-slate-900 uppercase block">
@@ -802,12 +798,17 @@ export default function Home() {
 
                       {formData.complementaryEdu.length > 0 && (
                         <div className="space-y-3 pt-1">
-                          <span className="text-[11px] font-extrabold uppercase text-slate-700 block tracking-wide text-left border-b border-slate-200 pb-1 mb-2 print-section-title">Complementaria</span>
+                          {/* Subtítulo Complementaria envuelto con el primer curso para evitar huérfanos */}
                           {formData.complementaryEdu.map((comp, i) => (
-                            <div key={i} className="text-[12px] space-y-0.5 print-atomic-item mb-3.5 pb-2.5 border-b border-slate-50 last:border-b-0">
-                              <span className="font-black text-slate-900 uppercase block">{comp.title || "Curso o Taller"}</span>
-                              <span className="text-blue-900 font-semibold block capitalize">{comp.institution || "Institución"}</span>
-                              <span className="text-slate-500 block text-[11px]">{comp.year}</span>
+                            <div key={i} className={i === 0 ? "print-atomic-item" : "print-atomic-item mb-3.5 pb-2.5 border-b border-slate-50 last:border-b-0"}>
+                              {i === 0 && (
+                                <span className="text-[11px] font-extrabold uppercase text-slate-700 block tracking-wide text-left border-b border-slate-200 pb-1 mb-2">Complementaria</span>
+                              )}
+                              <div className="text-[12px] space-y-0.5 mb-3.5 pb-2.5 border-b border-slate-50 last:border-b-0">
+                                <span className="font-black text-slate-900 uppercase block">{comp.title || "Curso o Taller"}</span>
+                                <span className="text-blue-900 font-semibold block capitalize">{comp.institution || "Institución"}</span>
+                                <span className="text-slate-500 block text-[11px]">{comp.year}</span>
+                              </div>
                             </div>
                           ))}
                         </div>
@@ -818,29 +819,99 @@ export default function Home() {
                   {/* Experiencia Profesional (Sección 4) */}
                   {(formData.experiences.length > 0 || formData.projects.length > 0) && (
                     <div className="mb-5 pt-2 border-t border-slate-100">
-                      <table style={{ width: '100%', borderCollapse: 'collapse', margin: '14px 0 10px 0' }} className="print-section-title">
-                        <tbody>
-                          <tr>
-                            <td style={{ width: '30%', verticalAlign: 'middle' }}><div style={{ height: '2px', background: '#fbbf24', width: '100%' }}></div></td>
-                            <td style={{ width: '40%', textAlign: 'center', whiteSpace: 'nowrap', padding: '0 8px', fontSize: '13px', fontWeight: 800, textTransform: 'uppercase', color: '#020617', letterSpacing: '0.05em' }}>Experiencia Profesional</td>
-                            <td style={{ width: '30%', verticalAlign: 'middle' }}><div style={{ height: '2px', background: '#fbbf24', width: '100%' }}></div></td>
-                          </tr>
-                        </tbody>
-                      </table>
+                      <div className="print-atomic-item">
+                        <table style={{ width: '100%', borderCollapse: 'collapse', margin: '14px 0 10px 0' }}>
+                          <tbody>
+                            <tr>
+                              <td style={{ width: '30%', verticalAlign: 'middle', padding: 0 }}><div style={{ height: '2px', background: '#fbbf24', width: '100%' }}></div></td>
+                              <td style={{ width: '40%', textAlign: 'center', whiteSpace: 'nowrap', padding: '0 8px', fontSize: '13px', fontWeight: 800, textTransform: 'uppercase', color: '#020617', letterSpacing: '0.05em' }}>Experiencia Profesional</td>
+                              <td style={{ width: '30%', verticalAlign: 'middle', padding: 0 }}><div style={{ height: '2px', background: '#fbbf24', width: '100%' }}></div></td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
                       
                       {formData.experiences.length > 0 && (
                         <div className="space-y-3 mb-3">
-                          <span className="text-[11px] font-extrabold uppercase text-slate-700 block tracking-wide text-left border-b border-slate-200 pb-1 mb-2 print-section-title">Laboral</span>
                           {formData.experiences.map((exp, i) => (
-                            <div key={i} className="text-[12px] space-y-1.5 print-atomic-item mb-4 pb-3 border-b border-slate-100 last:border-b-0">
+                            <div key={i} className={i === 0 ? "print-atomic-item" : "print-atomic-item mb-4 pb-3 border-b border-slate-100 last:border-b-0"}>
+                              {i === 0 && (
+                                <span className="text-[11px] font-extrabold uppercase text-slate-700 block tracking-wide text-left border-b border-slate-200 pb-1 mb-2">Laboral</span>
+                              )}
+                              <div className="text-[12px] space-y-1.5 mb-4 pb-3 border-b border-slate-100 last:border-b-0">
+                                <div>
+                                  <span className="font-black text-slate-900 uppercase block">{exp.position || "Cargo"}</span>
+                                  <span className="text-blue-900 font-semibold block capitalize">{exp.company || "Empresa"}</span>
+                                  <span className="text-slate-500 block text-[11px]">{exp.startDate} {exp.endDate ? `- ${exp.endDate}` : ""}</span>
+                                </div>
+                                <table className="w-full text-slate-700 leading-relaxed" style={{ borderCollapse: 'collapse', marginTop: '4px' }}>
+                                  <tbody>
+                                    {exp.description.split(/\n/).map((item, idx) => {
+                                      const trimmed = item.trim();
+                                      return trimmed ? (
+                                        <tr key={idx} className="print-atomic-item">
+                                          <td style={{ width: '1cm', verticalAlign: 'top', fontWeight: 600, paddingBottom: '3px' }}>{idx + 1}.</td>
+                                          <td style={{ verticalAlign: 'top', paddingBottom: '3px', textAlign: 'justify' }}>{trimmed}</td>
+                                        </tr>
+                                      ) : null;
+                                    })}
+                                  </tbody>
+                                </table>
+                              </div>
+                            </div>
+                          ))}
+                        </div>
+                      )}
+
+                      {formData.projects.length > 0 && (
+                        <div className="space-y-3 pt-1">
+                          {formData.projects.map((proj, i) => (
+                            <div key={i} className={i === 0 ? "print-atomic-item" : "print-atomic-item mb-4 pb-3 border-b border-slate-100 last:border-b-0"}>
+                              {i === 0 && (
+                                <span className="text-[11px] font-extrabold uppercase text-slate-700 block tracking-wide text-left border-b border-slate-200 pb-1 mb-2">Proyectos Académicos</span>
+                              )}
+                              <div className="text-[12px] space-y-1.5 mb-4 pb-3 border-b border-slate-100 last:border-b-0">
+                                <div>
+                                  <span className="font-black text-slate-900 uppercase block">
+                                    {proj.name || "Proyecto"} {proj.url && <a href={proj.url.startsWith('http://') || proj.url.startsWith('https://') ? proj.url : `https://${proj.url}`} target="_blank" rel="noopener noreferrer" className="font-normal text-blue-600 underline lowercase">({proj.url})</a>}
+                                  </span>
+                                  <span className="text-blue-900 font-semibold block capitalize">{proj.role || "Rol"}</span>
+                                </div>
+                                <p className="text-slate-700 leading-relaxed text-justify" style={{ paddingLeft: '1cm' }}>{proj.description}</p>
+                              </div>
+                            </div>
+                          ))}
+                        </div>
+                      )}
+                    </div>
+                  )}
+
+                  {/* Voluntariado (Sección 5 - Título Principal y primer ítem unidos) */}
+                  {formData.volunteers.length > 0 && (
+                    <div className="mb-5 pt-2 border-t border-slate-100">
+                      <div className="space-y-3">
+                        {formData.volunteers.map((vol, i) => (
+                          <div key={i} className={i === 0 ? "print-atomic-item" : "print-atomic-item mb-4 pb-3 border-b border-slate-100 last:border-b-0"}>
+                            {i === 0 && (
+                              <table style={{ width: '100%', borderCollapse: 'collapse', margin: '14px 0 10px 0' }}>
+                                <tbody>
+                                  <tr>
+                                    <td style={{ width: '38%', verticalAlign: 'middle', padding: 0 }}><div style={{ height: '2px', background: '#fbbf24', width: '100%' }}></div></td>
+                                    <td style={{ width: '24%', textAlign: 'center', whiteSpace: 'nowrap', padding: '0 8px', fontSize: '13px', fontWeight: 800, textTransform: 'uppercase', color: '#020617', letterSpacing: '0.05em' }}>Voluntariado</td>
+                                    <td style={{ width: '38%', verticalAlign: 'middle', padding: 0 }}><div style={{ height: '2px', background: '#fbbf24', width: '100%' }}></div></td>
+                                  </tr>
+                                </tbody>
+                              </table>
+                            )}
+                            <div className="text-[12px] space-y-1.5 mb-4 pb-3 border-b border-slate-100 last:border-b-0">
                               <div>
-                                <span className="font-black text-slate-900 uppercase block">{exp.position || "Cargo"}</span>
-                                <span className="text-blue-900 font-semibold block capitalize">{exp.company || "Empresa"}</span>
-                                <span className="text-slate-500 block text-[11px]">{exp.startDate} {exp.endDate ? `- ${exp.endDate}` : ""}</span>
+                                <span className="font-black text-slate-900 uppercase block">{vol.role || "Rol"}</span>
+                                <span className="text-blue-900 font-semibold block capitalize">{vol.organization || "Organización"}</span>
+                                <span className="text-slate-500 block text-[11px]">{vol.startDate} {vol.endDate ? `- ${vol.endDate}` : ""}</span>
                               </div>
                               <table className="w-full text-slate-700 leading-relaxed" style={{ borderCollapse: 'collapse', marginTop: '4px' }}>
                                 <tbody>
-                                  {exp.description.split(/\n/).map((item, idx) => {
+                                  {vol.description.split(/\n/).map((item, idx) => {
                                     const trimmed = item.trim();
                                     return trimmed ? (
                                       <tr key={idx} className="print-atomic-item">
@@ -852,62 +923,6 @@ export default function Home() {
                                 </tbody>
                               </table>
                             </div>
-                          ))}
-                        </div>
-                      )}
-
-                      {formData.projects.length > 0 && (
-                        <div className="space-y-3 pt-1">
-                          <span className="text-[11px] font-extrabold uppercase text-slate-700 block tracking-wide text-left border-b border-slate-200 pb-1 mb-2 print-section-title">Proyectos Académicos</span>
-                          {formData.projects.map((proj, i) => (
-                            <div key={i} className="text-[12px] space-y-1.5 print-atomic-item mb-4 pb-3 border-b border-slate-100 last:border-b-0">
-                              <div>
-                                <span className="font-black text-slate-900 uppercase block">
-                                  {proj.name || "Proyecto"} {proj.url && <a href={proj.url.startsWith('http://') || proj.url.startsWith('https://') ? proj.url : `https://${proj.url}`} target="_blank" rel="noopener noreferrer" className="font-normal text-blue-600 underline lowercase">({proj.url})</a>}
-                                </span>
-                                <span className="text-blue-900 font-semibold block capitalize">{proj.role || "Rol"}</span>
-                              </div>
-                              <p className="text-slate-700 leading-relaxed text-justify" style={{ paddingLeft: '1cm' }}>{proj.description}</p>
-                            </div>
-                          ))}
-                        </div>
-                      )}
-                    </div>
-                  )}
-
-                  {/* Voluntariado (Sección 5) */}
-                  {formData.volunteers.length > 0 && (
-                    <div className="mb-5 pt-2 border-t border-slate-100">
-                      <table style={{ width: '100%', borderCollapse: 'collapse', margin: '14px 0 10px 0' }} className="print-section-title">
-                        <tbody>
-                          <tr>
-                            <td style={{ width: '38%', verticalAlign: 'middle' }}><div style={{ height: '2px', background: '#fbbf24', width: '100%' }}></div></td>
-                            <td style={{ width: '24%', textAlign: 'center', whiteSpace: 'nowrap', padding: '0 8px', fontSize: '13px', fontWeight: 800, textTransform: 'uppercase', color: '#020617', letterSpacing: '0.05em' }}>Voluntariado</td>
-                            <td style={{ width: '38%', verticalAlign: 'middle' }}><div style={{ height: '2px', background: '#fbbf24', width: '100%' }}></div></td>
-                          </tr>
-                        </tbody>
-                      </table>
-                      <div className="space-y-3">
-                        {formData.volunteers.map((vol, i) => (
-                          <div key={i} className="text-[12px] space-y-1.5 print-atomic-item mb-4 pb-3 border-b border-slate-100 last:border-b-0">
-                            <div>
-                              <span className="font-black text-slate-900 uppercase block">{vol.role || "Rol"}</span>
-                              <span className="text-blue-900 font-semibold block capitalize">{vol.organization || "Organización"}</span>
-                              <span className="text-slate-500 block text-[11px]">{vol.startDate} {vol.endDate ? `- ${vol.endDate}` : ""}</span>
-                            </div>
-                            <table className="w-full text-slate-700 leading-relaxed" style={{ borderCollapse: 'collapse', marginTop: '4px' }}>
-                              <tbody>
-                                {vol.description.split(/\n/).map((item, idx) => {
-                                  const trimmed = item.trim();
-                                  return trimmed ? (
-                                    <tr key={idx} className="print-atomic-item">
-                                      <td style={{ width: '1cm', verticalAlign: 'top', fontWeight: 600, paddingBottom: '3px' }}>{idx + 1}.</td>
-                                      <td style={{ verticalAlign: 'top', paddingBottom: '3px', textAlign: 'justify' }}>{trimmed}</td>
-                                    </tr>
-                                  ) : null;
-                                })}
-                              </tbody>
-                            </table>
                           </div>
                         ))}
                       </div>
