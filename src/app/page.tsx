@@ -35,17 +35,17 @@ export default function Home() {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  // Función para descargar PDF optimizada con margen inferior de 2 cm y control de saltos
+  // Función para descargar PDF optimizada con márgenes y control de saltos
   const handleDownloadPDF = async () => {
     const element = document.getElementById("resume-preview-sheet");
     if (!element) return;
 
-    // Importación dinámica para evitar errores de SSR en Next.js y omitir el chequeo de TypeScript
+    // Importación dinámica para evitar errores de SSR en Next.js
     // @ts-ignore
     const html2pdf = (await import("html2pdf.js")).default;
 
     const opt = {
-      margin:       [1, 1, 2, 1], // [Arriba, Izquierda, Abajo(2cm), Derecha]
+      margin:       [1, 1, 2, 1],
       filename:     `Hoja_de_Vida_${formData.fullName ? formData.fullName.replace(/\s+/g, '_') : 'UNIMINUTO'}.pdf`,
       image:        { type: 'jpeg', quality: 0.98 },
       html2canvas:  { scale: 2, useCORS: true, letterRendering: true },
@@ -653,7 +653,7 @@ export default function Home() {
 
         </div>
 
-        {/* PANEL DERECHO: Vista Previa con el ID requerido para html2pdf */}
+        {/* PANEL DERECHO: Vista Previa robusta y 100% alineada para impresión */}
         <div className="lg:col-span-7 bg-blue-950/90 p-6 rounded-2xl flex flex-col items-center shadow-2xl border border-blue-900 overflow-auto max-h-[88vh] print:p-0 print:m-0 print:bg-white print:overflow-visible print:max-h-none print:w-full print:shadow-none print:border-none">
           
           <div className="w-full flex justify-between items-center mb-4 print:hidden px-2 text-xs text-blue-200">
@@ -714,11 +714,12 @@ export default function Home() {
                   {/* Perfil Profesional (Sección 2) */}
                   {(formData.profile || formData.softSkills || formData.toolsList.length > 0 || formData.languageList.length > 0) && (
                     <div className="mb-5 print-atomic-item">
-                      <div className="relative flex items-center justify-center my-3 print-section-title">
-                        <div className="absolute inset-0 flex items-center">
-                          <div className="w-full h-[2px]" style={{ background: 'linear-gradient(to right, transparent, #fbbf24 30%, #fbbf24 70%, transparent)' }}></div>
+                      <div className="my-3 text-center print-section-title">
+                        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                          <hr style={{ flex: 1, border: 'none', height: '2px', background: '#fbbf24' }} />
+                          <h3 className="px-4 text-[13px] font-extrabold uppercase text-blue-950 tracking-wider">Perfil Profesional</h3>
+                          <hr style={{ flex: 1, border: 'none', height: '2px', background: '#fbbf24' }} />
                         </div>
-                        <h3 className="relative px-4 bg-white text-[13px] font-extrabold uppercase text-blue-950 tracking-wider">Perfil Profesional</h3>
                       </div>
                       {formData.profile && <p className="text-[12px] text-slate-700 text-justify leading-relaxed mb-3">{formData.profile}</p>}
                       
@@ -770,12 +771,13 @@ export default function Home() {
 
                   {/* Formación (Sección 3) */}
                   {formData.education.length > 0 && (
-                    <div className="mb-5 pt-2 border-t border-slate-100">
-                      <div className="relative flex items-center justify-center my-3 print-section-title">
-                        <div className="absolute inset-0 flex items-center">
-                          <div className="w-full h-[2px]" style={{ background: 'linear-gradient(to right, transparent, #fbbf24 30%, #fbbf24 70%, transparent)' }}></div>
+                    <div className="mb-5 pt-2 border-t border-slate-100 print-section-container">
+                      <div className="my-3 text-center print-section-title">
+                        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                          <hr style={{ flex: 1, border: 'none', height: '2px', background: '#fbbf24' }} />
+                          <h3 className="px-4 text-[13px] font-extrabold uppercase text-blue-950 tracking-wider">Formación</h3>
+                          <hr style={{ flex: 1, border: 'none', height: '2px', background: '#fbbf24' }} />
                         </div>
-                        <h3 className="relative px-4 bg-white text-[13px] font-extrabold uppercase text-blue-950 tracking-wider">Formación</h3>
                       </div>
                       
                       <div className="space-y-3 mb-3">
@@ -810,12 +812,13 @@ export default function Home() {
 
                   {/* Experiencia Profesional (Sección 4) */}
                   {(formData.experiences.length > 0 || formData.projects.length > 0) && (
-                    <div className="mb-5 pt-2 border-t border-slate-100">
-                      <div className="relative flex items-center justify-center my-3 print-section-title">
-                        <div className="absolute inset-0 flex items-center">
-                          <div className="w-full h-[2px]" style={{ background: 'linear-gradient(to right, transparent, #fbbf24 30%, #fbbf24 70%, transparent)' }}></div>
+                    <div className="mb-5 pt-2 border-t border-slate-100 print-section-container">
+                      <div className="my-3 text-center print-section-title">
+                        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                          <hr style={{ flex: 1, border: 'none', height: '2px', background: '#fbbf24' }} />
+                          <h3 className="px-4 text-[13px] font-extrabold uppercase text-blue-950 tracking-wider">Experiencia Profesional</h3>
+                          <hr style={{ flex: 1, border: 'none', height: '2px', background: '#fbbf24' }} />
                         </div>
-                        <h3 className="relative px-4 bg-white text-[13px] font-extrabold uppercase text-blue-950 tracking-wider">Experiencia Profesional</h3>
                       </div>
                       
                       {formData.experiences.length > 0 && (
@@ -828,12 +831,19 @@ export default function Home() {
                                 <span className="text-blue-900 font-semibold block capitalize">{exp.company || "Empresa"}</span>
                                 <span className="text-slate-500 block text-[11px]">{exp.startDate} {exp.endDate ? `- ${exp.endDate}` : ""}</span>
                               </div>
-                              <ol className="list-decimal space-y-1 text-slate-700 leading-relaxed" style={{ paddingLeft: '1cm' }}>
-                                {exp.description.split(/\n/).map((item, idx) => {
-                                  const trimmed = item.trim();
-                                  return trimmed ? <li key={idx} className="print-atomic-item">{trimmed}</li> : null;
-                                })}
-                              </ol>
+                              <table className="w-full text-slate-700 leading-relaxed" style={{ borderCollapse: 'collapse', marginTop: '4px' }}>
+                                <tbody>
+                                  {exp.description.split(/\n/).map((item, idx) => {
+                                    const trimmed = item.trim();
+                                    return trimmed ? (
+                                      <tr key={idx} className="print-atomic-item">
+                                        <td style={{ width: '1cm', verticalAlign: 'top', fontWeight: 600, paddingBottom: '3px' }}>{idx + 1}.</td>
+                                        <td style={{ verticalAlign: 'top', paddingBottom: '3px', textAlign: 'justify' }}>{trimmed}</td>
+                                      </tr>
+                                    ) : null;
+                                  })}
+                                </tbody>
+                              </table>
                             </div>
                           ))}
                         </div>
@@ -858,14 +868,15 @@ export default function Home() {
                     </div>
                   )}
 
-                  {/* Voluntariado (Sección 5 - Sin subtítulo y protegida contra títulos huérfanos) */}
+                  {/* Voluntariado (Sección 5) */}
                   {formData.volunteers.length > 0 && (
                     <div className="mb-5 pt-2 border-t border-slate-100 print-section-container">
-                      <div className="relative flex items-center justify-center my-3 print-section-title">
-                        <div className="absolute inset-0 flex items-center">
-                          <div className="w-full h-[2px]" style={{ background: 'linear-gradient(to right, transparent, #fbbf24 30%, #fbbf24 70%, transparent)' }}></div>
+                      <div className="my-3 text-center print-section-title">
+                        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                          <hr style={{ flex: 1, border: 'none', height: '2px', background: '#fbbf24' }} />
+                          <h3 className="px-4 text-[13px] font-extrabold uppercase text-blue-950 tracking-wider">Voluntariado</h3>
+                          <hr style={{ flex: 1, border: 'none', height: '2px', background: '#fbbf24' }} />
                         </div>
-                        <h3 className="relative px-4 bg-white text-[13px] font-extrabold uppercase text-blue-950 tracking-wider">Voluntariado</h3>
                       </div>
                       <div className="space-y-3">
                         {formData.volunteers.map((vol, i) => (
@@ -875,12 +886,19 @@ export default function Home() {
                               <span className="text-blue-900 font-semibold block capitalize">{vol.organization || "Organización"}</span>
                               <span className="text-slate-500 block text-[11px]">{vol.startDate} {vol.endDate ? `- ${vol.endDate}` : ""}</span>
                             </div>
-                            <ol className="list-decimal space-y-1 text-slate-700 leading-relaxed" style={{ paddingLeft: '1cm' }}>
-                              {vol.description.split(/\n/).map((item, idx) => {
-                                const trimmed = item.trim();
-                                return trimmed ? <li key={idx} className="print-atomic-item">{trimmed}</li> : null;
-                              })}
-                            </ol>
+                            <table className="w-full text-slate-700 leading-relaxed" style={{ borderCollapse: 'collapse', marginTop: '4px' }}>
+                              <tbody>
+                                {vol.description.split(/\n/).map((item, idx) => {
+                                  const trimmed = item.trim();
+                                  return trimmed ? (
+                                    <tr key={idx} className="print-atomic-item">
+                                      <td style={{ width: '1cm', verticalAlign: 'top', fontWeight: 600, paddingBottom: '3px' }}>{idx + 1}.</td>
+                                      <td style={{ verticalAlign: 'top', paddingBottom: '3px', textAlign: 'justify' }}>{trimmed}</td>
+                                    </tr>
+                                  ) : null;
+                                })}
+                              </tbody>
+                            </table>
                           </div>
                         ))}
                       </div>
@@ -894,14 +912,20 @@ export default function Home() {
             <tfoot>
               <tr>
                 <td className="p-[1.2cm] pt-3">
-                  {/* Pie de página institucional */}
-                  <div className="border-t pt-2 text-center text-[10px] text-slate-500 space-y-1 bg-white">
-                    <p>Línea de Atención al Usuario: 601 593 3004 · Línea Nacional: 01 8000 936 670</p>
-                    <p className="font-bold text-slate-700">www.uniminuto.edu</p>
-                    <div className="w-56 mx-auto py-0.5 border-t border-b border-slate-400 font-bold tracking-widest text-slate-600 text-[9px]">
-                      VIGILADA MINEDUCACIÓN
-                    </div>
-                  </div>
+                  {/* Pie de página institucional con diseño de tabla simétrico para perfecto centrado */}
+                  <table style={{ width: '100%', borderCollapse: 'collapse' }}>
+                    <tbody>
+                      <tr>
+                        <td style={{ borderTop: '1px solid #cbd5e1', paddingTop: '8px', textAlign: 'center', fontSize: '10px', color: '#64748b', lineHeight: '1.4' }}>
+                          Línea de Atención al Usuario: 601 593 3004 · Línea Nacional: 01 8000 936 670<br />
+                          <strong style={{ color: '#334155' }}>www.uniminuto.edu</strong>
+                          <div style={{ width: '220px', margin: '4px auto 0 auto', padding: '2px 0', borderTop: '1px solid #94a3b8', borderBottom: '1px solid #94a3b8', fontWeight: 'bold', letterSpacing: '2px', color: '#475569', fontSize: '9px', textAlign: 'center' }}>
+                            VIGILADA MINEDUCACIÓN
+                          </div>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
                 </td>
               </tr>
             </tfoot>
