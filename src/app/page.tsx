@@ -139,9 +139,9 @@ export default function Home() {
     setFormData({ ...formData, volunteers: formData.volunteers.filter((_, i) => i !== index) });
   };
 
-  // Componente auxiliar para renderizar títulos principales perfectamente centrados
+  // Componente auxiliar para renderizar títulos principales blindados contra huérfanos
   const SectionHeading = ({ title }: { title: string }) => (
-    <div style={{ margin: '18px 0 12px 0', textAlign: 'center' }}>
+    <div className="print-keep-with-next" style={{ margin: '18px 0 12px 0', textAlign: 'center' }}>
       <div style={{ borderTop: '2px solid #fbbf24', height: '1px', width: '100%' }}></div>
       <div style={{ marginTop: '-10px' }}>
         <span style={{
@@ -271,6 +271,13 @@ export default function Home() {
           .print-atomic-item {
             break-inside: avoid;
             page-break-inside: avoid;
+            display: block;
+          }
+          .print-keep-with-next {
+            break-inside: avoid;
+            page-break-inside: avoid;
+            break-after: avoid;
+            page-break-after: avoid;
             display: block;
           }
         }
@@ -783,15 +790,11 @@ export default function Home() {
                   {/* Formación (Sección 3) */}
                   {formData.education.length > 0 && (
                     <div className="mb-5 pt-2 border-t border-slate-100">
-                      <div className="print-atomic-item">
-                        <SectionHeading title="Formación" />
-                      </div>
+                      <SectionHeading title="Formación" />
                       
                       <div className="mb-3">
-                        <div className="print-atomic-item">
-                          <div style={{ fontSize: '11px', fontWeight: 800, textTransform: 'uppercase', color: '#334155', letterSpacing: '0.03em', borderBottom: '1px solid #cbd5e1', paddingBottom: '4px', marginBottom: '10px', lineHeight: '14px' }}>
-                            Académica
-                          </div>
+                        <div className="print-keep-with-next" style={{ fontSize: '11px', fontWeight: 800, textTransform: 'uppercase', color: '#334155', letterSpacing: '0.03em', borderBottom: '1px solid #cbd5e1', paddingBottom: '4px', marginBottom: '10px', lineHeight: '14px' }}>
+                          Académica
                         </div>
                         {formData.education.map((edu, i) => (
                           <div key={i} className="text-[12px] space-y-0.5 print-atomic-item mb-3 pb-2.5 border-b border-slate-100 last:border-b-0">
@@ -808,18 +811,14 @@ export default function Home() {
 
                       {formData.complementaryEdu.length > 0 && (
                         <div className="pt-1">
+                          <div className="print-keep-with-next" style={{ fontSize: '11px', fontWeight: 800, textTransform: 'uppercase', color: '#334155', letterSpacing: '0.03em', borderBottom: '1px solid #cbd5e1', paddingBottom: '4px', marginBottom: '10px', lineHeight: '14px' }}>
+                            Complementaria
+                          </div>
                           {formData.complementaryEdu.map((comp, i) => (
-                            <div key={i} className="print-atomic-item">
-                              {i === 0 && (
-                                <div style={{ fontSize: '11px', fontWeight: 800, textTransform: 'uppercase', color: '#334155', letterSpacing: '0.03em', borderBottom: '1px solid #cbd5e1', paddingBottom: '4px', marginBottom: '10px', lineHeight: '14px' }}>
-                                  Complementaria
-                                </div>
-                              )}
-                              <div className="text-[12px] space-y-0.5 mb-3 pb-2.5 border-b border-slate-100 last:border-b-0">
-                                <span className="font-black text-slate-900 uppercase block">{comp.title || "Curso o Taller"}</span>
-                                <span className="text-blue-900 font-semibold block capitalize">{comp.institution || "Institución"}</span>
-                                <span className="text-slate-500 block text-[11px]">{comp.year}</span>
-                              </div>
+                            <div key={i} className="text-[12px] space-y-0.5 print-atomic-item mb-3 pb-2.5 border-b border-slate-100 last:border-b-0">
+                              <span className="font-black text-slate-900 uppercase block">{comp.title || "Curso o Taller"}</span>
+                              <span className="text-blue-900 font-semibold block capitalize">{comp.institution || "Institución"}</span>
+                              <span className="text-slate-500 block text-[11px]">{comp.year}</span>
                             </div>
                           ))}
                         </div>
@@ -830,113 +829,23 @@ export default function Home() {
                   {/* Experiencia Profesional (Sección 4) */}
                   {(formData.experiences.length > 0 || formData.projects.length > 0) && (
                     <div className="mb-5 pt-2 border-t border-slate-100">
-                      <div className="print-atomic-item">
-                        <SectionHeading title="Experiencia Profesional" />
-                      </div>
+                      <SectionHeading title="Experiencia Profesional" />
                       
                       {formData.experiences.length > 0 && (
                         <div className="mb-3">
+                          <div className="print-keep-with-next" style={{ fontSize: '11px', fontWeight: 800, textTransform: 'uppercase', color: '#334155', letterSpacing: '0.03em', borderBottom: '1px solid #cbd5e1', paddingBottom: '4px', marginBottom: '10px', lineHeight: '14px' }}>
+                            Laboral
+                          </div>
                           {formData.experiences.map((exp, i) => (
-                            <div key={i} className="print-atomic-item">
-                              {i === 0 && (
-                                <div style={{ fontSize: '11px', fontWeight: 800, textTransform: 'uppercase', color: '#334155', letterSpacing: '0.03em', borderBottom: '1px solid #cbd5e1', paddingBottom: '4px', marginBottom: '10px', lineHeight: '14px' }}>
-                                  Laboral
-                                </div>
-                              )}
-                              <div className="text-[12px] space-y-1.5 mb-3.5 pb-3 border-b border-slate-100 last:border-b-0">
-                                <div>
-                                  <span className="font-black text-slate-900 uppercase block">{exp.position || "Cargo"}</span>
-                                  <span className="text-blue-900 font-semibold block capitalize">{exp.company || "Empresa"}</span>
-                                  <span className="text-slate-500 block text-[11px]">{exp.startDate} {exp.endDate ? `- ${exp.endDate}` : ""}</span>
-                                </div>
-                                <table className="w-full text-slate-700 leading-relaxed" style={{ borderCollapse: 'collapse', marginTop: '4px' }}>
-                                  <tbody>
-                                    {exp.description.split(/\n/).map((item, idx) => {
-                                      const trimmed = item.trim();
-                                      return trimmed ? (
-                                        <tr key={idx} className="print-atomic-item">
-                                          <td style={{ width: '1cm', verticalAlign: 'top', fontWeight: 600, paddingBottom: '3px' }}>{idx + 1}.</td>
-                                          <td style={{ verticalAlign: 'top', paddingBottom: '3px', textAlign: 'justify' }}>{trimmed}</td>
-                                        </tr>
-                                      ) : null;
-                                    })}
-                                  </tbody>
-                                </table>
-                              </div>
-                            </div>
-                          ))}
-                        </div>
-                      )}
-
-                      {formData.projects.length > 0 && (
-                        <div className="pt-1">
-                          {formData.projects.map((proj, i) => (
-                            <div key={i} className="print-atomic-item">
-                              {i === 0 && (
-                                <div style={{ fontSize: '11px', fontWeight: 800, textTransform: 'uppercase', color: '#334155', letterSpacing: '0.03em', borderBottom: '1px solid #cbd5e1', paddingBottom: '4px', marginBottom: '10px', lineHeight: '14px' }}>
-                                  Proyectos Académicos
-                                </div>
-                              )}
-                              <div className="text-[12px] space-y-1.5 mb-3.5 pb-3 border-b border-slate-100 last:border-b-0">
-                                <div>
-                                  <span className="font-black text-slate-900 uppercase block">
-                                    {proj.name || "Proyecto"}
-                                  </span>
-                                  <span className="text-blue-900 font-semibold block capitalize">{proj.role || "Rol"}</span>
-                                </div>
-
-                                {proj.description && (
-                                  <div className="space-y-1.5">
-                                    {proj.description.split(/\n/).map((paragraph, pIdx) => {
-                                      const trimmed = paragraph.trim();
-                                      return trimmed ? (
-                                        <p key={pIdx} className="text-slate-700 leading-relaxed text-justify">
-                                          {trimmed}
-                                        </p>
-                                      ) : null;
-                                    })}
-                                  </div>
-                                )}
-
-                                {proj.linkUrl && (
-                                  <div className="pt-0.5">
-                                    <a
-                                      href={proj.linkUrl.startsWith('http://') || proj.linkUrl.startsWith('https://') ? proj.linkUrl : `https://${proj.linkUrl}`}
-                                      target="_blank"
-                                      rel="noopener noreferrer"
-                                      className="inline-flex items-center gap-1 text-blue-900 hover:underline font-semibold text-[11px]"
-                                    >
-                                      <LinkIcon size={11} className="text-blue-900" />
-                                      {proj.linkLabel || "Enlace"}
-                                    </a>
-                                  </div>
-                                )}
-                              </div>
-                            </div>
-                          ))}
-                        </div>
-                      )}
-                    </div>
-                  )}
-
-                  {/* Voluntariado (Sección 5) */}
-                  {formData.volunteers.length > 0 && (
-                    <div className="mb-5 pt-2 border-t border-slate-100">
-                      <div>
-                        {formData.volunteers.map((vol, i) => (
-                          <div key={i} className="print-atomic-item">
-                            {i === 0 && (
-                              <SectionHeading title="Voluntariado" />
-                            )}
-                            <div className="text-[12px] space-y-1.5 mb-3.5 pb-3 border-b border-slate-100 last:border-b-0">
+                            <div key={i} className="text-[12px] space-y-1.5 print-atomic-item mb-3.5 pb-3 border-b border-slate-100 last:border-b-0">
                               <div>
-                                <span className="font-black text-slate-900 uppercase block">{vol.role || "Rol"}</span>
-                                <span className="text-blue-900 font-semibold block capitalize">{vol.organization || "Organización"}</span>
-                                <span className="text-slate-500 block text-[11px]">{vol.startDate} {vol.endDate ? `- ${vol.endDate}` : ""}</span>
+                                <span className="font-black text-slate-900 uppercase block">{exp.position || "Cargo"}</span>
+                                <span className="text-blue-900 font-semibold block capitalize">{exp.company || "Empresa"}</span>
+                                <span className="text-slate-500 block text-[11px]">{exp.startDate} {exp.endDate ? `- ${exp.endDate}` : ""}</span>
                               </div>
                               <table className="w-full text-slate-700 leading-relaxed" style={{ borderCollapse: 'collapse', marginTop: '4px' }}>
                                 <tbody>
-                                  {vol.description.split(/\n/).map((item, idx) => {
+                                  {exp.description.split(/\n/).map((item, idx) => {
                                     const trimmed = item.trim();
                                     return trimmed ? (
                                       <tr key={idx} className="print-atomic-item">
@@ -948,6 +857,82 @@ export default function Home() {
                                 </tbody>
                               </table>
                             </div>
+                          ))}
+                        </div>
+                      )}
+
+                      {formData.projects.length > 0 && (
+                        <div className="pt-1">
+                          <div className="print-keep-with-next" style={{ fontSize: '11px', fontWeight: 800, textTransform: 'uppercase', color: '#334155', letterSpacing: '0.03em', borderBottom: '1px solid #cbd5e1', paddingBottom: '4px', marginBottom: '10px', lineHeight: '14px' }}>
+                            Proyectos Académicos
+                          </div>
+                          {formData.projects.map((proj, i) => (
+                            <div key={i} className="text-[12px] space-y-1.5 print-atomic-item mb-3.5 pb-3 border-b border-slate-100 last:border-b-0">
+                              <div>
+                                <span className="font-black text-slate-900 uppercase block">
+                                  {proj.name || "Proyecto"}
+                                </span>
+                                <span className="text-blue-900 font-semibold block capitalize">{proj.role || "Rol"}</span>
+                              </div>
+
+                              {proj.description && (
+                                <div className="space-y-1.5">
+                                  {proj.description.split(/\n/).map((paragraph, pIdx) => {
+                                    const trimmed = paragraph.trim();
+                                    return trimmed ? (
+                                      <p key={pIdx} className="text-slate-700 leading-relaxed text-justify">
+                                        {trimmed}
+                                      </p>
+                                    ) : null;
+                                  })}
+                                </div>
+                              )}
+
+                              {proj.linkUrl && (
+                                <div className="pt-0.5">
+                                  <a
+                                    href={proj.linkUrl.startsWith('http://') || proj.linkUrl.startsWith('https://') ? proj.linkUrl : `https://${proj.linkUrl}`}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="inline-flex items-center gap-1 text-blue-900 hover:underline font-semibold text-[11px]"
+                                  >
+                                    <LinkIcon size={11} className="text-blue-900" />
+                                    {proj.linkLabel || "Enlace"}
+                                  </a>
+                                </div>
+                              )}
+                            </div>
+                          ))}
+                        </div>
+                      )}
+                    </div>
+                  )}
+
+                  {/* Voluntariado (Sección 5) */}
+                  {formData.volunteers.length > 0 && (
+                    <div className="mb-5 pt-2 border-t border-slate-100">
+                      <SectionHeading title="Voluntariado" />
+                      <div>
+                        {formData.volunteers.map((vol, i) => (
+                          <div key={i} className="text-[12px] space-y-1.5 print-atomic-item mb-3.5 pb-3 border-b border-slate-100 last:border-b-0">
+                            <div>
+                              <span className="font-black text-slate-900 uppercase block">{vol.role || "Rol"}</span>
+                              <span className="text-blue-900 font-semibold block capitalize">{vol.organization || "Organización"}</span>
+                              <span className="text-slate-500 block text-[11px]">{vol.startDate} {vol.endDate ? `- ${vol.endDate}` : ""}</span>
+                            </div>
+                            <table className="w-full text-slate-700 leading-relaxed" style={{ borderCollapse: 'collapse', marginTop: '4px' }}>
+                              <tbody>
+                                {vol.description.split(/\n/).map((item, idx) => {
+                                  const trimmed = item.trim();
+                                  return trimmed ? (
+                                    <tr key={idx} className="print-atomic-item">
+                                      <td style={{ width: '1cm', verticalAlign: 'top', fontWeight: 600, paddingBottom: '3px' }}>{idx + 1}.</td>
+                                      <td style={{ verticalAlign: 'top', paddingBottom: '3px', textAlign: 'justify' }}>{trimmed}</td>
+                                    </tr>
+                                  ) : null;
+                                })}
+                              </tbody>
+                            </table>
                           </div>
                         ))}
                       </div>
