@@ -645,7 +645,7 @@ export default function Home() {
 
         </div>
 
-        {/* PANEL DERECHO: Vista Previa blindada contra huérfanos */}
+        {/* PANEL DERECHO: Vista Previa con espaciado uniforme y blindada contra huérfanos */}
         <div className="lg:col-span-7 bg-blue-950/90 p-6 rounded-2xl flex flex-col items-center shadow-2xl border border-blue-900 overflow-auto max-h-[88vh] print:p-0 print:m-0 print:bg-white print:overflow-visible print:max-h-none print:w-full print:shadow-none print:border-none">
           
           <div className="w-full flex justify-between items-center mb-4 print:hidden px-2 text-xs text-blue-200">
@@ -779,12 +779,12 @@ export default function Home() {
                         </table>
                       </div>
                       
-                      <div className="space-y-3 mb-3">
+                      <div className="mb-3">
                         <div className="print-atomic-item">
-                          <span className="text-[11px] font-extrabold uppercase text-slate-700 block tracking-wide text-left border-b border-slate-200 pb-1 mb-2">Académica</span>
+                          <span className="text-[11px] font-extrabold uppercase text-slate-700 block tracking-wide text-left border-b border-slate-200 pb-1 mb-2.5">Académica</span>
                         </div>
                         {formData.education.map((edu, i) => (
-                          <div key={i} className="text-[12px] space-y-0.5 print-atomic-item mb-3.5 pb-2.5 border-b border-slate-50 last:border-b-0">
+                          <div key={i} className="text-[12px] space-y-0.5 print-atomic-item mb-3 pb-2.5 border-b border-slate-100 last:border-b-0">
                             <span className="font-black text-slate-900 uppercase block">
                               {edu.degree || "Título a obtener / Programa"} <span className="font-normal text-blue-900 normal-case">({edu.level})</span>
                             </span>
@@ -797,14 +797,13 @@ export default function Home() {
                       </div>
 
                       {formData.complementaryEdu.length > 0 && (
-                        <div className="space-y-3 pt-1">
-                          {/* Subtítulo Complementaria envuelto con el primer curso para evitar huérfanos */}
+                        <div className="pt-1">
                           {formData.complementaryEdu.map((comp, i) => (
-                            <div key={i} className={i === 0 ? "print-atomic-item" : "print-atomic-item mb-3.5 pb-2.5 border-b border-slate-50 last:border-b-0"}>
+                            <div key={i} className="print-atomic-item">
                               {i === 0 && (
-                                <span className="text-[11px] font-extrabold uppercase text-slate-700 block tracking-wide text-left border-b border-slate-200 pb-1 mb-2">Complementaria</span>
+                                <span className="text-[11px] font-extrabold uppercase text-slate-700 block tracking-wide text-left border-b border-slate-200 pb-1 mb-2.5">Complementaria</span>
                               )}
-                              <div className="text-[12px] space-y-0.5 mb-3.5 pb-2.5 border-b border-slate-50 last:border-b-0">
+                              <div className="text-[12px] space-y-0.5 mb-3 pb-2.5 border-b border-slate-100 last:border-b-0">
                                 <span className="font-black text-slate-900 uppercase block">{comp.title || "Curso o Taller"}</span>
                                 <span className="text-blue-900 font-semibold block capitalize">{comp.institution || "Institución"}</span>
                                 <span className="text-slate-500 block text-[11px]">{comp.year}</span>
@@ -832,13 +831,13 @@ export default function Home() {
                       </div>
                       
                       {formData.experiences.length > 0 && (
-                        <div className="space-y-3 mb-3">
+                        <div className="mb-3">
                           {formData.experiences.map((exp, i) => (
-                            <div key={i} className={i === 0 ? "print-atomic-item" : "print-atomic-item mb-4 pb-3 border-b border-slate-100 last:border-b-0"}>
+                            <div key={i} className="print-atomic-item">
                               {i === 0 && (
-                                <span className="text-[11px] font-extrabold uppercase text-slate-700 block tracking-wide text-left border-b border-slate-200 pb-1 mb-2">Laboral</span>
+                                <span className="text-[11px] font-extrabold uppercase text-slate-700 block tracking-wide text-left border-b border-slate-200 pb-1 mb-2.5">Laboral</span>
                               )}
-                              <div className="text-[12px] space-y-1.5 mb-4 pb-3 border-b border-slate-100 last:border-b-0">
+                              <div className="text-[12px] space-y-1.5 mb-3.5 pb-3 border-b border-slate-100 last:border-b-0">
                                 <div>
                                   <span className="font-black text-slate-900 uppercase block">{exp.position || "Cargo"}</span>
                                   <span className="text-blue-900 font-semibold block capitalize">{exp.company || "Empresa"}</span>
@@ -864,13 +863,13 @@ export default function Home() {
                       )}
 
                       {formData.projects.length > 0 && (
-                        <div className="space-y-3 pt-1">
+                        <div className="pt-1">
                           {formData.projects.map((proj, i) => (
-                            <div key={i} className={i === 0 ? "print-atomic-item" : "print-atomic-item mb-4 pb-3 border-b border-slate-100 last:border-b-0"}>
+                            <div key={i} className="print-atomic-item">
                               {i === 0 && (
-                                <span className="text-[11px] font-extrabold uppercase text-slate-700 block tracking-wide text-left border-b border-slate-200 pb-1 mb-2">Proyectos Académicos</span>
+                                <span className="text-[11px] font-extrabold uppercase text-slate-700 block tracking-wide text-left border-b border-slate-200 pb-1 mb-2.5">Proyectos Académicos</span>
                               )}
-                              <div className="text-[12px] space-y-1.5 mb-4 pb-3 border-b border-slate-100 last:border-b-0">
+                              <div className="text-[12px] space-y-1.5 mb-3.5 pb-3 border-b border-slate-100 last:border-b-0">
                                 <div>
                                   <span className="font-black text-slate-900 uppercase block">
                                     {proj.name || "Proyecto"} {proj.url && <a href={proj.url.startsWith('http://') || proj.url.startsWith('https://') ? proj.url : `https://${proj.url}`} target="_blank" rel="noopener noreferrer" className="font-normal text-blue-600 underline lowercase">({proj.url})</a>}
@@ -886,12 +885,12 @@ export default function Home() {
                     </div>
                   )}
 
-                  {/* Voluntariado (Sección 5 - Título Principal y primer ítem unidos) */}
+                  {/* Voluntariado (Sección 5) */}
                   {formData.volunteers.length > 0 && (
                     <div className="mb-5 pt-2 border-t border-slate-100">
-                      <div className="space-y-3">
+                      <div>
                         {formData.volunteers.map((vol, i) => (
-                          <div key={i} className={i === 0 ? "print-atomic-item" : "print-atomic-item mb-4 pb-3 border-b border-slate-100 last:border-b-0"}>
+                          <div key={i} className="print-atomic-item">
                             {i === 0 && (
                               <table style={{ width: '100%', borderCollapse: 'collapse', margin: '14px 0 10px 0' }}>
                                 <tbody>
@@ -903,7 +902,7 @@ export default function Home() {
                                 </tbody>
                               </table>
                             )}
-                            <div className="text-[12px] space-y-1.5 mb-4 pb-3 border-b border-slate-100 last:border-b-0">
+                            <div className="text-[12px] space-y-1.5 mb-3.5 pb-3 border-b border-slate-100 last:border-b-0">
                               <div>
                                 <span className="font-black text-slate-900 uppercase block">{vol.role || "Rol"}</span>
                                 <span className="text-blue-900 font-semibold block capitalize">{vol.organization || "Organización"}</span>
