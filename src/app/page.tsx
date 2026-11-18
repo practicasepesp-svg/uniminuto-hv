@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Printer, FileDown, Briefcase, GraduationCap, Award, Phone, Mail, MapPin, Trash2, Plus, User, Languages, HeartHandshake, Link as LinkIcon, BookOpen, Wrench, CheckCircle, Globe, ShieldCheck, Code, ArrowRight } from "lucide-react";
+import { Printer, Briefcase, GraduationCap, Award, Phone, Mail, MapPin, Trash2, Plus, User, Languages, HeartHandshake, Link as LinkIcon, BookOpen, Wrench, CheckCircle, Globe, ShieldCheck, Code, ArrowRight } from "lucide-react";
 
 interface LinkItem { label: string; url: string; }
 interface ToolItem { name: string; level: string; }
@@ -9,7 +9,7 @@ interface LanguageItem { language: string; level: string; }
 interface Education { institution: string; degree: string; level: string; year: string; isCurrent?: boolean; semester?: string; }
 interface ComplementaryEdu { title: string; institution: string; year: string; }
 interface Experience { company: string; position: string; startDate: string; endDate: string; description: string; }
-interface Project { name: string; role: string; description: string; url?: string; }
+interface Project { name: string; role: string; description: string; linkLabel?: string; linkUrl?: string; }
 interface Volunteer { organization: string; role: string; startDate: string; endDate: string; description: string; }
 
 export default function Home() {
@@ -33,26 +33,6 @@ export default function Home() {
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
-
-  // Función para descargar PDF con html2pdf.js
-  const handleDownloadPDF = async () => {
-    const element = document.getElementById("resume-preview-sheet");
-    if (!element) return;
-
-    // @ts-ignore
-    const html2pdf = (await import("html2pdf.js")).default;
-
-    const opt = {
-      margin:       [1, 1, 2, 1],
-      filename:     `Hoja_de_Vida_${formData.fullName ? formData.fullName.replace(/\s+/g, '_') : 'UNIMINUTO'}.pdf`,
-      image:        { type: 'jpeg', quality: 0.98 },
-      html2canvas:  { scale: 2, useCORS: true, letterRendering: true },
-      jsPDF:        { unit: 'cm', format: 'letter', orientation: 'portrait' },
-      pagebreak:    { mode: ['css', 'legacy'], avoid: ['.print-atomic-item'] }
-    };
-
-    html2pdf().from(element).set(opt).save();
   };
 
   // Enlaces Profesionales (Sección 1)
@@ -135,7 +115,7 @@ export default function Home() {
 
   // Proyectos Académicos
   const addProject = () => {
-    setFormData({ ...formData, projects: [...formData.projects, { name: "", role: "", description: "", url: "" }] });
+    setFormData({ ...formData, projects: [...formData.projects, { name: "", role: "", description: "", linkLabel: "GitHub", linkUrl: "" }] });
   };
   const updateProject = (index: number, field: string, value: string) => {
     const list = [...formData.projects];
@@ -159,7 +139,7 @@ export default function Home() {
     setFormData({ ...formData, volunteers: formData.volunteers.filter((_, i) => i !== index) });
   };
 
-  // Componente auxiliar para renderizar títulos principales perfectamente centrados en pantalla y PDF
+  // Componente auxiliar para renderizar títulos principales perfectamente centrados
   const SectionHeading = ({ title }: { title: string }) => (
     <div style={{ margin: '18px 0 12px 0', textAlign: 'center' }}>
       <div style={{ borderTop: '2px solid #fbbf24', height: '1px', width: '100%' }}></div>
@@ -227,7 +207,7 @@ export default function Home() {
               </div>
               <h3 className="text-lg font-bold text-white">1. ¿Cómo funciona?</h3>
               <p className="text-slate-300 text-xs leading-relaxed">
-                Es muy sencillo. Solo debes completar el formulario con tu información personal, formación académica institucional, perfil y experiencia. Al mismo tiempo, podrás ver una <strong>vista previa en tiempo real</strong> de cómo va quedando tu hoja de vida y descargarla lista para imprimir o enviar en formato PDF.
+                Es muy sencillo. Solo debes completar el formulario con tu información personal, formación académica institucional, perfil y experiencia. Al mismo tiempo, podrás ver una <strong>vista previa en tiempo real</strong> de cómo va quedando tu hoja de vida y guardarla en PDF o imprimirla desde tu navegador.
               </p>
             </div>
 
@@ -319,7 +299,7 @@ export default function Home() {
         }
       `}</style>
 
-      {/* Barra superior institucional con botones separados: Imprimir y Descargar PDF */}
+      {/* Barra superior institucional solo con impresión nativa */}
       <header className="bg-blue-900 text-white px-6 py-4 print:hidden flex justify-between items-center border-b border-blue-800 shadow-xl">
         <div className="flex items-center gap-4">
           <button 
@@ -343,19 +323,15 @@ export default function Home() {
           </div>
         </div>
         <div className="flex items-center gap-3">
+          <span className="hidden xl:inline text-[11px] text-amber-300 font-medium">
+            En Destino, elige <strong>Guardar como PDF</strong> para conservar los enlaces
+          </span>
           <button 
             onClick={() => window.print()} 
-            className="bg-blue-800 hover:bg-blue-700 text-white border border-blue-600 text-xs font-bold px-4 py-2.5 rounded-xl flex items-center gap-2 shadow transition transform active:scale-95 cursor-pointer"
-            title="Imprimir en papel o usar impresión del navegador"
-          >
-            <Printer size={16} /> Imprimir
-          </button>
-          <button 
-            onClick={handleDownloadPDF} 
             className="bg-amber-400 hover:bg-amber-300 text-blue-950 text-xs font-black px-5 py-2.5 rounded-xl flex items-center gap-2 shadow-lg shadow-amber-500/20 transition transform active:scale-95 cursor-pointer"
-            title="Descargar archivo PDF directo"
+            title="Abrir ventana de impresión del navegador (elige Guardar como PDF)"
           >
-            <FileDown size={16} /> Descargar PDF
+            <Printer size={16} /> Imprimir / Guardar PDF
           </button>
         </div>
       </header>
@@ -626,7 +602,7 @@ export default function Home() {
               </div>
             </div>
 
-            {/* Proyectos */}
+            {/* Proyectos con Plataforma + Link */}
             <div className="space-y-3 pt-3 border-t border-blue-900/60">
               <span className="text-[11px] font-bold text-blue-200">Proyectos Académicos</span>
               {formData.projects.map((proj, idx) => (
@@ -634,7 +610,26 @@ export default function Home() {
                   <button onClick={() => removeProject(idx)} className="absolute top-2.5 right-2.5 text-rose-300 hover:text-rose-100"><Trash2 size={14}/></button>
                   <input type="text" lang="es-CO" spellCheck={true} placeholder="Nombre del Proyecto" value={proj.name} onChange={(e) => updateProject(idx, "name", e.target.value)} className="w-full p-2 text-[12px] bg-blue-950 border border-blue-800 rounded text-white" />
                   <input type="text" lang="es-CO" spellCheck={true} placeholder="Rol / Participación" value={proj.role} onChange={(e) => updateProject(idx, "role", e.target.value)} className="w-full p-2 text-[12px] bg-blue-950 border border-blue-800 rounded text-white" />
-                  <input type="text" lang="es-CO" spellCheck={false} placeholder="Enlace (GitHub / Demo)" value={proj.url || ""} onChange={(e) => updateProject(idx, "url", e.target.value)} className="w-full p-2 text-[12px] bg-blue-950 border border-blue-800 rounded text-white" />
+                  <div className="flex gap-2 items-center bg-blue-950/60 p-2 rounded-lg border border-blue-800/80">
+                    <input
+                      type="text"
+                      lang="es-CO"
+                      spellCheck={true}
+                      placeholder="Plataforma (Ej. GitHub, Demo)"
+                      value={proj.linkLabel || ""}
+                      onChange={(e) => updateProject(idx, "linkLabel", e.target.value)}
+                      className="w-1/3 p-2 text-[12px] bg-blue-950 border border-blue-800 rounded text-white"
+                    />
+                    <input
+                      type="text"
+                      lang="es-CO"
+                      spellCheck={false}
+                      placeholder="URL (github.com/usuario/proyecto)"
+                      value={proj.linkUrl || ""}
+                      onChange={(e) => updateProject(idx, "linkUrl", e.target.value)}
+                      className="flex-1 p-2 text-[12px] bg-blue-950 border border-blue-800 rounded text-white"
+                    />
+                  </div>
                   <textarea lang="es-CO" spellCheck={true} placeholder="Descripción del proyecto..." rows={3} value={proj.description} onChange={(e) => updateProject(idx, "description", e.target.value)} className="w-full p-2.5 text-[12px] bg-blue-950 border border-blue-800 rounded text-white resize-y"></textarea>
                 </div>
               ))}
@@ -674,12 +669,12 @@ export default function Home() {
 
         </div>
 
-        {/* PANEL DERECHO: Vista Previa con títulos perfectamente centrados en pantalla y PDF */}
+        {/* PANEL DERECHO: Vista Previa */}
         <div className="lg:col-span-7 bg-blue-950/90 p-6 rounded-2xl flex flex-col items-center shadow-2xl border border-blue-900 overflow-auto max-h-[88vh] print:p-0 print:m-0 print:bg-white print:overflow-visible print:max-h-none print:w-full print:shadow-none print:border-none">
           
           <div className="w-full flex justify-between items-center mb-4 print:hidden px-2 text-xs text-blue-200">
             <span className="font-semibold tracking-wide uppercase">📄 Vista Previa y Flujo Continuo</span>
-            <span className="bg-blue-900 px-3 py-1 rounded-full border border-blue-800">Optimizado para Google Chrome</span>
+            <span className="bg-blue-900 px-3 py-1 rounded-full border border-blue-800">Impresión Nativa • Enlaces Activos</span>
           </div>
 
           {/* HOJA EN FORMATO TABLA NATIVA CON EL ID "resume-preview-sheet" */}
@@ -883,11 +878,24 @@ export default function Home() {
                                 </div>
                               )}
                               <div className="text-[12px] space-y-1.5 mb-3.5 pb-3 border-b border-slate-100 last:border-b-0">
-                                <div>
-                                  <span className="font-black text-slate-900 uppercase block">
-                                    {proj.name || "Proyecto"} {proj.url && <a href={proj.url.startsWith('http://') || proj.url.startsWith('https://') ? proj.url : `https://${proj.url}`} target="_blank" rel="noopener noreferrer" className="font-normal text-blue-600 underline lowercase">({proj.url})</a>}
-                                  </span>
-                                  <span className="text-blue-900 font-semibold block capitalize">{proj.role || "Rol"}</span>
+                                <div className="flex flex-wrap items-baseline justify-between gap-2">
+                                  <div>
+                                    <span className="font-black text-slate-900 uppercase block">
+                                      {proj.name || "Proyecto"}
+                                    </span>
+                                    <span className="text-blue-900 font-semibold block capitalize">{proj.role || "Rol"}</span>
+                                  </div>
+                                  {proj.linkUrl && (
+                                    <a
+                                      href={proj.linkUrl.startsWith('http://') || proj.linkUrl.startsWith('https://') ? proj.linkUrl : `https://${proj.linkUrl}`}
+                                      target="_blank"
+                                      rel="noopener noreferrer"
+                                      className="inline-flex items-center gap-1 text-blue-900 hover:underline font-semibold text-[11px]"
+                                    >
+                                      <LinkIcon size={11} className="text-blue-900" />
+                                      {proj.linkLabel || "Enlace"}
+                                    </a>
+                                  )}
                                 </div>
                                 <p className="text-slate-700 leading-relaxed text-justify" style={{ paddingLeft: '1cm' }}>{proj.description}</p>
                               </div>
