@@ -299,7 +299,7 @@ export default function Home() {
         }
       `}</style>
 
-      {/* Barra superior institucional solo con impresión nativa */}
+      {/* Barra superior institucional */}
       <header className="bg-blue-900 text-white px-6 py-4 print:hidden flex justify-between items-center border-b border-blue-800 shadow-xl">
         <div className="flex items-center gap-4">
           <button 
@@ -602,7 +602,7 @@ export default function Home() {
               </div>
             </div>
 
-            {/* Proyectos con Plataforma + Link */}
+            {/* Proyectos con Plataforma + Link y múltiples párrafos */}
             <div className="space-y-3 pt-3 border-t border-blue-900/60">
               <span className="text-[11px] font-bold text-blue-200">Proyectos Académicos</span>
               {formData.projects.map((proj, idx) => (
@@ -630,7 +630,7 @@ export default function Home() {
                       className="flex-1 p-2 text-[12px] bg-blue-950 border border-blue-800 rounded text-white"
                     />
                   </div>
-                  <textarea lang="es-CO" spellCheck={true} placeholder="Descripción del proyecto..." rows={3} value={proj.description} onChange={(e) => updateProject(idx, "description", e.target.value)} className="w-full p-2.5 text-[12px] bg-blue-950 border border-blue-800 rounded text-white resize-y"></textarea>
+                  <textarea lang="es-CO" spellCheck={true} placeholder="Descripción del proyecto (usa Enter para separar párrafos)..." rows={4} value={proj.description} onChange={(e) => updateProject(idx, "description", e.target.value)} className="w-full p-2.5 text-[12px] bg-blue-950 border border-blue-800 rounded text-white resize-y"></textarea>
                 </div>
               ))}
               <div className="flex justify-end pt-1">
@@ -673,8 +673,8 @@ export default function Home() {
         <div className="lg:col-span-7 bg-blue-950/90 p-6 rounded-2xl flex flex-col items-center shadow-2xl border border-blue-900 overflow-auto max-h-[88vh] print:p-0 print:m-0 print:bg-white print:overflow-visible print:max-h-none print:w-full print:shadow-none print:border-none">
           
           <div className="w-full flex justify-between items-center mb-4 print:hidden px-2 text-xs text-blue-200">
-            <span className="font-semibold tracking-wide uppercase">📄 Vista Previa y Flujo Continuo</span>
-            <span className="bg-blue-900 px-3 py-1 rounded-full border border-blue-800">Impresión Nativa • Enlaces Activos</span>
+            <span className="font-semibold tracking-wide uppercase">📄 Vista Previa</span>
+            <span className="bg-blue-900 px-3 py-1 rounded-full border border-blue-800">Optimizado para Chrome</span>
           </div>
 
           {/* HOJA EN FORMATO TABLA NATIVA CON EL ID "resume-preview-sheet" */}
@@ -878,14 +878,28 @@ export default function Home() {
                                 </div>
                               )}
                               <div className="text-[12px] space-y-1.5 mb-3.5 pb-3 border-b border-slate-100 last:border-b-0">
-                                <div className="flex flex-wrap items-baseline justify-between gap-2">
-                                  <div>
-                                    <span className="font-black text-slate-900 uppercase block">
-                                      {proj.name || "Proyecto"}
-                                    </span>
-                                    <span className="text-blue-900 font-semibold block capitalize">{proj.role || "Rol"}</span>
+                                <div>
+                                  <span className="font-black text-slate-900 uppercase block">
+                                    {proj.name || "Proyecto"}
+                                  </span>
+                                  <span className="text-blue-900 font-semibold block capitalize">{proj.role || "Rol"}</span>
+                                </div>
+
+                                {proj.description && (
+                                  <div className="space-y-1.5">
+                                    {proj.description.split(/\n/).map((paragraph, pIdx) => {
+                                      const trimmed = paragraph.trim();
+                                      return trimmed ? (
+                                        <p key={pIdx} className="text-slate-700 leading-relaxed text-justify">
+                                          {trimmed}
+                                        </p>
+                                      ) : null;
+                                    })}
                                   </div>
-                                  {proj.linkUrl && (
+                                )}
+
+                                {proj.linkUrl && (
+                                  <div className="pt-0.5">
                                     <a
                                       href={proj.linkUrl.startsWith('http://') || proj.linkUrl.startsWith('https://') ? proj.linkUrl : `https://${proj.linkUrl}`}
                                       target="_blank"
@@ -895,9 +909,8 @@ export default function Home() {
                                       <LinkIcon size={11} className="text-blue-900" />
                                       {proj.linkLabel || "Enlace"}
                                     </a>
-                                  )}
-                                </div>
-                                <p className="text-slate-700 leading-relaxed text-justify" style={{ paddingLeft: '1cm' }}>{proj.description}</p>
+                                  </div>
+                                )}
                               </div>
                             </div>
                           ))}
